@@ -117,7 +117,10 @@ page_afterDataSourceLoad:function(){
 	archhandle.businessKey = $params.fieldNo;
 	$model.conArchhandle = archhandle;
 	$model.a = $scope.formentity[$params.fieldNo];
-	
+//	console.log(&quot;$model.a&quot;,$model.a);
+	if(angular.isUndefined($model.a)||!($model.a instanceof Array)){
+		$model.a = new Array();
+	}
 /*	$http.post(&quot;ws/getAuditOpinions&quot;,{archhandle:archhandle}).success(function(data){
 		console.log(&quot;opinions&quot;,data);
 		$model.a = data.result;
