@@ -832,6 +832,7 @@ newField5_click:function($event){
 	if($model.handleway==&quot;处理完成&quot;){
 		$http.post(&quot;flow/goanywhere&quot;,
 			{
+				transition:$model.transition,
 				transitionId:transitionId,
 				formId:$model.formId,
 				wfOperator:{

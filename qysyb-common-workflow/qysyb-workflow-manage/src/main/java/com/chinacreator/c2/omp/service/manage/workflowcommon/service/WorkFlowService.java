@@ -294,7 +294,7 @@ public class WorkFlowService {
 			
 			wf = wp.StartFlow(wfOperator, businessKey, processDefinitionId, variables);
 			if(form.isIsTableStorage()!=null&&form.isIsTableStorage()){  //业务数据存储到外部表
-				formService.updateFormDataWithExternalTable(businessKey,wf.getProcessInstanceId(),entity, form);
+//				formService.updateFormDataWithExternalTable(businessKey,wf.getProcessInstanceId(),entity, form);
 			}		
 			
 			/*通知处理*/
@@ -436,7 +436,7 @@ public class WorkFlowService {
 		Form form = formService.getFormById(formId);
 		
 		if(form!=null&&form.isIsTableStorage()!=null&&form.isIsTableStorage()){
-			formService.updateFormDataWithExternalTable(bussinessKey,proInsId, entity, form);
+//			formService.updateFormDataWithExternalTable(bussinessKey,proInsId, entity, form);
 			List<FormField> list = formService.getFormField(formId);
 			for(FormField ff:list){
 				if(ffs.isFieldStorageEXT(ff)){		//字段是否存外部表

@@ -527,7 +527,9 @@ public class WorkProcess {
 		String opinion = (String) paramsMap.get("opinion");
 		String proInsId = (String) paramsMap.get("proInsId");		
 		String transitionId = (String) paramsMap.get("transitionId");	
-
+		String transitionStr = (String) paramsMap.get("transition");
+		WorkFlowTransition wfTransition = JSONObject.parseObject(transitionStr, WorkFlowTransition.class);
+		
 		WfOperator wfOperator = JSONObject.parseObject(wfOperatorStr, WfOperator.class);
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
 		Map entitymap = JSONObject.parseObject(entity, Map.class);
@@ -547,7 +549,7 @@ public class WorkProcess {
 			entitymap.remove(WorkFlowService.TYPE_ASSIGNEELIST);
 			
 			if(form!=null&&form.isIsTableStorage()!=null&&form.isIsTableStorage()){
-				formService.updateFormDataWithExternalTable(bussinessKey,proInsId,entity,form);
+				formService.updateFormDataWithExternalTable(bussinessKey,proInsId,entity,wfTransition.getSrc(),form);
 				List<FormField> list = formService.getFormField(formId);
 				for(FormField ff:list){
 					if(ffs.isFieldStorageEXT(ff)){		//字段是否存外部表
@@ -727,7 +729,7 @@ public class WorkProcess {
 			
 			wf = this.StartFlow(wfOperator, businessKey, processDefinitionId, variables);
 			if(form.isIsTableStorage()!=null&&form.isIsTableStorage()){  //业务数据存储到外部表
-				formService.updateFormDataWithExternalTable(businessKey,wf.getProcessInstanceId(),entity, form);
+				formService.updateFormDataWithExternalTable(businessKey,wf.getProcessInstanceId(),entity, wfTransition.getSrc(),form);
 			}		
 			
 			String nextTaskId = wf.getNextTaskId();

@@ -26,6 +26,7 @@ import com.chinacreator.c2.omp.service.manage.workflowcommon.FormField;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.FormFieldRel;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.FormFieldValue;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.WebDisplayCategory;
+import com.chinacreator.c2.omp.service.manage.workflowcommon.bean.WorkFlowActivity;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.form.inf.IFormOperate;
 
 /**
@@ -525,7 +526,7 @@ public class FormService {
 	 * @param form
 	 */
 	@SuppressWarnings("rawtypes")
-	public void updateFormDataWithExternalTable(String businessKey,String procInsId,String entityjson,Form form){
+	public void updateFormDataWithExternalTable(String businessKey,String procInsId,String entityjson,WorkFlowActivity curActivity,Form form){
 		//表示需要查数据库
 		if(form.getFormNo()==null){
 			form = this.getFormById((form.getFormId()));
@@ -533,7 +534,7 @@ public class FormService {
 		String beanName = form.getRemark2();
 		IFormOperate formOperate = (IFormOperate) ApplicationContextManager.getContext().getBean(beanName);
 		//TODO 把null值改掉
-		formOperate.addOrUpdateEntity(entityjson,businessKey,procInsId, null, null, null);
+		formOperate.addOrUpdateEntity(entityjson,businessKey,procInsId, null, curActivity, null);
 	}
 	/**
 	 * 务数据有自己的表时业务数据的获取
