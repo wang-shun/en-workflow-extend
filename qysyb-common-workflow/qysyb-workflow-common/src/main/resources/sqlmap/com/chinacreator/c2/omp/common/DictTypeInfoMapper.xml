@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.common.DictTypeInfoMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  td_sm_dicttype.dicttype_id ,
+		  td_sm_dicttype.dicttype_name ,
+		  td_sm_dicttype.dicttype_desc 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="dicttypeId != null">and td_sm_dicttype.dicttype_id = #{dicttypeId}</if>
+	    <if test="dicttypeName != null">and td_sm_dicttype.dicttype_name = #{dicttypeName}</if>
+	    <if test="dicttypeDesc != null">and td_sm_dicttype.dicttype_desc = #{dicttypeDesc}</if>
+</sql>
+
+
+<!-- ElementID:DictTypeInfoResult,Generated=true -->
+<resultMap id="DictTypeInfoResult" type="com.chinacreator.c2.omp.common.DictTypeInfo">
+	<id property="dicttypeId" column="dicttype_id"/>
+	<result property="dicttypeName" column="dicttype_name"/>
+	<result property="dicttypeDesc" column="dicttype_desc"/>
+</resultMap>
+
+
+
+
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.common.DictTypeInfo">
+	insert into td_sm_dicttype(
+	         <if test="dicttypeId != null">dicttype_id</if>
+	         <if test="dicttypeName != null">,dicttype_name</if>
+	         <if test="dicttypeDesc != null">,dicttype_desc</if>
+	 	 	 )
+	 values (
+	         <if test="dicttypeId != null">#{dicttypeId,jdbcType=VARCHAR}</if>
+	         <if test="dicttypeName != null">,#{dicttypeName,jdbcType=VARCHAR}</if>
+	         <if test="dicttypeDesc != null">,#{dicttypeDesc,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.common.DictTypeInfo" resultType="int">
+	select count(*) from td_sm_dicttype 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.common.DictTypeInfo">
+	update td_sm_dicttype
+<set>
+	<if test="dicttypeName != null">dicttype_name=#{dicttypeName,jdbcType=VARCHAR},</if>
+	<if test="dicttypeDesc != null">dicttype_desc=#{dicttypeDesc,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="dicttypeId != null">and dicttype_id = #{dicttypeId}</when>
+        <otherwise>and dicttype_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update td_sm_dicttype
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="dicttypeName==null">dicttype_name = null,</if>
+		    <if test="dicttypeDesc==null">dicttype_desc = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="dicttypeId != null">and dicttype_id = #{dicttypeId}</when>
+			<otherwise>and dicttype_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.common.DictTypeInfo">
+    delete from td_sm_dicttype where 1=1 and dicttype_id = #{dicttypeId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.common.DictTypeInfo" resultMap="DictTypeInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_dicttype 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into td_sm_dicttype (dicttype_id,dicttype_name,dicttype_desc) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.dicttypeId,jdbcType = VARCHAR},
+				#{entity.dicttypeName,jdbcType = VARCHAR},
+				#{entity.dicttypeDesc,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from td_sm_dicttype where dicttype_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.dicttypeId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="DictTypeInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_dicttype 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="DictTypeInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_dicttype 
+		 where td_sm_dicttype.dicttype_id = #{dicttypeId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.common.DictTypeInfo" resultMap="DictTypeInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_dicttype 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="DictTypeInfoResult">
+select 
+	<include refid="column_sql"/> 
+	from td_sm_dicttype 
+	where td_sm_dicttype.dicttype_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		td_sm_dicttype.dicttype_id
+	    from td_sm_dicttype 
+		 <where>
+	        <if test="entity.dicttypeId != null">and td_sm_dicttype.dicttype_id = #{entity.dicttypeId}</if>
+	        <if test="entity.dicttypeName != null">and td_sm_dicttype.dicttype_name = #{entity.dicttypeName}</if>
+	        <if test="entity.dicttypeDesc != null">and td_sm_dicttype.dicttype_desc = #{entity.dicttypeDesc}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<cache/>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update td_sm_dicttype
+	<set>
+	<if test="entity.dicttypeName != null">dicttype_name= #{entity.dicttypeName,jdbcType=VARCHAR},</if>
+	<if test="entity.dicttypeDesc != null">dicttype_desc= #{entity.dicttypeDesc,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.dicttypeId != null">and dicttype_id = #{entity.dicttypeId}</when>
+				<otherwise>and dicttype_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

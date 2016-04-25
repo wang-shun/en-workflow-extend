@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="手风琴" sn="fieldtypestab" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="true">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="shoufengqinrongqidiv" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" id="shoufengqinrongqi" name="手风琴容器">
+      <form:control type="container/tabs_accordion">
+        <form:attributes source="container/tabs_accordion"/>
+      </form:control>
+      <form:child xsi:type="form:Group" id="newTab1" name="{{$params.typeName}}">
+        <form:control type="container/tab_accordion">
+          <form:attributes source="container/tab_accordion">
+            <dync:attribute default="false" group="基本配置" id="open" name="打开" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+          <form:control type="container/div">
+            <form:attributes source="container/div">
+              <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup1_html">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+        </form:child>
+      </form:child>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+  </form:datasources>
+  <form:scripts>
+
+page_afterDataSourceLoad:function(){
+/*	console.log(&quot;tab params&quot;,$params);
+	console.log(&quot;tab formentity&quot;,$scope.formentity);
+	console.log(&quot;tab permission&quot;,$scope.permissionData.handleResult.visible);*/
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>
+&lt;div ng-repeat=&quot;a in $params.fieldList&quot;>
+	&lt;div ng-if=&quot;permissionData[a.fieldNo].visible&quot;>
+	&lt;div ng-switch=&quot;a.webDisplayTypeId&quot;>
+		&lt;div ng-switch-when='JGXZS'>
+			&lt;div ng-include=&quot;'f/formorgchoose'&quot; ng-init=&quot;$params={'fieldNo':a.fieldNo,'fieldName':a.fieldName,'dictName':a.remark1}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='ZDXLK'>
+			&lt;div ng-include=&quot;'f/dictdropdownlist'&quot; ng-init=&quot;$params={'fieldNo':a.fieldNo,'fieldName':a.fieldName,'dictName':a.remark1}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='SJRQXZ'>
+			&lt;div ng-include=&quot;'f/formdatatimePick'&quot; ng-init=&quot;$params={'fieldNo':a.fieldNo,'fieldName':a.fieldName}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='RQXZK'>
+			&lt;div ng-include=&quot;'f/formdatepick'&quot; ng-init=&quot;$params={'fieldNo':a.fieldNo,'fieldName':a.fieldName}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='WBY'>
+			&lt;div ng-include=&quot;'f/formtextarea'&quot; ng-init=&quot;$params={'fieldNo':a.fieldNo,'fieldName':a.fieldName}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='YHXZS'>
+			&lt;div ng-include=&quot;'f/formuserchoose'&quot; ng-init=&quot;$params={'fieldNo':a.fieldNo,'fieldName':a.fieldName}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='DHHM'>
+			&lt;div ng-include=&quot;'f/formtextphone'&quot; ng-init=&quot;$params={'fieldNo':a.fieldNo,'fieldName':a.fieldName}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='WH'>
+			&lt;div ng-include=&quot;'f/docnumber'&quot; ng-init=&quot;$params={'fieldNo':a.fieldNo,'fieldName':a.fieldName,'span':a.remark10}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='JGDX'>
+			&lt;div ng-include=&quot;'f/orgchooseinput'&quot; ng-init=&quot;$params={'fieldNo':a.fieldNo,'fieldName':a.fieldName,'span':a.remark10}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-default>
+			&lt;div ng-include=&quot;'f/formtextField'&quot; ng-init=&quot;$params={'fieldNo':a.fieldNo,'fieldName':a.fieldName}&quot;/>
+		&lt;/div>
+	&lt;/div>
+	&lt;/div>
+&lt;/div>
+&lt;/script>
+
+&lt;style>
+#shoufengqinrongqidiv .panel-group {
+    margin-bottom: 0px;
+}
+#shoufengqinrongqidiv .panel-body {
+    padding-top: 0px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+}
+&lt;/style></form:htmls>
+</form:Form>

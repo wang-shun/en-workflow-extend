@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getcuruserorginfo" log="false" className="com.chinacreator.c2.omp.common.service.UniversalService" method="getOrgInfo">
+  <name>获取当前用户机构</name>
+  <desc>查询机构信息</desc>
+  <inputs/>
+  <outputs>
+    <output autoValue="Result" desc="@throws" id="result" name="方法返回值" type="com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO"/>
+  </outputs>
+  <params/>
+  <return signature="QOrgDTO;" type="com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO"/>
+</CustomRule>

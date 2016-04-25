@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" sn="util_dictdata">
+  <docket:name>数据字典信息</docket:name>
+  <docket:createType>来自数据库</docket:createType>
+  <docket:primaryKey>
+    <docket:pkAttribute attribute="dictdata_id" type="UUID"/>
+  </docket:primaryKey>
+  <docket:attributes>
+    <docket:attribute code="dictdata_id" name="字典ID" nullable="false" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="dicttype_id" length="" name="字典类型ID" nullable="true" precision="" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.DictTypeInfo.dicttype_id" id="entity:com.chinacreator.c2.omp.common.DictTypeInfo"/>
+    </docket:attribute>
+    <docket:attribute code="dictdata_name" name="字典真实值" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="dictdata_value" name="字典显示值" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="dictdata_order" name="字典排序号" nullable="true" type="int" default="0">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="dictdata_isdefault" name="是否默认值（0：否，1：是）" nullable="true" type="char20" default="0">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+  </docket:attributes>
+  <docket:subDokcets/>
+  <docket:events/>
+  <docket:table ds="newDS" table="td_sm_dictdata"/>
+  <entity:datas/>
+  <entity:views/>
+</entity:Entity>

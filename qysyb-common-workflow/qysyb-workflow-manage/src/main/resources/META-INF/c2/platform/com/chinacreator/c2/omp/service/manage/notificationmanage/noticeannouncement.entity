@@ -1,0 +1,1048 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.chinacreator.com/platform/mvc/rule" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" xmlns:form="http://www.chinacreator.com/platform/mvc/form" xmlns:template="http://www.chinacreator.com/c2/ui/template" sn="daily_notice">
+  <docket:name>通知公告</docket:name>
+  <docket:createType>来自数据库</docket:createType>
+  <docket:primaryKey>
+    <docket:pkAttribute attribute="notify_id" type="UUID"/>
+  </docket:primaryKey>
+  <docket:attributes>
+    <docket:attribute code="notify_id" name="Id" nullable="false" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="notify_no" name="编号" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="notify_name" name="标题" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="notify_content" length="33554420" name="内容" nullable="true" type="text" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="start_date" name="开始时间" nullable="false" type="date" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="end_date" name="结束时间" nullable="false" type="date" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="creator_id" name="创建人ID" nullable="true" type="mediumdouble" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="issuer_id" name="发布者ID" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="issue_date" name="发布时间" nullable="false" type="date" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="reviewer_id" name="审核人ID" nullable="true" type="mediumdouble" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="is_reviewed" name="是否审核" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="review_date" name="审核时间" nullable="true" type="date" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="state" name="状态" nullable="true" type="smallint" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark" name="备注" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="org_id" name="����ID" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_id" name="�û�ID" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="createdate" name="创建日期" nullable="false" type="date" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="mender_id" name="������ID" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="mender_name" name="����������" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="mend_date" name="����ʱ��" nullable="false" type="date" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="notify_type_id" name="通知类型" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="scope_id" name="范围" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+  </docket:attributes>
+  <docket:subDokcets/>
+  <docket:events>
+    <docket:event desc="通知公告-新增" id="add" name="新增" res="nhul_WyaS2u1CJr2vQkXRg" log="true">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="insert" name="单记录插入" ruleId="rule:c2.dao.insert">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui name="新增" type="inner">
+        <form:control type="page/modal">
+          <form:attributes source="page/modal">
+            <dync:attribute id="title" value="新增通知公告">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="800px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Group" id="main" name="通知公告">
+          <form:control type="container/div">
+            <form:attributes source="container/div"/>
+          </form:control>
+          <form:child xsi:type="form:Field" binding="$model.entity.notifyName" id="notifyName" name="通知标题" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text">
+                <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.scopeId" id="scopeId" name="发布范围">
+            <form:control type="widget/select_user_tree">
+              <form:attributes source="widget/select_user_tree">
+                <dync:attribute default="false" group="控件外观" id="required" name="必填项" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.endDate" id="endDate" name="失效时间">
+            <form:control type="widget/date_picker">
+              <form:attributes source="widget/date_picker"/>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.notifyTypeId" id="notifyTypeId" name="通告类型">
+            <form:control type="widget/select_simple">
+              <form:attributes source="widget/select_simple">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.getDictDataMap.result[&quot;通告类型&quot;]">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="dictdataName">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="dictdataValue">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="selected" group="下拉框设置" id="optionSelected" name="选中属性名" value="dictdataIsdefault">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="false" group="下拉框设置" id="firstSelected" name="选中第一个" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+            <form:control type="container/div">
+              <form:attributes source="container/div">
+                <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:child xsi:type="form:Field" binding="$model.entity.remark" id="remark" name="备注">
+              <form:control type="widget/textarea">
+                <form:attributes source="widget/textarea">
+                  <dync:attribute default="3" group="HTML设置" id="rows" name="行高" value="1">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="$model.entity.orgShowname" id="orgShowname1" name="发布单位">
+              <form:control type="widget/text">
+                <form:attributes source="widget/text">
+                  <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="true">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="$model.entity.issuerName" id="issuerName1" name="发布人" customize="true">
+              <form:control type="widget/text">
+                <form:attributes source="widget/text">
+                  <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="true">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="$model.entity.notifyContent" id="notifyContent" name="通知内容">
+              <form:control type="widget/textarea_ueditor">
+                <form:attributes source="widget/textarea_ueditor"/>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Group" id="page_commonfilelist" name="简单容器(DIV)">
+              <form:control type="container/div">
+                <form:attributes source="container/div">
+                  <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="page_commonfilelist_html">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+          </form:child>
+        </form:child>
+        <form:child xsi:type="form:Group" id="toolbar" name="主按钮组">
+          <form:control type="container/toolbar_modal_footer">
+            <form:attributes source="container/toolbar_modal_footer"/>
+          </form:control>
+          <form:child xsi:type="form:Field" id="btn_add" name="新增">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_add_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="btn-primary" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-success">
+                  <dync:render colSpan="1" height="0" multi="false" name="select">
+                    <dync:item name="默认" value="btn-default"/>
+                    <dync:item name="主要" value="btn-primary"/>
+                    <dync:item name="成功" value="btn-success"/>
+                    <dync:item name="信息" value="btn-info"/>
+                    <dync:item name="警告" value="btn-warning"/>
+                    <dync:item name="危险" value="btn-danger"/>
+                    <dync:item name="链接" value="btn-link"/>
+                    <dync:item name="通用" value="btn-white btn-primary grid-btn"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" id="btn_edit" name="取消">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-times">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_edit_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+        </form:child>
+        <form:datasources>
+          <form:datasource xsi:type="form:Inputs"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.notificationmanage.noticeannouncement"/>
+          <form:datasource xsi:type="form:LogicDataSource" id="getUUID" name="获取uuid" logic="rule:com.chinacreator.c2.kcomp.dailymanagement.getUUID" sn="getUUID"/>
+          <form:datasource xsi:type="form:LogicDataSource" id="getDictDataMap" name="获取数据字典" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
+            <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;通告类型&quot;]"/>
+          </form:datasource>
+          <form:datasource xsi:type="form:LogicDataSource" id="getUserInfo" name="获取当前登录用户" logic="rule:asp.sysmgmt.mypanel.getLogUser" sn="getLogUser"/>
+          <form:datasource xsi:type="form:LogicDataSource" id="getOrgInfo" name="机构信息" logic="rule:com.chinacreator.c2.omp.common.getCurOrg" sn="getcuruserorginfo"/>
+        </form:datasources>
+        <form:scripts>btn_add_click:function($event){
+   var formCheck=$view.mainForm.check();
+	if(formCheck==false)
+	  return;
+	 //判断发布状态，如果选择已发布，那么就要自动录入发布时间
+	  var state= $model.entity.state;
+	  if(state==&quot;1&quot;){
+	  $model.entity.issueDate=new Date().getTime();
+	  //获取机构信息
+	    if(!angular.isUndefined($model.getOrgInfo.result)&amp;&amp;$model.getOrgInfo.result!=null&amp;&amp;$model.getOrgInfo.result.orgId!=null){	 
+	  $model.entity.orgShowname=$model.getOrgInfo.result.orgShowName;
+	  $model.entity.orgId=$model.getOrgInfo.result.orgId;
+	  }else{
+	   $model.entity.orgShowname=&quot;系统&quot;;
+	  $model.entity.orgId=&quot;&quot;;
+	  }
+	  //获取登录用户信息
+	  if($model.getUserInfo.result.userId!=null){
+	 $model.entity.issuerId =$model.getUserInfo.result.userId;
+	   $model.entity.issuerName = $model.getUserInfo.result.userRealname;
+	   }else{
+	    $model.entity.issuerId =&quot;&quot;;
+	   $model.entity.issuerName = &quot;系统管理员&quot;;
+	   }
+	   
+	  }
+	 
+	
+    $model.entity.$save(function(){
+    
+        Modal.instance.close();
+        Messenger.post({type:'success',message:'新增成功'});
+    });
+    
+    
+
+	
+},
+btn_edit_click:function($event){
+   Modal.instance.close();
+},
+
+page_onload:function(){
+    
+    if(!angular.isUndefined($model.getOrgInfo.result)&amp;&amp;$model.getOrgInfo.result!=null){
+	 document.getElementById(&quot;orgShowname1&quot;).value=$model.getOrgInfo.result.orgShowName;
+	 document.getElementById(&quot;issuerName&quot;).value= $model.getUserInfo.result.userRealname;
+	 }
+	
+	
+},
+
+page_afterDataSourceLoad:function(){
+	//事件加載獲得機構信息
+	$model.entity.notifyId = $params.notifyXh
+	console.log($model.entity.notifyId);
+	
+	
+}</form:scripts>
+        <form:htmls>&lt;style type=&quot;text/css&quot;>&#xD;
+&#xD;
+&lt;/style>&#xD;
+&#xD;
+&lt;script type=&quot;text/ng-template&quot; id=&quot;page_commonfilelist_html&quot;>&#xD;
+	&lt;div ng-include=&quot;'f/common_uploadfilelist'&quot;  ng-init=&quot;$params={'businessType':'COMMON_TZGG','businessKey':$params.notifyXh,'type':'view_upload'}&quot;>&lt;/div>&#xD;
+&lt;/script>&#xD;
+&#xD;
+</form:htmls>
+      </docket:ui>
+    </docket:event>
+    <docket:event desc="" id="delete" name="删除" res="Dsxk31CBTzWCRSOAwP9VYg" log="true">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="delete" name="单记录删除" ruleId="rule:c2.dao.delete">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui name="删除" type="none">
+        <form:scripts>btn_add_click:function($event){
+   var formCheck=$view.mainForm.check();
+	if(formCheck==false)
+	  return;
+	  $model.entity.mendDate=new Date().getTime();
+    $model.entity.$save(function(){
+        Modal.instance.close();
+        Messenger.post({type:'success',message:'新增成功'});
+    });
+},
+btn_edit_click:function($event){
+   Modal.instance.close();
+},
+
+
+page_beforeDataSourceLoad:function($params){
+	$model.entity.$get({id:$params.notifyXh});
+	
+},
+
+page_onload:function(){
+	//判断通告状态，如果是已发布状态，所有信息不可修改
+	var state=$model.entity.state;
+	if(state==&quot;1&quot;){
+	$view.notifyName1.disabled=true;
+	} 
+}</form:scripts>
+        <form:htmls></form:htmls>
+      </docket:ui>
+    </docket:event>
+    <docket:event desc="" id="edit" name="修改" res="1QQpLrp8RjOSzJBxabz8rQ" log="true">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="modify" name="更新" ruleId="rule:c2.dao.update">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui name="修改" type="inner">
+        <form:control type="page/modal">
+          <form:attributes source="page/modal">
+            <dync:attribute id="title" value="修改通知公告">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad($params)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="800px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Group" id="main1" name="通知公告">
+          <form:control type="container/div">
+            <form:attributes source="container/div"/>
+          </form:control>
+          <form:child xsi:type="form:Field" binding="$model.entity.notifyName" id="notifyName1" name="通知标题" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text">
+                <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.scopeId" id="scopeId1" name="发布范围">
+            <form:control type="widget/select_user_tree">
+              <form:attributes source="widget/select_user_tree">
+                <dync:attribute default="未选中数据 ..." group="控件外观" id="placeholder" name="占位字符串" value="">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" group="树事件设置" id="beforeCheck" name="选中前" value="scopeId_beforeCheck(treeId,treeNode)">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.issueDate" id="issueDate" name="发布时间">
+            <form:control type="widget/date_time_picker">
+              <form:attributes source="widget/date_time_picker"/>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.endDate" id="endDate" name="失效时间">
+            <form:control type="widget/date_time_picker">
+              <form:attributes source="widget/date_time_picker"/>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.notifyTypeId" id="notifyTypeId" name="通告类型">
+            <form:control type="widget/select_simple">
+              <form:attributes source="widget/select_simple">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.getDictDataMap.result[&quot;通告类型&quot;] ">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="dictdataName">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="dictdataValue">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="selected" group="下拉框设置" id="optionSelected" name="选中属性名" value="dictdataIsdefault">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.state" id="state1" name="是否发布" customize="true">
+            <form:control type="widget/select_simple">
+              <form:attributes source="widget/select_simple">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;1&quot;:&quot;已发布&quot;,&quot;0&quot;:&quot;未发布&quot;}">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+            <form:control type="container/div">
+              <form:attributes source="container/div">
+                <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:child xsi:type="form:Field" binding="$model.entity.remark" id="remark" name="备注">
+              <form:control type="widget/textarea">
+                <form:attributes source="widget/textarea">
+                  <dync:attribute default="3" group="HTML设置" id="rows" name="行高" value="1">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="$model.entity.orgShowname" id="orgShowname" name="发布单位">
+              <form:control type="widget/text">
+                <form:attributes source="widget/text">
+                  <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="true">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="$model.entity.issuerName" id="issuerName" name="发布人" customize="true">
+              <form:control type="widget/text">
+                <form:attributes source="widget/text">
+                  <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="true">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
+            </form:child>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.menderName" id="menderName" name="更新人">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text">
+                <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.mendDate" id="mendDate" name="更新时间">
+            <form:control type="widget/date_time_picker">
+              <form:attributes source="widget/date_time_picker">
+                <dync:attribute default="false" group="基本设置" id="inputReadonly" name="文本框只读" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.notifyContent" id="notifyContent" name="通知内容" customize="true">
+            <form:control type="widget/textarea_ueditor">
+              <form:attributes source="widget/textarea_ueditor"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Group" id="page_commonfilelist" name="简单容器(DIV)">
+            <form:control type="container/div">
+              <form:attributes source="container/div">
+                <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="page_commonfilelist_html">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+        </form:child>
+        <form:child xsi:type="form:Group" id="toolbar1" name="主按钮组">
+          <form:control type="container/toolbar_modal_footer">
+            <form:attributes source="container/toolbar_modal_footer"/>
+          </form:control>
+          <form:child xsi:type="form:Field" id="btn_edit" name="修改">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_add_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="btn-primary" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-success">
+                  <dync:render colSpan="1" height="0" multi="false" name="select">
+                    <dync:item name="默认" value="btn-default"/>
+                    <dync:item name="主要" value="btn-primary"/>
+                    <dync:item name="成功" value="btn-success"/>
+                    <dync:item name="信息" value="btn-info"/>
+                    <dync:item name="警告" value="btn-warning"/>
+                    <dync:item name="危险" value="btn-danger"/>
+                    <dync:item name="链接" value="btn-link"/>
+                    <dync:item name="通用" value="btn-white btn-primary grid-btn"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" id="btn_edit1" name="取消">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-times">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_edit_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+        </form:child>
+        <form:datasources>
+          <form:datasource xsi:type="form:Inputs"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" data="$params.notifyId" entity="entity:com.chinacreator.c2.omp.service.manage.notificationmanage.noticeannouncement"/>
+          <form:datasource xsi:type="form:LogicDataSource" id="getDictDataMap" name="获取数据字典" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
+            <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;通告类型&quot;]"/>
+          </form:datasource>
+          <form:datasource xsi:type="form:LogicDataSource" id="getUserInfo" name="获取当前登录用户" logic="rule:com.chinacreator.c2.sysmgr.security.getSubject" sn="getSubject"/>
+          <form:datasource xsi:type="form:LogicDataSource" id="getOrgInfo" name="机构信息" logic="rule:com.chinacreator.c2.omp.common.getCurOrg" sn="getcuruserorginfo"/>
+        </form:datasources>
+        <form:scripts>btn_add_click:function($event){
+	var formCheck=$view.mainForm.check();
+	if(formCheck==false)
+		return;
+	//如果公告状态是已发布，就不做修改操作
+	var state1=$model.entity.state;
+	if(state1==&quot;1&quot;){	 
+		$model.entity.issueDate=new Date().getTime();
+		//判断发布状态，如果选择已发布，那么就要自动录入发布时间
+		var state= $model.entity.state;
+		if(state==&quot;1&quot;){
+			$model.entity.issueDate=new Date().getTime();
+			//获取机构信息
+			if(!angular.isUndefined($model.getOrgInfo.result)&amp;&amp;$model.getOrgInfo.result!=null&amp;&amp;$model.getOrgInfo.result.orgShowName!=null){
+				$model.entity.orgShowname=$model.getOrgInfo.result.orgShowName;
+			  	$model.entity.orgId=$model.getOrgInfo.result.orgId;
+			}
+			//获取登录用户信息
+			console.log()
+			$model.entity.issuerId =$model.getUserInfo.result.userDTO.userId;
+			$model.entity.issuerName = $model.getUserInfo.result.userDTO.userRealname;
+		}
+	} 
+	 
+	$model.entity.mendDate=new Date().getTime();
+	$model.entity.$save(function(){
+		Modal.instance.close();
+		Messenger.post({type:'success',message:'修改成功'});
+	});
+  
+    
+    
+},
+btn_edit_click:function($event){
+   Modal.instance.close();
+},
+
+
+page_beforeDataSourceLoad:function($params){
+//	$model.entity.$get({id:$params.notifyId});
+	console.log($params)
+	console.log($model.entity);
+},
+
+page_onload:function(){ 
+	console.log($model.getUserInfo.result);
+	//判断通告状态，如果是已发布状态，所有信息不可修改
+	var state=$model.entity.state;
+	if(state==&quot;1&quot;){	
+	   document.getElementById(&quot;btn_edit&quot;).disabled=true; 
+        document.getElementById(&quot;notifyName1&quot;).disabled=true; 
+          document.getElementById(&quot;endDate&quot;).disabled=true; 
+            document.getElementById(&quot;scopeId1&quot;).disabled=true; 
+              document.getElementById(&quot;notifyTypeId&quot;).disabled=true; 
+                document.getElementById(&quot;state1&quot;).disabled=true; 
+                  document.getElementById(&quot;remark&quot;).disabled=true; 
+                   document.getElementById(&quot;notifyContent&quot;).disabled=true;
+                      document.getElementById(&quot;page_commonfilelist&quot;).disabled=true;
+                   
+	} 
+ 
+	  //获取登录用户信息
+	 $model.entity.menderId =$model.getUserInfo.result.userId;
+	 $model.entity.menderName = $model.getUserInfo.result.userRealname;
+
+
+},
+
+
+
+
+scopeId_beforeCheck:function(treeId,treeNode){
+	
+}</form:scripts>
+        <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;page_commonfilelist_html&quot;>
+&lt;div ng-include=&quot;'f/common_uploadfilelist'&quot;  ng-init=&quot;$params={'businessType':'COMMON_TZGG','businessKey':$params.notifyId,'type':'view_edit'}&quot;>&lt;/div>
+&lt;/script></form:htmls>
+      </docket:ui>
+    </docket:event>
+    <docket:event desc="" id="get" name="单记录查询" res="P_dV8XPMSou7tTt080HMag">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="get" name="单记录查询" ruleId="rule:c2.dao.selectOne">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui name="单记录查询" type="none">
+        <form:scripts>
+
+page_onload:function(){
+  
+   alert( $params.notifyXh);
+}</form:scripts>
+        <form:htmls>&lt;style>&#xD;
+&#xD;
+&#xD;
+&lt;/style></form:htmls>
+      </docket:ui>
+    </docket:event>
+    <docket:event desc="" id="check" name="查看" res="9FswEgpNQa-dfl8zUVr86w" log="true">
+      <docket:logic/>
+      <docket:ui name="查看" type="inner">
+        <form:control type="page/modal">
+          <form:attributes source="page/modal">
+            <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML" id="title" name="标题" value="通知公告">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="800px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Group" id="noticeannouncement" name="通知公告">
+          <form:control type="container/div">
+            <form:attributes source="container/div">
+              <dync:attribute default="false" desc="无任何属性和样式的div" group="HTML配置" hidden="false" id="pure" name="简单div" required="true" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+                <dync:onChange>
+                  <template:case value="true">
+                    <template:hide param="span" value="true"/>
+                    <template:hide param="offset" value="true"/>
+                    <template:hide param="collapse" value="true"/>
+                    <template:hide param="defaultCollapse" value="true"/>
+                    <template:hide param="autoHeight" value="true"/>
+                    <template:hide param="nopadding" value="true"/>
+                  </template:case>
+                  <template:case value="false">
+                    <template:hide param="span" value="false"/>
+                    <template:hide param="offset" value="false"/>
+                    <template:hide param="collapse" value="false"/>
+                    <template:hide param="defaultCollapse" value="false"/>
+                    <template:hide param="autoHeight" value="false"/>
+                    <template:hide param="nopadding" value="false"/>
+                  </template:case>
+                </dync:onChange>
+              </dync:attribute>
+              <dync:attribute default="12" desc="网格布局中占位数" group="HTML配置" hidden="false" id="span" name="占位数" required="true" value="12">
+                <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="0" desc="网格布局中的偏移数" group="HTML配置" hidden="false" id="offset" name="偏移" required="false" value="0">
+                <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="填写变量或者表达式，控制控件是否隐藏。变量和表达式的值必须为布尔类型。如果变量没有赋值，则默认为【隐藏默认值】。&#xA;                @attention 变量可以从数据源中直接拿，或者在页面的*载入事件*中进行初始化。" group="HTML配置" hidden="false" id="collapse" name="隐藏" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" desc="容器在页面初始化完成时是否隐藏。当你不需要通过变量来控制控件隐藏的话，只需要使用这个属性就够了。可以通过控件方法`show();hide();toggle()`控制容器的隐藏状态。&#xA;                `false`表示展开控件（默认）。&#xA;                `true`表示隐藏控件。" group="HTML配置" hidden="false" id="defaultCollapse" name="隐藏默认值" required="false" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" desc="该容器的高度自动适应当前页面的page-content高度" group="HTML配置" hidden="false" id="autoHeight" name="自动高度" required="false" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" desc="内部是否有边距" group="HTML配置" hidden="false" id="nopadding" name="无内边距" required="false" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="在容器内部直接嵌入自定义的HTML。当控件满足不了页面需求时，可以通过这个去嵌入一段自定义的HTML代码。&#xA;                点击属性框右边按钮，会自动跳转到*HTML片段*的页签，并在页签内生成一段包裹脚本。需要自定义的HTML代码写在脚本内。如果还需要脚本控制元素，也可在模版内部写自己的脚本。&#xA;                @code&#xA;                &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>&#xA;&#x9;&#x9;&#x9;&#x9;我的地盘我做主！&#xA;&#x9;&#x9;&#x9;&#x9;&lt;script>&#xA;&#x9;&#x9;&#x9;&#x9;alert(&quot;oye!&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;                @code&#xA;                @attention 如果定义了该属性，那么在容器中放置任何其他控件都会被忽略。" group="高级自定义" hidden="false" id="html" name="自定义HTML" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="html"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="可以添加任意class，多个class样式用空格分开" group="高级自定义" hidden="false" id="cssClass" name="自定义class" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="可以添加任意style样式,必须遵循style样式格式：&quot;color:red;backgroud-color:blue;&quot;。" group="高级自定义" hidden="false" id="style" name="自定义style" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:child xsi:type="form:Group" id="noticeannouncement2" name="通知公告">
+            <form:control type="container/div">
+              <form:attributes source="container/div">
+                <dync:attribute default="false" desc="无任何属性和样式的div" group="HTML配置" hidden="false" id="pure" name="简单div" required="true" value="false">
+                  <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                  <dync:children/>
+                  <dync:onChange>
+                    <template:case value="true">
+                      <template:hide param="span" value="true"/>
+                      <template:hide param="offset" value="true"/>
+                      <template:hide param="collapse" value="true"/>
+                      <template:hide param="defaultCollapse" value="true"/>
+                      <template:hide param="autoHeight" value="true"/>
+                      <template:hide param="nopadding" value="true"/>
+                    </template:case>
+                    <template:case value="false">
+                      <template:hide param="span" value="false"/>
+                      <template:hide param="offset" value="false"/>
+                      <template:hide param="collapse" value="false"/>
+                      <template:hide param="defaultCollapse" value="false"/>
+                      <template:hide param="autoHeight" value="false"/>
+                      <template:hide param="nopadding" value="false"/>
+                    </template:case>
+                  </dync:onChange>
+                </dync:attribute>
+                <dync:attribute default="12" desc="网格布局中占位数" group="HTML配置" hidden="false" id="span" name="占位数" required="true" value="12">
+                  <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="0" desc="网格布局中的偏移数" group="HTML配置" hidden="false" id="offset" name="偏移" required="false" value="0">
+                  <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="填写变量或者表达式，控制控件是否隐藏。变量和表达式的值必须为布尔类型。如果变量没有赋值，则默认为【隐藏默认值】。&#xA;                @attention 变量可以从数据源中直接拿，或者在页面的*载入事件*中进行初始化。" group="HTML配置" hidden="false" id="collapse" name="隐藏" required="false" value="">
+                  <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="false" desc="容器在页面初始化完成时是否隐藏。当你不需要通过变量来控制控件隐藏的话，只需要使用这个属性就够了。可以通过控件方法`show();hide();toggle()`控制容器的隐藏状态。&#xA;                `false`表示展开控件（默认）。&#xA;                `true`表示隐藏控件。" group="HTML配置" hidden="false" id="defaultCollapse" name="隐藏默认值" required="false" value="false">
+                  <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="false" desc="该容器的高度自动适应当前页面的page-content高度" group="HTML配置" hidden="false" id="autoHeight" name="自动高度" required="false" value="false">
+                  <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="false" desc="内部是否有边距" group="HTML配置" hidden="false" id="nopadding" name="无内边距" required="false" value="false">
+                  <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="在容器内部直接嵌入自定义的HTML。当控件满足不了页面需求时，可以通过这个去嵌入一段自定义的HTML代码。&#xA;                点击属性框右边按钮，会自动跳转到*HTML片段*的页签，并在页签内生成一段包裹脚本。需要自定义的HTML代码写在脚本内。如果还需要脚本控制元素，也可在模版内部写自己的脚本。&#xA;                @code&#xA;                &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>&#xA;&#x9;&#x9;&#x9;&#x9;我的地盘我做主！&#xA;&#x9;&#x9;&#x9;&#x9;&lt;script>&#xA;&#x9;&#x9;&#x9;&#x9;alert(&quot;oye!&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;                @code&#xA;                @attention 如果定义了该属性，那么在容器中放置任何其他控件都会被忽略。" group="高级自定义" hidden="false" id="html" name="自定义HTML" required="false" value="">
+                  <dync:render colSpan="2" height="0" multi="false" name="html"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="可以添加任意class，多个class样式用空格分开" group="高级自定义" hidden="false" id="cssClass" name="自定义class" required="false" value="no-padding">
+                  <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="可以添加任意style样式,必须遵循style样式格式：&quot;color:red;backgroud-color:blue;&quot;。" group="高级自定义" hidden="false" id="style" name="自定义style" required="false" value="">
+                  <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:child xsi:type="form:Field" binding="$model.entity.notifyName" id="notifyName" name="通告标题">
+              <form:control type="widget/span">
+                <form:attributes source="widget/span">
+                  <dync:attribute default="6" group="基础属性" id="span" name="占位数" value="12">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="$model.entity.orgShowname" id="orgShowname" name="发布单位">
+              <form:control type="widget/span">
+                <form:attributes source="widget/span">
+                  <dync:attribute default="false" group="基础属性" id="showLable" name="显示lable" value="true">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="true" group="基础属性" id="show" name="可见" value="false">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="6" group="基础属性" id="span" name="占位数" value="12">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="$model.entity.issuerName" id="issuerName" name="发布人">
+              <form:control type="widget/span">
+                <form:attributes source="widget/span">
+                  <dync:attribute default="false" group="基础属性" id="showLable" name="显示lable" value="true">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="$model.entity.issueDate" id="issueDate" name="发布时间">
+              <form:control type="widget/span">
+                <form:attributes source="widget/span">
+                  <dync:attribute default="false" group="基础属性" id="showLable" name="显示lable" value="true">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="" group="格式设置" id="formats" name="格式化类别" value="date">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+              <form:control type="container/div">
+                <form:attributes source="container/div">
+                  <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="padding:10px 0px 0px 0px;">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:child xsi:type="form:Field" binding="$model.entity.notifyContent" id="notifyContent" name="通知内容">
+                <form:control type="widget/span">
+                  <form:attributes source="widget/span">
+                    <dync:attribute default="6" group="基础属性" id="span" name="占位数" value="12">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+              </form:child>
+            </form:child>
+            <form:child xsi:type="form:Group" id="page_commonfilelist" name="简单容器(DIV)">
+              <form:control type="container/div">
+                <form:attributes source="container/div">
+                  <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="page_commonfilelist_html">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+          </form:child>
+        </form:child>
+        <form:datasources>
+          <form:datasource xsi:type="form:Inputs">
+            <form:input id="id" name="实体数据id"/>
+          </form:datasource>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据" data="$params.notifyXh" entity="entity:com.chinacreator.c2.omp.service.manage.notificationmanage.noticeannouncement"/>
+          <form:datasource xsi:type="form:LogicDataSource" id="user" name="用户信息" logic="rule:asp.sysmgmt.sysset.orgusermgt.getUserByPK" sn="getUserByPK">
+            <form:param id="userId" name="新输入参数" value="&quot;&quot;"/>
+          </form:datasource>
+        </form:datasources>
+        <form:scripts>
+
+
+page_onload:function(){
+	console.log($model.entity);
+   var issueDate=new Date( $model.entity.issueDate);
+	var endDate=new Date( $model.entity.endDate);   
+   
+	issueDate.getSeconds();     
+	$model.entity.issueDate=issueDate.getFullYear()+&quot;-&quot;+issueDate.getMonth()+
+	&quot;-&quot;+issueDate.getDate();
+	
+	$model.entity.endDate=endDate.getFullYear()+&quot;-&quot;+endDate.getMonth()+
+	&quot;-&quot;+endDate.getDate();
+	
+	$model.entity.notifyName = &quot;&lt;div class='notify_title'>&quot;+$model.entity.notifyName+&quot;&lt;/div>&quot;;	
+	
+	if($model.entity.orgShowname!=null){
+	$model.entity.orgShowname = &quot;&lt;div class='notify_field'>&quot;+$model.entity.orgShowname+&quot;&lt;/div>&quot;;
+	}else{
+	$model.entity.orgShowname = &quot;&lt;div class='notify_field'>&quot;+&quot;&quot;+&quot;&lt;/div>&quot;;
+	}
+
+	
+	if($model.entity.issueDate!=null){$model.entity.issueDate = &quot;&lt;div class='notify_field'>&quot;+$model.entity.issueDate+&quot;&lt;/div>&quot;;
+	}else{
+	$model.entity.issueDate = &quot;&lt;div class='notify_field'>&quot;+&quot;&quot;+&quot;&lt;/div>&quot;;
+	}
+	if($model.entity.endDate!=null){
+	$model.entity.endDate = &quot;&lt;div class='notify_field'>&quot;+$model.entity.endDate+&quot;&lt;/div>&quot;;
+	}else{
+	$model.entity.endDate = &quot;&lt;div class='notify_field'>&quot;+&quot;&quot;+&quot;&lt;/div>&quot;;
+	}
+	if($model.entity.notifyContent!=null){
+	$model.entity.notifyContent = &quot;&lt;div class='notify_content'>&quot;+$model.entity.notifyContent+&quot;&lt;/div>&quot;;
+	}else{
+	$model.entity.notifyContent = &quot;&lt;div class='notify_content'>&quot;+&quot;&quot;+&quot;&lt;/div>&quot;;
+	}
+	
+	
+},
+
+
+
+
+page_afterDataSourceLoad:function(){
+	if($model.entity.issuerId!=null){
+		$model.user.$load({userId:$model.entity.issuerId}).then(function(a){
+			$model.entity.issuerName = &quot;&lt;div class='notify_field'>&quot;+$model.user.result.userRealname+&quot;&lt;/div>&quot;;
+		});
+	}else{
+		$model.entity.issuerName = &quot;&lt;div class='notify_field'>&quot;+&quot;&quot;+&quot;&lt;/div>&quot;;
+	}
+
+}</form:scripts>
+        <form:htmls>&lt;style type=&quot;text/css&quot;>&#xD;
+&#xD;
+&lt;/style>&#xD;
+&#xD;
+&lt;script type=&quot;text/ng-template&quot; id=&quot;page_commonfilelist_html&quot;>&#xD;
+	&lt;div ng-include=&quot;'f/common_uploadfilelist'&quot;  ng-init=&quot;$params={'businessType':'COMMON_TZGG','businessKey':$params.notifyXh,'type':'view'}&quot;>&lt;/div>&#xD;
+&lt;/script>&#xD;
+&#xD;
+</form:htmls>
+      </docket:ui>
+    </docket:event>
+  </docket:events>
+  <docket:table ds="oracDB" table="KCOMP_NOTICE_ANNOUNCEMENT"/>
+  <entity:datas/>
+  <entity:views/>
+</entity:Entity>

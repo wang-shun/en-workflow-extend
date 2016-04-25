@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getformfiledpermissiondata" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.FieldPermissionService" method="getFieldPermissionData">
+  <name>获取表单字段权限数据</name>
+  <inputs>
+    <input collection="false" desc="" id="formId" required="true" type="String"/>
+    <input collection="false" desc="" id="businessKey" required="true" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.Map"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.formId" name="formId" signature="QString;" type="String"/>
+    <param autoValue="Input.businessKey" name="businessKey" signature="QString;" type="String"/>
+  </params>
+  <return signature="QMap&lt;QString;QMap&lt;QString;QObject;>;>;" type="java.util.Map"/>
+</CustomRule>

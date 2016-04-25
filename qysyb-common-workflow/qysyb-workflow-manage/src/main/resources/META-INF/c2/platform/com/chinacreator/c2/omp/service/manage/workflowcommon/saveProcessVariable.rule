@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="saveprocessvariable" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.FormService" method="saveProcessInsVariable">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>保存流程变量</name>
+  <inputs>
+    <input collection="false" desc="" id="taskId" required="true" type="String"/>
+    <input collection="false" desc="" id="key" required="true" type="String"/>
+    <input collection="false" desc="" id="values" required="true" type="java.lang.Object"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="boolean"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.taskId" name="taskId" signature="QString;" type="String"/>
+    <param autoValue="Input.key" name="key" signature="QString;" type="String"/>
+    <param autoValue="Input.values" name="values" signature="Qjava.lang.Object;" type="java.lang.Object"/>
+  </params>
+  <return signature="Z" type="boolean"/>
+</CustomRule>

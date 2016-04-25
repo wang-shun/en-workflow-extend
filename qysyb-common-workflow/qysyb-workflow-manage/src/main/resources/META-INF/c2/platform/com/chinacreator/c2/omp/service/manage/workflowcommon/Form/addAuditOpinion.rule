@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addAuditOpinion" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.impl.ArchhandleServiceImpl" method="addArchhandle">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>添加审核意见</name>
+  <inputs>
+    <input collection="false" desc="" id="archhandle" required="true" type="com.chinacreator.c2.omp.service.manage.workflowcommon.Archhandle"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="int"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.archhandle" name="archhandle" signature="QArchhandle;" type="com.chinacreator.c2.omp.service.manage.workflowcommon.Archhandle"/>
+  </params>
+  <return signature="I" type="int"/>
+</CustomRule>

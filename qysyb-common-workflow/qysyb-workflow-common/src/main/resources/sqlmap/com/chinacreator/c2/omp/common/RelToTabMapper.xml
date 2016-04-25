@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.common.RelToTabMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  REL_TAB.rel_id ,
+		  REL_TAB.remark1 ,
+		  REL_TAB.remark2 ,
+		  REL_TAB.business_key ,
+		  SERVICE_TAB_T1.title T1_title ,
+		  SERVICE_TAB_T1.tab_id T1_tab_id ,
+		  SERVICE_TAB_T1.icon T1_icon ,
+		  SERVICE_TAB_T1.url T1_url ,
+		  SERVICE_TAB_T1.content T1_content ,
+		  SERVICE_TAB_T1.describe T1_describe 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="relId != null">and REL_TAB.rel_id = #{relId}</if>
+	    <if test="remark1 != null">and REL_TAB.remark1 = #{remark1}</if>
+	    <if test="remark2 != null">and REL_TAB.remark2 = #{remark2}</if>
+	    <if test="businessKey != null">and REL_TAB.business_key = #{businessKey}</if>
+		<if test="tab != null and tab.tabId !=null">and REL_TAB.tab = #{tab.tabId}</if>
+</sql>
+
+<!-- ElementID:one2one_sql,Generated=true -->
+<sql id="one2one_sql">
+	     left outer join SERVICE_TAB SERVICE_TAB_T1 on REL_TAB.tab=SERVICE_TAB_T1.tab_id
+</sql>
+
+<!-- ElementID:TabResult,Generated=true -->
+<resultMap id="TabResult" type="com.chinacreator.c2.omp.common.Tab">
+	<id property="tabId" column="tab_id"/>
+	<result property="title" column="title"/>
+	<result property="icon" column="icon"/>
+	<result property="url" column="url"/>
+	<result property="content" column="content"/>
+	<result property="describe" column="describe"/>
+</resultMap>
+
+
+<!-- ElementID:RelToTabResult,Generated=true -->
+<resultMap id="RelToTabResult" type="com.chinacreator.c2.omp.common.RelToTab">
+	<id property="relId" column="rel_id"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+	<result property="businessKey" column="business_key"/>
+	<association property="tab" column="T1_tab_id" javaType="com.chinacreator.c2.omp.common.Tab" resultMap="TabResult" columnPrefix="T1_"/>	
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.common.RelToTab">
+	insert into REL_TAB(
+	         <if test="relId != null">rel_id</if>
+	         <if test="remark1 != null">,remark1</if>
+	         <if test="remark2 != null">,remark2</if>
+	         <if test="businessKey != null">,business_key</if>
+	 	 	 <if test="tab != null and tab.tabId !=null">,tab</if>
+	 	 )
+	 values (
+	         <if test="relId != null">#{relId,jdbcType=VARCHAR}</if>
+	         <if test="remark1 != null">,#{remark1,jdbcType=VARCHAR}</if>
+	         <if test="remark2 != null">,#{remark2,jdbcType=NUMERIC}</if>
+	         <if test="businessKey != null">,#{businessKey,jdbcType=VARCHAR}</if>
+	 	 	 <if test="tab != null and tab.tabId !=null">,#{tab.tabId,jdbcType=VARCHAR}</if>
+	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.common.RelToTab" resultType="int">
+	select count(*) from REL_TAB 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.common.RelToTab">
+	update REL_TAB
+<set>
+	<if test="remark1 != null">remark1=#{remark1,jdbcType=VARCHAR},</if>
+	<if test="remark2 != null">remark2=#{remark2,jdbcType=NUMERIC},</if>
+	<if test="businessKey != null">business_key=#{businessKey,jdbcType=VARCHAR},</if>
+	<if test="tab != null and tab.tabId !=null">tab=#{tab.tabId,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="relId != null">and rel_id = #{relId}</when>
+        <otherwise>and rel_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update REL_TAB
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="remark1==null">remark1 = null,</if>
+		    <if test="remark2==null">remark2 = null,</if>
+		    <if test="businessKey==null">business_key = null,</if>
+		    <if test="tab==null">tab = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="relId != null">and rel_id = #{relId}</when>
+			<otherwise>and rel_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.common.RelToTab">
+    delete from REL_TAB where 1=1 and rel_id = #{relId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.common.RelToTab" resultMap="RelToTabResult">
+	select 
+		<include refid="column_sql"/>
+	    from REL_TAB 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into REL_TAB (rel_id,remark1,remark2,business_key,tab) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.relId,jdbcType = VARCHAR},
+				#{entity.remark1,jdbcType = VARCHAR},
+				#{entity.remark2,jdbcType = NUMERIC},
+				#{entity.businessKey,jdbcType = VARCHAR},
+						 #{entity.tab.tabId,jdbcType=VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from REL_TAB where rel_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.relId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update REL_TAB
+	<set>
+	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=VARCHAR},</if>
+	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=NUMERIC},</if>
+	<if test="entity.businessKey != null">business_key= #{entity.businessKey,jdbcType=VARCHAR},</if>
+	<if test="entity.tab != null and entity.tab.tabId !=null">tab= #{entity.tab.tabId,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.relId != null">and rel_id = #{entity.relId}</when>
+				<otherwise>and rel_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="RelToTabResult">
+	select 
+		<include refid="column_sql"/>
+	    from REL_TAB 
+		<include refid="one2one_sql"/>
+</select>
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="RelToTabResult">
+select 
+	<include refid="column_sql"/> 
+	from REL_TAB 
+	<include refid="one2one_sql"/>
+	where REL_TAB.rel_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		REL_TAB.rel_id
+	    from REL_TAB 
+		 <where>
+	        <if test="entity.relId != null">and REL_TAB.rel_id = #{entity.relId}</if>
+	        <if test="entity.remark1 != null">and REL_TAB.remark1 = #{entity.remark1}</if>
+	        <if test="entity.remark2 != null">and REL_TAB.remark2 = #{entity.remark2}</if>
+	        <if test="entity.businessKey != null">and REL_TAB.business_key = #{entity.businessKey}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="RelToTabResult">
+	select 
+		<include refid="column_sql"/>
+	    from REL_TAB 
+		<include refid="one2one_sql"/>
+		 where REL_TAB.rel_id = #{relId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.common.RelToTab" resultMap="RelToTabResult">
+	select 
+		<include refid="column_sql"/>
+	    from REL_TAB 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+</mapper>

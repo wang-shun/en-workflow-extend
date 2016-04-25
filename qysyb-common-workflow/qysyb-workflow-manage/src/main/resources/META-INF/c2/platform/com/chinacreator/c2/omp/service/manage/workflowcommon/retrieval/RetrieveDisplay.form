@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="检索器页面展示" sn="retrievedisplay" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="10">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroupId_html">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="2">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField" name="查询" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField1" name="重置" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField1_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField2" name="自定义查询器" res="uLWIudFLSv27fe2X9vVfXQ" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField2_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="retrieveItems" name="检索器项" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.retrieval.getRetrieveItems" sn="getretrieveitems">
+      <form:param id="retrieveKey" name="新输入参数" value="$params.retrieveKey"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>
+
+page_afterDataSourceLoad:function(){
+},
+
+newField_click:function($event){
+	$scope.query();
+},
+
+newField1_click:function($event){
+	$scope.reset();
+},
+
+newField2_click:function($event){
+	Modal.open('ef/servicemanageformfield/list',{retrieveKey:$params.retrieveKey},function(){
+		$model.retrieveItems.$load({retrieveKey:$params.retrieveKey});
+	}
+	,function(){
+	});
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
+&lt;div ng-repeat=&quot;a in $model.retrieveItems.result&quot;>
+	&lt;div ng-switch=&quot;a.fieldId.webDisplayTypeId&quot;>
+		&lt;div ng-switch-when='JGXZS'>
+			&lt;div ng-include=&quot;'f/formorgchoose'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName,'dictName':a.fieldId.remark1}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='ZDXLK'>
+			&lt;div ng-include=&quot;'f/retrievedictdropdownlist'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName,'dictName':a.fieldId.remark1}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='SJRQXZ'>
+			&lt;div ng-include=&quot;'f/formdatatimePick'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='RQXZK'>
+			&lt;div ng-include=&quot;'f/retrievedaterangefield'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='WBY'>
+			&lt;div ng-include=&quot;'f/retrievetextfield'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='YHXZS'>
+			&lt;div ng-include=&quot;'f/formuserchoose'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-when='DHHM'>
+			&lt;div ng-include=&quot;'f/formtextphone'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
+		&lt;/div>
+		&lt;div ng-switch-default>
+			&lt;div ng-include=&quot;'f/retrievetextfield'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
+		&lt;/div>
+	&lt;/div>
+&lt;/div>
+&lt;/script></form:htmls>
+</form:Form>

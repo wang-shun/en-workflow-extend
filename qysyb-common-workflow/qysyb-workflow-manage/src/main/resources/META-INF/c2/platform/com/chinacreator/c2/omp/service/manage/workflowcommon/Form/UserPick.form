@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="用户选择树" sn="formuserchoose" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad($params)">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="userchoosediv" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="4">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="$model.bind" id="userchoose" name="{{$params.fieldName}}" customize="true">
+      <form:control type="widget/select_user_tree">
+        <form:attributes source="widget/select_user_tree">
+          <dync:attribute default="6" group="控件外观" id="span" name="占位数" value="12">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="tree/sys_ds_orgs" group="树数据设置" id="treeSourceType" name="树数据源" value="tree/sys_ds_users">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="控件外观" id="disabled" name="禁用" value="!permissionData[$params.fieldNo].writePermission">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="控件外观" id="show" name="可见" value="permissionData[$params.fieldNo].visible">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="控件外观" id="required" name="必填项" value="permissionData[$params.fieldNo].fillnecessary">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="change" name="值改变" value="userchoose_change(newValue,oldValue)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="getCurUser" name="当前登录用户" logic="rule:com.chinacreator.c2.sysmgr.security.getSubject" sn="getSubject"/>
+  </form:datasources>
+  <form:scripts>
+
+page_afterDataSourceLoad:function(){
+	var id = $scope.formentity[$params.fieldNo];
+	if(!angular.isUndefined($scope.formentity[$params.fieldNo])&amp;&amp;id!=&quot;&quot;){
+		$model.bind = &quot;user:&quot;+id;
+	}else{
+		$model.bind = &quot;user:&quot;+$model.getCurUser.result.id;
+		$scope.formentity[$params.fieldNo] = $model.getCurUser.result.id;	
+		$scope.formentity.applicantName = $model.getCurUser.result.userDTO.userRealname;
+/*		var selectedNodes = $view.userchoose_treeWapper.getZtree().getSelectedNodes();
+		if(!angular.isUndefined(selectedNodes[0])){
+		//得整合到控件之间的级联操作中
+			$scope.formentity.applicantName = selectedNodes[0].name;
+		}*/
+	}
+	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
+},
+
+my_nodeClick:function(event,treeId,treeNode,clickFlag){
+
+},
+
+check:function(){
+	return $view.mainForm.check();
+},
+
+userchoose_change:function(newValue,oldValue){
+	$scope.formentity[$params.fieldNo] = $model.bind.substr(5);
+	var selectedNodes = $view.userchoose_treeWapper.getZtree().getSelectedNodes();
+	if(!angular.isUndefined(selectedNodes[0])){
+	//得整合到控件之间的级联操作中
+		$scope.formentity.applicantName = selectedNodes[0].name;
+	}
+},
+
+page_beforeDataSourceLoad:function($params){
+	var r = Math.floor(Math.random()*10000)
+/*	$(&quot;#userchooseWrapper&quot;).attr('id','userchoose'+r+'Wrapper');
+	$(&quot;#userchoose&quot;).attr('id','userchoose'+r);
+	$(&quot;#userchoose&quot;+r).attr('ng-model','$stats.userchoose'+r+'.text');
+	var a = $view.userchoose_treeWapper.getZtree();
+	console.log(&quot;ztree&quot;,a);
+	$(&quot;input[ng-model='userchoose_treeWapper_searchStr']&quot;).attr('ng-model','userchoose'+r+'_treeWapper_searchStr');
+	$(&quot;#userchoose_treeWapper&quot;).attr('tree-id','userchoose'+r+'_treeWapper');
+	$(&quot;#userchoose_treeWapper&quot;).attr('id','userchoose'+r+'_treeWapper');
+	$(&quot;#userchoose_tree&quot;).attr('id','userchoose_tree'+r);
+	$(&quot;span[ng-show='!$stats.userchoose.text']&quot;).attr('ng-show','!$stats.userchoose'+r+'.text');
+	$(&quot;span[ng-show='$stats.userchoose.text']&quot;).attr('ng-show','$stats.userchoose'+r+'.text');*/
+}</form:scripts>
+  <form:htmls>&lt;style>&#xD;
+#userchoosediv {&#xD;
+    padding: 0px;&#xD;
+    padding-top: 0px;&#xD;
+    padding-right: 0px;&#xD;
+    padding-bottom: 0px;&#xD;
+    padding-left: 0px;&#xD;
+    }&#xD;
+&lt;/style></form:htmls>
+</form:Form>

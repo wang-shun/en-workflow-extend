@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getouttransition" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService" method="getOutTransition">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>流程获得出去分支</name>
+  <desc>获取节点的出去分支</desc>
+  <inputs>
+    <input collection="false" desc="" id="procInstanceId" required="false" type="String"/>
+    <input collection="false" desc="" id="procDefId" required="false" type="String"/>
+    <input collection="false" desc="" id="activitiId" required="false" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.List"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.procInstanceId" name="procInstanceId" signature="QString;" type="String"/>
+    <param autoValue="Input.procDefId" name="procDefId" signature="QString;" type="String"/>
+    <param autoValue="Input.activitiId" name="activitiId" signature="QString;" type="String"/>
+  </params>
+  <return signature="QList&lt;QWorkFlowTransition;>;" type="java.util.List"/>
+</CustomRule>

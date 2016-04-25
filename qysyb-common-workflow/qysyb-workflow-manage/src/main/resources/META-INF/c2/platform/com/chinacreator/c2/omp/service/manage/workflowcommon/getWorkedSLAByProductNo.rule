@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getworkslabyproductno" log="false" className="com.chinacreator.c2.omp.service.manage.slamanage.service.ServiceAgreementService" method="getTheWorkedSLAByProductNo">
+  <name>按服务产品编码获取生效的SLA</name>
+  <desc>按服务产品编码获取生效服务级别协议</desc>
+  <inputs>
+    <input collection="false" desc="" id="serviceProductNo" required="true" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="com.chinacreator.c2.omp.service.manage.slamanage.ServiceAgreement"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.serviceProductNo" name="serviceProductNo" signature="QString;" type="String"/>
+  </params>
+  <return signature="QServiceAgreement;" type="com.chinacreator.c2.omp.service.manage.slamanage.ServiceAgreement"/>
+</CustomRule>

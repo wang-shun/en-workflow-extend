@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="updateFormDataWithExternalTable" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.FormService" method="updateFormDataWithExternalTable">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>业务数据单独存表时更新业务数据</name>
+  <desc>业务数据有自己的表时业务数据的更新</desc>
+  <inputs>
+    <input collection="false" desc="" id="businessKey" required="true" type="String"/>
+    <input collection="false" desc="" id="entityjson" required="true" type="String"/>
+    <input collection="false" desc="" id="form" required="true" type="com.chinacreator.c2.omp.service.manage.workflowcommon.Form"/>
+    <input collection="false" desc="这里是流程实例id 业务表吧流程实例id作为业务key" id="procInsId" required="false" type="String"/>
+  </inputs>
+  <outputs/>
+  <params>
+    <param autoValue="Input.businessKey" name="businessKey" signature="QString;" type="String"/>
+    <param autoValue="Input.procInsId" name="procInsId" signature="QString;" type="String"/>
+    <param autoValue="Input.entityjson" name="entityjson" signature="QString;" type="String"/>
+    <param autoValue="Input.form" name="form" signature="QForm;" type="com.chinacreator.c2.omp.service.manage.workflowcommon.Form"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

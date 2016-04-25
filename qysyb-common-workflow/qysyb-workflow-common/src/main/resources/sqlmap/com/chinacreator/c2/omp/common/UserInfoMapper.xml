@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.common.UserInfoMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  td_sm_user.user_id ,
+		  td_sm_user.user_name ,
+		  td_sm_user.user_password ,
+		  td_sm_user.user_realname ,
+		  td_sm_user.user_pinyin ,
+		  td_sm_user.user_sex ,
+		  td_sm_user.user_hometel ,
+		  td_sm_user.user_worktel ,
+		  td_sm_user.user_workaddress ,
+		  td_sm_user.user_mobiletel1 ,
+		  td_sm_user.user_mobiletel2 ,
+		  td_sm_user.user_fax ,
+		  td_sm_user.user_oicq ,
+		  td_sm_user.user_regdate ,
+		  td_sm_user.user_birthday ,
+		  td_sm_user.user_email ,
+		  td_sm_user.user_address ,
+		  td_sm_user.user_postalcode ,
+		  td_sm_user.user_idcard ,
+		  td_sm_user.user_isvalid ,
+		  td_sm_user.user_logincount ,
+		  td_sm_user.user_type ,
+		  td_sm_user.past_time ,
+		  td_sm_user.dredge_time ,
+		  td_sm_user.lastlogin_date ,
+		  td_sm_user.worklength ,
+		  td_sm_user.politics ,
+		  td_sm_user.login_ip ,
+		  td_sm_user.cert_sn ,
+		  td_sm_user.user_sn ,
+		  td_sm_user.remark1 ,
+		  td_sm_user.remark2 ,
+		  td_sm_user.remark3 ,
+		  td_sm_user.remark4 ,
+		  td_sm_user.remark5 ,
+		  td_sm_user.remark6 ,
+		  td_sm_user.remark7 ,
+		  td_sm_user.remark8 ,
+		  td_sm_user.remark9 ,
+		  td_sm_user.remark10 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="userId != null">and td_sm_user.user_id = #{userId}</if>
+	    <if test="userName != null">and td_sm_user.user_name = #{userName}</if>
+	    <if test="userPassword != null">and td_sm_user.user_password = #{userPassword}</if>
+	    <if test="userRealname != null">and td_sm_user.user_realname = #{userRealname}</if>
+	    <if test="userPinyin != null">and td_sm_user.user_pinyin = #{userPinyin}</if>
+	    <if test="userSex != null">and td_sm_user.user_sex = #{userSex}</if>
+	    <if test="userHometel != null">and td_sm_user.user_hometel = #{userHometel}</if>
+	    <if test="userWorktel != null">and td_sm_user.user_worktel = #{userWorktel}</if>
+	    <if test="userWorkaddress != null">and td_sm_user.user_workaddress = #{userWorkaddress}</if>
+	    <if test="userMobiletel1 != null">and td_sm_user.user_mobiletel1 = #{userMobiletel1}</if>
+	    <if test="userMobiletel2 != null">and td_sm_user.user_mobiletel2 = #{userMobiletel2}</if>
+	    <if test="userFax != null">and td_sm_user.user_fax = #{userFax}</if>
+	    <if test="userOicq != null">and td_sm_user.user_oicq = #{userOicq}</if>
+	    <if test="userRegdate != null">and td_sm_user.user_regdate = #{userRegdate}</if>
+	    <if test="userBirthday != null">and td_sm_user.user_birthday = #{userBirthday}</if>
+	    <if test="userEmail != null">and td_sm_user.user_email = #{userEmail}</if>
+	    <if test="userAddress != null">and td_sm_user.user_address = #{userAddress}</if>
+	    <if test="userPostalcode != null">and td_sm_user.user_postalcode = #{userPostalcode}</if>
+	    <if test="userIdcard != null">and td_sm_user.user_idcard = #{userIdcard}</if>
+	    <if test="userIsvalid != null">and td_sm_user.user_isvalid = #{userIsvalid}</if>
+	    <if test="userLogincount != null">and td_sm_user.user_logincount = #{userLogincount}</if>
+	    <if test="userType != null">and td_sm_user.user_type = #{userType}</if>
+	    <if test="pastTime != null">and td_sm_user.past_time = #{pastTime}</if>
+	    <if test="dredgeTime != null">and td_sm_user.dredge_time = #{dredgeTime}</if>
+	    <if test="lastloginDate != null">and td_sm_user.lastlogin_date = #{lastloginDate}</if>
+	    <if test="worklength != null">and td_sm_user.worklength = #{worklength}</if>
+	    <if test="politics != null">and td_sm_user.politics = #{politics}</if>
+	    <if test="loginIp != null">and td_sm_user.login_ip = #{loginIp}</if>
+	    <if test="certSn != null">and td_sm_user.cert_sn = #{certSn}</if>
+	    <if test="userSn != null">and td_sm_user.user_sn = #{userSn}</if>
+	    <if test="remark1 != null">and td_sm_user.remark1 = #{remark1}</if>
+	    <if test="remark2 != null">and td_sm_user.remark2 = #{remark2}</if>
+	    <if test="remark3 != null">and td_sm_user.remark3 = #{remark3}</if>
+	    <if test="remark4 != null">and td_sm_user.remark4 = #{remark4}</if>
+	    <if test="remark5 != null">and td_sm_user.remark5 = #{remark5}</if>
+	    <if test="remark6 != null">and td_sm_user.remark6 = #{remark6}</if>
+	    <if test="remark7 != null">and td_sm_user.remark7 = #{remark7}</if>
+	    <if test="remark8 != null">and td_sm_user.remark8 = #{remark8}</if>
+	    <if test="remark9 != null">and td_sm_user.remark9 = #{remark9}</if>
+	    <if test="remark10 != null">and td_sm_user.remark10 = #{remark10}</if>
+</sql>
+
+
+<!-- ElementID:UserInfoResult,Generated=true -->
+<resultMap id="UserInfoResult" type="com.chinacreator.c2.omp.common.UserInfo">
+	<id property="userId" column="user_id"/>
+	<result property="userName" column="user_name"/>
+	<result property="userPassword" column="user_password"/>
+	<result property="userRealname" column="user_realname"/>
+	<result property="userPinyin" column="user_pinyin"/>
+	<result property="userSex" column="user_sex"/>
+	<result property="userHometel" column="user_hometel"/>
+	<result property="userWorktel" column="user_worktel"/>
+	<result property="userWorkaddress" column="user_workaddress"/>
+	<result property="userMobiletel1" column="user_mobiletel1"/>
+	<result property="userMobiletel2" column="user_mobiletel2"/>
+	<result property="userFax" column="user_fax"/>
+	<result property="userOicq" column="user_oicq"/>
+	<result property="userRegdate" column="user_regdate"/>
+	<result property="userBirthday" column="user_birthday"/>
+	<result property="userEmail" column="user_email"/>
+	<result property="userAddress" column="user_address"/>
+	<result property="userPostalcode" column="user_postalcode"/>
+	<result property="userIdcard" column="user_idcard"/>
+	<result property="userIsvalid" column="user_isvalid"/>
+	<result property="userLogincount" column="user_logincount"/>
+	<result property="userType" column="user_type"/>
+	<result property="pastTime" column="past_time"/>
+	<result property="dredgeTime" column="dredge_time"/>
+	<result property="lastloginDate" column="lastlogin_date"/>
+	<result property="worklength" column="worklength"/>
+	<result property="politics" column="politics"/>
+	<result property="loginIp" column="login_ip"/>
+	<result property="certSn" column="cert_sn"/>
+	<result property="userSn" column="user_sn"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+	<result property="remark3" column="remark3"/>
+	<result property="remark4" column="remark4"/>
+	<result property="remark5" column="remark5"/>
+	<result property="remark6" column="remark6"/>
+	<result property="remark7" column="remark7"/>
+	<result property="remark8" column="remark8"/>
+	<result property="remark9" column="remark9"/>
+	<result property="remark10" column="remark10"/>
+</resultMap>
+
+
+
+
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.common.UserInfo">
+	insert into td_sm_user(
+	         <if test="userId != null">user_id</if>
+	         <if test="userName != null">,user_name</if>
+	         <if test="userPassword != null">,user_password</if>
+	         <if test="userRealname != null">,user_realname</if>
+	         <if test="userPinyin != null">,user_pinyin</if>
+	         <if test="userSex != null">,user_sex</if>
+	         <if test="userHometel != null">,user_hometel</if>
+	         <if test="userWorktel != null">,user_worktel</if>
+	         <if test="userWorkaddress != null">,user_workaddress</if>
+	         <if test="userMobiletel1 != null">,user_mobiletel1</if>
+	         <if test="userMobiletel2 != null">,user_mobiletel2</if>
+	         <if test="userFax != null">,user_fax</if>
+	         <if test="userOicq != null">,user_oicq</if>
+	         <if test="userRegdate != null">,user_regdate</if>
+	         <if test="userBirthday != null">,user_birthday</if>
+	         <if test="userEmail != null">,user_email</if>
+	         <if test="userAddress != null">,user_address</if>
+	         <if test="userPostalcode != null">,user_postalcode</if>
+	         <if test="userIdcard != null">,user_idcard</if>
+	         <if test="userIsvalid != null">,user_isvalid</if>
+	         <if test="userLogincount != null">,user_logincount</if>
+	         <if test="userType != null">,user_type</if>
+	         <if test="pastTime != null">,past_time</if>
+	         <if test="dredgeTime != null">,dredge_time</if>
+	         <if test="lastloginDate != null">,lastlogin_date</if>
+	         <if test="worklength != null">,worklength</if>
+	         <if test="politics != null">,politics</if>
+	         <if test="loginIp != null">,login_ip</if>
+	         <if test="certSn != null">,cert_sn</if>
+	         <if test="userSn != null">,user_sn</if>
+	         <if test="remark1 != null">,remark1</if>
+	         <if test="remark2 != null">,remark2</if>
+	         <if test="remark3 != null">,remark3</if>
+	         <if test="remark4 != null">,remark4</if>
+	         <if test="remark5 != null">,remark5</if>
+	         <if test="remark6 != null">,remark6</if>
+	         <if test="remark7 != null">,remark7</if>
+	         <if test="remark8 != null">,remark8</if>
+	         <if test="remark9 != null">,remark9</if>
+	         <if test="remark10 != null">,remark10</if>
+	 	 	 )
+	 values (
+	         <if test="userId != null">#{userId,jdbcType=VARCHAR}</if>
+	         <if test="userName != null">,#{userName,jdbcType=VARCHAR}</if>
+	         <if test="userPassword != null">,#{userPassword,jdbcType=VARCHAR}</if>
+	         <if test="userRealname != null">,#{userRealname,jdbcType=VARCHAR}</if>
+	         <if test="userPinyin != null">,#{userPinyin,jdbcType=VARCHAR}</if>
+	         <if test="userSex != null">,#{userSex,jdbcType=VARCHAR}</if>
+	         <if test="userHometel != null">,#{userHometel,jdbcType=VARCHAR}</if>
+	         <if test="userWorktel != null">,#{userWorktel,jdbcType=VARCHAR}</if>
+	         <if test="userWorkaddress != null">,#{userWorkaddress,jdbcType=VARCHAR}</if>
+	         <if test="userMobiletel1 != null">,#{userMobiletel1,jdbcType=VARCHAR}</if>
+	         <if test="userMobiletel2 != null">,#{userMobiletel2,jdbcType=VARCHAR}</if>
+	         <if test="userFax != null">,#{userFax,jdbcType=VARCHAR}</if>
+	         <if test="userOicq != null">,#{userOicq,jdbcType=VARCHAR}</if>
+	         <if test="userRegdate != null">,#{userRegdate,jdbcType=TIMESTAMP}</if>
+	         <if test="userBirthday != null">,#{userBirthday,jdbcType=TIMESTAMP}</if>
+	         <if test="userEmail != null">,#{userEmail,jdbcType=VARCHAR}</if>
+	         <if test="userAddress != null">,#{userAddress,jdbcType=VARCHAR}</if>
+	         <if test="userPostalcode != null">,#{userPostalcode,jdbcType=VARCHAR}</if>
+	         <if test="userIdcard != null">,#{userIdcard,jdbcType=VARCHAR}</if>
+	         <if test="userIsvalid != null">,#{userIsvalid,jdbcType=NUMERIC}</if>
+	         <if test="userLogincount != null">,#{userLogincount,jdbcType=NUMERIC}</if>
+	         <if test="userType != null">,#{userType,jdbcType=VARCHAR}</if>
+	         <if test="pastTime != null">,#{pastTime,jdbcType=TIMESTAMP}</if>
+	         <if test="dredgeTime != null">,#{dredgeTime,jdbcType=VARCHAR}</if>
+	         <if test="lastloginDate != null">,#{lastloginDate,jdbcType=TIMESTAMP}</if>
+	         <if test="worklength != null">,#{worklength,jdbcType=VARCHAR}</if>
+	         <if test="politics != null">,#{politics,jdbcType=VARCHAR}</if>
+	         <if test="loginIp != null">,#{loginIp,jdbcType=VARCHAR}</if>
+	         <if test="certSn != null">,#{certSn,jdbcType=VARCHAR}</if>
+	         <if test="userSn != null">,#{userSn,jdbcType=NUMERIC}</if>
+	         <if test="remark1 != null">,#{remark1,jdbcType=VARCHAR}</if>
+	         <if test="remark2 != null">,#{remark2,jdbcType=VARCHAR}</if>
+	         <if test="remark3 != null">,#{remark3,jdbcType=VARCHAR}</if>
+	         <if test="remark4 != null">,#{remark4,jdbcType=VARCHAR}</if>
+	         <if test="remark5 != null">,#{remark5,jdbcType=VARCHAR}</if>
+	         <if test="remark6 != null">,#{remark6,jdbcType=VARCHAR}</if>
+	         <if test="remark7 != null">,#{remark7,jdbcType=VARCHAR}</if>
+	         <if test="remark8 != null">,#{remark8,jdbcType=VARCHAR}</if>
+	         <if test="remark9 != null">,#{remark9,jdbcType=VARCHAR}</if>
+	         <if test="remark10 != null">,#{remark10,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.common.UserInfo" resultType="int">
+	select count(*) from td_sm_user 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.common.UserInfo">
+	update td_sm_user
+<set>
+	<if test="userName != null">user_name=#{userName,jdbcType=VARCHAR},</if>
+	<if test="userPassword != null">user_password=#{userPassword,jdbcType=VARCHAR},</if>
+	<if test="userRealname != null">user_realname=#{userRealname,jdbcType=VARCHAR},</if>
+	<if test="userPinyin != null">user_pinyin=#{userPinyin,jdbcType=VARCHAR},</if>
+	<if test="userSex != null">user_sex=#{userSex,jdbcType=VARCHAR},</if>
+	<if test="userHometel != null">user_hometel=#{userHometel,jdbcType=VARCHAR},</if>
+	<if test="userWorktel != null">user_worktel=#{userWorktel,jdbcType=VARCHAR},</if>
+	<if test="userWorkaddress != null">user_workaddress=#{userWorkaddress,jdbcType=VARCHAR},</if>
+	<if test="userMobiletel1 != null">user_mobiletel1=#{userMobiletel1,jdbcType=VARCHAR},</if>
+	<if test="userMobiletel2 != null">user_mobiletel2=#{userMobiletel2,jdbcType=VARCHAR},</if>
+	<if test="userFax != null">user_fax=#{userFax,jdbcType=VARCHAR},</if>
+	<if test="userOicq != null">user_oicq=#{userOicq,jdbcType=VARCHAR},</if>
+	<if test="userRegdate != null">user_regdate=#{userRegdate,jdbcType=TIMESTAMP},</if>
+	<if test="userBirthday != null">user_birthday=#{userBirthday,jdbcType=TIMESTAMP},</if>
+	<if test="userEmail != null">user_email=#{userEmail,jdbcType=VARCHAR},</if>
+	<if test="userAddress != null">user_address=#{userAddress,jdbcType=VARCHAR},</if>
+	<if test="userPostalcode != null">user_postalcode=#{userPostalcode,jdbcType=VARCHAR},</if>
+	<if test="userIdcard != null">user_idcard=#{userIdcard,jdbcType=VARCHAR},</if>
+	<if test="userIsvalid != null">user_isvalid=#{userIsvalid,jdbcType=NUMERIC},</if>
+	<if test="userLogincount != null">user_logincount=#{userLogincount,jdbcType=NUMERIC},</if>
+	<if test="userType != null">user_type=#{userType,jdbcType=VARCHAR},</if>
+	<if test="pastTime != null">past_time=#{pastTime,jdbcType=TIMESTAMP},</if>
+	<if test="dredgeTime != null">dredge_time=#{dredgeTime,jdbcType=VARCHAR},</if>
+	<if test="lastloginDate != null">lastlogin_date=#{lastloginDate,jdbcType=TIMESTAMP},</if>
+	<if test="worklength != null">worklength=#{worklength,jdbcType=VARCHAR},</if>
+	<if test="politics != null">politics=#{politics,jdbcType=VARCHAR},</if>
+	<if test="loginIp != null">login_ip=#{loginIp,jdbcType=VARCHAR},</if>
+	<if test="certSn != null">cert_sn=#{certSn,jdbcType=VARCHAR},</if>
+	<if test="userSn != null">user_sn=#{userSn,jdbcType=NUMERIC},</if>
+	<if test="remark1 != null">remark1=#{remark1,jdbcType=VARCHAR},</if>
+	<if test="remark2 != null">remark2=#{remark2,jdbcType=VARCHAR},</if>
+	<if test="remark3 != null">remark3=#{remark3,jdbcType=VARCHAR},</if>
+	<if test="remark4 != null">remark4=#{remark4,jdbcType=VARCHAR},</if>
+	<if test="remark5 != null">remark5=#{remark5,jdbcType=VARCHAR},</if>
+	<if test="remark6 != null">remark6=#{remark6,jdbcType=VARCHAR},</if>
+	<if test="remark7 != null">remark7=#{remark7,jdbcType=VARCHAR},</if>
+	<if test="remark8 != null">remark8=#{remark8,jdbcType=VARCHAR},</if>
+	<if test="remark9 != null">remark9=#{remark9,jdbcType=VARCHAR},</if>
+	<if test="remark10 != null">remark10=#{remark10,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="userId != null">and user_id = #{userId}</when>
+        <otherwise>and user_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update td_sm_user
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="userName==null">user_name = null,</if>
+		    <if test="userPassword==null">user_password = null,</if>
+		    <if test="userRealname==null">user_realname = null,</if>
+		    <if test="userPinyin==null">user_pinyin = null,</if>
+		    <if test="userSex==null">user_sex = null,</if>
+		    <if test="userHometel==null">user_hometel = null,</if>
+		    <if test="userWorktel==null">user_worktel = null,</if>
+		    <if test="userWorkaddress==null">user_workaddress = null,</if>
+		    <if test="userMobiletel1==null">user_mobiletel1 = null,</if>
+		    <if test="userMobiletel2==null">user_mobiletel2 = null,</if>
+		    <if test="userFax==null">user_fax = null,</if>
+		    <if test="userOicq==null">user_oicq = null,</if>
+		    <if test="userRegdate==null">user_regdate = null,</if>
+		    <if test="userBirthday==null">user_birthday = null,</if>
+		    <if test="userEmail==null">user_email = null,</if>
+		    <if test="userAddress==null">user_address = null,</if>
+		    <if test="userPostalcode==null">user_postalcode = null,</if>
+		    <if test="userIdcard==null">user_idcard = null,</if>
+		    <if test="userIsvalid==null">user_isvalid = null,</if>
+		    <if test="userLogincount==null">user_logincount = null,</if>
+		    <if test="userType==null">user_type = null,</if>
+		    <if test="pastTime==null">past_time = null,</if>
+		    <if test="dredgeTime==null">dredge_time = null,</if>
+		    <if test="lastloginDate==null">lastlogin_date = null,</if>
+		    <if test="worklength==null">worklength = null,</if>
+		    <if test="politics==null">politics = null,</if>
+		    <if test="loginIp==null">login_ip = null,</if>
+		    <if test="certSn==null">cert_sn = null,</if>
+		    <if test="userSn==null">user_sn = null,</if>
+		    <if test="remark1==null">remark1 = null,</if>
+		    <if test="remark2==null">remark2 = null,</if>
+		    <if test="remark3==null">remark3 = null,</if>
+		    <if test="remark4==null">remark4 = null,</if>
+		    <if test="remark5==null">remark5 = null,</if>
+		    <if test="remark6==null">remark6 = null,</if>
+		    <if test="remark7==null">remark7 = null,</if>
+		    <if test="remark8==null">remark8 = null,</if>
+		    <if test="remark9==null">remark9 = null,</if>
+		    <if test="remark10==null">remark10 = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="userId != null">and user_id = #{userId}</when>
+			<otherwise>and user_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.common.UserInfo">
+    delete from td_sm_user where 1=1 and user_id = #{userId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.common.UserInfo" resultMap="UserInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_user 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into td_sm_user (user_id,user_name,user_password,user_realname,user_pinyin,user_sex,user_hometel,user_worktel,user_workaddress,user_mobiletel1,user_mobiletel2,user_fax,user_oicq,user_regdate,user_birthday,user_email,user_address,user_postalcode,user_idcard,user_isvalid,user_logincount,user_type,past_time,dredge_time,lastlogin_date,worklength,politics,login_ip,cert_sn,user_sn,remark1,remark2,remark3,remark4,remark5,remark6,remark7,remark8,remark9,remark10) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.userId,jdbcType = VARCHAR},
+				#{entity.userName,jdbcType = VARCHAR},
+				#{entity.userPassword,jdbcType = VARCHAR},
+				#{entity.userRealname,jdbcType = VARCHAR},
+				#{entity.userPinyin,jdbcType = VARCHAR},
+				#{entity.userSex,jdbcType = VARCHAR},
+				#{entity.userHometel,jdbcType = VARCHAR},
+				#{entity.userWorktel,jdbcType = VARCHAR},
+				#{entity.userWorkaddress,jdbcType = VARCHAR},
+				#{entity.userMobiletel1,jdbcType = VARCHAR},
+				#{entity.userMobiletel2,jdbcType = VARCHAR},
+				#{entity.userFax,jdbcType = VARCHAR},
+				#{entity.userOicq,jdbcType = VARCHAR},
+				#{entity.userRegdate,jdbcType = TIMESTAMP},
+				#{entity.userBirthday,jdbcType = TIMESTAMP},
+				#{entity.userEmail,jdbcType = VARCHAR},
+				#{entity.userAddress,jdbcType = VARCHAR},
+				#{entity.userPostalcode,jdbcType = VARCHAR},
+				#{entity.userIdcard,jdbcType = VARCHAR},
+				#{entity.userIsvalid,jdbcType = NUMERIC},
+				#{entity.userLogincount,jdbcType = NUMERIC},
+				#{entity.userType,jdbcType = VARCHAR},
+				#{entity.pastTime,jdbcType = TIMESTAMP},
+				#{entity.dredgeTime,jdbcType = VARCHAR},
+				#{entity.lastloginDate,jdbcType = TIMESTAMP},
+				#{entity.worklength,jdbcType = VARCHAR},
+				#{entity.politics,jdbcType = VARCHAR},
+				#{entity.loginIp,jdbcType = VARCHAR},
+				#{entity.certSn,jdbcType = VARCHAR},
+				#{entity.userSn,jdbcType = NUMERIC},
+				#{entity.remark1,jdbcType = VARCHAR},
+				#{entity.remark2,jdbcType = VARCHAR},
+				#{entity.remark3,jdbcType = VARCHAR},
+				#{entity.remark4,jdbcType = VARCHAR},
+				#{entity.remark5,jdbcType = VARCHAR},
+				#{entity.remark6,jdbcType = VARCHAR},
+				#{entity.remark7,jdbcType = VARCHAR},
+				#{entity.remark8,jdbcType = VARCHAR},
+				#{entity.remark9,jdbcType = VARCHAR},
+				#{entity.remark10,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from td_sm_user where user_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.userId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="UserInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_user 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="UserInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_user 
+		 where td_sm_user.user_id = #{userId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.common.UserInfo" resultMap="UserInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_user 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="UserInfoResult">
+select 
+	<include refid="column_sql"/> 
+	from td_sm_user 
+	where td_sm_user.user_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		td_sm_user.user_id
+	    from td_sm_user 
+		 <where>
+	        <if test="entity.userId != null">and td_sm_user.user_id = #{entity.userId}</if>
+	        <if test="entity.userName != null">and td_sm_user.user_name = #{entity.userName}</if>
+	        <if test="entity.userPassword != null">and td_sm_user.user_password = #{entity.userPassword}</if>
+	        <if test="entity.userRealname != null">and td_sm_user.user_realname = #{entity.userRealname}</if>
+	        <if test="entity.userPinyin != null">and td_sm_user.user_pinyin = #{entity.userPinyin}</if>
+	        <if test="entity.userSex != null">and td_sm_user.user_sex = #{entity.userSex}</if>
+	        <if test="entity.userHometel != null">and td_sm_user.user_hometel = #{entity.userHometel}</if>
+	        <if test="entity.userWorktel != null">and td_sm_user.user_worktel = #{entity.userWorktel}</if>
+	        <if test="entity.userWorkaddress != null">and td_sm_user.user_workaddress = #{entity.userWorkaddress}</if>
+	        <if test="entity.userMobiletel1 != null">and td_sm_user.user_mobiletel1 = #{entity.userMobiletel1}</if>
+	        <if test="entity.userMobiletel2 != null">and td_sm_user.user_mobiletel2 = #{entity.userMobiletel2}</if>
+	        <if test="entity.userFax != null">and td_sm_user.user_fax = #{entity.userFax}</if>
+	        <if test="entity.userOicq != null">and td_sm_user.user_oicq = #{entity.userOicq}</if>
+	        <if test="entity.userRegdate != null">and td_sm_user.user_regdate = #{entity.userRegdate}</if>
+	        <if test="entity.userBirthday != null">and td_sm_user.user_birthday = #{entity.userBirthday}</if>
+	        <if test="entity.userEmail != null">and td_sm_user.user_email = #{entity.userEmail}</if>
+	        <if test="entity.userAddress != null">and td_sm_user.user_address = #{entity.userAddress}</if>
+	        <if test="entity.userPostalcode != null">and td_sm_user.user_postalcode = #{entity.userPostalcode}</if>
+	        <if test="entity.userIdcard != null">and td_sm_user.user_idcard = #{entity.userIdcard}</if>
+	        <if test="entity.userIsvalid != null">and td_sm_user.user_isvalid = #{entity.userIsvalid}</if>
+	        <if test="entity.userLogincount != null">and td_sm_user.user_logincount = #{entity.userLogincount}</if>
+	        <if test="entity.userType != null">and td_sm_user.user_type = #{entity.userType}</if>
+	        <if test="entity.pastTime != null">and td_sm_user.past_time = #{entity.pastTime}</if>
+	        <if test="entity.dredgeTime != null">and td_sm_user.dredge_time = #{entity.dredgeTime}</if>
+	        <if test="entity.lastloginDate != null">and td_sm_user.lastlogin_date = #{entity.lastloginDate}</if>
+	        <if test="entity.worklength != null">and td_sm_user.worklength = #{entity.worklength}</if>
+	        <if test="entity.politics != null">and td_sm_user.politics = #{entity.politics}</if>
+	        <if test="entity.loginIp != null">and td_sm_user.login_ip = #{entity.loginIp}</if>
+	        <if test="entity.certSn != null">and td_sm_user.cert_sn = #{entity.certSn}</if>
+	        <if test="entity.userSn != null">and td_sm_user.user_sn = #{entity.userSn}</if>
+	        <if test="entity.remark1 != null">and td_sm_user.remark1 = #{entity.remark1}</if>
+	        <if test="entity.remark2 != null">and td_sm_user.remark2 = #{entity.remark2}</if>
+	        <if test="entity.remark3 != null">and td_sm_user.remark3 = #{entity.remark3}</if>
+	        <if test="entity.remark4 != null">and td_sm_user.remark4 = #{entity.remark4}</if>
+	        <if test="entity.remark5 != null">and td_sm_user.remark5 = #{entity.remark5}</if>
+	        <if test="entity.remark6 != null">and td_sm_user.remark6 = #{entity.remark6}</if>
+	        <if test="entity.remark7 != null">and td_sm_user.remark7 = #{entity.remark7}</if>
+	        <if test="entity.remark8 != null">and td_sm_user.remark8 = #{entity.remark8}</if>
+	        <if test="entity.remark9 != null">and td_sm_user.remark9 = #{entity.remark9}</if>
+	        <if test="entity.remark10 != null">and td_sm_user.remark10 = #{entity.remark10}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<cache/>
+<!-- ElementID:selectUserByIds,Generated=false -->
+<select id="selectUserByIds" parameterType="String" resultMap="UserInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_user 
+		 <where>
+				<if test="userIds != null">and td_sm_user.user_id in(#{userIds}) </if>
+		</where>
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update td_sm_user
+	<set>
+	<if test="entity.userName != null">user_name= #{entity.userName,jdbcType=VARCHAR},</if>
+	<if test="entity.userPassword != null">user_password= #{entity.userPassword,jdbcType=VARCHAR},</if>
+	<if test="entity.userRealname != null">user_realname= #{entity.userRealname,jdbcType=VARCHAR},</if>
+	<if test="entity.userPinyin != null">user_pinyin= #{entity.userPinyin,jdbcType=VARCHAR},</if>
+	<if test="entity.userSex != null">user_sex= #{entity.userSex,jdbcType=VARCHAR},</if>
+	<if test="entity.userHometel != null">user_hometel= #{entity.userHometel,jdbcType=VARCHAR},</if>
+	<if test="entity.userWorktel != null">user_worktel= #{entity.userWorktel,jdbcType=VARCHAR},</if>
+	<if test="entity.userWorkaddress != null">user_workaddress= #{entity.userWorkaddress,jdbcType=VARCHAR},</if>
+	<if test="entity.userMobiletel1 != null">user_mobiletel1= #{entity.userMobiletel1,jdbcType=VARCHAR},</if>
+	<if test="entity.userMobiletel2 != null">user_mobiletel2= #{entity.userMobiletel2,jdbcType=VARCHAR},</if>
+	<if test="entity.userFax != null">user_fax= #{entity.userFax,jdbcType=VARCHAR},</if>
+	<if test="entity.userOicq != null">user_oicq= #{entity.userOicq,jdbcType=VARCHAR},</if>
+	<if test="entity.userRegdate != null">user_regdate= #{entity.userRegdate,jdbcType=TIMESTAMP},</if>
+	<if test="entity.userBirthday != null">user_birthday= #{entity.userBirthday,jdbcType=TIMESTAMP},</if>
+	<if test="entity.userEmail != null">user_email= #{entity.userEmail,jdbcType=VARCHAR},</if>
+	<if test="entity.userAddress != null">user_address= #{entity.userAddress,jdbcType=VARCHAR},</if>
+	<if test="entity.userPostalcode != null">user_postalcode= #{entity.userPostalcode,jdbcType=VARCHAR},</if>
+	<if test="entity.userIdcard != null">user_idcard= #{entity.userIdcard,jdbcType=VARCHAR},</if>
+	<if test="entity.userIsvalid != null">user_isvalid= #{entity.userIsvalid,jdbcType=NUMERIC},</if>
+	<if test="entity.userLogincount != null">user_logincount= #{entity.userLogincount,jdbcType=NUMERIC},</if>
+	<if test="entity.userType != null">user_type= #{entity.userType,jdbcType=VARCHAR},</if>
+	<if test="entity.pastTime != null">past_time= #{entity.pastTime,jdbcType=TIMESTAMP},</if>
+	<if test="entity.dredgeTime != null">dredge_time= #{entity.dredgeTime,jdbcType=VARCHAR},</if>
+	<if test="entity.lastloginDate != null">lastlogin_date= #{entity.lastloginDate,jdbcType=TIMESTAMP},</if>
+	<if test="entity.worklength != null">worklength= #{entity.worklength,jdbcType=VARCHAR},</if>
+	<if test="entity.politics != null">politics= #{entity.politics,jdbcType=VARCHAR},</if>
+	<if test="entity.loginIp != null">login_ip= #{entity.loginIp,jdbcType=VARCHAR},</if>
+	<if test="entity.certSn != null">cert_sn= #{entity.certSn,jdbcType=VARCHAR},</if>
+	<if test="entity.userSn != null">user_sn= #{entity.userSn,jdbcType=NUMERIC},</if>
+	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=VARCHAR},</if>
+	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
+	<if test="entity.remark3 != null">remark3= #{entity.remark3,jdbcType=VARCHAR},</if>
+	<if test="entity.remark4 != null">remark4= #{entity.remark4,jdbcType=VARCHAR},</if>
+	<if test="entity.remark5 != null">remark5= #{entity.remark5,jdbcType=VARCHAR},</if>
+	<if test="entity.remark6 != null">remark6= #{entity.remark6,jdbcType=VARCHAR},</if>
+	<if test="entity.remark7 != null">remark7= #{entity.remark7,jdbcType=VARCHAR},</if>
+	<if test="entity.remark8 != null">remark8= #{entity.remark8,jdbcType=VARCHAR},</if>
+	<if test="entity.remark9 != null">remark9= #{entity.remark9,jdbcType=VARCHAR},</if>
+	<if test="entity.remark10 != null">remark10= #{entity.remark10,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.userId != null">and user_id = #{entity.userId}</when>
+				<otherwise>and user_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

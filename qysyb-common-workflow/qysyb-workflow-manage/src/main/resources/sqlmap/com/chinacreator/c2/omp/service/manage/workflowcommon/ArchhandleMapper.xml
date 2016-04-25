@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.service.manage.workflowcommon.ArchhandleMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  TA_OFFICE_ARCHHANDLE.oid ,
+		  TA_OFFICE_ARCHHANDLE.cc_form_instanceid ,
+		  TA_OFFICE_ARCHHANDLE.audit_time ,
+		  TA_OFFICE_ARCHHANDLE.opinion_content ,
+		  TA_OFFICE_ARCHHANDLE.logical_delete ,
+		  TA_OFFICE_ARCHHANDLE.activity_name ,
+		  TA_OFFICE_ARCHHANDLE.proc_ins_id ,
+		  TA_OFFICE_ARCHHANDLE.activity_id ,
+		  TA_OFFICE_ARCHHANDLE.business_key ,
+		  TA_OFFICE_ARCHHANDLE.audit_state ,
+		  td_sm_user_T1.user_id T1_user_id ,
+		  td_sm_user_T1.user_name T1_user_name ,
+		  td_sm_user_T1.user_password T1_user_password ,
+		  td_sm_user_T1.user_realname T1_user_realname ,
+		  td_sm_user_T1.user_pinyin T1_user_pinyin ,
+		  td_sm_user_T1.user_sex T1_user_sex ,
+		  td_sm_user_T1.user_hometel T1_user_hometel ,
+		  td_sm_user_T1.user_worktel T1_user_worktel ,
+		  td_sm_user_T1.user_workaddress T1_user_workaddress ,
+		  td_sm_user_T1.user_mobiletel1 T1_user_mobiletel1 ,
+		  td_sm_user_T1.user_mobiletel2 T1_user_mobiletel2 ,
+		  td_sm_user_T1.user_fax T1_user_fax ,
+		  td_sm_user_T1.user_oicq T1_user_oicq ,
+		  td_sm_user_T1.user_regdate T1_user_regdate ,
+		  td_sm_user_T1.user_birthday T1_user_birthday ,
+		  td_sm_user_T1.user_email T1_user_email ,
+		  td_sm_user_T1.user_address T1_user_address ,
+		  td_sm_user_T1.user_postalcode T1_user_postalcode ,
+		  td_sm_user_T1.user_idcard T1_user_idcard ,
+		  td_sm_user_T1.user_isvalid T1_user_isvalid ,
+		  td_sm_user_T1.user_logincount T1_user_logincount ,
+		  td_sm_user_T1.user_type T1_user_type ,
+		  td_sm_user_T1.past_time T1_past_time ,
+		  td_sm_user_T1.dredge_time T1_dredge_time ,
+		  td_sm_user_T1.lastlogin_date T1_lastlogin_date ,
+		  td_sm_user_T1.worklength T1_worklength ,
+		  td_sm_user_T1.politics T1_politics ,
+		  td_sm_user_T1.login_ip T1_login_ip ,
+		  td_sm_user_T1.cert_sn T1_cert_sn ,
+		  td_sm_user_T1.user_sn T1_user_sn ,
+		  td_sm_user_T1.remark1 T1_remark1 ,
+		  td_sm_user_T1.remark2 T1_remark2 ,
+		  td_sm_user_T1.remark3 T1_remark3 ,
+		  td_sm_user_T1.remark4 T1_remark4 ,
+		  td_sm_user_T1.remark5 T1_remark5 ,
+		  td_sm_user_T1.remark6 T1_remark6 ,
+		  td_sm_user_T1.remark7 T1_remark7 ,
+		  td_sm_user_T1.remark8 T1_remark8 ,
+		  td_sm_user_T1.remark9 T1_remark9 ,
+		  td_sm_user_T1.remark10 T1_remark10 ,
+		  td_sm_organization_T2.org_id T2_org_id ,
+		  td_sm_organization_T2.org_sn T2_org_sn ,
+		  td_sm_organization_T2.org_name T2_org_name ,
+		  td_sm_organization_T2.org_showname T2_org_showname ,
+		  td_sm_organization_T2.parent_id T2_parent_id ,
+		  td_sm_organization_T2.path T2_path ,
+		  td_sm_organization_T2.layer T2_layer ,
+		  td_sm_organization_T2.children T2_children ,
+		  td_sm_organization_T2.code T2_code ,
+		  td_sm_organization_T2.jp T2_jp ,
+		  td_sm_organization_T2.qp T2_qp ,
+		  td_sm_organization_T2.creatingtime T2_creatingtime ,
+		  td_sm_organization_T2.creator T2_creator ,
+		  td_sm_organization_T2.orgnumber T2_orgnumber ,
+		  td_sm_organization_T2.orgdesc T2_orgdesc ,
+		  td_sm_organization_T2.chargeorgid T2_chargeorgid ,
+		  td_sm_organization_T2.org_level T2_org_level ,
+		  td_sm_organization_T2.org_xzqm T2_org_xzqm ,
+		  td_sm_organization_T2.isdirectlyparty T2_isdirectlyparty ,
+		  td_sm_organization_T2.isforeignparty T2_isforeignparty ,
+		  td_sm_organization_T2.isjichaparty T2_isjichaparty ,
+		  td_sm_organization_T2.isdirectguanhu T2_isdirectguanhu ,
+		  td_sm_organization_T2.remark1 T2_remark1 ,
+		  td_sm_organization_T2.remark2 T2_remark2 ,
+		  td_sm_organization_T2.remark3 T2_remark3 ,
+		  td_sm_organization_T2.remark4 T2_remark4 ,
+		  td_sm_organization_T2.remark5 T2_remark5 ,
+		  td_sm_organization_T2.remark6 T2_remark6 ,
+		  td_sm_organization_T2.remark7 T2_remark7 ,
+		  td_sm_organization_T2.remark8 T2_remark8 ,
+		  td_sm_organization_T2.remark9 T2_remark9 ,
+		  td_sm_organization_T2.remark10 T2_remark10 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="oid != null">and TA_OFFICE_ARCHHANDLE.oid = #{oid}</if>
+	    <if test="ccFormInstanceid != null">and TA_OFFICE_ARCHHANDLE.cc_form_instanceid = #{ccFormInstanceid}</if>
+	    <if test="auditTime != null">and TA_OFFICE_ARCHHANDLE.audit_time = #{auditTime}</if>
+	    <if test="opinionContent != null">and TA_OFFICE_ARCHHANDLE.opinion_content = #{opinionContent}</if>
+	    <if test="logicalDelete != null">and TA_OFFICE_ARCHHANDLE.logical_delete = #{logicalDelete}</if>
+	    <if test="activityName != null">and TA_OFFICE_ARCHHANDLE.activity_name = #{activityName}</if>
+	    <if test="procInsId != null">and TA_OFFICE_ARCHHANDLE.proc_ins_id = #{procInsId}</if>
+	    <if test="activityId != null">and TA_OFFICE_ARCHHANDLE.activity_id = #{activityId}</if>
+	    <if test="businessKey != null">and TA_OFFICE_ARCHHANDLE.business_key = #{businessKey}</if>
+	    <if test="auditState != null">and TA_OFFICE_ARCHHANDLE.audit_state = #{auditState}</if>
+		<if test="auditerId != null and auditerId.userId !=null">and TA_OFFICE_ARCHHANDLE.auditer_id = #{auditerId.userId}</if>
+		<if test="auditOrgId != null and auditOrgId.orgId !=null">and TA_OFFICE_ARCHHANDLE.audit_org_id = #{auditOrgId.orgId}</if>
+</sql>
+
+<!-- ElementID:one2one_sql,Generated=true -->
+<sql id="one2one_sql">
+	     left outer join td_sm_user td_sm_user_T1 on TA_OFFICE_ARCHHANDLE.auditer_id=td_sm_user_T1.user_id
+	     left outer join td_sm_organization td_sm_organization_T2 on TA_OFFICE_ARCHHANDLE.audit_org_id=td_sm_organization_T2.org_id
+</sql>
+
+<!-- ElementID:UserInfoResult,Generated=true -->
+<resultMap id="UserInfoResult" type="com.chinacreator.c2.omp.common.UserInfo">
+	<id property="userId" column="user_id"/>
+	<result property="userName" column="user_name"/>
+	<result property="userPassword" column="user_password"/>
+	<result property="userRealname" column="user_realname"/>
+	<result property="userPinyin" column="user_pinyin"/>
+	<result property="userSex" column="user_sex"/>
+	<result property="userHometel" column="user_hometel"/>
+	<result property="userWorktel" column="user_worktel"/>
+	<result property="userWorkaddress" column="user_workaddress"/>
+	<result property="userMobiletel1" column="user_mobiletel1"/>
+	<result property="userMobiletel2" column="user_mobiletel2"/>
+	<result property="userFax" column="user_fax"/>
+	<result property="userOicq" column="user_oicq"/>
+	<result property="userRegdate" column="user_regdate"/>
+	<result property="userBirthday" column="user_birthday"/>
+	<result property="userEmail" column="user_email"/>
+	<result property="userAddress" column="user_address"/>
+	<result property="userPostalcode" column="user_postalcode"/>
+	<result property="userIdcard" column="user_idcard"/>
+	<result property="userIsvalid" column="user_isvalid"/>
+	<result property="userLogincount" column="user_logincount"/>
+	<result property="userType" column="user_type"/>
+	<result property="pastTime" column="past_time"/>
+	<result property="dredgeTime" column="dredge_time"/>
+	<result property="lastloginDate" column="lastlogin_date"/>
+	<result property="worklength" column="worklength"/>
+	<result property="politics" column="politics"/>
+	<result property="loginIp" column="login_ip"/>
+	<result property="certSn" column="cert_sn"/>
+	<result property="userSn" column="user_sn"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+	<result property="remark3" column="remark3"/>
+	<result property="remark4" column="remark4"/>
+	<result property="remark5" column="remark5"/>
+	<result property="remark6" column="remark6"/>
+	<result property="remark7" column="remark7"/>
+	<result property="remark8" column="remark8"/>
+	<result property="remark9" column="remark9"/>
+	<result property="remark10" column="remark10"/>
+</resultMap>
+<!-- ElementID:OrganizationResult,Generated=true -->
+<resultMap id="OrganizationResult" type="com.chinacreator.c2.omp.common.Organization">
+	<id property="orgId" column="org_id"/>
+	<result property="orgSn" column="org_sn"/>
+	<result property="orgName" column="org_name"/>
+	<result property="orgShowname" column="org_showname"/>
+	<result property="parentId" column="parent_id"/>
+	<result property="path" column="path"/>
+	<result property="layer" column="layer"/>
+	<result property="children" column="children"/>
+	<result property="code" column="code"/>
+	<result property="jp" column="jp"/>
+	<result property="qp" column="qp"/>
+	<result property="creatingtime" column="creatingtime"/>
+	<result property="creator" column="creator"/>
+	<result property="orgnumber" column="orgnumber"/>
+	<result property="orgdesc" column="orgdesc"/>
+	<result property="chargeorgid" column="chargeorgid"/>
+	<result property="orgLevel" column="org_level"/>
+	<result property="orgXzqm" column="org_xzqm"/>
+	<result property="isdirectlyparty" column="isdirectlyparty"/>
+	<result property="isforeignparty" column="isforeignparty"/>
+	<result property="isjichaparty" column="isjichaparty"/>
+	<result property="isdirectguanhu" column="isdirectguanhu"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+	<result property="remark3" column="remark3"/>
+	<result property="remark4" column="remark4"/>
+	<result property="remark5" column="remark5"/>
+	<result property="remark6" column="remark6"/>
+	<result property="remark7" column="remark7"/>
+	<result property="remark8" column="remark8"/>
+	<result property="remark9" column="remark9"/>
+	<result property="remark10" column="remark10"/>
+</resultMap>
+
+
+<!-- ElementID:ArchhandleResult,Generated=true -->
+<resultMap id="ArchhandleResult" type="com.chinacreator.c2.omp.service.manage.workflowcommon.Archhandle">
+	<id property="oid" column="oid"/>
+	<result property="ccFormInstanceid" column="cc_form_instanceid"/>
+	<result property="auditTime" column="audit_time"/>
+	<result property="opinionContent" column="opinion_content"/>
+	<result property="logicalDelete" column="logical_delete"/>
+	<result property="activityName" column="activity_name"/>
+	<result property="procInsId" column="proc_ins_id"/>
+	<result property="activityId" column="activity_id"/>
+	<result property="businessKey" column="business_key"/>
+	<result property="auditState" column="audit_state"/>
+	<association property="auditerId" column="T1_user_id" javaType="com.chinacreator.c2.omp.common.UserInfo" resultMap="UserInfoResult" columnPrefix="T1_"/>	
+	<association property="auditOrgId" column="T2_org_id" javaType="com.chinacreator.c2.omp.common.Organization" resultMap="OrganizationResult" columnPrefix="T2_"/>	
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.Archhandle">
+	insert into TA_OFFICE_ARCHHANDLE(
+	         <if test="oid != null">oid</if>
+	         <if test="ccFormInstanceid != null">,cc_form_instanceid</if>
+	         <if test="auditTime != null">,audit_time</if>
+	         <if test="opinionContent != null">,opinion_content</if>
+	         <if test="logicalDelete != null">,logical_delete</if>
+	         <if test="activityName != null">,activity_name</if>
+	         <if test="procInsId != null">,proc_ins_id</if>
+	         <if test="activityId != null">,activity_id</if>
+	         <if test="businessKey != null">,business_key</if>
+	         <if test="auditState != null">,audit_state</if>
+	 	 	 <if test="auditerId != null and auditerId.userId !=null">,auditer_id</if>
+	 	 <if test="auditOrgId != null and auditOrgId.orgId !=null">,audit_org_id</if>
+	 	 )
+	 values (
+	         <if test="oid != null">#{oid,jdbcType=VARCHAR}</if>
+	         <if test="ccFormInstanceid != null">,#{ccFormInstanceid,jdbcType=VARCHAR}</if>
+	         <if test="auditTime != null">,#{auditTime,jdbcType=TIMESTAMP}</if>
+	         <if test="opinionContent != null">,#{opinionContent,jdbcType=VARCHAR}</if>
+	         <if test="logicalDelete != null">,#{logicalDelete,jdbcType=NUMERIC}</if>
+	         <if test="activityName != null">,#{activityName,jdbcType=VARCHAR}</if>
+	         <if test="procInsId != null">,#{procInsId,jdbcType=VARCHAR}</if>
+	         <if test="activityId != null">,#{activityId,jdbcType=VARCHAR}</if>
+	         <if test="businessKey != null">,#{businessKey,jdbcType=VARCHAR}</if>
+	         <if test="auditState != null">,#{auditState,jdbcType=VARCHAR}</if>
+	 	 	 <if test="auditerId != null and auditerId.userId !=null">,#{auditerId.userId,jdbcType=VARCHAR}</if>
+	 	 <if test="auditOrgId != null and auditOrgId.orgId !=null">,#{auditOrgId.orgId,jdbcType=VARCHAR}</if>
+	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.Archhandle" resultType="int">
+	select count(*) from TA_OFFICE_ARCHHANDLE 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.Archhandle">
+	update TA_OFFICE_ARCHHANDLE
+<set>
+	<if test="ccFormInstanceid != null">cc_form_instanceid=#{ccFormInstanceid,jdbcType=VARCHAR},</if>
+	<if test="auditTime != null">audit_time=#{auditTime,jdbcType=TIMESTAMP},</if>
+	<if test="opinionContent != null">opinion_content=#{opinionContent,jdbcType=VARCHAR},</if>
+	<if test="logicalDelete != null">logical_delete=#{logicalDelete,jdbcType=NUMERIC},</if>
+	<if test="activityName != null">activity_name=#{activityName,jdbcType=VARCHAR},</if>
+	<if test="procInsId != null">proc_ins_id=#{procInsId,jdbcType=VARCHAR},</if>
+	<if test="activityId != null">activity_id=#{activityId,jdbcType=VARCHAR},</if>
+	<if test="businessKey != null">business_key=#{businessKey,jdbcType=VARCHAR},</if>
+	<if test="auditState != null">audit_state=#{auditState,jdbcType=VARCHAR},</if>
+	<if test="auditerId != null and auditerId.userId !=null">auditer_id=#{auditerId.userId,jdbcType=VARCHAR},</if>
+	<if test="auditOrgId != null and auditOrgId.orgId !=null">audit_org_id=#{auditOrgId.orgId,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="oid != null">and oid = #{oid}</when>
+        <otherwise>and oid = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update TA_OFFICE_ARCHHANDLE
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="ccFormInstanceid==null">cc_form_instanceid = null,</if>
+		    <if test="auditTime==null">audit_time = null,</if>
+		    <if test="opinionContent==null">opinion_content = null,</if>
+		    <if test="logicalDelete==null">logical_delete = null,</if>
+		    <if test="activityName==null">activity_name = null,</if>
+		    <if test="procInsId==null">proc_ins_id = null,</if>
+		    <if test="activityId==null">activity_id = null,</if>
+		    <if test="businessKey==null">business_key = null,</if>
+		    <if test="auditState==null">audit_state = null,</if>
+		    <if test="auditerId==null">auditer_id = null,</if>
+		    <if test="auditOrgId==null">audit_org_id = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="oid != null">and oid = #{oid}</when>
+			<otherwise>and oid = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.Archhandle">
+    delete from TA_OFFICE_ARCHHANDLE where 1=1 and oid = #{oid}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.Archhandle" resultMap="ArchhandleResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_ARCHHANDLE 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into TA_OFFICE_ARCHHANDLE (oid,cc_form_instanceid,audit_time,opinion_content,logical_delete,activity_name,proc_ins_id,activity_id,business_key,audit_state,auditer_id,audit_org_id) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.oid,jdbcType = VARCHAR},
+				#{entity.ccFormInstanceid,jdbcType = VARCHAR},
+				#{entity.auditTime,jdbcType = TIMESTAMP},
+				#{entity.opinionContent,jdbcType = VARCHAR},
+				#{entity.logicalDelete,jdbcType = NUMERIC},
+				#{entity.activityName,jdbcType = VARCHAR},
+				#{entity.procInsId,jdbcType = VARCHAR},
+				#{entity.activityId,jdbcType = VARCHAR},
+				#{entity.businessKey,jdbcType = VARCHAR},
+				#{entity.auditState,jdbcType = VARCHAR},
+						 #{entity.auditerId.userId,jdbcType=VARCHAR},				 #{entity.auditOrgId.orgId,jdbcType=VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from TA_OFFICE_ARCHHANDLE where oid in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.oid}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="ArchhandleResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_ARCHHANDLE 
+		<include refid="one2one_sql"/>
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="ArchhandleResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_ARCHHANDLE 
+		<include refid="one2one_sql"/>
+		 where TA_OFFICE_ARCHHANDLE.oid = #{oid,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.Archhandle" resultMap="ArchhandleResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_ARCHHANDLE 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="ArchhandleResult">
+select 
+	<include refid="column_sql"/> 
+	from TA_OFFICE_ARCHHANDLE 
+	<include refid="one2one_sql"/>
+	where TA_OFFICE_ARCHHANDLE.oid in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		TA_OFFICE_ARCHHANDLE.oid
+	    from TA_OFFICE_ARCHHANDLE 
+		 <where>
+	        <if test="entity.oid != null">and TA_OFFICE_ARCHHANDLE.oid = #{entity.oid}</if>
+	        <if test="entity.ccFormInstanceid != null">and TA_OFFICE_ARCHHANDLE.cc_form_instanceid = #{entity.ccFormInstanceid}</if>
+	        <if test="entity.auditTime != null">and TA_OFFICE_ARCHHANDLE.audit_time = #{entity.auditTime}</if>
+	        <if test="entity.opinionContent != null">and TA_OFFICE_ARCHHANDLE.opinion_content = #{entity.opinionContent}</if>
+	        <if test="entity.logicalDelete != null">and TA_OFFICE_ARCHHANDLE.logical_delete = #{entity.logicalDelete}</if>
+	        <if test="entity.activityName != null">and TA_OFFICE_ARCHHANDLE.activity_name = #{entity.activityName}</if>
+	        <if test="entity.procInsId != null">and TA_OFFICE_ARCHHANDLE.proc_ins_id = #{entity.procInsId}</if>
+	        <if test="entity.activityId != null">and TA_OFFICE_ARCHHANDLE.activity_id = #{entity.activityId}</if>
+	        <if test="entity.businessKey != null">and TA_OFFICE_ARCHHANDLE.business_key = #{entity.businessKey}</if>
+	        <if test="entity.auditState != null">and TA_OFFICE_ARCHHANDLE.audit_state = #{entity.auditState}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update TA_OFFICE_ARCHHANDLE
+	<set>
+	<if test="entity.ccFormInstanceid != null">cc_form_instanceid= #{entity.ccFormInstanceid,jdbcType=VARCHAR},</if>
+	<if test="entity.auditTime != null">audit_time= #{entity.auditTime,jdbcType=TIMESTAMP},</if>
+	<if test="entity.opinionContent != null">opinion_content= #{entity.opinionContent,jdbcType=VARCHAR},</if>
+	<if test="entity.logicalDelete != null">logical_delete= #{entity.logicalDelete,jdbcType=NUMERIC},</if>
+	<if test="entity.activityName != null">activity_name= #{entity.activityName,jdbcType=VARCHAR},</if>
+	<if test="entity.procInsId != null">proc_ins_id= #{entity.procInsId,jdbcType=VARCHAR},</if>
+	<if test="entity.activityId != null">activity_id= #{entity.activityId,jdbcType=VARCHAR},</if>
+	<if test="entity.businessKey != null">business_key= #{entity.businessKey,jdbcType=VARCHAR},</if>
+	<if test="entity.auditState != null">audit_state= #{entity.auditState,jdbcType=VARCHAR},</if>
+	<if test="entity.auditerId != null and entity.auditerId.userId !=null">auditer_id= #{entity.auditerId.userId,jdbcType=VARCHAR},</if>
+	<if test="entity.auditOrgId != null and entity.auditOrgId.orgId !=null">audit_org_id= #{entity.auditOrgId.orgId,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.oid != null">and oid = #{entity.oid}</when>
+				<otherwise>and oid = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

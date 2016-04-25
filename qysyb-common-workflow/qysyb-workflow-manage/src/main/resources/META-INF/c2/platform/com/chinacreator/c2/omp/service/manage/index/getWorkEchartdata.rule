@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getworkechartdata" log="false" className="com.chinacreator.c2.console.service.ManageIndexService" method="getSerie">
+  <name>工单统计图数据</name>
+  <inputs/>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="com.chinacreator.c2.module.echart.EChartsData"/>
+  </outputs>
+  <params/>
+  <return signature="QEChartsData;" type="com.chinacreator.c2.module.echart.EChartsData"/>
+</CustomRule>

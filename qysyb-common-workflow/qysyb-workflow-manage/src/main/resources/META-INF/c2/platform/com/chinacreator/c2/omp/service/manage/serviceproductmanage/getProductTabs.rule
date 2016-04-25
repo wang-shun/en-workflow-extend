@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getproducttabs" log="false" className="com.chinacreator.c2.omp.service.manage.serviceproductmanage.service.DynamicTabProvider" method="generateProductTab">
+  <name>获取服务产品的Tab</name>
+  <inputs>
+    <input collection="false" desc="" id="productId" required="true" type="String"/>
+    <input collection="false" desc="" id="params" required="true" type="java.util.Map"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.List"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.productId" name="productId" signature="QString;" type="String"/>
+    <param autoValue="Input.params" name="params" signature="QMap;" type="java.util.Map"/>
+  </params>
+  <return signature="QList&lt;QTabDescription;>;" type="java.util.List"/>
+</CustomRule>

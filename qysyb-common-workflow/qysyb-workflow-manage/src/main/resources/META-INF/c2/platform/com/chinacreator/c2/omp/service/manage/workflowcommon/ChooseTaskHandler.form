@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="任务处理人选择" sn="choosetaskhandler" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="选择下一步任务处理人">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" id="newGroup3" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Field" binding="$model.nexttask" id="nexttaskselectview" name="下一节点" customize="true">
+        <form:control type="widget/select_simple">
+          <form:attributes source="widget/select_simple">
+            <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$params.transitions">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="change" name="值变换事件" value="newField6_change()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="下拉框设置" id="firstSelected" name="选中第一个" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$params.nextname" id="nexttasknameview" name="下一节点" customize="true">
+        <form:control type="widget/span">
+          <form:attributes source="widget/span">
+            <dync:attribute default="false" group="基础属性" id="showLable" name="显示lable" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.category" id="newField" name="角色类型" customize="true">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;人员&quot;:&quot;人员&quot;,&quot;部门&quot;:&quot;部门&quot;,&quot;岗位&quot;:&quot;岗位&quot;}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="下拉框设置" id="firstSelected" name="选中第一个" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.person" id="newField1" name="人员" customize="true">
+      <form:control type="widget/select_user_tree">
+        <form:attributes source="widget/select_user_tree">
+          <dync:attribute default="tree/sys_ds_orgs" group="树数据设置" id="treeSourceType" name="树数据源" value="tree/sys_ds_users">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="控件外观" id="show" name="可见" value="$model.category==&quot;人员&quot;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="change" name="值改变" value="newField1_change(newValue,oldValue)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.org" id="newField2" name="部门" customize="true">
+      <form:control type="widget/select_user_tree">
+        <form:attributes source="widget/select_user_tree">
+          <dync:attribute default="true" group="控件外观" id="show" name="可见" value="$model.category==&quot;部门&quot;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="change" name="值改变" value="newField2_change(newValue,oldValue)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.group" id="newField3" name="岗位" customize="true">
+      <form:control type="widget/select_tree">
+        <form:attributes source="widget/select_tree">
+          <dync:attribute default="" group="树数据设置" id="treeBinding" name="树数据源" value="$model.tree">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="控件外观" id="show" name="可见" value="$model.category==&quot;岗位&quot;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="change" name="值改变" value="newField3_change(newValue,oldValue)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="树显示设置" id="expendAll" name="默认展开所有层级" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup_html">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup2" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup2_html">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup1" name="对话框工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField4" name="提交下一步" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField4_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField5" name="返回修改" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField5_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:TreeDataSource" id="tree" name="树型数据源" impl="com.chinacreator.c2.workflow.workflowManage.ds.CandidateChooseTreeContentProvider" type="custom"/>
+  </form:datasources>
+  <form:scripts>
+
+page_afterDataSourceLoad:function(){
+
+	
+	$model.candidates = new Array();
+	$model.choosed = new Array();
+	$scope.orgUsers = {};//页面级别的部门人员数据缓存
+/*	for(var i=0;i&lt;10;i++){
+		var candidate = {};
+		candidate.name = &quot;张三1111111&quot;;
+		candidate.id = &quot;1111&quot;;
+		candidate.category = &quot;IT部222222222&quot;;
+		$model.candidates[i] = candidate;
+	}*/
+},
+//岗位选择事件
+newField3_change:function(newValue,oldValue){
+	var tree = $view.newField3.getTree();
+	
+/*	console.log(&quot;selected&quot;,tree.getSelectedNodes());
+	console.log(&quot;new value&quot;,newValue);
+	console.log(&quot;selected child&quot;,tree.getNodesByParam());*/
+	
+	var selectednodes = tree.getSelectedNodes();
+	var selectednode = selectednodes[0];
+	$model.candidates = [];
+	//岗位上选到人了
+	if(selectednode.level==2){
+		var candidate = {};
+		candidate.name = selectednode.name;
+		candidate.id = selectednode.id;
+		var parent = selectednode.getParentNode();
+		candidate.category = parent.name;	
+		console.log(&quot;parent&quot;,parent);	
+		$model.candidates.push(candidate);
+	//选到组
+	}else if(selectednode.level==1){
+		var children = selectednode.children;
+		if(angular.isUndefined(children)){   //或许没展开 子节点还没加载吧
+			$http.get(&quot;ws/getuserjobbyid&quot;,{
+				params:{
+					jobid:selectednode.id,
+				}}).success(function(data){
+					var children1 = data.result;
+					
+					for(var i=0;i&lt;children1.length;i++){
+						var candidate = {};
+						candidate.name = children1[i].userRealname;
+						candidate.id = children1[i].userId;		
+						candidate.category = selectednode.name;		
+						$model.candidates.push(candidate);			
+					}
+					
+					
+				});
+		}else{
+			for(var i=0;i&lt;children.length;i++){
+				var candidate = {};
+				candidate.name = children[i].name;
+				candidate.id = children[i].id;		
+				candidate.category = selectednode.name;	
+				$model.candidates.push(candidate);
+			}		
+		}
+
+	}
+},
+addchoosed:function(candidate){
+//	console.log(&quot;clicked candi&quot;,candidate);
+//	console.log(&quot;choosed&quot;,$model.choosed);
+	var a = $model.choosed;
+	var ischoosed = false;
+	for(var i=0;i&lt;a.length;i++){
+		console.log(a[i].id);console.log(candidate.id);
+		if(a[i].id == candidate.id){
+			ischoosed = true;
+			console.log(&quot;hey ischoosed!&quot;);
+			break;
+		}
+	}
+	if(!ischoosed){
+		var choosed ={};
+		choosed.id = candidate.id;
+		choosed.name = candidate.name
+		choosed.category = candidate.category;
+		$model.choosed.push(choosed);
+	}else{
+		Messenger.error(&quot;人员已被选择！&quot;);
+	}
+},
+removechoosed:function(choosed){
+	$model.choosed.pop(choosed);
+},
+
+newField4_click:function($event){
+	var candidateUsersStr = &quot;&quot;;
+	for(var i=0;i&lt;$model.choosed.length;i++){
+		candidateUsersStr=candidateUsersStr+$model.choosed[i].id+&quot;,&quot;;
+	}
+	//如果下一步是会签事件
+	/*assignee 分派到人 assigneeList 会签人 多个id逗号分隔candidateUsers 候选人 可以多个id 逗号分隔 candidateGroups 候选组 这个组是act_id_group这个试图所描述的组*/
+	//TODO 细分情形
+	var result = {};
+	result.transition = $model.transition;
+	if($model.isParallel){
+		result.assigneeList = candidateUsersStr;
+	}else{
+		result.candidateUsers = candidateUsersStr;
+	}
+	Modal.instance.close(result);
+},
+
+newField5_click:function($event){
+	Modal.instance.dismiss();
+},
+//所有人中选择
+newField1_change:function(newValue,oldValue){
+	var tree = $view.newField1.getTree();
+	console.log(&quot;person tree&quot;,tree);
+	var selectednodes = tree.getSelectedNodes();
+	var selectednode = selectednodes[0];
+	$model.candidates = [];
+/*	console.log(&quot;selected&quot;,selectednode);
+	console.log(&quot;new value&quot;,newValue);
+	console.log(&quot;selected child&quot;,tree.getNodesByParam());*/
+	var candidate = {};
+	candidate.name = selectednode.name;
+	var id = selectednode.id;
+	candidate.id = id.substr(5,id.length);
+	candidate.category = &quot;人员&quot;;		
+	$model.candidates.push(candidate);	
+},
+//在部门中选择
+newField2_change:function(newValue,oldValue){
+	var tree = $view.newField2.getTree();
+	console.log(&quot;org tree&quot;,tree);
+	var selectednodes = tree.getSelectedNodes();
+	var selectednode = selectednodes[0];
+	$model.candidates = [];	
+	console.log(&quot;selected&quot;,selectednode);
+	console.log(&quot;new value&quot;,newValue);
+	console.log(&quot;selected child&quot;,tree.getNodesByParam());
+	console.log(&quot;cached users&quot;,$scope.orgUsers);
+	if(angular.isUndefined($scope.orgUsers[selectednode.id])){//没有缓存
+		$http.post(&quot;ws/getorgusers&quot;,{arg0:selectednode.id})
+			.success(function(data){
+				var users = data.result;
+				$scope.orgUsers[selectednode.id] = users;  //缓存起来
+				console.log(&quot;returned users&quot;,data);
+				for(var i=0;i&lt;users.length;i++){
+					var candidate = {};
+					candidate.name = users[i].userRealname;
+					candidate.id = users[i].userId;		
+					candidate.category = selectednode.name;	
+					$model.candidates.push(candidate);					
+				}
+			});
+	}else{
+		console.log(&quot;cached!&quot;);
+		var users = $scope.orgUsers[selectednode.id];
+		for(var i=0;i&lt;users.length;i++){
+			var candidate = {};
+			candidate.name = users[i].userRealname;
+			candidate.id = users[i].userId;		
+			candidate.category = selectednode.name;	
+			$model.candidates.push(candidate);					
+		}		
+	}
+	
+},
+//路径选择事件
+newField6_change:function(){
+	$model.transition = $view.nexttaskselectview.getOptionObj($model.nexttask);
+	$model.dest = $model.transition.dest;
+	$params.nextname = $view.nexttaskselectview.getOptionObj($model.nexttask).dest.name;		
+	if($params.nextname==undefined){
+
+		//如果最后一步是结束事件
+		if($model.dest.porperties.type==&quot;endEvent&quot;){ 
+			$params.nextname = &quot;结束&quot;;
+		}	
+
+	}
+		//如果下一步是会签事件
+	if($model.dest.porperties.multiInstance==&quot;parallel&quot;){
+		$model.isParallel = true;
+	}
+},
+
+page_onload:function(){
+//默认选中第一个步骤并触发值变换事件
+	$model.nexttask = $params.transitions[0].id;	
+	functions.newField6_change();	
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>
+&lt;div class=&quot;well well-sm&quot;>
+&lt;h4 class=&quot;green smaller lighter&quot;>候选&lt;/h4>
+	&lt;button ng-click=&quot;functions.addchoosed(temp)&quot; class=&quot;btn btn-xs btn-white btn-warning btn-bold&quot; style=&quot;margin-right:5px;margin-bottom:5px;&quot;ng-repeat=&quot;temp in $model.candidates&quot;>
+	{{temp.category}} {{temp.name}}
+	&lt;i class=&quot;ace-icon fa fa-plus bigger-120 orange&quot;>&lt;/i>
+	&lt;/button>	
+&lt;/div>
+&lt;/script>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup2_html&quot;>
+&lt;div class=&quot;well well-sm&quot;>
+&lt;h4 class=&quot;green smaller lighter&quot;>已选&lt;/h4>
+	&lt;button ng-click=&quot;functions.removechoosed(temp)&quot; class=&quot;btn btn-xs btn-white btn-warning btn-bold&quot; style=&quot;margin-right:5px;margin-bottom:5px;&quot;ng-repeat=&quot;temp in $model.choosed&quot;>
+	{{temp.category}} {{temp.name}}
+	&lt;i class=&quot;ace-icon fa fa-trash-o bigger-120 orange&quot;>&lt;/i>
+	&lt;/button>	
+&lt;/div>
+&lt;img src=&quot;assets/images/messager_warning.gif &quot; width=&quot;12&quot; height=&quot;12&quot;>
+&lt;small>如果选择多个人。普通环节：只要有一个人处理完成，任务就算处理完成，流程进入下一步。会签环节：需要选到的每个人会签完毕，流程进入下一步。&lt;/small>
+&lt;/script></form:htmls>
+</form:Form>

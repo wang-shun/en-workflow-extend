@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.common.OrganizationMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  td_sm_organization.org_id ,
+		  td_sm_organization.org_sn ,
+		  td_sm_organization.org_name ,
+		  td_sm_organization.org_showname ,
+		  td_sm_organization.parent_id ,
+		  td_sm_organization.path ,
+		  td_sm_organization.layer ,
+		  td_sm_organization.children ,
+		  td_sm_organization.code ,
+		  td_sm_organization.jp ,
+		  td_sm_organization.qp ,
+		  td_sm_organization.creatingtime ,
+		  td_sm_organization.creator ,
+		  td_sm_organization.orgnumber ,
+		  td_sm_organization.orgdesc ,
+		  td_sm_organization.chargeorgid ,
+		  td_sm_organization.org_level ,
+		  td_sm_organization.org_xzqm ,
+		  td_sm_organization.isdirectlyparty ,
+		  td_sm_organization.isforeignparty ,
+		  td_sm_organization.isjichaparty ,
+		  td_sm_organization.isdirectguanhu ,
+		  td_sm_organization.remark1 ,
+		  td_sm_organization.remark2 ,
+		  td_sm_organization.remark3 ,
+		  td_sm_organization.remark4 ,
+		  td_sm_organization.remark5 ,
+		  td_sm_organization.remark6 ,
+		  td_sm_organization.remark7 ,
+		  td_sm_organization.remark8 ,
+		  td_sm_organization.remark9 ,
+		  td_sm_organization.remark10 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="orgId != null">and td_sm_organization.org_id = #{orgId}</if>
+	    <if test="orgSn != null">and td_sm_organization.org_sn = #{orgSn}</if>
+	    <if test="orgName != null">and td_sm_organization.org_name = #{orgName}</if>
+	    <if test="orgShowname != null">and td_sm_organization.org_showname = #{orgShowname}</if>
+	    <if test="parentId != null">and td_sm_organization.parent_id = #{parentId}</if>
+	    <if test="path != null">and td_sm_organization.path = #{path}</if>
+	    <if test="layer != null">and td_sm_organization.layer = #{layer}</if>
+	    <if test="children != null">and td_sm_organization.children = #{children}</if>
+	    <if test="code != null">and td_sm_organization.code = #{code}</if>
+	    <if test="jp != null">and td_sm_organization.jp = #{jp}</if>
+	    <if test="qp != null">and td_sm_organization.qp = #{qp}</if>
+	    <if test="creatingtime != null">and td_sm_organization.creatingtime = #{creatingtime}</if>
+	    <if test="creator != null">and td_sm_organization.creator = #{creator}</if>
+	    <if test="orgnumber != null">and td_sm_organization.orgnumber = #{orgnumber}</if>
+	    <if test="orgdesc != null">and td_sm_organization.orgdesc = #{orgdesc}</if>
+	    <if test="chargeorgid != null">and td_sm_organization.chargeorgid = #{chargeorgid}</if>
+	    <if test="orgLevel != null">and td_sm_organization.org_level = #{orgLevel}</if>
+	    <if test="orgXzqm != null">and td_sm_organization.org_xzqm = #{orgXzqm}</if>
+	    <if test="isdirectlyparty != null">and td_sm_organization.isdirectlyparty = #{isdirectlyparty}</if>
+	    <if test="isforeignparty != null">and td_sm_organization.isforeignparty = #{isforeignparty}</if>
+	    <if test="isjichaparty != null">and td_sm_organization.isjichaparty = #{isjichaparty}</if>
+	    <if test="isdirectguanhu != null">and td_sm_organization.isdirectguanhu = #{isdirectguanhu}</if>
+	    <if test="remark1 != null">and td_sm_organization.remark1 = #{remark1}</if>
+	    <if test="remark2 != null">and td_sm_organization.remark2 = #{remark2}</if>
+	    <if test="remark3 != null">and td_sm_organization.remark3 = #{remark3}</if>
+	    <if test="remark4 != null">and td_sm_organization.remark4 = #{remark4}</if>
+	    <if test="remark5 != null">and td_sm_organization.remark5 = #{remark5}</if>
+	    <if test="remark6 != null">and td_sm_organization.remark6 = #{remark6}</if>
+	    <if test="remark7 != null">and td_sm_organization.remark7 = #{remark7}</if>
+	    <if test="remark8 != null">and td_sm_organization.remark8 = #{remark8}</if>
+	    <if test="remark9 != null">and td_sm_organization.remark9 = #{remark9}</if>
+	    <if test="remark10 != null">and td_sm_organization.remark10 = #{remark10}</if>
+</sql>
+
+
+<!-- ElementID:OrganizationResult,Generated=true -->
+<resultMap id="OrganizationResult" type="com.chinacreator.c2.omp.common.Organization">
+	<id property="orgId" column="org_id"/>
+	<result property="orgSn" column="org_sn"/>
+	<result property="orgName" column="org_name"/>
+	<result property="orgShowname" column="org_showname"/>
+	<result property="parentId" column="parent_id"/>
+	<result property="path" column="path"/>
+	<result property="layer" column="layer"/>
+	<result property="children" column="children"/>
+	<result property="code" column="code"/>
+	<result property="jp" column="jp"/>
+	<result property="qp" column="qp"/>
+	<result property="creatingtime" column="creatingtime"/>
+	<result property="creator" column="creator"/>
+	<result property="orgnumber" column="orgnumber"/>
+	<result property="orgdesc" column="orgdesc"/>
+	<result property="chargeorgid" column="chargeorgid"/>
+	<result property="orgLevel" column="org_level"/>
+	<result property="orgXzqm" column="org_xzqm"/>
+	<result property="isdirectlyparty" column="isdirectlyparty"/>
+	<result property="isforeignparty" column="isforeignparty"/>
+	<result property="isjichaparty" column="isjichaparty"/>
+	<result property="isdirectguanhu" column="isdirectguanhu"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+	<result property="remark3" column="remark3"/>
+	<result property="remark4" column="remark4"/>
+	<result property="remark5" column="remark5"/>
+	<result property="remark6" column="remark6"/>
+	<result property="remark7" column="remark7"/>
+	<result property="remark8" column="remark8"/>
+	<result property="remark9" column="remark9"/>
+	<result property="remark10" column="remark10"/>
+</resultMap>
+
+
+
+
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.common.Organization">
+	insert into td_sm_organization(
+	         <if test="orgId != null">org_id</if>
+	         <if test="orgSn != null">,org_sn</if>
+	         <if test="orgName != null">,org_name</if>
+	         <if test="orgShowname != null">,org_showname</if>
+	         <if test="parentId != null">,parent_id</if>
+	         <if test="path != null">,path</if>
+	         <if test="layer != null">,layer</if>
+	         <if test="children != null">,children</if>
+	         <if test="code != null">,code</if>
+	         <if test="jp != null">,jp</if>
+	         <if test="qp != null">,qp</if>
+	         <if test="creatingtime != null">,creatingtime</if>
+	         <if test="creator != null">,creator</if>
+	         <if test="orgnumber != null">,orgnumber</if>
+	         <if test="orgdesc != null">,orgdesc</if>
+	         <if test="chargeorgid != null">,chargeorgid</if>
+	         <if test="orgLevel != null">,org_level</if>
+	         <if test="orgXzqm != null">,org_xzqm</if>
+	         <if test="isdirectlyparty != null">,isdirectlyparty</if>
+	         <if test="isforeignparty != null">,isforeignparty</if>
+	         <if test="isjichaparty != null">,isjichaparty</if>
+	         <if test="isdirectguanhu != null">,isdirectguanhu</if>
+	         <if test="remark1 != null">,remark1</if>
+	         <if test="remark2 != null">,remark2</if>
+	         <if test="remark3 != null">,remark3</if>
+	         <if test="remark4 != null">,remark4</if>
+	         <if test="remark5 != null">,remark5</if>
+	         <if test="remark6 != null">,remark6</if>
+	         <if test="remark7 != null">,remark7</if>
+	         <if test="remark8 != null">,remark8</if>
+	         <if test="remark9 != null">,remark9</if>
+	         <if test="remark10 != null">,remark10</if>
+	 	 	 )
+	 values (
+	         <if test="orgId != null">#{orgId,jdbcType=VARCHAR}</if>
+	         <if test="orgSn != null">,#{orgSn,jdbcType=NUMERIC}</if>
+	         <if test="orgName != null">,#{orgName,jdbcType=VARCHAR}</if>
+	         <if test="orgShowname != null">,#{orgShowname,jdbcType=VARCHAR}</if>
+	         <if test="parentId != null">,#{parentId,jdbcType=VARCHAR}</if>
+	         <if test="path != null">,#{path,jdbcType=VARCHAR}</if>
+	         <if test="layer != null">,#{layer,jdbcType=VARCHAR}</if>
+	         <if test="children != null">,#{children,jdbcType=VARCHAR}</if>
+	         <if test="code != null">,#{code,jdbcType=VARCHAR}</if>
+	         <if test="jp != null">,#{jp,jdbcType=VARCHAR}</if>
+	         <if test="qp != null">,#{qp,jdbcType=VARCHAR}</if>
+	         <if test="creatingtime != null">,#{creatingtime,jdbcType=TIMESTAMP}</if>
+	         <if test="creator != null">,#{creator,jdbcType=VARCHAR}</if>
+	         <if test="orgnumber != null">,#{orgnumber,jdbcType=VARCHAR}</if>
+	         <if test="orgdesc != null">,#{orgdesc,jdbcType=VARCHAR}</if>
+	         <if test="chargeorgid != null">,#{chargeorgid,jdbcType=VARCHAR}</if>
+	         <if test="orgLevel != null">,#{orgLevel,jdbcType=VARCHAR}</if>
+	         <if test="orgXzqm != null">,#{orgXzqm,jdbcType=VARCHAR}</if>
+	         <if test="isdirectlyparty != null">,#{isdirectlyparty,jdbcType=NUMERIC}</if>
+	         <if test="isforeignparty != null">,#{isforeignparty,jdbcType=NUMERIC}</if>
+	         <if test="isjichaparty != null">,#{isjichaparty,jdbcType=NUMERIC}</if>
+	         <if test="isdirectguanhu != null">,#{isdirectguanhu,jdbcType=NUMERIC}</if>
+	         <if test="remark1 != null">,#{remark1,jdbcType=VARCHAR}</if>
+	         <if test="remark2 != null">,#{remark2,jdbcType=VARCHAR}</if>
+	         <if test="remark3 != null">,#{remark3,jdbcType=VARCHAR}</if>
+	         <if test="remark4 != null">,#{remark4,jdbcType=VARCHAR}</if>
+	         <if test="remark5 != null">,#{remark5,jdbcType=VARCHAR}</if>
+	         <if test="remark6 != null">,#{remark6,jdbcType=VARCHAR}</if>
+	         <if test="remark7 != null">,#{remark7,jdbcType=VARCHAR}</if>
+	         <if test="remark8 != null">,#{remark8,jdbcType=VARCHAR}</if>
+	         <if test="remark9 != null">,#{remark9,jdbcType=VARCHAR}</if>
+	         <if test="remark10 != null">,#{remark10,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.common.Organization" resultType="int">
+	select count(*) from td_sm_organization 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.common.Organization">
+	update td_sm_organization
+<set>
+	<if test="orgSn != null">org_sn=#{orgSn,jdbcType=NUMERIC},</if>
+	<if test="orgName != null">org_name=#{orgName,jdbcType=VARCHAR},</if>
+	<if test="orgShowname != null">org_showname=#{orgShowname,jdbcType=VARCHAR},</if>
+	<if test="parentId != null">parent_id=#{parentId,jdbcType=VARCHAR},</if>
+	<if test="path != null">path=#{path,jdbcType=VARCHAR},</if>
+	<if test="layer != null">layer=#{layer,jdbcType=VARCHAR},</if>
+	<if test="children != null">children=#{children,jdbcType=VARCHAR},</if>
+	<if test="code != null">code=#{code,jdbcType=VARCHAR},</if>
+	<if test="jp != null">jp=#{jp,jdbcType=VARCHAR},</if>
+	<if test="qp != null">qp=#{qp,jdbcType=VARCHAR},</if>
+	<if test="creatingtime != null">creatingtime=#{creatingtime,jdbcType=TIMESTAMP},</if>
+	<if test="creator != null">creator=#{creator,jdbcType=VARCHAR},</if>
+	<if test="orgnumber != null">orgnumber=#{orgnumber,jdbcType=VARCHAR},</if>
+	<if test="orgdesc != null">orgdesc=#{orgdesc,jdbcType=VARCHAR},</if>
+	<if test="chargeorgid != null">chargeorgid=#{chargeorgid,jdbcType=VARCHAR},</if>
+	<if test="orgLevel != null">org_level=#{orgLevel,jdbcType=VARCHAR},</if>
+	<if test="orgXzqm != null">org_xzqm=#{orgXzqm,jdbcType=VARCHAR},</if>
+	<if test="isdirectlyparty != null">isdirectlyparty=#{isdirectlyparty,jdbcType=NUMERIC},</if>
+	<if test="isforeignparty != null">isforeignparty=#{isforeignparty,jdbcType=NUMERIC},</if>
+	<if test="isjichaparty != null">isjichaparty=#{isjichaparty,jdbcType=NUMERIC},</if>
+	<if test="isdirectguanhu != null">isdirectguanhu=#{isdirectguanhu,jdbcType=NUMERIC},</if>
+	<if test="remark1 != null">remark1=#{remark1,jdbcType=VARCHAR},</if>
+	<if test="remark2 != null">remark2=#{remark2,jdbcType=VARCHAR},</if>
+	<if test="remark3 != null">remark3=#{remark3,jdbcType=VARCHAR},</if>
+	<if test="remark4 != null">remark4=#{remark4,jdbcType=VARCHAR},</if>
+	<if test="remark5 != null">remark5=#{remark5,jdbcType=VARCHAR},</if>
+	<if test="remark6 != null">remark6=#{remark6,jdbcType=VARCHAR},</if>
+	<if test="remark7 != null">remark7=#{remark7,jdbcType=VARCHAR},</if>
+	<if test="remark8 != null">remark8=#{remark8,jdbcType=VARCHAR},</if>
+	<if test="remark9 != null">remark9=#{remark9,jdbcType=VARCHAR},</if>
+	<if test="remark10 != null">remark10=#{remark10,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="orgId != null">and org_id = #{orgId}</when>
+        <otherwise>and org_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update td_sm_organization
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="orgSn==null">org_sn = null,</if>
+		    <if test="orgName==null">org_name = null,</if>
+		    <if test="orgShowname==null">org_showname = null,</if>
+		    <if test="parentId==null">parent_id = null,</if>
+		    <if test="path==null">path = null,</if>
+		    <if test="layer==null">layer = null,</if>
+		    <if test="children==null">children = null,</if>
+		    <if test="code==null">code = null,</if>
+		    <if test="jp==null">jp = null,</if>
+		    <if test="qp==null">qp = null,</if>
+		    <if test="creatingtime==null">creatingtime = null,</if>
+		    <if test="creator==null">creator = null,</if>
+		    <if test="orgnumber==null">orgnumber = null,</if>
+		    <if test="orgdesc==null">orgdesc = null,</if>
+		    <if test="chargeorgid==null">chargeorgid = null,</if>
+		    <if test="orgLevel==null">org_level = null,</if>
+		    <if test="orgXzqm==null">org_xzqm = null,</if>
+		    <if test="isdirectlyparty==null">isdirectlyparty = null,</if>
+		    <if test="isforeignparty==null">isforeignparty = null,</if>
+		    <if test="isjichaparty==null">isjichaparty = null,</if>
+		    <if test="isdirectguanhu==null">isdirectguanhu = null,</if>
+		    <if test="remark1==null">remark1 = null,</if>
+		    <if test="remark2==null">remark2 = null,</if>
+		    <if test="remark3==null">remark3 = null,</if>
+		    <if test="remark4==null">remark4 = null,</if>
+		    <if test="remark5==null">remark5 = null,</if>
+		    <if test="remark6==null">remark6 = null,</if>
+		    <if test="remark7==null">remark7 = null,</if>
+		    <if test="remark8==null">remark8 = null,</if>
+		    <if test="remark9==null">remark9 = null,</if>
+		    <if test="remark10==null">remark10 = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="orgId != null">and org_id = #{orgId}</when>
+			<otherwise>and org_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.common.Organization">
+    delete from td_sm_organization where 1=1 and org_id = #{orgId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.common.Organization" resultMap="OrganizationResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_organization 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into td_sm_organization (org_id,org_sn,org_name,org_showname,parent_id,path,layer,children,code,jp,qp,creatingtime,creator,orgnumber,orgdesc,chargeorgid,org_level,org_xzqm,isdirectlyparty,isforeignparty,isjichaparty,isdirectguanhu,remark1,remark2,remark3,remark4,remark5,remark6,remark7,remark8,remark9,remark10) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.orgId,jdbcType = VARCHAR},
+				#{entity.orgSn,jdbcType = NUMERIC},
+				#{entity.orgName,jdbcType = VARCHAR},
+				#{entity.orgShowname,jdbcType = VARCHAR},
+				#{entity.parentId,jdbcType = VARCHAR},
+				#{entity.path,jdbcType = VARCHAR},
+				#{entity.layer,jdbcType = VARCHAR},
+				#{entity.children,jdbcType = VARCHAR},
+				#{entity.code,jdbcType = VARCHAR},
+				#{entity.jp,jdbcType = VARCHAR},
+				#{entity.qp,jdbcType = VARCHAR},
+				#{entity.creatingtime,jdbcType = TIMESTAMP},
+				#{entity.creator,jdbcType = VARCHAR},
+				#{entity.orgnumber,jdbcType = VARCHAR},
+				#{entity.orgdesc,jdbcType = VARCHAR},
+				#{entity.chargeorgid,jdbcType = VARCHAR},
+				#{entity.orgLevel,jdbcType = VARCHAR},
+				#{entity.orgXzqm,jdbcType = VARCHAR},
+				#{entity.isdirectlyparty,jdbcType = NUMERIC},
+				#{entity.isforeignparty,jdbcType = NUMERIC},
+				#{entity.isjichaparty,jdbcType = NUMERIC},
+				#{entity.isdirectguanhu,jdbcType = NUMERIC},
+				#{entity.remark1,jdbcType = VARCHAR},
+				#{entity.remark2,jdbcType = VARCHAR},
+				#{entity.remark3,jdbcType = VARCHAR},
+				#{entity.remark4,jdbcType = VARCHAR},
+				#{entity.remark5,jdbcType = VARCHAR},
+				#{entity.remark6,jdbcType = VARCHAR},
+				#{entity.remark7,jdbcType = VARCHAR},
+				#{entity.remark8,jdbcType = VARCHAR},
+				#{entity.remark9,jdbcType = VARCHAR},
+				#{entity.remark10,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from td_sm_organization where org_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.orgId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="OrganizationResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_organization 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="OrganizationResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_organization 
+		 where td_sm_organization.org_id = #{orgId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.common.Organization" resultMap="OrganizationResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_sm_organization 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="OrganizationResult">
+select 
+	<include refid="column_sql"/> 
+	from td_sm_organization 
+	where td_sm_organization.org_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		td_sm_organization.org_id
+	    from td_sm_organization 
+		 <where>
+	        <if test="entity.orgId != null">and td_sm_organization.org_id = #{entity.orgId}</if>
+	        <if test="entity.orgSn != null">and td_sm_organization.org_sn = #{entity.orgSn}</if>
+	        <if test="entity.orgName != null">and td_sm_organization.org_name = #{entity.orgName}</if>
+	        <if test="entity.orgShowname != null">and td_sm_organization.org_showname = #{entity.orgShowname}</if>
+	        <if test="entity.parentId != null">and td_sm_organization.parent_id = #{entity.parentId}</if>
+	        <if test="entity.path != null">and td_sm_organization.path = #{entity.path}</if>
+	        <if test="entity.layer != null">and td_sm_organization.layer = #{entity.layer}</if>
+	        <if test="entity.children != null">and td_sm_organization.children = #{entity.children}</if>
+	        <if test="entity.code != null">and td_sm_organization.code = #{entity.code}</if>
+	        <if test="entity.jp != null">and td_sm_organization.jp = #{entity.jp}</if>
+	        <if test="entity.qp != null">and td_sm_organization.qp = #{entity.qp}</if>
+	        <if test="entity.creatingtime != null">and td_sm_organization.creatingtime = #{entity.creatingtime}</if>
+	        <if test="entity.creator != null">and td_sm_organization.creator = #{entity.creator}</if>
+	        <if test="entity.orgnumber != null">and td_sm_organization.orgnumber = #{entity.orgnumber}</if>
+	        <if test="entity.orgdesc != null">and td_sm_organization.orgdesc = #{entity.orgdesc}</if>
+	        <if test="entity.chargeorgid != null">and td_sm_organization.chargeorgid = #{entity.chargeorgid}</if>
+	        <if test="entity.orgLevel != null">and td_sm_organization.org_level = #{entity.orgLevel}</if>
+	        <if test="entity.orgXzqm != null">and td_sm_organization.org_xzqm = #{entity.orgXzqm}</if>
+	        <if test="entity.isdirectlyparty != null">and td_sm_organization.isdirectlyparty = #{entity.isdirectlyparty}</if>
+	        <if test="entity.isforeignparty != null">and td_sm_organization.isforeignparty = #{entity.isforeignparty}</if>
+	        <if test="entity.isjichaparty != null">and td_sm_organization.isjichaparty = #{entity.isjichaparty}</if>
+	        <if test="entity.isdirectguanhu != null">and td_sm_organization.isdirectguanhu = #{entity.isdirectguanhu}</if>
+	        <if test="entity.remark1 != null">and td_sm_organization.remark1 = #{entity.remark1}</if>
+	        <if test="entity.remark2 != null">and td_sm_organization.remark2 = #{entity.remark2}</if>
+	        <if test="entity.remark3 != null">and td_sm_organization.remark3 = #{entity.remark3}</if>
+	        <if test="entity.remark4 != null">and td_sm_organization.remark4 = #{entity.remark4}</if>
+	        <if test="entity.remark5 != null">and td_sm_organization.remark5 = #{entity.remark5}</if>
+	        <if test="entity.remark6 != null">and td_sm_organization.remark6 = #{entity.remark6}</if>
+	        <if test="entity.remark7 != null">and td_sm_organization.remark7 = #{entity.remark7}</if>
+	        <if test="entity.remark8 != null">and td_sm_organization.remark8 = #{entity.remark8}</if>
+	        <if test="entity.remark9 != null">and td_sm_organization.remark9 = #{entity.remark9}</if>
+	        <if test="entity.remark10 != null">and td_sm_organization.remark10 = #{entity.remark10}</if>
+		</where>
+</foreach>
+)
+</select>
+
+
+<!--Generated=true-->
+<cache/>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update td_sm_organization
+	<set>
+	<if test="entity.orgSn != null">org_sn= #{entity.orgSn,jdbcType=NUMERIC},</if>
+	<if test="entity.orgName != null">org_name= #{entity.orgName,jdbcType=VARCHAR},</if>
+	<if test="entity.orgShowname != null">org_showname= #{entity.orgShowname,jdbcType=VARCHAR},</if>
+	<if test="entity.parentId != null">parent_id= #{entity.parentId,jdbcType=VARCHAR},</if>
+	<if test="entity.path != null">path= #{entity.path,jdbcType=VARCHAR},</if>
+	<if test="entity.layer != null">layer= #{entity.layer,jdbcType=VARCHAR},</if>
+	<if test="entity.children != null">children= #{entity.children,jdbcType=VARCHAR},</if>
+	<if test="entity.code != null">code= #{entity.code,jdbcType=VARCHAR},</if>
+	<if test="entity.jp != null">jp= #{entity.jp,jdbcType=VARCHAR},</if>
+	<if test="entity.qp != null">qp= #{entity.qp,jdbcType=VARCHAR},</if>
+	<if test="entity.creatingtime != null">creatingtime= #{entity.creatingtime,jdbcType=TIMESTAMP},</if>
+	<if test="entity.creator != null">creator= #{entity.creator,jdbcType=VARCHAR},</if>
+	<if test="entity.orgnumber != null">orgnumber= #{entity.orgnumber,jdbcType=VARCHAR},</if>
+	<if test="entity.orgdesc != null">orgdesc= #{entity.orgdesc,jdbcType=VARCHAR},</if>
+	<if test="entity.chargeorgid != null">chargeorgid= #{entity.chargeorgid,jdbcType=VARCHAR},</if>
+	<if test="entity.orgLevel != null">org_level= #{entity.orgLevel,jdbcType=VARCHAR},</if>
+	<if test="entity.orgXzqm != null">org_xzqm= #{entity.orgXzqm,jdbcType=VARCHAR},</if>
+	<if test="entity.isdirectlyparty != null">isdirectlyparty= #{entity.isdirectlyparty,jdbcType=NUMERIC},</if>
+	<if test="entity.isforeignparty != null">isforeignparty= #{entity.isforeignparty,jdbcType=NUMERIC},</if>
+	<if test="entity.isjichaparty != null">isjichaparty= #{entity.isjichaparty,jdbcType=NUMERIC},</if>
+	<if test="entity.isdirectguanhu != null">isdirectguanhu= #{entity.isdirectguanhu,jdbcType=NUMERIC},</if>
+	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=VARCHAR},</if>
+	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
+	<if test="entity.remark3 != null">remark3= #{entity.remark3,jdbcType=VARCHAR},</if>
+	<if test="entity.remark4 != null">remark4= #{entity.remark4,jdbcType=VARCHAR},</if>
+	<if test="entity.remark5 != null">remark5= #{entity.remark5,jdbcType=VARCHAR},</if>
+	<if test="entity.remark6 != null">remark6= #{entity.remark6,jdbcType=VARCHAR},</if>
+	<if test="entity.remark7 != null">remark7= #{entity.remark7,jdbcType=VARCHAR},</if>
+	<if test="entity.remark8 != null">remark8= #{entity.remark8,jdbcType=VARCHAR},</if>
+	<if test="entity.remark9 != null">remark9= #{entity.remark9,jdbcType=VARCHAR},</if>
+	<if test="entity.remark10 != null">remark10= #{entity.remark10,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.orgId != null">and org_id = #{entity.orgId}</when>
+				<otherwise>and org_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

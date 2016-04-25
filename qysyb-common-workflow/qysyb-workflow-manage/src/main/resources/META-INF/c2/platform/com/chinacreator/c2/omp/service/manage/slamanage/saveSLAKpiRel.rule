@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="saveslakpirel" log="false" className="com.chinacreator.c2.omp.service.manage.slamanage.service.ServiceAgreementService" method="addSLAKpiRel">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>保存slakpi关联</name>
+  <inputs>
+    <input collection="false" desc="" id="slaId" required="true" type="String"/>
+    <input collection="false" desc="" id="kpis" required="true" type="[Lcom.chinacreator.c2.omp.service.manage.slamanage.Sla_kpi;"/>
+  </inputs>
+  <outputs/>
+  <params>
+    <param autoValue="Input.kpis" name="kpis" signature="[QSla_kpi;" type="[Lcom.chinacreator.c2.omp.service.manage.slamanage.Sla_kpi;"/>
+    <param autoValue="Input.slaId" name="slaId" signature="QString;" type="String"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

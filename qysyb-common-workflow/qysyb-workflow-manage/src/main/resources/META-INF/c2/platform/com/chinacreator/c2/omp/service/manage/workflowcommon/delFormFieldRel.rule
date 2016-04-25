@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="delformfieldrel" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.FormService" method="delFormFieldRel">
+  <name>删除表单字段关联</name>
+  <desc>RT</desc>
+  <inputs>
+    <input collection="false" desc="" id="formId" required="true" type="String"/>
+    <input collection="false" desc="" id="fieldIds" required="true" type="[LString;"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="int"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.formId" name="formId" signature="QString;" type="String"/>
+    <param autoValue="Input.fieldIds" name="fieldIds" signature="[QString;" type="[LString;"/>
+  </params>
+  <return signature="I" type="int"/>
+</CustomRule>

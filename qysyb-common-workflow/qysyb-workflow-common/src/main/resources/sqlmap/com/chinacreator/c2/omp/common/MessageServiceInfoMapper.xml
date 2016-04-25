@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.common.MessageServiceInfoMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  td_monitor_service.id ,
+		  td_monitor_service.name ,
+		  td_monitor_service.category_id ,
+		  td_monitor_service.description ,
+		  td_monitor_service.url ,
+		  td_monitor_service.method ,
+		  td_monitor_service.service_code 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="id != null">and td_monitor_service.id = #{id}</if>
+	    <if test="name != null">and td_monitor_service.name = #{name}</if>
+	    <if test="categoryId != null">and td_monitor_service.category_id = #{categoryId}</if>
+	    <if test="description != null">and td_monitor_service.description = #{description}</if>
+	    <if test="url != null">and td_monitor_service.url = #{url}</if>
+	    <if test="method != null">and td_monitor_service.method = #{method}</if>
+	    <if test="serviceCode != null">and td_monitor_service.service_code = #{serviceCode}</if>
+</sql>
+
+
+<!-- ElementID:MessageServiceInfoResult,Generated=true -->
+<resultMap id="MessageServiceInfoResult" type="com.chinacreator.c2.omp.common.MessageServiceInfo">
+	<id property="id" column="id"/>
+	<result property="name" column="name"/>
+	<result property="categoryId" column="category_id"/>
+	<result property="description" column="description"/>
+	<result property="url" column="url"/>
+	<result property="method" column="method"/>
+	<result property="serviceCode" column="service_code"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.common.MessageServiceInfo">
+	insert into td_monitor_service(
+	         <if test="id != null">id</if>
+	         <if test="name != null">,name</if>
+	         <if test="categoryId != null">,category_id</if>
+	         <if test="description != null">,description</if>
+	         <if test="url != null">,url</if>
+	         <if test="method != null">,method</if>
+	         <if test="serviceCode != null">,service_code</if>
+	 	 	 )
+	 values (
+	         <if test="id != null">#{id,jdbcType=CHAR}</if>
+	         <if test="name != null">,#{name,jdbcType=VARCHAR}</if>
+	         <if test="categoryId != null">,#{categoryId,jdbcType=CHAR}</if>
+	         <if test="description != null">,#{description,jdbcType=VARCHAR}</if>
+	         <if test="url != null">,#{url,jdbcType=VARCHAR}</if>
+	         <if test="method != null">,#{method,jdbcType=VARCHAR}</if>
+	         <if test="serviceCode != null">,#{serviceCode,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.common.MessageServiceInfo" resultType="int">
+	select count(*) from td_monitor_service 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.common.MessageServiceInfo">
+	update td_monitor_service
+<set>
+	<if test="name != null">name=#{name,jdbcType=VARCHAR},</if>
+	<if test="categoryId != null">category_id=#{categoryId,jdbcType=CHAR},</if>
+	<if test="description != null">description=#{description,jdbcType=VARCHAR},</if>
+	<if test="url != null">url=#{url,jdbcType=VARCHAR},</if>
+	<if test="method != null">method=#{method,jdbcType=VARCHAR},</if>
+	<if test="serviceCode != null">service_code=#{serviceCode,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="id != null">and id = #{id}</when>
+        <otherwise>and id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update td_monitor_service
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="name==null">name = null,</if>
+		    <if test="categoryId==null">category_id = null,</if>
+		    <if test="description==null">description = null,</if>
+		    <if test="url==null">url = null,</if>
+		    <if test="method==null">method = null,</if>
+		    <if test="serviceCode==null">service_code = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="id != null">and id = #{id}</when>
+			<otherwise>and id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.common.MessageServiceInfo">
+    delete from td_monitor_service where 1=1 and id = #{id}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.common.MessageServiceInfo" resultMap="MessageServiceInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_monitor_service 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into td_monitor_service (id,name,category_id,description,url,method,service_code) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.id,jdbcType = CHAR},
+				#{entity.name,jdbcType = VARCHAR},
+				#{entity.categoryId,jdbcType = CHAR},
+				#{entity.description,jdbcType = VARCHAR},
+				#{entity.url,jdbcType = VARCHAR},
+				#{entity.method,jdbcType = VARCHAR},
+				#{entity.serviceCode,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from td_monitor_service where id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.id}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="MessageServiceInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_monitor_service 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="MessageServiceInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_monitor_service 
+		 where td_monitor_service.id = #{id,jdbcType=CHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.common.MessageServiceInfo" resultMap="MessageServiceInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_monitor_service 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="MessageServiceInfoResult">
+select 
+	<include refid="column_sql"/> 
+	from td_monitor_service 
+	where td_monitor_service.id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		td_monitor_service.id
+	    from td_monitor_service 
+		 <where>
+	        <if test="entity.id != null">and td_monitor_service.id = #{entity.id}</if>
+	        <if test="entity.name != null">and td_monitor_service.name = #{entity.name}</if>
+	        <if test="entity.categoryId != null">and td_monitor_service.category_id = #{entity.categoryId}</if>
+	        <if test="entity.description != null">and td_monitor_service.description = #{entity.description}</if>
+	        <if test="entity.url != null">and td_monitor_service.url = #{entity.url}</if>
+	        <if test="entity.method != null">and td_monitor_service.method = #{entity.method}</if>
+	        <if test="entity.serviceCode != null">and td_monitor_service.service_code = #{entity.serviceCode}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:queryServiceByCategoryName,Generated=false -->
+<select id="queryServiceByCategoryName" parameterType="map" resultMap="MessageServiceInfoResult">
+	select 
+		<include refid="column_sql"/>
+	    from td_monitor_service_category ca,td_monitor_service
+		where ca.id=category_id	
+		<if test="categoryName != null"> and ca.name= #{categoryName}</if>
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update td_monitor_service
+	<set>
+	<if test="entity.name != null">name= #{entity.name,jdbcType=VARCHAR},</if>
+	<if test="entity.categoryId != null">category_id= #{entity.categoryId,jdbcType=CHAR},</if>
+	<if test="entity.description != null">description= #{entity.description,jdbcType=VARCHAR},</if>
+	<if test="entity.url != null">url= #{entity.url,jdbcType=VARCHAR},</if>
+	<if test="entity.method != null">method= #{entity.method,jdbcType=VARCHAR},</if>
+	<if test="entity.serviceCode != null">service_code= #{entity.serviceCode,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.id != null">and id = #{entity.id}</when>
+				<otherwise>and id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

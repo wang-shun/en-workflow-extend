@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="queryformdatafromprovariable" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.FormService" method="getFormDataByFkFromProcessVariable">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>从流程变量中取得业务数据</name>
+  <inputs>
+    <input collection="false" desc="" id="formId" required="false" type="String"/>
+    <input collection="false" desc="" id="businessKey" required="false" type="String"/>
+    <input collection="false" desc="" id="proInsId" required="false" type="String"/>
+    <input collection="false" desc="" id="filter" required="false" type="Boolean"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.Map"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.formId" name="formId" signature="QString;" type="String"/>
+    <param autoValue="Input.filter" name="filter" signature="QBoolean;" type="Boolean"/>
+    <param autoValue="Input.businessKey" name="businessKey" signature="QString;" type="String"/>
+    <param autoValue="Input.proInsId" name="proInsId" signature="QString;" type="String"/>
+  </params>
+  <return signature="QMap&lt;QString;QObject;>;" type="java.util.Map"/>
+</CustomRule>

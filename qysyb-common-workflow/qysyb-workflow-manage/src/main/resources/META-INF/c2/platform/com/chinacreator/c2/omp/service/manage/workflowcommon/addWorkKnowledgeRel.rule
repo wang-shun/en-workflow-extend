@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addworkknowledgerel" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkRelService" method="addWorkKnowledgeRel">
+  <name>添加工单知识关联</name>
+  <desc>add知识工单关联</desc>
+  <inputs>
+    <input collection="false" desc="" id="kns" required="true" type="[Lcom.chinacreator.c2.monitor.knowledge.entity.KnowledgeManage;"/>
+    <input collection="false" desc="" id="workId" required="true" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="int"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.kns" name="kns" signature="[QKnowledgeManage;" type="[Lcom.chinacreator.c2.monitor.knowledge.entity.KnowledgeManage;"/>
+    <param autoValue="Input.workId" name="workId" signature="QString;" type="String"/>
+  </params>
+  <return signature="I" type="int"/>
+</CustomRule>

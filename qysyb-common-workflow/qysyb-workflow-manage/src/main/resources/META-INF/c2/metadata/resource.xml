@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PRSet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/perm">
+  <resources>
+    <resource id="-6sTkKbRTuGTXiNKvzoGoA" name="[表单:通知公告管理][表格按钮]新增" path="f/noticemanage/newGroup/list/toolbar_table/buttonAdd" type="dom"/>
+    <resource id="l7JBdPQiTt2D1EvXKVpy6A" name="[表单:通知公告管理][表格按钮]删除" path="f/noticemanage/newGroup/list/toolbar_table/buttonDel" type="dom"/>
+    <resource id="eSm86Y8aQf-JofQrBxKgdQ" name="[表单:通知公告管理][表格按钮]修改" path="f/noticemanage/newGroup/list/toolbar_table/buttonEdit" type="dom"/>
+    <resource id="m8ZgmyDyRpauH6IrffcicA" name="[表单:通知公告管理][表格按钮]查找" path="f/noticemanage/newGroup/list/toolbar_table/buttonSearch" type="dom"/>
+    <resource id="3bg_CuHgR0aW5WXzh3maKA" name="[表单:通知公告管理][表格按钮]刷新" path="f/noticemanage/newGroup/list/toolbar_table/buttonRefresh" type="dom"/>
+    <resource id="YVx3xO7_ToCTNTryWAGFLA" name="[表单:通知公告管理][表格按钮]查看" path="f/noticemanage/newGroup/list/toolbar_table/buttonCheck" type="dom"/>
+    <resource id="nhul_WyaS2u1CJr2vQkXRg" name="[实体:通知公告][操作:add]新增" path="e/daily_notice/add" type="entity_op"/>
+    <resource id="Dsxk31CBTzWCRSOAwP9VYg" name="[实体:通知公告][操作:delete]删除" path="e/daily_notice/delete" type="entity_op"/>
+    <resource id="1QQpLrp8RjOSzJBxabz8rQ" name="[实体:通知公告][操作:edit]修改" path="e/daily_notice/edit" type="entity_op"/>
+    <resource id="P_dV8XPMSou7tTt080HMag" name="[实体:通知公告][操作:get]单记录查询" path="e/daily_notice/get" type="entity_op"/>
+    <resource id="9FswEgpNQa-dfl8zUVr86w" name="[实体:通知公告][操作:check]查看" path="e/daily_notice/check" type="entity_op"/>
+    <resource id="83OTrqaJSsm1BqJ7RO5sEw" name="[表单:服务产品管理][表格按钮]删除" path="f/serviceproductmanage/newGroupId/list/toolbar_table/buttonDel" type="dom"/>
+    <resource id="KPi88RKpSiu4q4j8aIA_ug" name="[表单:服务产品管理][表格按钮]新增" path="f/serviceproductmanage/newGroupId/list/toolbar_table/buttonAdd" type="dom"/>
+    <resource id="baYh4ol3S1SJ2DBi7sH2AQ" name="[表单:服务产品管理][表格按钮]编辑" path="f/serviceproductmanage/newGroupId/list/toolbar_table/buttonEdit" type="dom"/>
+    <resource id="fquVi0OzTPel4T6b6hZ-SA" name="[表单:服务产品管理][表格按钮]查看" path="f/serviceproductmanage/newGroupId/list/toolbar_table/buttonView" type="dom"/>
+    <resource id="Lgm_pzH-Tk6UTobS14EzWA" name="[表单:服务产品管理][表格按钮]查找" path="f/serviceproductmanage/newGroupId/list/toolbar_table/buttonSearch" type="dom"/>
+    <resource id="Dnn_403ZSkq8jD1gUSYdWw" name="[表单:服务产品管理][表格按钮]刷新" path="f/serviceproductmanage/newGroupId/list/toolbar_table/buttonRefresh" type="dom"/>
+    <resource id="Kt6DdGBjSByyC2kX14naxg" name="[实体:服务产品][操作:add]新增" path="e/servicemanage_serviceproduct/add" type="entity_op"/>
+    <resource id="ktUg22cURpKF0cbIkFlw-g" name="[实体:服务产品][操作:delete]删除" path="e/servicemanage_serviceproduct/delete" type="entity_op"/>
+    <resource id="Mw-EqaqCRVWQUMuzgQkX-Q" name="[实体:服务产品][操作:edit]修改" path="e/servicemanage_serviceproduct/edit" type="entity_op"/>
+    <resource id="LTLU3VARQz2X9tJeFsyheA" name="[实体:服务产品][操作:get]单记录查询" path="e/servicemanage_serviceproduct/get" type="entity_op"/>
+    <resource id="4Twp6PUZSYCzVc6Z2rkZvw" name="[表单:服务协议管理][表格按钮]删除" path="f/serviceagreementmanage/newGroup1/list/toolbar_table/buttonDel" type="dom"/>
+    <resource id="Tq4Eim7QRGi0LTB6oFpLiw" name="[表单:服务协议管理][表格按钮]新增" path="f/serviceagreementmanage/newGroup1/list/toolbar_table/buttonAdd" type="dom"/>
+    <resource id="Jge9zuLCSbGYRszrhoiB_g" name="[表单:服务协议管理][表格按钮]编辑" path="f/serviceagreementmanage/newGroup1/list/toolbar_table/buttonEdit" type="dom"/>
+    <resource id="iem3dCZtRF-Fb1fW4najTg" name="[表单:服务协议管理][表格按钮]刷新" path="f/serviceagreementmanage/newGroup1/list/toolbar_table/buttonRefresh" type="dom"/>
+    <resource id="gba9qHhvSDKuTNOz8oVFHA" name="[实体:服务协议][操作:add]新增" path="e/serviceagreement/add" type="entity_op"/>
+    <resource id="sewuHeDfR2qQqA69wUUUUg" name="[实体:服务协议][操作:delete]删除" path="e/serviceagreement/delete" type="entity_op"/>
+    <resource id="F8sX_iyWTzyTKK1kFxQV0Q" name="[实体:服务协议][操作:edit]修改" path="e/serviceagreement/edit" type="entity_op"/>
+    <resource id="jzlPDQgxQzuFty64OT7q1A" name="[实体:服务协议][操作:get]单记录查询" path="e/serviceagreement/get" type="entity_op"/>
+    <resource id="ibGIzmcHSKahBZPqe2GGpw" name="[实体:服务协议][操作:view]查看" path="e/serviceagreement/view" type="entity_op"/>
+    <resource id="N6za67_3RkScmTM6NwHUEQ" name="[表单:通用工单待办表单][表格按钮]事件办理" path="f/commonworktodo/newGroup/list/toolbar_table/newField1" type="dom"/>
+    <resource id="ryu2lGhpQ2uyU_gYeyTG8Q" name="[表单:通用工单待办表单][表格按钮]流程监控" path="f/commonworktodo/newGroup/list/toolbar_table/newField2" type="dom"/>
+    <resource id="HpaBEWnKTNSqt8acNmHU6g" name="[表单:通用工单待办表单][表格按钮]查询" path="f/commonworktodo/newGroup/list/toolbar_table/newField7" type="dom"/>
+    <resource id="6jKdCbbwRHW8UMfPk0Djjw" name="[表单:通用工单待办表单][表格按钮]刷新" path="f/commonworktodo/newGroup/list/toolbar_table/newField6" type="dom"/>
+    <resource id="yUJsd4bgTwGilNu4qJWoxQ" name="[表单:通用流程任务表单][表格按钮]关联故障设备" path="f/flowcommonform/xunijiliuchengbd/newGroup17/newGroup4/newGroup5/listasset/toolbar_table/buttonAdd" type="dom"/>
+    <resource id="RDN15rPPQNyI_bN7gmX4-Q" name="[表单:通用流程任务表单][表格按钮]删除" path="f/flowcommonform/xunijiliuchengbd/newGroup17/newGroup4/newGroup5/listasset/toolbar_table/newField6" type="dom"/>
+    <resource id="YwJATq-1TOOjyvKDBKFikQ" name="[表单:通用流程任务表单][表格按钮]刷新" path="f/flowcommonform/xunijiliuchengbd/newGroup17/newGroup4/newGroup5/listasset/toolbar_table/newField4" type="dom"/>
+    <resource id="7x8rGt25TgacLPL9OLRFDQ" name="[表单:通用流程任务表单][表格按钮]关联已有工单" path="f/flowcommonform/xunijiliuchengbd/newGroup17/newGroup7/listwork/toolbar_table/newField7" type="dom"/>
+    <resource id="4CmxzLGgRomGtJyqYeNlcg" name="[表单:通用流程任务表单][表格按钮]删除" path="f/flowcommonform/xunijiliuchengbd/newGroup17/newGroup7/listwork/toolbar_table/newField15" type="dom"/>
+    <resource id="bCfy7EmZTeG0GgXtZW97-A" name="[表单:通用流程任务表单][表格按钮]刷新" path="f/flowcommonform/xunijiliuchengbd/newGroup17/newGroup7/listwork/toolbar_table/newField14" type="dom"/>
+    <resource id="IlCZhQp1Q1eArzldncrOjg" name="服务产品待办" path="f/serviceproducttodo" type="form"/>
+    <resource id="A_AcAsn6St-lLRQbnfsTaw" name="服务协议管理" path="f/serviceagreementmanage" type="form"/>
+    <resource id="BtWC6NswT4SlCVOIn-OfBQ" name="工单选择页面" path="f/workchooseform" type="form"/>
+    <resource id="ChmuS3XtTdyXYjMw0L9u9A" name="通知公告管理" path="f/noticemanage" type="form"/>
+    <resource id="iq5qRnEDRpGbO0zz76wrYw" name="服务查询" path="f/servicedeskquery" type="form"/>
+    <resource id="eFbyDBd4QYC_QzM4GVnHyw" name="服务产品管理" path="f/serviceproductmanage" type="form"/>
+    <resource id="e1S6w6FLS6Kn2AL7_WZgeQ" name="UC管理" path="f/servicemanageunderpincontractmanage" type="form"/>
+    <resource id="uLWIudFLSv27fe2X9vVfXQ" name="[表单:检索器页面展示][普通按钮]自定义查询器" path="f/retrievedisplay/newGroup/newField2" type="dom"/>
+    <resource id="yS-ZC0PbQBqhrRG-qXlvvA" name="通用工单待办表单" path="f/commonworktodonotab" type="form"/>
+  </resources>
+</PRSet>

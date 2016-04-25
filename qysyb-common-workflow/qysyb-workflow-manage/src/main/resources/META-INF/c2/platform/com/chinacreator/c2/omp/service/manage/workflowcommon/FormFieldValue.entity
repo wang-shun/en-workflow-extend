@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" sn="servicemanageformfieldvalue">
+  <docket:name>表单值存储</docket:name>
+  <docket:createType>来自数据库</docket:createType>
+  <docket:primaryKey>
+    <docket:pkAttribute attribute="id" type="UUID"/>
+  </docket:primaryKey>
+  <docket:attributes>
+    <docket:attribute code="id" nullable="false" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="form_id" length="" name="表单" nullable="true" precision="" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.Form.form_id" id="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.Form"/>
+    </docket:attribute>
+    <docket:attribute code="form_business_key" name="表单业务Key" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="field_id" length="" name="字段" nullable="true" precision="" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.FormField.field_id" id="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField"/>
+    </docket:attribute>
+    <docket:attribute code="field_value" name="字段值" nullable="true" type="string2000" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="field_value_int" length="10" nullable="true" type="int" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="field_value_timestamp" nullable="true" type="date" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+  </docket:attributes>
+  <docket:subDokcets/>
+  <docket:events/>
+  <docket:table ds="oracDB" table="WORKFLOW_FORM_FIELD_VALUE"/>
+  <entity:datas/>
+  <entity:views/>
+</entity:Entity>

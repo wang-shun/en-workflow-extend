@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="generatenumber" log="false" className="com.chinacreator.c2.omp.common.util.NumberService" method="autoNumWithyear">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>自动生成如2015-00001样式编号</name>
+  <desc>针对指定实体生成yyyy-xxxxx 样式编码 如2015-00001  还需要在实体对应map中插入模糊sql查询语句参考 ServiceCatalog实体。</desc>
+  <inputs>
+    <input collection="false" desc="实体class名，com.chinacreator.c2.kcomp.servicemanagement.ServiceClass" id="cls" required="true" type="String"/>
+    <input collection="false" desc="编号在实体中对应属性方法名 如 getServiceClassNo" id="method" required="true" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="@throws ClassNotFoundException  @throws IllegalAccessException  @throws IllegalArgumentException  @throws InvocationTargetException  @throws NoSuchMethodException  @throws SecurityException" id="result" name="方法返回值" type="String"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.cls" name="cls" signature="QString;" type="String"/>
+    <param autoValue="Input.method" name="method" signature="QString;" type="String"/>
+  </params>
+  <return signature="QString;" type="String"/>
+</CustomRule>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="sendMail" log="false" className="com.chinacreator.c2.omp.common.service.message.MessageService" method="sendMessage">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>邮件发送测试</name>
+  <inputs>
+    <input collection="false" desc="消息推送渠道" id="channel" required="true" type="String"/>
+    <input collection="false" desc="接收人多个使用逗号分隔" id="recipient" required="true" type="String"/>
+    <input collection="false" desc="消息内容" id="content" required="true" type="String"/>
+    <input collection="false" desc="扩展参数" id="paramExtMap" required="true" type="java.util.Map"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="@return  boolean @date 2016年1月6日 @author tao.wang1" id="result" name="方法返回值" type="boolean"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.channel" name="channel" signature="QString;" type="String"/>
+    <param autoValue="Input.recipient" name="recipient" signature="QString;" type="String"/>
+    <param autoValue="Input.content" name="content" signature="QString;" type="String"/>
+    <param autoValue="Input.paramExtMap" name="paramExtMap" signature="QMap&lt;QString;QObject;>;" type="java.util.Map"/>
+  </params>
+  <return signature="Z" type="boolean"/>
+</CustomRule>

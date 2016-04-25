@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getWorkBranchPieData" log="false" className="com.chinacreator.c2.console.service.ManageIndexService" method="getWorkCakeGraSerie">
+  <name>获取按部门统计工单饼图数据</name>
+  <desc>按部门统计工单数据</desc>
+  <inputs>
+    <input collection="false" desc="" id="starttime" required="false" type="java.sql.Timestamp"/>
+    <input collection="false" desc="" id="endtime" required="false" type="java.sql.Timestamp"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="com.chinacreator.c2.module.echart.EChartsData"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.starttime" name="starttime" signature="QTimestamp;" type="java.sql.Timestamp"/>
+    <param autoValue="Input.endtime" name="endtime" signature="QTimestamp;" type="java.sql.Timestamp"/>
+  </params>
+  <return signature="QEChartsData;" type="com.chinacreator.c2.module.echart.EChartsData"/>
+</CustomRule>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="saveslaproductrel" log="false" className="com.chinacreator.c2.omp.service.manage.slamanage.service.ServiceAgreementService" method="saveSlaServiceProductRel">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>保存sla服务产品关联</name>
+  <inputs>
+    <input collection="false" desc="" id="spIds" required="true" type="[LString;"/>
+    <input collection="false" desc="" id="slaId" required="true" type="String"/>
+  </inputs>
+  <outputs/>
+  <params>
+    <param autoValue="Input.spIds" name="spIds" signature="[QString;" type="[LString;"/>
+    <param autoValue="Input.slaId" name="slaId" signature="QString;" type="String"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

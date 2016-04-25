@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="delWorkRel" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService" method="delWorkRel">
+  <name>删除工单关联</name>
+  <inputs>
+    <input collection="false" desc="" id="workId" required="true" type="String"/>
+    <input collection="false" desc="" id="workIds" required="true" type="[LString;"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="int"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.workId" name="workId" signature="QString;" type="String"/>
+    <param autoValue="Input.workIds" name="workIds" signature="[QString;" type="[LString;"/>
+  </params>
+  <return signature="I" type="int"/>
+</CustomRule>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getdictdatabytype" log="false" className="com.chinacreator.c2.omp.common.service.CustomDictDataService" method="getDictDataValueByDictTypeName">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取指定字典的字典数据</name>
+  <desc>批量获取字典数据，与平台提供的方法不同 这里作为map返回，前端可以通过  .  操作符 获取指定字典指定字典编号的数据,入参字典名称数组 如  [&quot;服务类型&quot;,&quot;字典名称2&quot;]</desc>
+  <inputs>
+    <input collection="false" desc="@return" id="dictTypeName" required="true" type="[LString;"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.Map"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.dictTypeName" name="dictTypeName" signature="[QString;" type="[LString;"/>
+  </params>
+  <return signature="QMap&lt;QString;QMap&lt;QString;QString;>;>;" type="java.util.Map"/>
+</CustomRule>

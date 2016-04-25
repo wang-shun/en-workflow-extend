@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.common.SequenceMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  kcomp_sequence.name ,
+		  kcomp_sequence.type ,
+		  kcomp_sequence.curvalue ,
+		  kcomp_sequence.increment ,
+		  kcomp_sequence.id 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="name != null">and kcomp_sequence.name = #{name}</if>
+	    <if test="type != null">and kcomp_sequence.type = #{type}</if>
+	    <if test="curvalue != null">and kcomp_sequence.curvalue = #{curvalue}</if>
+	    <if test="increment != null">and kcomp_sequence.increment = #{increment}</if>
+	    <if test="id != null">and kcomp_sequence.id = #{id}</if>
+</sql>
+
+
+<!-- ElementID:SequenceResult,Generated=true -->
+<resultMap id="SequenceResult" type="com.chinacreator.c2.omp.common.Sequence">
+	<id property="id" column="id"/>
+	<result property="name" column="name"/>
+	<result property="type" column="type"/>
+	<result property="curvalue" column="curvalue"/>
+	<result property="increment" column="increment"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.common.Sequence">
+	insert into kcomp_sequence(
+	         <if test="name != null">name</if>
+	         <if test="type != null">,type</if>
+	         <if test="curvalue != null">,curvalue</if>
+	         <if test="increment != null">,increment</if>
+	         <if test="id != null">,id</if>
+	 	 	 )
+	 values (
+	         <if test="name != null">#{name,jdbcType=VARCHAR}</if>
+	         <if test="type != null">,#{type,jdbcType=VARCHAR}</if>
+	         <if test="curvalue != null">,#{curvalue,jdbcType=VARCHAR}</if>
+	         <if test="increment != null">,#{increment,jdbcType=NUMERIC}</if>
+	         <if test="id != null">,#{id,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.common.Sequence" resultType="int">
+	select count(*) from kcomp_sequence 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.common.Sequence">
+	update kcomp_sequence
+<set>
+	<if test="name != null">name=#{name,jdbcType=VARCHAR},</if>
+	<if test="type != null">type=#{type,jdbcType=VARCHAR},</if>
+	<if test="curvalue != null">curvalue=#{curvalue,jdbcType=VARCHAR},</if>
+	<if test="increment != null">increment=#{increment,jdbcType=NUMERIC}</if>
+</set>
+<where>
+	<choose>
+        <when test="id != null">and id = #{id}</when>
+        <otherwise>and id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:update,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update kcomp_sequence
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="name==null">name = null,</if>
+		    <if test="type==null">type = null,</if>
+		    <if test="curvalue==null">curvalue = null,</if>
+		    <if test="increment==null">increment = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="id != null">and id = #{id}</when>
+			<otherwise>and id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.common.Sequence">
+    delete from kcomp_sequence where 1=1 and id = #{id}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.common.Sequence" resultMap="SequenceResult">
+	select 
+		<include refid="column_sql"/>
+	    from kcomp_sequence 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into kcomp_sequence (name,type,curvalue,increment,id) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.name,jdbcType = VARCHAR},
+				#{entity.type,jdbcType = VARCHAR},
+				#{entity.curvalue,jdbcType = VARCHAR},
+				#{entity.increment,jdbcType = NUMERIC},
+				#{entity.id,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from kcomp_sequence where id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.id}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="SequenceResult">
+	select 
+		<include refid="column_sql"/>
+	    from kcomp_sequence 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="SequenceResult">
+	select 
+		<include refid="column_sql"/>
+	    from kcomp_sequence 
+		 where kcomp_sequence.id = #{id,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.common.Sequence" resultMap="SequenceResult">
+	select 
+		<include refid="column_sql"/>
+	    from kcomp_sequence 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="SequenceResult">
+select 
+	<include refid="column_sql"/> 
+	from kcomp_sequence 
+	where kcomp_sequence.id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		kcomp_sequence.id
+	    from kcomp_sequence 
+		 <where>
+	        <if test="entity.name != null">and kcomp_sequence.name = #{entity.name}</if>
+	        <if test="entity.type != null">and kcomp_sequence.type = #{entity.type}</if>
+	        <if test="entity.curvalue != null">and kcomp_sequence.curvalue = #{entity.curvalue}</if>
+	        <if test="entity.increment != null">and kcomp_sequence.increment = #{entity.increment}</if>
+	        <if test="entity.id != null">and kcomp_sequence.id = #{entity.id}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update kcomp_sequence
+	<set>
+	<if test="entity.name != null">name= #{entity.name,jdbcType=VARCHAR},</if>
+	<if test="entity.type != null">type= #{entity.type,jdbcType=VARCHAR},</if>
+	<if test="entity.curvalue != null">curvalue= #{entity.curvalue,jdbcType=VARCHAR},</if>
+	<if test="entity.increment != null">increment= #{entity.increment,jdbcType=NUMERIC}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.id != null">and id = #{entity.id}</when>
+				<otherwise>and id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.service.manage.workflowcommon.WebDisplayCategoryMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  workflow_webdisplay_category.id_ ,
+		  workflow_webdisplay_category.category_no ,
+		  workflow_webdisplay_category.category_name ,
+		  workflow_webdisplay_category.url ,
+		  workflow_webdisplay_category.describe ,
+		  workflow_webdisplay_category.remark1 ,
+		  workflow_webdisplay_category.remark2 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="id != null">and workflow_webdisplay_category.id_ = #{id}</if>
+	    <if test="categoryNo != null">and workflow_webdisplay_category.category_no = #{categoryNo}</if>
+	    <if test="categoryName != null">and workflow_webdisplay_category.category_name = #{categoryName}</if>
+	    <if test="url != null">and workflow_webdisplay_category.url = #{url}</if>
+	    <if test="describe != null">and workflow_webdisplay_category.describe = #{describe}</if>
+	    <if test="remark1 != null">and workflow_webdisplay_category.remark1 = #{remark1}</if>
+	    <if test="remark2 != null">and workflow_webdisplay_category.remark2 = #{remark2}</if>
+</sql>
+
+
+<!-- ElementID:WebDisplayCategoryResult,Generated=true -->
+<resultMap id="WebDisplayCategoryResult" type="com.chinacreator.c2.omp.service.manage.workflowcommon.WebDisplayCategory">
+	<id property="id" column="id_"/>
+	<result property="categoryNo" column="category_no"/>
+	<result property="categoryName" column="category_name"/>
+	<result property="url" column="url"/>
+	<result property="describe" column="describe"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WebDisplayCategory">
+	insert into workflow_webdisplay_category(
+	         <if test="id != null">id_</if>
+	         <if test="categoryNo != null">,category_no</if>
+	         <if test="categoryName != null">,category_name</if>
+	         <if test="url != null">,url</if>
+	         <if test="describe != null">,describe</if>
+	         <if test="remark1 != null">,remark1</if>
+	         <if test="remark2 != null">,remark2</if>
+	 	 	 )
+	 values (
+	         <if test="id != null">#{id,jdbcType=VARCHAR}</if>
+	         <if test="categoryNo != null">,#{categoryNo,jdbcType=VARCHAR}</if>
+	         <if test="categoryName != null">,#{categoryName,jdbcType=VARCHAR}</if>
+	         <if test="url != null">,#{url,jdbcType=VARCHAR}</if>
+	         <if test="describe != null">,#{describe,jdbcType=VARCHAR}</if>
+	         <if test="remark1 != null">,#{remark1,jdbcType=NUMERIC}</if>
+	         <if test="remark2 != null">,#{remark2,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WebDisplayCategory" resultType="int">
+	select count(*) from workflow_webdisplay_category 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WebDisplayCategory">
+	update workflow_webdisplay_category
+<set>
+	<if test="categoryNo != null">category_no=#{categoryNo,jdbcType=VARCHAR},</if>
+	<if test="categoryName != null">category_name=#{categoryName,jdbcType=VARCHAR},</if>
+	<if test="url != null">url=#{url,jdbcType=VARCHAR},</if>
+	<if test="describe != null">describe=#{describe,jdbcType=VARCHAR},</if>
+	<if test="remark1 != null">remark1=#{remark1,jdbcType=NUMERIC},</if>
+	<if test="remark2 != null">remark2=#{remark2,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="id != null">and id_ = #{id}</when>
+        <otherwise>and id_ = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update workflow_webdisplay_category
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="categoryNo==null">category_no = null,</if>
+		    <if test="categoryName==null">category_name = null,</if>
+		    <if test="url==null">url = null,</if>
+		    <if test="describe==null">describe = null,</if>
+		    <if test="remark1==null">remark1 = null,</if>
+		    <if test="remark2==null">remark2 = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="id != null">and id_ = #{id}</when>
+			<otherwise>and id_ = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WebDisplayCategory">
+    delete from workflow_webdisplay_category where 1=1 and id_ = #{id}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WebDisplayCategory" resultMap="WebDisplayCategoryResult">
+	select 
+		<include refid="column_sql"/>
+	    from workflow_webdisplay_category 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into workflow_webdisplay_category (id_,category_no,category_name,url,describe,remark1,remark2) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.id,jdbcType = VARCHAR},
+				#{entity.categoryNo,jdbcType = VARCHAR},
+				#{entity.categoryName,jdbcType = VARCHAR},
+				#{entity.url,jdbcType = VARCHAR},
+				#{entity.describe,jdbcType = VARCHAR},
+				#{entity.remark1,jdbcType = NUMERIC},
+				#{entity.remark2,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from workflow_webdisplay_category where id_ in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.id}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="WebDisplayCategoryResult">
+	select 
+		<include refid="column_sql"/>
+	    from workflow_webdisplay_category 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="WebDisplayCategoryResult">
+	select 
+		<include refid="column_sql"/>
+	    from workflow_webdisplay_category 
+		 where workflow_webdisplay_category.id_ = #{id,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WebDisplayCategory" resultMap="WebDisplayCategoryResult">
+	select 
+		<include refid="column_sql"/>
+	    from workflow_webdisplay_category 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="WebDisplayCategoryResult">
+select 
+	<include refid="column_sql"/> 
+	from workflow_webdisplay_category 
+	where workflow_webdisplay_category.id_ in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		workflow_webdisplay_category.id_
+	    from workflow_webdisplay_category 
+		 <where>
+	        <if test="entity.id != null">and workflow_webdisplay_category.id_ = #{entity.id}</if>
+	        <if test="entity.categoryNo != null">and workflow_webdisplay_category.category_no = #{entity.categoryNo}</if>
+	        <if test="entity.categoryName != null">and workflow_webdisplay_category.category_name = #{entity.categoryName}</if>
+	        <if test="entity.url != null">and workflow_webdisplay_category.url = #{entity.url}</if>
+	        <if test="entity.describe != null">and workflow_webdisplay_category.describe = #{entity.describe}</if>
+	        <if test="entity.remark1 != null">and workflow_webdisplay_category.remark1 = #{entity.remark1}</if>
+	        <if test="entity.remark2 != null">and workflow_webdisplay_category.remark2 = #{entity.remark2}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update workflow_webdisplay_category
+	<set>
+	<if test="entity.categoryNo != null">category_no= #{entity.categoryNo,jdbcType=VARCHAR},</if>
+	<if test="entity.categoryName != null">category_name= #{entity.categoryName,jdbcType=VARCHAR},</if>
+	<if test="entity.url != null">url= #{entity.url,jdbcType=VARCHAR},</if>
+	<if test="entity.describe != null">describe= #{entity.describe,jdbcType=VARCHAR},</if>
+	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=NUMERIC},</if>
+	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.id != null">and id_ = #{entity.id}</when>
+				<otherwise>and id_ = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

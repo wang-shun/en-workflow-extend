@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.chinacreator.c2.qyb</groupId>
+    <artifactId>qysyb-workflow-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent> 
+  <groupId>com.chinacreator.c2.qyb</groupId>
+  <version>0.0.1-SNAPSHOT</version>
+  <artifactId>qysyb-workflow-resource</artifactId>
+  <packaging>war</packaging>
+  <name>qysyb-workflow-resource Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+  </dependencies>
+  <distributionManagement>
+		<repository>
+			<id>business-releases</id>
+			<name>business</name>
+			<url>http://172.16.25.142/nexus/content/repositories/business-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>business-snapshots</id>
+			<name>business</name>
+			<url>http://172.16.25.142/nexus/content/repositories/business-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+  <build>
+    <finalName>c2-qyb-workflow-resource</finalName>
+  </build>
+</project>

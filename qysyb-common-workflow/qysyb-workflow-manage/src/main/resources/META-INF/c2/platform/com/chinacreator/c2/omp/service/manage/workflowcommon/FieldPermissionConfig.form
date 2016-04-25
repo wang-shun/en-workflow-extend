@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="表单字段权限配置" sn="servicemanagefieldpermissionconfig" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="表单配置">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="800px">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad($params)">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup_html">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup1" name="普通工具条">
+    <form:control type="container/toolbar">
+      <form:attributes source="container/toolbar"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField3" name="保存为模板" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField3_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField2" name="载入模板" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField2_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField" name="确定" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField1" name="取消" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField1_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="allformfields" name="表单字段" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.getAllFormFields" sn="getallformfields">
+      <form:param id="formId" name="新输入参数" value="$params.formId"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="allpermissiondata" name="权限数据" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.getFieldsPermissionData" sn="getfieldspermissiondata">
+      <form:param id="formId" name="新输入参数" value="$params.formId"/>
+      <form:param id="businessKey" name="新输入参数" value="$params.activityId"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="dictdatalist" name="字典" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
+      <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;工作流_字段类别&quot;]"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="allfieldfieldsbytype" name="按字段分类所有字段" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Form.getFormFieldsByTypes" sn="getformfieldsbytypes">
+      <form:param id="formId" name="新输入参数" value="$params.formId"/>
+      <form:param id="fieldType" name="新输入参数"/>
+      <form:param id="isClassify" name="新输入参数" value="true"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>
+
+page_onload:function(){
+
+},
+
+page_beforeDataSourceLoad:function($params){
+//	console.log($params);	
+},
+
+page_afterDataSourceLoad:function(){
+/*	var r = $model.allformfields.result;
+	var size = $model.allformfields.result.length;
+	var a=new Array();
+	var col = 3;
+	for(var i=0;i&lt;size;i=i+col){
+		var b = new Array();
+		var j = i;
+		var m = col;
+		while(j&lt;size&amp;&amp;m>0){
+			b.push(r[j]);
+			j++;
+			m--;
+		}
+		a.push(b);
+	}
+	$model.a = a;
+	console.log(&quot;permissiondata&quot;,$model.allpermissiondata.result);*/
+	
+	var c = $model.allfieldfieldsbytype.result;
+	var d = $model.dictdatalist.result[&quot;工作流_字段类别&quot;];
+	$model.d = d;
+	var fields = $model.allfieldfieldsbytype.result;
+	for(var k=0;k&lt;d.length;k=k+1){
+		console.log(&quot;dd&quot;,d[k]);
+		var e = fields[d[k].dictdataName];
+		if(!angular.isUndefined(e)){
+			console.log(&quot;ee&quot;,e);
+			var r = e;
+			var size = e.length;
+			var a=new Array();
+			var col = 3;
+			for(var i=0;i&lt;size;i=i+col){
+				var b = new Array();
+				var j = i;
+				var m = col;
+				while(j&lt;size&amp;&amp;m>0){
+					b.push(r[j]);
+					j++;
+					m--;
+				}
+				a.push(b);
+			}
+			fields[d[k].dictdataName] = a;
+			console.log(&quot;fixed ee&quot;,fields[d[k].dictdataName]);
+		}
+
+	}
+	$model.a = fields;
+	console.log(&quot;fields&quot;,$model.a);
+},
+
+newField_click:function($event){
+	console.log(&quot;b&quot;,$model.allpermissiondata.result);
+	$http.post(&quot;ws/savefieldspermissiondata&quot;,{formId:$params.formId,businessKey:$params.activityId,map:$model.allpermissiondata.result});
+	Modal.instance.close();
+},
+
+newField1_click:function($event){
+	Modal.instance.dismiss();
+},
+
+newField3_click:function($event){
+	$http.post(&quot;ws/savefieldspermissiondata&quot;,{formId:$params.formId,businessKey:$params.moduleId,map:$model.allpermissiondata.result})
+	.success(function(a){
+			Messenger.post({
+				'message': &quot;模板保存成功！&quot;,
+	            'type': 'success',
+	        });
+	});
+},
+
+newField2_click:function($event){
+	$model.allpermissiondata.$load({formId:$params.formId,businessKey:$params.moduleId})
+	.then(function(){
+			Messenger.post({
+				'message': &quot;模板载入成功！&quot;,
+	            'type': 'success',
+	        });		
+	});
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>
+&lt;div class=&quot;tab-tagContent selectTag&quot; id=&quot;tab-tagContent1&quot; style=&quot;height:auto&quot;>
+&lt;div class=&quot;tab-tagContent-whitecon&quot; style=&quot;height:auto&quot;>
+&lt;div ng-repeat=&quot;d in $model.d&quot;>
+&lt;div ng-if=&quot;$model.a[d.dictdataName]&quot;>
+&lt;ul id=&quot;tab-tags&quot;>
+&lt;h5 class=&quot;selectTag&quot;>{{d.dictdataValue}}&lt;/h5>
+&lt;/ul>
+&lt;table width=&quot;100%&quot; border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;table-height&quot;>
+&lt;tbody>
+	&lt;tr ng-repeat=&quot;a in $model.a[d.dictdataName]&quot;>                                                    
+    	&lt;td width=&quot;33.3%&quot; ng-repeat=&quot;tmp in a&quot;>
+			&lt;table>
+			&lt;tbody>
+				&lt;td width=&quot;32%&quot;>{{tmp.fieldName}}&lt;/td>    
+				&lt;td width=&quot;68%&quot;>
+				&lt;input type=&quot;checkbox&quot; checked=&quot;checked&quot; ng-model=&quot;$model.allpermissiondata.result[tmp.fieldNo].writePermission&quot;  name=&quot;checkboxFieldW&quot;>可写
+				&lt;input type=&quot;checkbox&quot; checked=&quot;checked&quot; ng-model=&quot;$model.allpermissiondata.result[tmp.fieldNo].visible&quot;  name=&quot;checkboxFieldW&quot;>可见
+				&lt;input type=&quot;checkbox&quot; checked=&quot;checked&quot; ng-model=&quot;$model.allpermissiondata.result[tmp.fieldNo].fillnecessary&quot;  name=&quot;checkboxFieldW&quot;>必填
+				&lt;/td>    
+			&lt;/tbody>&lt;/table>
+        &lt;/td>                                                                                                    
+    &lt;/tr>
+&lt;/tbody>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/script>
+
+&lt;style>
+#tab-con {FONT-SIZE: 12px;WIDTH: 100%}
+#tab-tags {PADDING: 0px; MARGIN: 0px; WIDTH: 400px; HEIGHT: 23px}
+#tab-tags LI.emptyTag {BACKGROUND: none transparent scroll repeat 0% 0%; WIDTH: 4px}
+#tab-tags LI.selectTag {BACKGROUND-POSITION: left top; MARGIN-BOTTOM: -2px; HEIGHT: 24px}
+#tab-tags LI.selectTag A {BACKGROUND-POSITION: right top; COLOR: #000002; LINE-HEIGHT: 24px; HEIGHT: 24px}
+#tab-tagContent DIV.selectTag {DISPLAY: block}
+.userinfo .sub-btn{ float:right; margin-top:40px; margin-right:6px;}
+.tab-tagContent-whitecon{border:#cfdff6 1px solid; background-color:#FFFFFF; padding:12px 35px;}
+.table-height td{height:30px;}
+&lt;/style></form:htmls>
+</form:Form>

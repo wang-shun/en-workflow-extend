@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.chinacreator.com/platform/mvc/rule" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" xmlns:form="http://www.chinacreator.com/platform/mvc/form" xmlns:template="http://www.chinacreator.com/c2/ui/template" sn="util_userInfo">
+  <docket:name>用户信息</docket:name>
+  <docket:createType>来自数据库</docket:createType>
+  <docket:primaryKey>
+    <docket:pkAttribute attribute="user_id" type="UUID"/>
+  </docket:primaryKey>
+  <docket:attributes>
+    <docket:attribute code="user_id" name="用户ID" nullable="false" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_name" name="用户帐号" nullable="false" type="string1024" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_password" name="用户密码" nullable="false" type="string1536" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_realname" name="用户实名" nullable="false" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_pinyin" name="拼音" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_sex" name="性别" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_hometel" name="家庭电话" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_worktel" name="公司电话" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_workaddress" name="公司地址" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_mobiletel1" name="手机1" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_mobiletel2" name="手机2" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_fax" name="传真" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_oicq" name="OICQ" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_regdate" name="注册日期" nullable="false" type="timestamp" default="CURRENT_TIMESTAMP">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_birthday" name="生日" nullable="false" type="timestamp" default="0000-00-00 00:00:00">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_email" name="邮箱" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_address" name="住址" nullable="true" type="string1024" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_postalcode" name="邮编" nullable="true" type="string32" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_idcard" name="身份证" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_isvalid" name="是否使用" nullable="true" type="int" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_logincount" name="登陆次数" nullable="true" type="int" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_type" name="用户类型" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="past_time" name="过期时间" nullable="false" type="timestamp" default="0000-00-00 00:00:00">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="dredge_time" name="开通时间" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="lastlogin_date" name="用户最后登陆时间" nullable="false" type="timestamp" default="0000-00-00 00:00:00">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="worklength" name="工作年限" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="politics" name="政治面貌" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="login_ip" name="登录IP" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="cert_sn" name="证书key的唯一标识" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="user_sn" name="用户排序号" nullable="true" type="int" default="999">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark1" name="备用字段1" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark2" name="备用字段2" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark3" name="备用字段3" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark4" name="备用字段4" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark5" name="备用字段5" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark6" name="备用字段6" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark7" name="备用字段7" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark8" name="备用字段8" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark9" name="备用字段9" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark10" name="备用字段10" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+  </docket:attributes>
+  <docket:subDokcets/>
+  <docket:events>
+    <docket:event desc="" id="get" name="查询操作">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="selectOne" name="单记录查询" ruleId="rule:c2.dao.selectOne">
+          <inputs>
+            <input code="entity" from="data"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui name="查询操作" type="none">
+        <form:control type="page/normal">
+          <form:attributes source="page/normal"/>
+        </form:control>
+        <form:child xsi:type="form:Group" id="UserInfo" name="用户信息">
+          <form:control type="container/div">
+            <form:attributes source="container/div">
+              <dync:attribute default="false" desc="无任何属性和样式的div" group="HTML配置" hidden="false" id="pure" name="简单div" required="true" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+                <dync:onChange>
+                  <template:case value="true">
+                    <template:hide param="span" value="true"/>
+                    <template:hide param="offset" value="true"/>
+                    <template:hide param="collapse" value="true"/>
+                    <template:hide param="defaultCollapse" value="true"/>
+                    <template:hide param="autoHeight" value="true"/>
+                    <template:hide param="nopadding" value="true"/>
+                  </template:case>
+                  <template:case value="false">
+                    <template:hide param="span" value="false"/>
+                    <template:hide param="offset" value="false"/>
+                    <template:hide param="collapse" value="false"/>
+                    <template:hide param="defaultCollapse" value="false"/>
+                    <template:hide param="autoHeight" value="false"/>
+                    <template:hide param="nopadding" value="false"/>
+                  </template:case>
+                </dync:onChange>
+              </dync:attribute>
+              <dync:attribute default="12" desc="网格布局中占位数" group="HTML配置" hidden="false" id="span" name="占位数" required="true" value="12">
+                <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="0" desc="网格布局中的偏移数" group="HTML配置" hidden="false" id="offset" name="偏移" required="false" value="0">
+                <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="填写变量或者表达式，控制控件是否隐藏。变量和表达式的值必须为布尔类型。如果变量没有赋值，则默认为【隐藏默认值】。&#xA;                @attention 变量可以从数据源中直接拿，或者在页面的*载入事件*中进行初始化。" group="HTML配置" hidden="false" id="collapse" name="隐藏" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" desc="容器在页面初始化完成时是否隐藏。当你不需要通过变量来控制控件隐藏的话，只需要使用这个属性就够了。可以通过控件方法`show();hide();toggle()`控制容器的隐藏状态。&#xA;                `false`表示展开控件（默认）。&#xA;                `true`表示隐藏控件。" group="HTML配置" hidden="false" id="defaultCollapse" name="隐藏默认值" required="false" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" desc="该容器的高度自动适应当前页面的page-content高度" group="HTML配置" hidden="false" id="autoHeight" name="自动高度" required="false" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" desc="内部是否有边距(添加&quot;no-padding&quot;样式)" group="HTML配置" hidden="false" id="nopadding" name="无内边距" required="false" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="在容器内部直接嵌入自定义的HTML。当控件满足不了页面需求时，可以通过这个去嵌入一段自定义的HTML代码。&#xA;                点击属性框右边按钮，会自动跳转到*HTML片段*的页签，并在页签内生成一段包裹脚本。需要自定义的HTML代码写在脚本内。如果还需要脚本控制元素，也可在模版内部写自己的脚本。  &#xA;                @attention 如果定义了该属性，那么在容器中放置任何其他控件都会被忽略。&#xA;                @attention 自定义HTML其实是一个Angular的模版，模版内部的作用域（$scope)继承了Form表单的作用域。所以可以在js页面中通过$scope定义变量，然后在模版中获取。&#xA;                @attention 模版还能够支持Angular原生的指令，也能支持控件指令和自定义的指令。&#xA;                @code&#xA;                &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>&#xA;&#x9;&#x9;&#x9;&#x9;我的地盘我做主！  &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;在表单$scope中定义的变量，都可以在这里通过双打括号{{}}获取。比如在页面js中定义了$scope.someThing = &quot;这里风景独好！&quot;;&#xA;&#x9;&#x9;&#x9;&#x9;{{someThing}} //这里显示&quot;这里风景独好！&quot;。  &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;如果需要调用页面JS中的函数myClickFn，可以通过functions.myClickFn()调用：&#xA;&#x9;&#x9;&#x9;&#x9;&lt;button ng-click=&quot;functions.myClickFn()&quot;>按我！要温柔~&lt;/button>&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;//注意:页面JS定义的函数只能通过ng-click调用的，如果只习惯通过onClick调用，可以把函数单独写到新的&lt;script>标签里面，然后上面就能够onClick直接调用了：&#xA;&#x9;&#x9;&#x9;&#x9;&lt;script>&#xA;&#x9;&#x9;&#x9;&#x9;function myClickFn(){&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;XXOOXX&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;如果需要循环输出数组，可以这样：&#xA;&#x9;&#x9;&#x9;&#x9;&lt;ul>&#xA;&#x9;&#x9;&#x9;&#x9;&lt;li ng-repeat=&quot;one in some&quot;>{{one}}，欢迎来到Angular的世界！&lt;/li>&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/ul>&#xA;                @code" group="高级自定义" hidden="false" id="html" name="自定义HTML" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="html"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="可以添加任意class，多个class样式用空格分开" group="高级自定义" hidden="false" id="cssClass" name="自定义class" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="可以添加任意style样式,必须遵循style样式格式：&quot;color:red;backgroud-color:blue;&quot;。" group="高级自定义" hidden="false" id="style" name="自定义style" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+        </form:child>
+        <form:datasources>
+          <form:datasource xsi:type="form:Inputs">
+            <form:input id="id" name="实体数据id"/>
+          </form:datasource>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据" entity="entity:com.chinacreator.c2.omp.common.UserInfo"/>
+        </form:datasources>
+        <form:scripts>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;
+&lt;entity:Entity xmi:version=&quot;2.0&quot; xmlns:xmi=&quot;http://www.omg.org/XMI&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:cdata=&quot;http://www.chinacreator.com/platform/mvc/cdata&quot; xmlns:docket=&quot;http://www.chinacreator.com/platform/mvc/docket&quot; xmlns:entity=&quot;http://www.chinacreator.com/platform/mvc/entity&quot; sn=&quot;util_userInfo&quot;>&#xD;
+  &lt;docket:name>用户信息&lt;/docket:name>&#xD;
+  &lt;docket:createType>来自数据库&lt;/docket:createType>&#xD;
+  &lt;docket:primaryKey>&#xD;
+    &lt;docket:pkAttribute attribute=&quot;user_id&quot; type=&quot;UUID&quot;/>&#xD;
+  &lt;/docket:primaryKey>&#xD;
+  &lt;docket:attributes>&#xD;
+    &lt;docket:attribute code=&quot;user_id&quot; name=&quot;用户ID&quot; nullable=&quot;false&quot; type=&quot;string256&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_name&quot; name=&quot;用户帐号&quot; nullable=&quot;false&quot; type=&quot;string1024&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_password&quot; name=&quot;用户密码&quot; nullable=&quot;false&quot; type=&quot;string1536&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_realname&quot; name=&quot;用户实名&quot; nullable=&quot;false&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_pinyin&quot; name=&quot;拼音&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_sex&quot; name=&quot;性别&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_hometel&quot; name=&quot;家庭电话&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_worktel&quot; name=&quot;公司电话&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_workaddress&quot; name=&quot;公司地址&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_mobiletel1&quot; name=&quot;手机1&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_mobiletel2&quot; name=&quot;手机2&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_fax&quot; name=&quot;传真&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_oicq&quot; name=&quot;OICQ&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_regdate&quot; name=&quot;注册日期&quot; nullable=&quot;false&quot; type=&quot;timestamp&quot; default=&quot;CURRENT_TIMESTAMP&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_birthday&quot; name=&quot;生日&quot; nullable=&quot;false&quot; type=&quot;timestamp&quot; default=&quot;0000-00-00 00:00:00&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_email&quot; name=&quot;邮箱&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_address&quot; name=&quot;住址&quot; nullable=&quot;true&quot; type=&quot;string1024&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_postalcode&quot; name=&quot;邮编&quot; nullable=&quot;true&quot; type=&quot;string32&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_idcard&quot; name=&quot;身份证&quot; nullable=&quot;true&quot; type=&quot;string256&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_isvalid&quot; name=&quot;是否使用&quot; nullable=&quot;true&quot; type=&quot;int&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_logincount&quot; name=&quot;登陆次数&quot; nullable=&quot;true&quot; type=&quot;int&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_type&quot; name=&quot;用户类型&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;past_time&quot; name=&quot;过期时间&quot; nullable=&quot;false&quot; type=&quot;timestamp&quot; default=&quot;0000-00-00 00:00:00&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;dredge_time&quot; name=&quot;开通时间&quot; nullable=&quot;true&quot; type=&quot;string256&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;lastlogin_date&quot; name=&quot;用户最后登陆时间&quot; nullable=&quot;false&quot; type=&quot;timestamp&quot; default=&quot;0000-00-00 00:00:00&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;worklength&quot; name=&quot;工作年限&quot; nullable=&quot;true&quot; type=&quot;string256&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;politics&quot; name=&quot;政治面貌&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;login_ip&quot; name=&quot;登录IP&quot; nullable=&quot;true&quot; type=&quot;string64&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;cert_sn&quot; name=&quot;证书key的唯一标识&quot; nullable=&quot;true&quot; type=&quot;string256&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;user_sn&quot; name=&quot;用户排序号&quot; nullable=&quot;true&quot; type=&quot;int&quot; default=&quot;999&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;remark1&quot; name=&quot;备用字段1&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;remark2&quot; name=&quot;备用字段2&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;remark3&quot; name=&quot;备用字段3&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;remark4&quot; name=&quot;备用字段4&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;remark5&quot; name=&quot;备用字段5&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;remark6&quot; name=&quot;备用字段6&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;remark7&quot; name=&quot;备用字段7&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;remark8&quot; name=&quot;备用字段8&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;remark9&quot; name=&quot;备用字段9&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+    &lt;docket:attribute code=&quot;remark10&quot; name=&quot;备用字段10&quot; nullable=&quot;true&quot; type=&quot;string512&quot; default=&quot;&quot;>&#xD;
+      &lt;docket:valueRange xsi:type=&quot;cdata:AllValueRange&quot;/>&#xD;
+    &lt;/docket:attribute>&#xD;
+  &lt;/docket:attributes>&#xD;
+  &lt;docket:subDokcets/>&#xD;
+  &lt;docket:events/>&#xD;
+  &lt;docket:table ds=&quot;newDS&quot; table=&quot;td_sm_user&quot;/>&#xD;
+  &lt;entity:datas/>&#xD;
+  &lt;entity:views/>&#xD;
+&lt;/entity:Entity>&#xD;
+</form:scripts>
+        <form:htmls></form:htmls>
+      </docket:ui>
+    </docket:event>
+  </docket:events>
+  <docket:table ds="newDS" table="td_sm_user"/>
+  <entity:datas/>
+  <entity:views/>
+</entity:Entity>

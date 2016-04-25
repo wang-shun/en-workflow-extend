@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.service.manage.slamanage.UnderpinContractMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  SERVICE_UPDERPIN_CONTRACT.uc_id ,
+		  SERVICE_UPDERPIN_CONTRACT.uc_name ,
+		  SERVICE_UPDERPIN_CONTRACT.contract_name ,
+		  SERVICE_UPDERPIN_CONTRACT.supplier_name ,
+		  SERVICE_UPDERPIN_CONTRACT.service_valid_starttime ,
+		  SERVICE_UPDERPIN_CONTRACT.service_valid_endtime ,
+		  SERVICE_UPDERPIN_CONTRACT.service_time_day_of_week ,
+		  SERVICE_UPDERPIN_CONTRACT.service_time_time_of_day ,
+		  SERVICE_UPDERPIN_CONTRACT.service_type 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="ucId != null">and SERVICE_UPDERPIN_CONTRACT.uc_id = #{ucId}</if>
+	    <if test="ucName != null">and SERVICE_UPDERPIN_CONTRACT.uc_name = #{ucName}</if>
+	    <if test="contractName != null">and SERVICE_UPDERPIN_CONTRACT.contract_name = #{contractName}</if>
+	    <if test="supplierName != null">and SERVICE_UPDERPIN_CONTRACT.supplier_name = #{supplierName}</if>
+	    <if test="serviceValidStarttime != null">and SERVICE_UPDERPIN_CONTRACT.service_valid_starttime = #{serviceValidStarttime}</if>
+	    <if test="serviceValidEndtime != null">and SERVICE_UPDERPIN_CONTRACT.service_valid_endtime = #{serviceValidEndtime}</if>
+	    <if test="serviceTimeDayOfWeek != null">and SERVICE_UPDERPIN_CONTRACT.service_time_day_of_week = #{serviceTimeDayOfWeek}</if>
+	    <if test="serviceTimeTimeOfDay != null">and SERVICE_UPDERPIN_CONTRACT.service_time_time_of_day = #{serviceTimeTimeOfDay}</if>
+	    <if test="serviceType != null">and SERVICE_UPDERPIN_CONTRACT.service_type = #{serviceType}</if>
+</sql>
+
+
+<!-- ElementID:UnderpinContractResult,Generated=true -->
+<resultMap id="UnderpinContractResult" type="com.chinacreator.c2.omp.service.manage.slamanage.UnderpinContract">
+	<id property="ucId" column="uc_id"/>
+	<result property="ucName" column="uc_name"/>
+	<result property="contractName" column="contract_name"/>
+	<result property="supplierName" column="supplier_name"/>
+	<result property="serviceValidStarttime" column="service_valid_starttime"/>
+	<result property="serviceValidEndtime" column="service_valid_endtime"/>
+	<result property="serviceTimeDayOfWeek" column="service_time_day_of_week"/>
+	<result property="serviceTimeTimeOfDay" column="service_time_time_of_day"/>
+	<result property="serviceType" column="service_type"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.UnderpinContract">
+	insert into SERVICE_UPDERPIN_CONTRACT(
+	         <if test="ucId != null">uc_id</if>
+	         <if test="ucName != null">,uc_name</if>
+	         <if test="contractName != null">,contract_name</if>
+	         <if test="supplierName != null">,supplier_name</if>
+	         <if test="serviceValidStarttime != null">,service_valid_starttime</if>
+	         <if test="serviceValidEndtime != null">,service_valid_endtime</if>
+	         <if test="serviceTimeDayOfWeek != null">,service_time_day_of_week</if>
+	         <if test="serviceTimeTimeOfDay != null">,service_time_time_of_day</if>
+	         <if test="serviceType != null">,service_type</if>
+	 	 	 )
+	 values (
+	         <if test="ucId != null">#{ucId,jdbcType=VARCHAR}</if>
+	         <if test="ucName != null">,#{ucName,jdbcType=VARCHAR}</if>
+	         <if test="contractName != null">,#{contractName,jdbcType=VARCHAR}</if>
+	         <if test="supplierName != null">,#{supplierName,jdbcType=VARCHAR}</if>
+	         <if test="serviceValidStarttime != null">,#{serviceValidStarttime,jdbcType=DATE}</if>
+	         <if test="serviceValidEndtime != null">,#{serviceValidEndtime,jdbcType=DATE}</if>
+	         <if test="serviceTimeDayOfWeek != null">,#{serviceTimeDayOfWeek,jdbcType=VARCHAR}</if>
+	         <if test="serviceTimeTimeOfDay != null">,#{serviceTimeTimeOfDay,jdbcType=VARCHAR}</if>
+	         <if test="serviceType != null">,#{serviceType,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.UnderpinContract" resultType="int">
+	select count(*) from SERVICE_UPDERPIN_CONTRACT 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.UnderpinContract">
+	update SERVICE_UPDERPIN_CONTRACT
+<set>
+	<if test="ucName != null">uc_name=#{ucName,jdbcType=VARCHAR},</if>
+	<if test="contractName != null">contract_name=#{contractName,jdbcType=VARCHAR},</if>
+	<if test="supplierName != null">supplier_name=#{supplierName,jdbcType=VARCHAR},</if>
+	<if test="serviceValidStarttime != null">service_valid_starttime=#{serviceValidStarttime,jdbcType=DATE},</if>
+	<if test="serviceValidEndtime != null">service_valid_endtime=#{serviceValidEndtime,jdbcType=DATE},</if>
+	<if test="serviceTimeDayOfWeek != null">service_time_day_of_week=#{serviceTimeDayOfWeek,jdbcType=VARCHAR},</if>
+	<if test="serviceTimeTimeOfDay != null">service_time_time_of_day=#{serviceTimeTimeOfDay,jdbcType=VARCHAR},</if>
+	<if test="serviceType != null">service_type=#{serviceType,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="ucId != null">and uc_id = #{ucId}</when>
+        <otherwise>and uc_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update SERVICE_UPDERPIN_CONTRACT
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="ucName==null">uc_name = null,</if>
+		    <if test="contractName==null">contract_name = null,</if>
+		    <if test="supplierName==null">supplier_name = null,</if>
+		    <if test="serviceValidStarttime==null">service_valid_starttime = null,</if>
+		    <if test="serviceValidEndtime==null">service_valid_endtime = null,</if>
+		    <if test="serviceTimeDayOfWeek==null">service_time_day_of_week = null,</if>
+		    <if test="serviceTimeTimeOfDay==null">service_time_time_of_day = null,</if>
+		    <if test="serviceType==null">service_type = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="ucId != null">and uc_id = #{ucId}</when>
+			<otherwise>and uc_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.UnderpinContract">
+    delete from SERVICE_UPDERPIN_CONTRACT where 1=1 and uc_id = #{ucId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.UnderpinContract" resultMap="UnderpinContractResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_UPDERPIN_CONTRACT 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into SERVICE_UPDERPIN_CONTRACT (uc_id,uc_name,contract_name,supplier_name,service_valid_starttime,service_valid_endtime,service_time_day_of_week,service_time_time_of_day,service_type) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.ucId,jdbcType = VARCHAR},
+				#{entity.ucName,jdbcType = VARCHAR},
+				#{entity.contractName,jdbcType = VARCHAR},
+				#{entity.supplierName,jdbcType = VARCHAR},
+				#{entity.serviceValidStarttime,jdbcType = DATE},
+				#{entity.serviceValidEndtime,jdbcType = DATE},
+				#{entity.serviceTimeDayOfWeek,jdbcType = VARCHAR},
+				#{entity.serviceTimeTimeOfDay,jdbcType = VARCHAR},
+				#{entity.serviceType,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from SERVICE_UPDERPIN_CONTRACT where uc_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.ucId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="UnderpinContractResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_UPDERPIN_CONTRACT 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="UnderpinContractResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_UPDERPIN_CONTRACT 
+		 where SERVICE_UPDERPIN_CONTRACT.uc_id = #{ucId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.UnderpinContract" resultMap="UnderpinContractResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_UPDERPIN_CONTRACT 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="UnderpinContractResult">
+select 
+	<include refid="column_sql"/> 
+	from SERVICE_UPDERPIN_CONTRACT 
+	where SERVICE_UPDERPIN_CONTRACT.uc_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		SERVICE_UPDERPIN_CONTRACT.uc_id
+	    from SERVICE_UPDERPIN_CONTRACT 
+		 <where>
+	        <if test="entity.ucId != null">and SERVICE_UPDERPIN_CONTRACT.uc_id = #{entity.ucId}</if>
+	        <if test="entity.ucName != null">and SERVICE_UPDERPIN_CONTRACT.uc_name = #{entity.ucName}</if>
+	        <if test="entity.contractName != null">and SERVICE_UPDERPIN_CONTRACT.contract_name = #{entity.contractName}</if>
+	        <if test="entity.supplierName != null">and SERVICE_UPDERPIN_CONTRACT.supplier_name = #{entity.supplierName}</if>
+	        <if test="entity.serviceValidStarttime != null">and SERVICE_UPDERPIN_CONTRACT.service_valid_starttime = #{entity.serviceValidStarttime}</if>
+	        <if test="entity.serviceValidEndtime != null">and SERVICE_UPDERPIN_CONTRACT.service_valid_endtime = #{entity.serviceValidEndtime}</if>
+	        <if test="entity.serviceTimeDayOfWeek != null">and SERVICE_UPDERPIN_CONTRACT.service_time_day_of_week = #{entity.serviceTimeDayOfWeek}</if>
+	        <if test="entity.serviceTimeTimeOfDay != null">and SERVICE_UPDERPIN_CONTRACT.service_time_time_of_day = #{entity.serviceTimeTimeOfDay}</if>
+	        <if test="entity.serviceType != null">and SERVICE_UPDERPIN_CONTRACT.service_type = #{entity.serviceType}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update SERVICE_UPDERPIN_CONTRACT
+	<set>
+	<if test="entity.ucName != null">uc_name= #{entity.ucName,jdbcType=VARCHAR},</if>
+	<if test="entity.contractName != null">contract_name= #{entity.contractName,jdbcType=VARCHAR},</if>
+	<if test="entity.supplierName != null">supplier_name= #{entity.supplierName,jdbcType=VARCHAR},</if>
+	<if test="entity.serviceValidStarttime != null">service_valid_starttime= #{entity.serviceValidStarttime,jdbcType=DATE},</if>
+	<if test="entity.serviceValidEndtime != null">service_valid_endtime= #{entity.serviceValidEndtime,jdbcType=DATE},</if>
+	<if test="entity.serviceTimeDayOfWeek != null">service_time_day_of_week= #{entity.serviceTimeDayOfWeek,jdbcType=VARCHAR},</if>
+	<if test="entity.serviceTimeTimeOfDay != null">service_time_time_of_day= #{entity.serviceTimeTimeOfDay,jdbcType=VARCHAR},</if>
+	<if test="entity.serviceType != null">service_type= #{entity.serviceType,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.ucId != null">and uc_id = #{entity.ucId}</when>
+				<otherwise>and uc_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

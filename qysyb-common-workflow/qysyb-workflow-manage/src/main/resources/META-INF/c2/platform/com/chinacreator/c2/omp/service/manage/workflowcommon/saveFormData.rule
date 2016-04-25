@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="saveformdata" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.FormService" method="updateFormDataByFk">
+  <name>保存表单数据</name>
+  <inputs>
+    <input collection="false" desc="" id="formId" required="true" type="String"/>
+    <input collection="false" desc="" id="businessKey" required="true" type="String"/>
+    <input collection="false" desc="" id="map" required="true" type="java.util.Map"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="int"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.formId" name="formId" signature="QString;" type="String"/>
+    <param autoValue="Input.businessKey" name="businessKey" signature="QString;" type="String"/>
+    <param autoValue="Input.map" name="map" signature="QMap;" type="java.util.Map"/>
+  </params>
+  <return signature="I" type="int"/>
+</CustomRule>

@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.service.manage.workflowcommon.WorkServiceMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  v_kcomp_work.work_id ,
+		  v_kcomp_work.work_no ,
+		  v_kcomp_work.work_title ,
+		  v_kcomp_work.work_describe ,
+		  v_kcomp_work.applicant_id ,
+		  v_kcomp_work.applicant_name ,
+		  v_kcomp_work.applicant_contact_way ,
+		  v_kcomp_work.apply_branch_id ,
+		  v_kcomp_work.apply_branch_name ,
+		  v_kcomp_work.incident_level_id ,
+		  v_kcomp_work.urgent_level_id ,
+		  v_kcomp_work.affect_scope_id ,
+		  v_kcomp_work.pri_id ,
+		  v_kcomp_work.work_stage ,
+		  v_kcomp_work.work_state_id ,
+		  v_kcomp_work.happen_date ,
+		  v_kcomp_work.accept_date ,
+		  v_kcomp_work.assign_date ,
+		  v_kcomp_work.business_key ,
+		  v_kcomp_work.task_assignee ,
+		  v_kcomp_work.task_def ,
+		  v_kcomp_work.module_id ,
+		  v_kcomp_work.service_type_id ,
+		  v_kcomp_work.service_type_name ,
+		  v_kcomp_work.proinsid ,
+		  v_kcomp_work.prodefid ,
+		  v_kcomp_work.task_id ,
+		  v_kcomp_work.is_recieve_timeout ,
+		  v_kcomp_work.is_handle_timeout ,
+		  v_kcomp_work.sla_remaintime ,
+		  v_kcomp_work.type 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="workId != null">and v_kcomp_work.work_id = #{workId}</if>
+	    <if test="workNo != null">and v_kcomp_work.work_no = #{workNo}</if>
+	    <if test="workTitle != null">and v_kcomp_work.work_title = #{workTitle}</if>
+	    <if test="workDescribe != null">and v_kcomp_work.work_describe = #{workDescribe}</if>
+	    <if test="applicantId != null">and v_kcomp_work.applicant_id = #{applicantId}</if>
+	    <if test="applicantName != null">and v_kcomp_work.applicant_name = #{applicantName}</if>
+	    <if test="applicantContactWay != null">and v_kcomp_work.applicant_contact_way = #{applicantContactWay}</if>
+	    <if test="applyBranchId != null">and v_kcomp_work.apply_branch_id = #{applyBranchId}</if>
+	    <if test="applyBranchName != null">and v_kcomp_work.apply_branch_name = #{applyBranchName}</if>
+	    <if test="incidentLevelId != null">and v_kcomp_work.incident_level_id = #{incidentLevelId}</if>
+	    <if test="urgentLevelId != null">and v_kcomp_work.urgent_level_id = #{urgentLevelId}</if>
+	    <if test="affectScopeId != null">and v_kcomp_work.affect_scope_id = #{affectScopeId}</if>
+	    <if test="priId != null">and v_kcomp_work.pri_id = #{priId}</if>
+	    <if test="workStage != null">and v_kcomp_work.work_stage = #{workStage}</if>
+	    <if test="workStateId != null">and v_kcomp_work.work_state_id = #{workStateId}</if>
+	    <if test="happenDate != null">and v_kcomp_work.happen_date = #{happenDate}</if>
+	    <if test="acceptDate != null">and v_kcomp_work.accept_date = #{acceptDate}</if>
+	    <if test="assignDate != null">and v_kcomp_work.assign_date = #{assignDate}</if>
+	    <if test="businessKey != null">and v_kcomp_work.business_key = #{businessKey}</if>
+	    <if test="taskAssignee != null">and v_kcomp_work.task_assignee = #{taskAssignee}</if>
+	    <if test="taskDef != null">and v_kcomp_work.task_def = #{taskDef}</if>
+	    <if test="moduleId != null">and v_kcomp_work.module_id = #{moduleId}</if>
+	    <if test="serviceTypeId != null">and v_kcomp_work.service_type_id = #{serviceTypeId}</if>
+	    <if test="serviceTypeName != null">and v_kcomp_work.service_type_name = #{serviceTypeName}</if>
+	    <if test="proinsid != null">and v_kcomp_work.proinsid = #{proinsid}</if>
+	    <if test="prodefid != null">and v_kcomp_work.prodefid = #{prodefid}</if>
+	    <if test="taskId != null">and v_kcomp_work.task_id = #{taskId}</if>
+	    <if test="isRecieveTimeout != null">and v_kcomp_work.is_recieve_timeout = #{isRecieveTimeout}</if>
+	    <if test="isHandleTimeout != null">and v_kcomp_work.is_handle_timeout = #{isHandleTimeout}</if>
+	    <if test="slaRemaintime != null">and v_kcomp_work.sla_remaintime = #{slaRemaintime}</if>
+	    <if test="type != null">and v_kcomp_work.type = #{type}</if>
+</sql>
+
+
+<!-- ElementID:WorkServiceResult,Generated=true -->
+<resultMap id="WorkServiceResult" type="com.chinacreator.c2.omp.service.manage.workflowcommon.WorkService">
+	<id property="workId" column="work_id"/>
+	<result property="workNo" column="work_no"/>
+	<result property="workTitle" column="work_title"/>
+	<result property="workDescribe" column="work_describe"/>
+	<result property="applicantId" column="applicant_id"/>
+	<result property="applicantName" column="applicant_name"/>
+	<result property="applicantContactWay" column="applicant_contact_way"/>
+	<result property="applyBranchId" column="apply_branch_id"/>
+	<result property="applyBranchName" column="apply_branch_name"/>
+	<result property="incidentLevelId" column="incident_level_id"/>
+	<result property="urgentLevelId" column="urgent_level_id"/>
+	<result property="affectScopeId" column="affect_scope_id"/>
+	<result property="priId" column="pri_id"/>
+	<result property="workStage" column="work_stage"/>
+	<result property="workStateId" column="work_state_id"/>
+	<result property="happenDate" column="happen_date"/>
+	<result property="acceptDate" column="accept_date"/>
+	<result property="assignDate" column="assign_date"/>
+	<result property="businessKey" column="business_key"/>
+	<result property="taskAssignee" column="task_assignee"/>
+	<result property="taskDef" column="task_def"/>
+	<result property="moduleId" column="module_id"/>
+	<result property="serviceTypeId" column="service_type_id"/>
+	<result property="serviceTypeName" column="service_type_name"/>
+	<result property="proinsid" column="proinsid"/>
+	<result property="prodefid" column="prodefid"/>
+	<result property="taskId" column="task_id"/>
+	<result property="isRecieveTimeout" column="is_recieve_timeout"/>
+	<result property="isHandleTimeout" column="is_handle_timeout"/>
+	<result property="slaRemaintime" column="sla_remaintime"/>
+	<result property="type" column="type"/>
+</resultMap>
+
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WorkService">
+	insert into v_kcomp_work(
+	         <if test="workId != null">work_id</if>
+	         <if test="workNo != null">,work_no</if>
+	         <if test="workTitle != null">,work_title</if>
+	         <if test="workDescribe != null">,work_describe</if>
+	         <if test="applicantId != null">,applicant_id</if>
+	         <if test="applicantName != null">,applicant_name</if>
+	         <if test="applicantContactWay != null">,applicant_contact_way</if>
+	         <if test="applyBranchId != null">,apply_branch_id</if>
+	         <if test="applyBranchName != null">,apply_branch_name</if>
+	         <if test="incidentLevelId != null">,incident_level_id</if>
+	         <if test="urgentLevelId != null">,urgent_level_id</if>
+	         <if test="affectScopeId != null">,affect_scope_id</if>
+	         <if test="priId != null">,pri_id</if>
+	         <if test="workStage != null">,work_stage</if>
+	         <if test="workStateId != null">,work_state_id</if>
+	         <if test="happenDate != null">,happen_date</if>
+	         <if test="acceptDate != null">,accept_date</if>
+	         <if test="assignDate != null">,assign_date</if>
+	         <if test="businessKey != null">,business_key</if>
+	         <if test="taskAssignee != null">,task_assignee</if>
+	         <if test="taskDef != null">,task_def</if>
+	         <if test="moduleId != null">,module_id</if>
+	         <if test="serviceTypeId != null">,service_type_id</if>
+	         <if test="serviceTypeName != null">,service_type_name</if>
+	         <if test="proinsid != null">,proinsid</if>
+	         <if test="prodefid != null">,prodefid</if>
+	         <if test="taskId != null">,task_id</if>
+	         <if test="isRecieveTimeout != null">,is_recieve_timeout</if>
+	         <if test="isHandleTimeout != null">,is_handle_timeout</if>
+	         <if test="slaRemaintime != null">,sla_remaintime</if>
+	         <if test="type != null">,type</if>
+	 	 	 )
+	 values (
+	         <if test="workId != null">#{workId,jdbcType=VARCHAR}</if>
+	         <if test="workNo != null">,#{workNo,jdbcType=VARCHAR}</if>
+	         <if test="workTitle != null">,#{workTitle,jdbcType=VARCHAR}</if>
+	         <if test="workDescribe != null">,#{workDescribe,jdbcType=VARCHAR}</if>
+	         <if test="applicantId != null">,#{applicantId,jdbcType=VARCHAR}</if>
+	         <if test="applicantName != null">,#{applicantName,jdbcType=VARCHAR}</if>
+	         <if test="applicantContactWay != null">,#{applicantContactWay,jdbcType=VARCHAR}</if>
+	         <if test="applyBranchId != null">,#{applyBranchId,jdbcType=VARCHAR}</if>
+	         <if test="applyBranchName != null">,#{applyBranchName,jdbcType=VARCHAR}</if>
+	         <if test="incidentLevelId != null">,#{incidentLevelId,jdbcType=VARCHAR}</if>
+	         <if test="urgentLevelId != null">,#{urgentLevelId,jdbcType=VARCHAR}</if>
+	         <if test="affectScopeId != null">,#{affectScopeId,jdbcType=VARCHAR}</if>
+	         <if test="priId != null">,#{priId,jdbcType=VARCHAR}</if>
+	         <if test="workStage != null">,#{workStage,jdbcType=VARCHAR}</if>
+	         <if test="workStateId != null">,#{workStateId,jdbcType=VARCHAR}</if>
+	         <if test="happenDate != null">,#{happenDate,jdbcType=TIMESTAMP}</if>
+	         <if test="acceptDate != null">,#{acceptDate,jdbcType=TIMESTAMP}</if>
+	         <if test="assignDate != null">,#{assignDate,jdbcType=TIMESTAMP}</if>
+	         <if test="businessKey != null">,#{businessKey,jdbcType=VARCHAR}</if>
+	         <if test="taskAssignee != null">,#{taskAssignee,jdbcType=VARCHAR}</if>
+	         <if test="taskDef != null">,#{taskDef,jdbcType=VARCHAR}</if>
+	         <if test="moduleId != null">,#{moduleId,jdbcType=VARCHAR}</if>
+	         <if test="serviceTypeId != null">,#{serviceTypeId,jdbcType=CHAR}</if>
+	         <if test="serviceTypeName != null">,#{serviceTypeName,jdbcType=CHAR}</if>
+	         <if test="proinsid != null">,#{proinsid,jdbcType=CHAR}</if>
+	         <if test="prodefid != null">,#{prodefid,jdbcType=CHAR}</if>
+	         <if test="taskId != null">,#{taskId,jdbcType=CHAR}</if>
+	         <if test="isRecieveTimeout != null">,#{isRecieveTimeout,jdbcType=CHAR}</if>
+	         <if test="isHandleTimeout != null">,#{isHandleTimeout,jdbcType=CHAR}</if>
+	         <if test="slaRemaintime != null">,#{slaRemaintime,jdbcType=NUMERIC}</if>
+	         <if test="type != null">,#{type,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WorkService" resultType="int">
+	select count(*) from v_kcomp_work 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WorkService">
+	update v_kcomp_work
+<set>
+	<if test="workNo != null">work_no=#{workNo,jdbcType=VARCHAR},</if>
+	<if test="workTitle != null">work_title=#{workTitle,jdbcType=VARCHAR},</if>
+	<if test="workDescribe != null">work_describe=#{workDescribe,jdbcType=VARCHAR},</if>
+	<if test="applicantId != null">applicant_id=#{applicantId,jdbcType=VARCHAR},</if>
+	<if test="applicantName != null">applicant_name=#{applicantName,jdbcType=VARCHAR},</if>
+	<if test="applicantContactWay != null">applicant_contact_way=#{applicantContactWay,jdbcType=VARCHAR},</if>
+	<if test="applyBranchId != null">apply_branch_id=#{applyBranchId,jdbcType=VARCHAR},</if>
+	<if test="applyBranchName != null">apply_branch_name=#{applyBranchName,jdbcType=VARCHAR},</if>
+	<if test="incidentLevelId != null">incident_level_id=#{incidentLevelId,jdbcType=VARCHAR},</if>
+	<if test="urgentLevelId != null">urgent_level_id=#{urgentLevelId,jdbcType=VARCHAR},</if>
+	<if test="affectScopeId != null">affect_scope_id=#{affectScopeId,jdbcType=VARCHAR},</if>
+	<if test="priId != null">pri_id=#{priId,jdbcType=VARCHAR},</if>
+	<if test="workStage != null">work_stage=#{workStage,jdbcType=VARCHAR},</if>
+	<if test="workStateId != null">work_state_id=#{workStateId,jdbcType=VARCHAR},</if>
+	<if test="happenDate != null">happen_date=#{happenDate,jdbcType=TIMESTAMP},</if>
+	<if test="acceptDate != null">accept_date=#{acceptDate,jdbcType=TIMESTAMP},</if>
+	<if test="assignDate != null">assign_date=#{assignDate,jdbcType=TIMESTAMP},</if>
+	<if test="businessKey != null">business_key=#{businessKey,jdbcType=VARCHAR},</if>
+	<if test="taskAssignee != null">task_assignee=#{taskAssignee,jdbcType=VARCHAR},</if>
+	<if test="taskDef != null">task_def=#{taskDef,jdbcType=VARCHAR},</if>
+	<if test="moduleId != null">module_id=#{moduleId,jdbcType=VARCHAR},</if>
+	<if test="serviceTypeId != null">service_type_id=#{serviceTypeId,jdbcType=CHAR},</if>
+	<if test="serviceTypeName != null">service_type_name=#{serviceTypeName,jdbcType=CHAR},</if>
+	<if test="proinsid != null">proinsid=#{proinsid,jdbcType=CHAR},</if>
+	<if test="prodefid != null">prodefid=#{prodefid,jdbcType=CHAR},</if>
+	<if test="taskId != null">task_id=#{taskId,jdbcType=CHAR},</if>
+	<if test="isRecieveTimeout != null">is_recieve_timeout=#{isRecieveTimeout,jdbcType=CHAR},</if>
+	<if test="isHandleTimeout != null">is_handle_timeout=#{isHandleTimeout,jdbcType=CHAR},</if>
+	<if test="slaRemaintime != null">sla_remaintime=#{slaRemaintime,jdbcType=NUMERIC},</if>
+	<if test="type != null">type=#{type,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="workId != null">and work_id = #{workId}</when>
+        <otherwise>and work_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update v_kcomp_work
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="workNo==null">work_no = null,</if>
+		    <if test="workTitle==null">work_title = null,</if>
+		    <if test="workDescribe==null">work_describe = null,</if>
+		    <if test="applicantId==null">applicant_id = null,</if>
+		    <if test="applicantName==null">applicant_name = null,</if>
+		    <if test="applicantContactWay==null">applicant_contact_way = null,</if>
+		    <if test="applyBranchId==null">apply_branch_id = null,</if>
+		    <if test="applyBranchName==null">apply_branch_name = null,</if>
+		    <if test="incidentLevelId==null">incident_level_id = null,</if>
+		    <if test="urgentLevelId==null">urgent_level_id = null,</if>
+		    <if test="affectScopeId==null">affect_scope_id = null,</if>
+		    <if test="priId==null">pri_id = null,</if>
+		    <if test="workStage==null">work_stage = null,</if>
+		    <if test="workStateId==null">work_state_id = null,</if>
+		    <if test="happenDate==null">happen_date = null,</if>
+		    <if test="acceptDate==null">accept_date = null,</if>
+		    <if test="assignDate==null">assign_date = null,</if>
+		    <if test="businessKey==null">business_key = null,</if>
+		    <if test="taskAssignee==null">task_assignee = null,</if>
+		    <if test="taskDef==null">task_def = null,</if>
+		    <if test="moduleId==null">module_id = null,</if>
+		    <if test="serviceTypeId==null">service_type_id = null,</if>
+		    <if test="serviceTypeName==null">service_type_name = null,</if>
+		    <if test="proinsid==null">proinsid = null,</if>
+		    <if test="prodefid==null">prodefid = null,</if>
+		    <if test="taskId==null">task_id = null,</if>
+		    <if test="isRecieveTimeout==null">is_recieve_timeout = null,</if>
+		    <if test="isHandleTimeout==null">is_handle_timeout = null,</if>
+		    <if test="slaRemaintime==null">sla_remaintime = null,</if>
+		    <if test="type==null">type = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="workId != null">and work_id = #{workId}</when>
+			<otherwise>and work_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WorkService">
+    delete from v_kcomp_work where 1=1 and work_id = #{workId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WorkService" resultMap="WorkServiceResult">
+	select 
+		<include refid="column_sql"/>
+	    from v_kcomp_work 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into v_kcomp_work (work_id,work_no,work_title,work_describe,applicant_id,applicant_name,applicant_contact_way,apply_branch_id,apply_branch_name,incident_level_id,urgent_level_id,affect_scope_id,pri_id,work_stage,work_state_id,happen_date,accept_date,assign_date,business_key,task_assignee,task_def,module_id,service_type_id,service_type_name,proinsid,prodefid,task_id,is_recieve_timeout,is_handle_timeout,sla_remaintime,type) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.workId,jdbcType = VARCHAR},
+				#{entity.workNo,jdbcType = VARCHAR},
+				#{entity.workTitle,jdbcType = VARCHAR},
+				#{entity.workDescribe,jdbcType = VARCHAR},
+				#{entity.applicantId,jdbcType = VARCHAR},
+				#{entity.applicantName,jdbcType = VARCHAR},
+				#{entity.applicantContactWay,jdbcType = VARCHAR},
+				#{entity.applyBranchId,jdbcType = VARCHAR},
+				#{entity.applyBranchName,jdbcType = VARCHAR},
+				#{entity.incidentLevelId,jdbcType = VARCHAR},
+				#{entity.urgentLevelId,jdbcType = VARCHAR},
+				#{entity.affectScopeId,jdbcType = VARCHAR},
+				#{entity.priId,jdbcType = VARCHAR},
+				#{entity.workStage,jdbcType = VARCHAR},
+				#{entity.workStateId,jdbcType = VARCHAR},
+				#{entity.happenDate,jdbcType = TIMESTAMP},
+				#{entity.acceptDate,jdbcType = TIMESTAMP},
+				#{entity.assignDate,jdbcType = TIMESTAMP},
+				#{entity.businessKey,jdbcType = VARCHAR},
+				#{entity.taskAssignee,jdbcType = VARCHAR},
+				#{entity.taskDef,jdbcType = VARCHAR},
+				#{entity.moduleId,jdbcType = VARCHAR},
+				#{entity.serviceTypeId,jdbcType = CHAR},
+				#{entity.serviceTypeName,jdbcType = CHAR},
+				#{entity.proinsid,jdbcType = CHAR},
+				#{entity.prodefid,jdbcType = CHAR},
+				#{entity.taskId,jdbcType = CHAR},
+				#{entity.isRecieveTimeout,jdbcType = CHAR},
+				#{entity.isHandleTimeout,jdbcType = CHAR},
+				#{entity.slaRemaintime,jdbcType = NUMERIC},
+				#{entity.type,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from v_kcomp_work where work_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.workId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="WorkServiceResult">
+	select 
+		<include refid="column_sql"/>
+	    from v_kcomp_work 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="WorkServiceResult">
+	select 
+		<include refid="column_sql"/>
+	    from v_kcomp_work 
+		 where v_kcomp_work.work_id = #{workId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.service.manage.workflowcommon.WorkService" resultMap="WorkServiceResult">
+	select 
+		<include refid="column_sql"/>
+	    from v_kcomp_work 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="WorkServiceResult">
+select 
+	<include refid="column_sql"/> 
+	from v_kcomp_work 
+	where v_kcomp_work.work_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		v_kcomp_work.work_id
+	    from v_kcomp_work 
+		 <where>
+	        <if test="entity.workId != null">and v_kcomp_work.work_id = #{entity.workId}</if>
+	        <if test="entity.workNo != null">and v_kcomp_work.work_no = #{entity.workNo}</if>
+	        <if test="entity.workTitle != null">and v_kcomp_work.work_title = #{entity.workTitle}</if>
+	        <if test="entity.workDescribe != null">and v_kcomp_work.work_describe = #{entity.workDescribe}</if>
+	        <if test="entity.applicantId != null">and v_kcomp_work.applicant_id = #{entity.applicantId}</if>
+	        <if test="entity.applicantName != null">and v_kcomp_work.applicant_name = #{entity.applicantName}</if>
+	        <if test="entity.applicantContactWay != null">and v_kcomp_work.applicant_contact_way = #{entity.applicantContactWay}</if>
+	        <if test="entity.applyBranchId != null">and v_kcomp_work.apply_branch_id = #{entity.applyBranchId}</if>
+	        <if test="entity.applyBranchName != null">and v_kcomp_work.apply_branch_name = #{entity.applyBranchName}</if>
+	        <if test="entity.incidentLevelId != null">and v_kcomp_work.incident_level_id = #{entity.incidentLevelId}</if>
+	        <if test="entity.urgentLevelId != null">and v_kcomp_work.urgent_level_id = #{entity.urgentLevelId}</if>
+	        <if test="entity.affectScopeId != null">and v_kcomp_work.affect_scope_id = #{entity.affectScopeId}</if>
+	        <if test="entity.priId != null">and v_kcomp_work.pri_id = #{entity.priId}</if>
+	        <if test="entity.workStage != null">and v_kcomp_work.work_stage = #{entity.workStage}</if>
+	        <if test="entity.workStateId != null">and v_kcomp_work.work_state_id = #{entity.workStateId}</if>
+	        <if test="entity.happenDate != null">and v_kcomp_work.happen_date = #{entity.happenDate}</if>
+	        <if test="entity.acceptDate != null">and v_kcomp_work.accept_date = #{entity.acceptDate}</if>
+	        <if test="entity.assignDate != null">and v_kcomp_work.assign_date = #{entity.assignDate}</if>
+	        <if test="entity.businessKey != null">and v_kcomp_work.business_key = #{entity.businessKey}</if>
+	        <if test="entity.taskAssignee != null">and v_kcomp_work.task_assignee = #{entity.taskAssignee}</if>
+	        <if test="entity.taskDef != null">and v_kcomp_work.task_def = #{entity.taskDef}</if>
+	        <if test="entity.moduleId != null">and v_kcomp_work.module_id = #{entity.moduleId}</if>
+	        <if test="entity.serviceTypeId != null">and v_kcomp_work.service_type_id = #{entity.serviceTypeId}</if>
+	        <if test="entity.serviceTypeName != null">and v_kcomp_work.service_type_name = #{entity.serviceTypeName}</if>
+	        <if test="entity.proinsid != null">and v_kcomp_work.proinsid = #{entity.proinsid}</if>
+	        <if test="entity.prodefid != null">and v_kcomp_work.prodefid = #{entity.prodefid}</if>
+	        <if test="entity.taskId != null">and v_kcomp_work.task_id = #{entity.taskId}</if>
+	        <if test="entity.isRecieveTimeout != null">and v_kcomp_work.is_recieve_timeout = #{entity.isRecieveTimeout}</if>
+	        <if test="entity.isHandleTimeout != null">and v_kcomp_work.is_handle_timeout = #{entity.isHandleTimeout}</if>
+	        <if test="entity.slaRemaintime != null">and v_kcomp_work.sla_remaintime = #{entity.slaRemaintime}</if>
+	        <if test="entity.type != null">and v_kcomp_work.type = #{entity.type}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update v_kcomp_work
+	<set>
+	<if test="entity.workNo != null">work_no= #{entity.workNo,jdbcType=VARCHAR},</if>
+	<if test="entity.workTitle != null">work_title= #{entity.workTitle,jdbcType=VARCHAR},</if>
+	<if test="entity.workDescribe != null">work_describe= #{entity.workDescribe,jdbcType=VARCHAR},</if>
+	<if test="entity.applicantId != null">applicant_id= #{entity.applicantId,jdbcType=VARCHAR},</if>
+	<if test="entity.applicantName != null">applicant_name= #{entity.applicantName,jdbcType=VARCHAR},</if>
+	<if test="entity.applicantContactWay != null">applicant_contact_way= #{entity.applicantContactWay,jdbcType=VARCHAR},</if>
+	<if test="entity.applyBranchId != null">apply_branch_id= #{entity.applyBranchId,jdbcType=VARCHAR},</if>
+	<if test="entity.applyBranchName != null">apply_branch_name= #{entity.applyBranchName,jdbcType=VARCHAR},</if>
+	<if test="entity.incidentLevelId != null">incident_level_id= #{entity.incidentLevelId,jdbcType=VARCHAR},</if>
+	<if test="entity.urgentLevelId != null">urgent_level_id= #{entity.urgentLevelId,jdbcType=VARCHAR},</if>
+	<if test="entity.affectScopeId != null">affect_scope_id= #{entity.affectScopeId,jdbcType=VARCHAR},</if>
+	<if test="entity.priId != null">pri_id= #{entity.priId,jdbcType=VARCHAR},</if>
+	<if test="entity.workStage != null">work_stage= #{entity.workStage,jdbcType=VARCHAR},</if>
+	<if test="entity.workStateId != null">work_state_id= #{entity.workStateId,jdbcType=VARCHAR},</if>
+	<if test="entity.happenDate != null">happen_date= #{entity.happenDate,jdbcType=TIMESTAMP},</if>
+	<if test="entity.acceptDate != null">accept_date= #{entity.acceptDate,jdbcType=TIMESTAMP},</if>
+	<if test="entity.assignDate != null">assign_date= #{entity.assignDate,jdbcType=TIMESTAMP},</if>
+	<if test="entity.businessKey != null">business_key= #{entity.businessKey,jdbcType=VARCHAR},</if>
+	<if test="entity.taskAssignee != null">task_assignee= #{entity.taskAssignee,jdbcType=VARCHAR},</if>
+	<if test="entity.taskDef != null">task_def= #{entity.taskDef,jdbcType=VARCHAR},</if>
+	<if test="entity.moduleId != null">module_id= #{entity.moduleId,jdbcType=VARCHAR},</if>
+	<if test="entity.serviceTypeId != null">service_type_id= #{entity.serviceTypeId,jdbcType=CHAR},</if>
+	<if test="entity.serviceTypeName != null">service_type_name= #{entity.serviceTypeName,jdbcType=CHAR},</if>
+	<if test="entity.proinsid != null">proinsid= #{entity.proinsid,jdbcType=CHAR},</if>
+	<if test="entity.prodefid != null">prodefid= #{entity.prodefid,jdbcType=CHAR},</if>
+	<if test="entity.taskId != null">task_id= #{entity.taskId,jdbcType=CHAR},</if>
+	<if test="entity.isRecieveTimeout != null">is_recieve_timeout= #{entity.isRecieveTimeout,jdbcType=CHAR},</if>
+	<if test="entity.isHandleTimeout != null">is_handle_timeout= #{entity.isHandleTimeout,jdbcType=CHAR},</if>
+	<if test="entity.slaRemaintime != null">sla_remaintime= #{entity.slaRemaintime,jdbcType=NUMERIC},</if>
+	<if test="entity.type != null">type= #{entity.type,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.workId != null">and work_id = #{entity.workId}</when>
+				<otherwise>and work_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

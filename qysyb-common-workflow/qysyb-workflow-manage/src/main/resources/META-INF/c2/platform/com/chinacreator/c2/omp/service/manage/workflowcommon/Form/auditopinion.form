@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="审核意见" sn="auditopinion" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="UIDirectiveService $q">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad($params)">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="{{$params.span==null?4:$params.span}}">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="audit_opinion_html">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+  </form:datasources>
+  <form:scripts>
+
+page_afterDataSourceLoad:function(){	
+//	console.log(&quot;opinion&quot;,$params.pParams);
+	var archhandle = {};
+	var user = {};
+	user.userId = $scope.subject.id;
+//	archhandle.auditerId = user;
+//	archhandle.opinionContent = $model.content;
+	archhandle.procInsId = $params.pParams.params.formBusinessKey==undefined?$params.pParams.params.businessKey:$params.pParams.params.formBusinessKey; 
+//	archhandle.activityId = $params.pParams.params.taskDefKey;
+	archhandle.businessKey = $params.fieldNo;
+	$model.conArchhandle = archhandle;
+	$model.a = $scope.formentity[$params.fieldNo];
+	
+/*	$http.post(&quot;ws/getAuditOpinions&quot;,{archhandle:archhandle}).success(function(data){
+		console.log(&quot;opinions&quot;,data);
+		$model.a = data.result;
+//		console.log(&quot;list ws get&quot;+$params.fieldNo,data.result);
+//		console.log(&quot;list entity get&quot;+$params.fieldNo,$scope.formentity[$params.fieldNo]);
+	});*/
+	
+//	console.log(&quot;permissiondata&quot;,$scope.permissionData)
+//	console.log(&quot;subject&quot;,$scope.subject);
+},
+commentEdit:function(comment){
+//	console.log(&quot;edit comment&quot;,comment);
+},
+deleteEdit:function(comment){
+//	console.log(&quot;delete comment&quot;,comment);
+	if(comment.local){
+		var j;
+		$model.a.map(function(key,i){
+			if(key == comment){
+				j=i;
+			}		
+		});
+		$model.a.splice(j, 1);
+		$model.isadded = false;
+		$model.localaddeddata = {};
+		return;
+	}
+	
+	$http.post(&quot;ws/delAuditOpinion&quot;,{id:comment.oid}).success(function(data){
+		if(data.result==1){
+			$http.post(&quot;ws/getAuditOpinions&quot;,{archhandle:$model.conArchhandle}).success(function(data){
+//				console.log(&quot;opinions&quot;,data);
+				$model.a = data.result;
+			});
+		}
+	})
+},
+addComment:function(){
+//	console.log(&quot;add comment params&quot;,$params.pParams)
+	if($model.isadded){
+		Messenger.error(&quot;已填写意见。如需修改请删掉后重新添加&quot;);
+		return;
+	}
+	
+	var params = {};
+	params.taskDefKey = $params.pParams.params.taskDefKey;
+	params.processDefinitionId = $params.pParams.params.processDefinitionId;
+	params.moduleId = $params.pParams.params.moduleId;
+	params.businessKey = $params.pParams.params.businessKey;
+	params.processInstanceId = $params.pParams.params.processInstanceId;
+	Modal.open(&quot;f/addauditopinion&quot;,{userId:$scope.subject.id,params:params,fieldNo:$params.fieldNo}
+					,function(data){
+						data.local = true;
+						$model.a.push(data);
+						$model.isadded = true;
+						$model.localaddeddata = data;
+						console.log(&quot;list&quot;,$model.a);
+						console.log(&quot;new&quot;,data);
+//						$http.post(&quot;ws/getAuditOpinions&quot;,{archhandle:$model.conArchhandle}).success(function(data){
+//							console.log(&quot;opinions&quot;,data);
+//							$model.a = data.result;
+//						});			
+				});
+
+},
+canEditComment:function(comment){
+	return false;
+//	return $scope.subject.id == comment.auditerId.userId;
+},
+canDeleteComment:function(comment){
+	var result = true;
+	if($scope.subject.id != comment.auditerId.userId){
+		result = false;
+	}
+	if($params.pParams.params.taskDefKey != comment.activityId){
+		result = false;
+	}
+	return result;
+},
+toLocalTime:function(timeInLong){
+	var date = new Date(timeInLong);
+	return date.toLocaleString();
+},
+
+page_onload:function(){
+	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
+	$scope.$emit(&quot;myfuncbeforsubmit&quot;,{name:$params.fieldNo,func:this.save_local});
+},
+//验证函数
+check:function(){
+	var result = true;
+	
+	if($scope.permissionData[$params.fieldNo].fillnecessary){
+		if(!$model.isadded){
+			console.log(&quot;permission&quot;,$scope.permissionData[$params.fieldNo].fillnecessary)
+			UIDirectiveService.setTipMessage($(&quot;#auditCommentInput&quot;+$params.fieldNo),&quot;必填项&quot;);
+			$(&quot;#auditCommentInput&quot;+$params.fieldNo).css(&quot;border-color&quot;,&quot;#d40400&quot;);	
+			result = false;	
+			Messenger.error(&quot;请填写意见&quot;);
+		}	
+	}
+	return result;
+},
+
+page_beforeDataSourceLoad:function($params){
+
+},
+save_local:function(){
+	$scope.formentity[$params.fieldNo] = $model.localaddeddata;
+	var result = true;
+	/*不要做持久化操作，放入formentity字段 后台拿到formentity再来保存*/
+/*	if($model.isadded){
+	//  一次失败的尝试
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		promise.then(function(){
+					$http.post(&quot;ws/addAuditOpinion&quot;,{archhandle:o}).success(function(){
+						deferred.resolve(&quot;success&quot;);
+					});					
+		}).then(function(){
+			console.log(&quot;2&quot;);
+			result = true;
+		},function(){
+			console.log(&quot;3&quot;);
+			result = false;
+		});	
+		$model.localaddeddata.auditTime = undefined;
+		var req = $http.post(&quot;ws/addAuditOpinion&quot;,{archhandle:$model.localaddeddata});
+		//TODO
+		result = true;
+		$q.all(req).then(function(){			
+			result = true;
+		})
+		var url = &quot;ws/addAuditOpinion&quot;;
+		var data = {archhandle:$model.localaddeddata};
+		data.archhandle.auditTime = undefined;
+		var promise = functions.post_sync(url,data);
+		console.log(&quot;promise&quot;,promise);
+		promise.then(function(data){
+			
+		});
+	}else{
+		result = true;
+	}*/
+	return result;
+},
+post_sync:function(url,data) {	
+	var datastr = JSON.stringify(data);
+  // perform some asynchronous operation, resolve or reject the promise when appropriate.
+	return $q(function(resolve, reject) {		
+		$http.post(url,datastr).success(function(){
+			resolve(true);				
+		});
+	});
+}
+</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;audit_opinion_html&quot;>
+&lt;div class=&quot;form-group col-sm-12&quot; >
+	&lt;label class=&quot;control-label al-control-label  ng-binding&quot; style=&quot;width:75px;&quot; ng-class=&quot;{'required-label':permissionData[$params.fieldNo].fillnecessary}&quot;>{{$params.fieldName}}&lt;/label>
+	&lt;div id=&quot;auditCommentInput{{$params.fieldNo}}&quot; style=&quot;border-left: 2px solid #c5c5c5;margin-left:85px;height:inherit&quot;>
+	&lt;div ng-repeat=&quot;tmp in $model.a&quot; class=&quot;itemdiv commentdiv&quot; style=&quot;padding-top:10px;&quot; >
+		&lt;div class=&quot;user&quot; style=&quot;padding-left:10px;&quot;>
+			&lt;img alt=&quot;Joe's Avatar&quot; src=&quot;assets/images/anoni.png&quot;>
+		&lt;/div>
+	
+		&lt;div class=&quot;body&quot;>
+			&lt;div class=&quot;name&quot; >
+				&lt;span style=&quot;color:#428bca;&quot;>{{tmp.auditerId.userRealname}}&lt;/span>
+						{{tmp.auditOrgId.orgName}}
+			&lt;/div>
+			&lt;div class=&quot;time&quot;>
+				&lt;i class=&quot;ace-icon fa fa-clock-o&quot;>&lt;/i>
+				&lt;span class=&quot;orange&quot;>{{functions.toLocalTime(tmp.auditTime)}}&lt;/span>
+			&lt;/div>
+		
+			&lt;div class=&quot;text&quot;>
+				&lt;i class=&quot;ace-icon fa fa-quote-left&quot;>&lt;/i>
+				{{tmp.opinionContent}}
+				&lt;i class=&quot;ace-icon fa fa-quote-right&quot; style=&quot;color:#DCE3ED;&quot;>&lt;/i>
+			&lt;/div>
+		&lt;/div>
+	
+		&lt;div class=&quot;tools&quot;>
+			&lt;div class=&quot;action-buttons bigger-125&quot;>
+				&lt;a ng-if=&quot;functions.canEditComment(tmp)&quot;  ng-click=&quot;functions.commentEdit(tmp)&quot;>
+					&lt;i class=&quot;ace-icon fa fa-pencil blue&quot;>&lt;/i>
+				&lt;/a>
+				&lt;a ng-if=&quot;functions.canDeleteComment(tmp)&quot;  ng-click=&quot;functions.deleteEdit(tmp)&quot;>
+					&lt;i class=&quot;ace-icon fa fa-trash-o red&quot;>&lt;/i>
+				&lt;/a>
+			&lt;/div>
+		&lt;/div>
+	&lt;/div>	
+	
+	&lt;div ng-if=&quot;permissionData[$params.fieldNo].writePermission&quot; class=&quot;left&quot; style=&quot;padding-left: 10px;padding-bottom: 5px;padding-top: 5px;min-height:72px&quot; ng-click=&quot;functions.addComment()&quot;>
+	&lt;/div>	
+	&lt;/div>
+&lt;/div>	
+												
+&lt;/script></form:htmls>
+</form:Form>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" sn="document_archhandle">
+  <docket:name>意见</docket:name>
+  <docket:createType>来自数据库</docket:createType>
+  <docket:primaryKey>
+    <docket:pkAttribute attribute="oid" type="UUID"/>
+  </docket:primaryKey>
+  <docket:attributes>
+    <docket:attribute code="oid" name="OID" nullable="false" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="cc_form_instanceid" name="流程主键OID" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="auditer_id" length="" name="意见填写人ID" nullable="true" precision="" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.UserInfo.user_id" id="entity:com.chinacreator.c2.omp.common.UserInfo"/>
+    </docket:attribute>
+    <docket:attribute code="audit_time" name="意见填写时间" nullable="true" type="timestamp" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="opinion_content" name="意见内容" nullable="true" type="string5" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="logical_delete" name="逻辑删除(1:已删除;0:未删除)" nullable="true" type="tinyint" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="activity_name" name="意见填写环节名称" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="proc_ins_id" name="流程定义ID或者module_id" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="activity_id" name="意见填写环节ID" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="audit_org_id" length="" name="审核人部门ID" nullable="true" precision="" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.Organization.org_id" id="entity:com.chinacreator.c2.omp.common.Organization"/>
+    </docket:attribute>
+    <docket:attribute code="business_key" name="业务id" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="audit_state" name="审核状态" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+  </docket:attributes>
+  <docket:subDokcets/>
+  <docket:events/>
+  <docket:table ds="bspf" table="TA_OFFICE_ARCHHANDLE"/>
+  <entity:datas/>
+  <entity:views/>
+</entity:Entity>

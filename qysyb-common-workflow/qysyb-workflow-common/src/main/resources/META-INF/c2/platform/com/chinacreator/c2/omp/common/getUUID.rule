@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getUUID" log="false" className="com.chinacreator.c2.omp.common.service.UUIDGuidService" method="guidUUID">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取自动序列</name>
+  <desc>生成uuid服务类</desc>
+  <inputs/>
+  <outputs>
+    <output autoValue="Result" desc="uuid" id="result" name="方法返回值" type="String"/>
+  </outputs>
+  <params/>
+  <return signature="QString;" type="String"/>
+</CustomRule>

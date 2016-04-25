@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.common.AdministrativeDivisionMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  kcomp_config_xzqh.code ,
+		  kcomp_config_xzqh.name ,
+		  kcomp_config_xzqh.fullname ,
+		  kcomp_config_xzqh.parent_code ,
+		  kcomp_config_xzqh.remark 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="code != null">and kcomp_config_xzqh.code = #{code}</if>
+	    <if test="name != null">and kcomp_config_xzqh.name = #{name}</if>
+	    <if test="fullname != null">and kcomp_config_xzqh.fullname = #{fullname}</if>
+	    <if test="parentCode != null">and kcomp_config_xzqh.parent_code = #{parentCode}</if>
+	    <if test="remark != null">and kcomp_config_xzqh.remark = #{remark}</if>
+</sql>
+
+
+<!-- ElementID:AdministrativeDivisionResult,Generated=true -->
+<resultMap id="AdministrativeDivisionResult" type="com.chinacreator.c2.omp.common.AdministrativeDivision">
+	<id property="code" column="code"/>
+	<result property="name" column="name"/>
+	<result property="fullname" column="fullname"/>
+	<result property="parentCode" column="parent_code"/>
+	<result property="remark" column="remark"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.common.AdministrativeDivision">
+	insert into kcomp_config_xzqh(
+	         <if test="code != null">code</if>
+	         <if test="name != null">,name</if>
+	         <if test="fullname != null">,fullname</if>
+	         <if test="parentCode != null">,parent_code</if>
+	         <if test="remark != null">,remark</if>
+	 	 	 )
+	 values (
+	         <if test="code != null">#{code,jdbcType=VARCHAR}</if>
+	         <if test="name != null">,#{name,jdbcType=VARCHAR}</if>
+	         <if test="fullname != null">,#{fullname,jdbcType=VARCHAR}</if>
+	         <if test="parentCode != null">,#{parentCode,jdbcType=VARCHAR}</if>
+	         <if test="remark != null">,#{remark,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.common.AdministrativeDivision" resultType="int">
+	select count(*) from kcomp_config_xzqh 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.common.AdministrativeDivision">
+	update kcomp_config_xzqh
+<set>
+	<if test="name != null">name=#{name,jdbcType=VARCHAR},</if>
+	<if test="fullname != null">fullname=#{fullname,jdbcType=VARCHAR},</if>
+	<if test="parentCode != null">parent_code=#{parentCode,jdbcType=VARCHAR},</if>
+	<if test="remark != null">remark=#{remark,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="code != null">and code = #{code}</when>
+        <otherwise>and code = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:update,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update kcomp_config_xzqh
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="name==null">name = null,</if>
+		    <if test="fullname==null">fullname = null,</if>
+		    <if test="parentCode==null">parent_code = null,</if>
+		    <if test="remark==null">remark = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="code != null">and code = #{code}</when>
+			<otherwise>and code = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.common.AdministrativeDivision">
+    delete from kcomp_config_xzqh where 1=1 and code = #{code}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.common.AdministrativeDivision" resultMap="AdministrativeDivisionResult">
+	select 
+		<include refid="column_sql"/>
+	    from kcomp_config_xzqh 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into kcomp_config_xzqh (code,name,fullname,parent_code,remark) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.code,jdbcType = VARCHAR},
+				#{entity.name,jdbcType = VARCHAR},
+				#{entity.fullname,jdbcType = VARCHAR},
+				#{entity.parentCode,jdbcType = VARCHAR},
+				#{entity.remark,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from kcomp_config_xzqh where code in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.code}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="AdministrativeDivisionResult">
+	select 
+		<include refid="column_sql"/>
+	    from kcomp_config_xzqh 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="AdministrativeDivisionResult">
+	select 
+		<include refid="column_sql"/>
+	    from kcomp_config_xzqh 
+		 where kcomp_config_xzqh.code = #{code,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.common.AdministrativeDivision" resultMap="AdministrativeDivisionResult">
+	select 
+		<include refid="column_sql"/>
+	    from kcomp_config_xzqh 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="AdministrativeDivisionResult">
+select 
+	<include refid="column_sql"/> 
+	from kcomp_config_xzqh 
+	where kcomp_config_xzqh.code in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		kcomp_config_xzqh.code
+	    from kcomp_config_xzqh 
+		 <where>
+	        <if test="entity.code != null">and kcomp_config_xzqh.code = #{entity.code}</if>
+	        <if test="entity.name != null">and kcomp_config_xzqh.name = #{entity.name}</if>
+	        <if test="entity.fullname != null">and kcomp_config_xzqh.fullname = #{entity.fullname}</if>
+	        <if test="entity.parentCode != null">and kcomp_config_xzqh.parent_code = #{entity.parentCode}</if>
+	        <if test="entity.remark != null">and kcomp_config_xzqh.remark = #{entity.remark}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:selectSecondLevel,Generated=false -->
+<select id="selectSecondLevel" resultMap="AdministrativeDivisionResult">
+	SELECT * FROM kcomp_config_xzqh WHERE CODE LIKE '%00'
+</select>
+
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update kcomp_config_xzqh
+	<set>
+	<if test="entity.name != null">name= #{entity.name,jdbcType=VARCHAR},</if>
+	<if test="entity.fullname != null">fullname= #{entity.fullname,jdbcType=VARCHAR},</if>
+	<if test="entity.parentCode != null">parent_code= #{entity.parentCode,jdbcType=VARCHAR},</if>
+	<if test="entity.remark != null">remark= #{entity.remark,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.code != null">and code = #{entity.code}</when>
+				<otherwise>and code = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

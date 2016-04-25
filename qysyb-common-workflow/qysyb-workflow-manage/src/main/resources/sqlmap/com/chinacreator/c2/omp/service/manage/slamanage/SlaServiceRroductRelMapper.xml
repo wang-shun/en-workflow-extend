@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.service.manage.slamanage.SlaServiceRroductRelMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  SERVICE_SLA_SP_REL.rel_id ,
+		  SERVICE_SLA_SP_REL.product_describe ,
+		  SERVICE_SLA_SP_REL.service_type_id ,
+		  SERVICE_SLA_SP_REL.group_id ,
+		  SERVICE_SLA_SP_REL.wf_processdefid ,
+		  SERVICE_SERVICEPRODUCT_T1.product_id T1_product_id ,
+		  SERVICE_SERVICEPRODUCT_T1.product_no T1_product_no ,
+		  SERVICE_SERVICEPRODUCT_T1.product_name T1_product_name ,
+		  SERVICE_SERVICEPRODUCT_T1.product_describe T1_product_describe ,
+		  SERVICE_SERVICEPRODUCT_T1.service_type_id T1_service_type_id ,
+		  SERVICE_SERVICEPRODUCT_T1.group_id T1_group_id ,
+		  SERVICE_SERVICEPRODUCT_T1.wf_processdefid T1_wf_processdefid ,
+		  SERVICE_SERVICEPRODUCT_T1.wf_processstart_url T1_wf_processstart_url ,
+		  SERVICE_SERVICEPRODUCT_T1.form_id T1_form_id ,
+		  SERVICE_SERVICEPRODUCT_T1.ico T1_ico ,
+		  SERVICE_AGREEMENT_T2.service_agreement_id T2_service_agreement_id ,
+		  SERVICE_AGREEMENT_T2.service_agreement_name T2_service_agreement_name ,
+		  SERVICE_AGREEMENT_T2.service_level_org_id T2_service_level_org_id ,
+		  SERVICE_AGREEMENT_T2.start_date T2_start_date ,
+		  SERVICE_AGREEMENT_T2.end_date T2_end_date ,
+		  SERVICE_AGREEMENT_T2.pri_level T2_pri_level ,
+		  SERVICE_AGREEMENT_T2.state T2_state ,
+		  SERVICE_AGREEMENT_T2.ramark T2_ramark 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="relId != null">and SERVICE_SLA_SP_REL.rel_id = #{relId}</if>
+	    <if test="productDescribe != null">and SERVICE_SLA_SP_REL.product_describe = #{productDescribe}</if>
+	    <if test="serviceTypeId != null">and SERVICE_SLA_SP_REL.service_type_id = #{serviceTypeId}</if>
+	    <if test="groupId != null">and SERVICE_SLA_SP_REL.group_id = #{groupId}</if>
+	    <if test="wfProcessdefid != null">and SERVICE_SLA_SP_REL.wf_processdefid = #{wfProcessdefid}</if>
+		<if test="productId != null and productId.productId !=null">and SERVICE_SLA_SP_REL.product_id = #{productId.productId}</if>
+		<if test="slaId != null and slaId.serviceAgreementId !=null">and SERVICE_SLA_SP_REL.sla_id = #{slaId.serviceAgreementId}</if>
+</sql>
+
+
+
+
+
+
+
+
+
+
+<!-- ElementID:SlaServiceRroductRelResult,Generated=true -->
+<resultMap id="SlaServiceRroductRelResult" type="com.chinacreator.c2.omp.service.manage.slamanage.SlaServiceRroductRel">
+	<id property="relId" column="rel_id"/>
+	<result property="productDescribe" column="product_describe"/>
+	<result property="serviceTypeId" column="service_type_id"/>
+	<result property="groupId" column="group_id"/>
+	<result property="wfProcessdefid" column="wf_processdefid"/>
+	<association property="productId" column="T1_product_id" javaType="com.chinacreator.c2.omp.service.manage.serviceproductmanage.ServiceProduct" resultMap="ServiceProductResult" columnPrefix="T1_"/>	
+	<association property="slaId" column="T2_service_agreement_id" javaType="com.chinacreator.c2.omp.service.manage.slamanage.ServiceAgreement" resultMap="ServiceAgreementResult" columnPrefix="T2_"/>	
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.SlaServiceRroductRel">
+	insert into SERVICE_SLA_SP_REL(
+	         <if test="relId != null">rel_id</if>
+	         <if test="productDescribe != null">,product_describe</if>
+	         <if test="serviceTypeId != null">,service_type_id</if>
+	         <if test="groupId != null">,group_id</if>
+	         <if test="wfProcessdefid != null">,wf_processdefid</if>
+	 	 	 <if test="productId != null and productId.productId !=null">,product_id</if>
+	 	 <if test="slaId != null and slaId.serviceAgreementId !=null">,sla_id</if>
+	 	 )
+	 values (
+	         <if test="relId != null">#{relId,jdbcType=VARCHAR}</if>
+	         <if test="productDescribe != null">,#{productDescribe,jdbcType=VARCHAR}</if>
+	         <if test="serviceTypeId != null">,#{serviceTypeId,jdbcType=VARCHAR}</if>
+	         <if test="groupId != null">,#{groupId,jdbcType=VARCHAR}</if>
+	         <if test="wfProcessdefid != null">,#{wfProcessdefid,jdbcType=VARCHAR}</if>
+	 	 	 <if test="productId != null and productId.productId !=null">,#{productId.productId,jdbcType=VARCHAR}</if>
+	 	 <if test="slaId != null and slaId.serviceAgreementId !=null">,#{slaId.serviceAgreementId,jdbcType=VARCHAR}</if>
+	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.SlaServiceRroductRel" resultType="int">
+	select count(*) from SERVICE_SLA_SP_REL 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.SlaServiceRroductRel">
+	update SERVICE_SLA_SP_REL
+<set>
+	<if test="productDescribe != null">product_describe=#{productDescribe,jdbcType=VARCHAR},</if>
+	<if test="serviceTypeId != null">service_type_id=#{serviceTypeId,jdbcType=VARCHAR},</if>
+	<if test="groupId != null">group_id=#{groupId,jdbcType=VARCHAR},</if>
+	<if test="wfProcessdefid != null">wf_processdefid=#{wfProcessdefid,jdbcType=VARCHAR},</if>
+	<if test="productId != null and productId.productId !=null">product_id=#{productId.productId,jdbcType=VARCHAR},</if>
+	<if test="slaId != null and slaId.serviceAgreementId !=null">sla_id=#{slaId.serviceAgreementId,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="relId != null">and rel_id = #{relId}</when>
+        <otherwise>and rel_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update SERVICE_SLA_SP_REL
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="productDescribe==null">product_describe = null,</if>
+		    <if test="serviceTypeId==null">service_type_id = null,</if>
+		    <if test="groupId==null">group_id = null,</if>
+		    <if test="wfProcessdefid==null">wf_processdefid = null,</if>
+		    <if test="productId==null">product_id = null,</if>
+		    <if test="slaId==null">sla_id = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="relId != null">and rel_id = #{relId}</when>
+			<otherwise>and rel_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.SlaServiceRroductRel">
+    delete from SERVICE_SLA_SP_REL where 1=1 and rel_id = #{relId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.SlaServiceRroductRel" resultMap="SlaServiceRroductRelResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_SP_REL 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into SERVICE_SLA_SP_REL (rel_id,product_describe,service_type_id,group_id,wf_processdefid,product_id,sla_id) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.relId,jdbcType = VARCHAR},
+				#{entity.productDescribe,jdbcType = VARCHAR},
+				#{entity.serviceTypeId,jdbcType = VARCHAR},
+				#{entity.groupId,jdbcType = VARCHAR},
+				#{entity.wfProcessdefid,jdbcType = VARCHAR},
+						 #{entity.productId.productId,jdbcType=VARCHAR},				 #{entity.slaId.serviceAgreementId,jdbcType=VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from SERVICE_SLA_SP_REL where rel_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.relId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="SlaServiceRroductRelResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_SP_REL 
+		<include refid="one2one_sql"/>
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="SlaServiceRroductRelResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_SP_REL 
+		<include refid="one2one_sql"/>
+		 where SERVICE_SLA_SP_REL.rel_id = #{relId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.service.manage.slamanage.SlaServiceRroductRel" resultMap="SlaServiceRroductRelResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_SP_REL 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="SlaServiceRroductRelResult">
+select 
+	<include refid="column_sql"/> 
+	from SERVICE_SLA_SP_REL 
+	<include refid="one2one_sql"/>
+	where SERVICE_SLA_SP_REL.rel_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		SERVICE_SLA_SP_REL.rel_id
+	    from SERVICE_SLA_SP_REL 
+		 <where>
+	        <if test="entity.relId != null">and SERVICE_SLA_SP_REL.rel_id = #{entity.relId}</if>
+	        <if test="entity.productDescribe != null">and SERVICE_SLA_SP_REL.product_describe = #{entity.productDescribe}</if>
+	        <if test="entity.serviceTypeId != null">and SERVICE_SLA_SP_REL.service_type_id = #{entity.serviceTypeId}</if>
+	        <if test="entity.groupId != null">and SERVICE_SLA_SP_REL.group_id = #{entity.groupId}</if>
+	        <if test="entity.wfProcessdefid != null">and SERVICE_SLA_SP_REL.wf_processdefid = #{entity.wfProcessdefid}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update SERVICE_SLA_SP_REL
+	<set>
+	<if test="entity.productDescribe != null">product_describe= #{entity.productDescribe,jdbcType=VARCHAR},</if>
+	<if test="entity.serviceTypeId != null">service_type_id= #{entity.serviceTypeId,jdbcType=VARCHAR},</if>
+	<if test="entity.groupId != null">group_id= #{entity.groupId,jdbcType=VARCHAR},</if>
+	<if test="entity.wfProcessdefid != null">wf_processdefid= #{entity.wfProcessdefid,jdbcType=VARCHAR},</if>
+	<if test="entity.productId != null and entity.productId.productId !=null">product_id= #{entity.productId.productId,jdbcType=VARCHAR},</if>
+	<if test="entity.slaId != null and entity.slaId.serviceAgreementId !=null">sla_id= #{entity.slaId.serviceAgreementId,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.relId != null">and rel_id = #{entity.relId}</when>
+				<otherwise>and rel_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+<!--Generated=true-->
+<sql id="one2one_sql">
+	     left outer join SERVICE_SERVICEPRODUCT SERVICE_SERVICEPRODUCT_T1 on SERVICE_SLA_SP_REL.product_id=SERVICE_SERVICEPRODUCT_T1.product_id
+	     left outer join SERVICE_AGREEMENT SERVICE_AGREEMENT_T2 on SERVICE_SLA_SP_REL.sla_id=SERVICE_AGREEMENT_T2.service_agreement_id
+</sql>
+<!--Generated=true-->
+<resultMap id="ServiceProductResult" type="com.chinacreator.c2.omp.service.manage.serviceproductmanage.ServiceProduct">
+	<id property="productId" column="product_id"/>
+	<result property="productNo" column="product_no"/>
+	<result property="productName" column="product_name"/>
+	<result property="productDescribe" column="product_describe"/>
+	<result property="serviceTypeId" column="service_type_id"/>
+	<result property="groupId" column="group_id"/>
+	<result property="wfProcessdefid" column="wf_processdefid"/>
+	<result property="wfProcessstartUrl" column="wf_processstart_url"/>
+	<result property="formId" column="form_id"/>
+	<result property="ico" column="ico"/>
+</resultMap>
+<!--Generated=true-->
+<resultMap id="ServiceAgreementResult" type="com.chinacreator.c2.omp.service.manage.slamanage.ServiceAgreement">
+	<id property="serviceAgreementId" column="service_agreement_id"/>
+	<result property="serviceAgreementName" column="service_agreement_name"/>
+	<result property="serviceLevelOrgId" column="service_level_org_id"/>
+	<result property="startDate" column="start_date"/>
+	<result property="endDate" column="end_date"/>
+	<result property="priLevel" column="pri_level"/>
+	<result property="state" column="state"/>
+	<result property="ramark" column="ramark"/>
+</resultMap>
+</mapper>

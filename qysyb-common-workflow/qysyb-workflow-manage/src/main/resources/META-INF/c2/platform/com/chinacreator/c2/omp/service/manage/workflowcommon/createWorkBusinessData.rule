@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="createworkbusinessdata" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.AutoCreateWorkService" method="createWork">
+  <name>生成工单业务数据</name>
+  <desc>产生一个用于工单的已经关联好业务数据和关联数据的bisinessKey。启动流程时传入返回的key</desc>
+  <inputs>
+    <input collection="false" desc="" id="sp" required="true" type="com.chinacreator.c2.omp.service.manage.serviceproductmanage.ServiceProduct"/>
+    <input collection="false" desc="" id="map" required="true" type="java.util.Map"/>
+    <input collection="false" desc="" id="resourseIds" required="true" type="[LString;"/>
+    <input collection="false" desc="" id="workIds" required="true" type="[LString;"/>
+    <input collection="false" desc="" id="knowledgesIds" required="true" type="[LString;"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="String"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.sp" name="sp" signature="QServiceProduct;" type="com.chinacreator.c2.omp.service.manage.serviceproductmanage.ServiceProduct"/>
+    <param autoValue="Input.map" name="map" signature="QMap;" type="java.util.Map"/>
+    <param autoValue="Input.resourseIds" name="resourseIds" signature="[QString;" type="[LString;"/>
+    <param autoValue="Input.workIds" name="workIds" signature="[QString;" type="[LString;"/>
+    <param autoValue="Input.knowledgesIds" name="knowledgesIds" signature="[QString;" type="[LString;"/>
+  </params>
+  <return signature="QString;" type="String"/>
+</CustomRule>

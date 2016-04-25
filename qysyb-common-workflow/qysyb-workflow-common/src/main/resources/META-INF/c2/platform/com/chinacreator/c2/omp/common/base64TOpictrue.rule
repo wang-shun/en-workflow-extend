@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="base64TOpictrue" log="false" className="com.chinacreator.c2.omp.common.service.ExportService" method="base64TOpictrue">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>base64转换为图片</name>
+  <inputs>
+    <input collection="false" desc="文件名称" id="fileName" required="true" type="String"/>
+    <input collection="false" desc="" id="imgUrl" required="true" type="String"/>
+    <input collection="false" desc="" id="filePath" required="false" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="String @date 2015年12月30日 @author tao.wang1" id="result" name="方法返回值" type="String"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.fileName" name="fileName" signature="QString;" type="String"/>
+    <param autoValue="Input.imgUrl" name="imgUrl" signature="QString;" type="String"/>
+    <param autoValue="Input.filePath" name="filePath" signature="QString;" type="String"/>
+  </params>
+  <return signature="QString;" type="String"/>
+</CustomRule>

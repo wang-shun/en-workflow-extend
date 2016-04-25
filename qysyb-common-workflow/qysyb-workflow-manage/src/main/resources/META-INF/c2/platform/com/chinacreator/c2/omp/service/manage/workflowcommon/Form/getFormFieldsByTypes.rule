@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getformfieldsbytypes" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.FormService" method="getFormField">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>根据字段类别获取字段</name>
+  <inputs>
+    <input collection="false" desc="" id="formId" required="true" type="String"/>
+    <input collection="false" desc="" id="fieldType" required="false" type="[LString;"/>
+    <input collection="false" desc="是否按字段类别分类" id="isClassify" required="true" type="boolean"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.Map"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.formId" name="formId" signature="QString;" type="String"/>
+    <param autoValue="Input.fieldType" name="fieldType" signature="[QString;" type="[LString;"/>
+    <param autoValue="Input.isClassify" name="isClassify" signature="Z" type="boolean"/>
+  </params>
+  <return signature="QMap&lt;QString;QList&lt;QFormField;>;>;" type="java.util.Map"/>
+</CustomRule>

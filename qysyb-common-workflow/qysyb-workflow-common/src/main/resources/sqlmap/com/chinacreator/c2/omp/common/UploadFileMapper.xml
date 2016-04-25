@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.common.UploadFileMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  KCOMP_FILE_UPLOAD.file_id ,
+		  KCOMP_FILE_UPLOAD.file_path ,
+		  KCOMP_FILE_UPLOAD.file_name ,
+		  KCOMP_FILE_UPLOAD.file_size ,
+		  KCOMP_FILE_UPLOAD.file_type ,
+		  KCOMP_FILE_UPLOAD.business_type ,
+		  KCOMP_FILE_UPLOAD.business_key ,
+		  KCOMP_FILE_UPLOAD.task_id ,
+		  KCOMP_FILE_UPLOAD.store_type ,
+		  KCOMP_FILE_UPLOAD.file_src_path ,
+		  KCOMP_FILE_UPLOAD.file_src_name ,
+		  KCOMP_FILE_UPLOAD.upload_time ,
+		  KCOMP_FILE_UPLOAD.org_id ,
+		  KCOMP_FILE_UPLOAD.user_id ,
+		  KCOMP_FILE_UPLOAD.file_describe ,
+		  KCOMP_FILE_UPLOAD.remark1 ,
+		  KCOMP_FILE_UPLOAD.remark2 ,
+		  KCOMP_FILE_UPLOAD.display_name 
+</sql>
+
+
+
+
+<!-- ElementID:UploadFileResult,Generated=true -->
+<resultMap id="UploadFileResult" type="com.chinacreator.c2.omp.common.UploadFile">
+	<id property="fileId" column="file_id"/>
+	<result property="filePath" column="file_path"/>
+	<result property="fileName" column="file_name"/>
+	<result property="fileSize" column="file_size"/>
+	<result property="fileType" column="file_type"/>
+	<result property="businessType" column="business_type"/>
+	<result property="businessKey" column="business_key"/>
+	<result property="taskId" column="task_id"/>
+	<result property="storeType" column="store_type"/>
+	<result property="fileSrcPath" column="file_src_path"/>
+	<result property="fileSrcName" column="file_src_name"/>
+	<result property="uploadTime" column="upload_time"/>
+	<result property="orgId" column="org_id"/>
+	<result property="userId" column="user_id"/>
+	<result property="fileDescribe" column="file_describe"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+	<result property="displayName" column="display_name"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.omp.common.UploadFile">
+	insert into KCOMP_FILE_UPLOAD(
+	         <if test="fileId != null">file_id</if>
+	         <if test="filePath != null">,file_path</if>
+	         <if test="fileName != null">,file_name</if>
+	         <if test="fileSize != null">,file_size</if>
+	         <if test="fileType != null">,file_type</if>
+	         <if test="businessType != null">,business_type</if>
+	         <if test="businessKey != null">,business_key</if>
+	         <if test="taskId != null">,task_id</if>
+	         <if test="storeType != null">,store_type</if>
+	         <if test="fileSrcPath != null">,file_src_path</if>
+	         <if test="fileSrcName != null">,file_src_name</if>
+	         <if test="uploadTime != null">,upload_time</if>
+	         <if test="orgId != null">,org_id</if>
+	         <if test="userId != null">,user_id</if>
+	         <if test="fileDescribe != null">,file_describe</if>
+	         <if test="remark1 != null">,remark1</if>
+	         <if test="remark2 != null">,remark2</if>
+	         <if test="displayName != null">,display_name</if>
+	 	 	 )
+	 values (
+	         <if test="fileId != null">#{fileId,jdbcType=VARCHAR}</if>
+	         <if test="filePath != null">,#{filePath,jdbcType=VARCHAR}</if>
+	         <if test="fileName != null">,#{fileName,jdbcType=VARCHAR}</if>
+	         <if test="fileSize != null">,#{fileSize,jdbcType=NUMERIC}</if>
+	         <if test="fileType != null">,#{fileType,jdbcType=VARCHAR}</if>
+	         <if test="businessType != null">,#{businessType,jdbcType=VARCHAR}</if>
+	         <if test="businessKey != null">,#{businessKey,jdbcType=VARCHAR}</if>
+	         <if test="taskId != null">,#{taskId,jdbcType=VARCHAR}</if>
+	         <if test="storeType != null">,#{storeType,jdbcType=CHAR}</if>
+	         <if test="fileSrcPath != null">,#{fileSrcPath,jdbcType=CLOB}</if>
+	         <if test="fileSrcName != null">,#{fileSrcName,jdbcType=CLOB}</if>
+	         <if test="uploadTime != null">,#{uploadTime,jdbcType=TIMESTAMP}</if>
+	         <if test="orgId != null">,#{orgId,jdbcType=VARCHAR}</if>
+	         <if test="userId != null">,#{userId,jdbcType=VARCHAR}</if>
+	         <if test="fileDescribe != null">,#{fileDescribe,jdbcType=VARCHAR}</if>
+	         <if test="remark1 != null">,#{remark1,jdbcType=VARCHAR}</if>
+	         <if test="remark2 != null">,#{remark2,jdbcType=VARCHAR}</if>
+	         <if test="displayName != null">,#{displayName,jdbcType=CLOB}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.omp.common.UploadFile" resultType="int">
+	select count(*) from KCOMP_FILE_UPLOAD 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.omp.common.UploadFile">
+	update KCOMP_FILE_UPLOAD
+<set>
+	<if test="filePath != null">file_path=#{filePath,jdbcType=VARCHAR},</if>
+	<if test="fileName != null">file_name=#{fileName,jdbcType=VARCHAR},</if>
+	<if test="fileSize != null">file_size=#{fileSize,jdbcType=NUMERIC},</if>
+	<if test="fileType != null">file_type=#{fileType,jdbcType=VARCHAR},</if>
+	<if test="businessType != null">business_type=#{businessType,jdbcType=VARCHAR},</if>
+	<if test="businessKey != null">business_key=#{businessKey,jdbcType=VARCHAR},</if>
+	<if test="taskId != null">task_id=#{taskId,jdbcType=VARCHAR},</if>
+	<if test="storeType != null">store_type=#{storeType,jdbcType=CHAR},</if>
+	<if test="fileSrcPath != null">file_src_path=#{fileSrcPath,jdbcType=CLOB},</if>
+	<if test="fileSrcName != null">file_src_name=#{fileSrcName,jdbcType=CLOB},</if>
+	<if test="uploadTime != null">upload_time=#{uploadTime,jdbcType=TIMESTAMP},</if>
+	<if test="orgId != null">org_id=#{orgId,jdbcType=VARCHAR},</if>
+	<if test="userId != null">user_id=#{userId,jdbcType=VARCHAR},</if>
+	<if test="fileDescribe != null">file_describe=#{fileDescribe,jdbcType=VARCHAR},</if>
+	<if test="remark1 != null">remark1=#{remark1,jdbcType=VARCHAR},</if>
+	<if test="remark2 != null">remark2=#{remark2,jdbcType=VARCHAR},</if>
+	<if test="displayName != null">display_name=#{displayName,jdbcType=CLOB}</if>
+</set>
+<where>
+	<choose>
+        <when test="fileId != null">and file_id = #{fileId}</when>
+        <otherwise>and file_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update KCOMP_FILE_UPLOAD
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="filePath==null">file_path = null,</if>
+		    <if test="fileName==null">file_name = null,</if>
+		    <if test="fileSize==null">file_size = null,</if>
+		    <if test="fileType==null">file_type = null,</if>
+		    <if test="businessType==null">business_type = null,</if>
+		    <if test="businessKey==null">business_key = null,</if>
+		    <if test="taskId==null">task_id = null,</if>
+		    <if test="storeType==null">store_type = null,</if>
+		    <if test="fileSrcPath==null">file_src_path = null,</if>
+		    <if test="fileSrcName==null">file_src_name = null,</if>
+		    <if test="uploadTime==null">upload_time = null,</if>
+		    <if test="orgId==null">org_id = null,</if>
+		    <if test="userId==null">user_id = null,</if>
+		    <if test="fileDescribe==null">file_describe = null,</if>
+		    <if test="remark1==null">remark1 = null,</if>
+		    <if test="remark2==null">remark2 = null,</if>
+		    <if test="displayName==null">display_name = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="fileId != null">and file_id = #{fileId}</when>
+			<otherwise>and file_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.omp.common.UploadFile">
+    delete from KCOMP_FILE_UPLOAD where 1=1 and file_id = #{fileId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.omp.common.UploadFile" resultMap="UploadFileResult">
+	select 
+		<include refid="column_sql"/>
+	    from KCOMP_FILE_UPLOAD 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into KCOMP_FILE_UPLOAD (file_id,file_path,file_name,file_size,file_type,business_type,business_key,task_id,store_type,file_src_path,file_src_name,upload_time,org_id,user_id,file_describe,remark1,remark2,display_name) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.fileId,jdbcType = VARCHAR},
+				#{entity.filePath,jdbcType = VARCHAR},
+				#{entity.fileName,jdbcType = VARCHAR},
+				#{entity.fileSize,jdbcType = NUMERIC},
+				#{entity.fileType,jdbcType = VARCHAR},
+				#{entity.businessType,jdbcType = VARCHAR},
+				#{entity.businessKey,jdbcType = VARCHAR},
+				#{entity.taskId,jdbcType = VARCHAR},
+				#{entity.storeType,jdbcType = CHAR},
+				#{entity.fileSrcPath,jdbcType = CLOB},
+				#{entity.fileSrcName,jdbcType = CLOB},
+				#{entity.uploadTime,jdbcType = TIMESTAMP},
+				#{entity.orgId,jdbcType = VARCHAR},
+				#{entity.userId,jdbcType = VARCHAR},
+				#{entity.fileDescribe,jdbcType = VARCHAR},
+				#{entity.remark1,jdbcType = VARCHAR},
+				#{entity.remark2,jdbcType = VARCHAR},
+				#{entity.displayName,jdbcType = CLOB}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from KCOMP_FILE_UPLOAD where file_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.fileId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="UploadFileResult">
+	select 
+		<include refid="column_sql"/>
+	    from KCOMP_FILE_UPLOAD 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="UploadFileResult">
+	select 
+		<include refid="column_sql"/>
+	    from KCOMP_FILE_UPLOAD 
+		 where KCOMP_FILE_UPLOAD.file_id = #{fileId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.omp.common.UploadFile" resultMap="UploadFileResult">
+	select 
+		<include refid="column_sql"/>
+	    from KCOMP_FILE_UPLOAD 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="UploadFileResult">
+select 
+	<include refid="column_sql"/> 
+	from KCOMP_FILE_UPLOAD 
+	where KCOMP_FILE_UPLOAD.file_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		KCOMP_FILE_UPLOAD.file_id
+	    from KCOMP_FILE_UPLOAD 
+		 <where>
+	        <if test="entity.fileId != null">and KCOMP_FILE_UPLOAD.file_id = #{entity.fileId}</if>
+	        <if test="entity.filePath != null">and KCOMP_FILE_UPLOAD.file_path = #{entity.filePath}</if>
+	        <if test="entity.fileName != null">and KCOMP_FILE_UPLOAD.file_name = #{entity.fileName}</if>
+	        <if test="entity.fileSize != null">and KCOMP_FILE_UPLOAD.file_size = #{entity.fileSize}</if>
+	        <if test="entity.fileType != null">and KCOMP_FILE_UPLOAD.file_type = #{entity.fileType}</if>
+	        <if test="entity.businessType != null">and KCOMP_FILE_UPLOAD.business_type = #{entity.businessType}</if>
+	        <if test="entity.businessKey != null">and KCOMP_FILE_UPLOAD.business_key = #{entity.businessKey}</if>
+	        <if test="entity.taskId != null">and KCOMP_FILE_UPLOAD.task_id = #{entity.taskId}</if>
+	        <if test="entity.storeType != null">and KCOMP_FILE_UPLOAD.store_type = #{entity.storeType}</if>
+	        <if test="entity.uploadTime != null">and KCOMP_FILE_UPLOAD.upload_time = #{entity.uploadTime}</if>
+	        <if test="entity.orgId != null">and KCOMP_FILE_UPLOAD.org_id = #{entity.orgId}</if>
+	        <if test="entity.userId != null">and KCOMP_FILE_UPLOAD.user_id = #{entity.userId}</if>
+	        <if test="entity.fileDescribe != null">and KCOMP_FILE_UPLOAD.file_describe = #{entity.fileDescribe}</if>
+	        <if test="entity.remark1 != null">and KCOMP_FILE_UPLOAD.remark1 = #{entity.remark1}</if>
+	        <if test="entity.remark2 != null">and KCOMP_FILE_UPLOAD.remark2 = #{entity.remark2}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<sql id="whereClause_sql">
+	    <if test="fileId != null">and KCOMP_FILE_UPLOAD.file_id = #{fileId}</if>
+	    <if test="filePath != null">and KCOMP_FILE_UPLOAD.file_path = #{filePath}</if>
+	    <if test="fileName != null">and KCOMP_FILE_UPLOAD.file_name = #{fileName}</if>
+	    <if test="fileSize != null">and KCOMP_FILE_UPLOAD.file_size = #{fileSize}</if>
+	    <if test="fileType != null">and KCOMP_FILE_UPLOAD.file_type = #{fileType}</if>
+	    <if test="businessType != null">and KCOMP_FILE_UPLOAD.business_type = #{businessType}</if>
+	    <if test="businessKey != null">and KCOMP_FILE_UPLOAD.business_key = #{businessKey}</if>
+	    <if test="taskId != null">and KCOMP_FILE_UPLOAD.task_id = #{taskId}</if>
+	    <if test="storeType != null">and KCOMP_FILE_UPLOAD.store_type = #{storeType}</if>
+	    <if test="uploadTime != null">and KCOMP_FILE_UPLOAD.upload_time = #{uploadTime}</if>
+	    <if test="orgId != null">and KCOMP_FILE_UPLOAD.org_id = #{orgId}</if>
+	    <if test="userId != null">and KCOMP_FILE_UPLOAD.user_id = #{userId}</if>
+	    <if test="fileDescribe != null">and KCOMP_FILE_UPLOAD.file_describe = #{fileDescribe}</if>
+	    <if test="remark1 != null">and KCOMP_FILE_UPLOAD.remark1 = #{remark1}</if>
+	    <if test="remark2 != null">and KCOMP_FILE_UPLOAD.remark2 = #{remark2}</if>
+</sql>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update KCOMP_FILE_UPLOAD
+	<set>
+	<if test="entity.filePath != null">file_path= #{entity.filePath,jdbcType=VARCHAR},</if>
+	<if test="entity.fileName != null">file_name= #{entity.fileName,jdbcType=VARCHAR},</if>
+	<if test="entity.fileSize != null">file_size= #{entity.fileSize,jdbcType=NUMERIC},</if>
+	<if test="entity.fileType != null">file_type= #{entity.fileType,jdbcType=VARCHAR},</if>
+	<if test="entity.businessType != null">business_type= #{entity.businessType,jdbcType=VARCHAR},</if>
+	<if test="entity.businessKey != null">business_key= #{entity.businessKey,jdbcType=VARCHAR},</if>
+	<if test="entity.taskId != null">task_id= #{entity.taskId,jdbcType=VARCHAR},</if>
+	<if test="entity.storeType != null">store_type= #{entity.storeType,jdbcType=CHAR},</if>
+	<if test="entity.fileSrcPath != null">file_src_path= #{entity.fileSrcPath,jdbcType=CLOB},</if>
+	<if test="entity.fileSrcName != null">file_src_name= #{entity.fileSrcName,jdbcType=CLOB},</if>
+	<if test="entity.uploadTime != null">upload_time= #{entity.uploadTime,jdbcType=TIMESTAMP},</if>
+	<if test="entity.orgId != null">org_id= #{entity.orgId,jdbcType=VARCHAR},</if>
+	<if test="entity.userId != null">user_id= #{entity.userId,jdbcType=VARCHAR},</if>
+	<if test="entity.fileDescribe != null">file_describe= #{entity.fileDescribe,jdbcType=VARCHAR},</if>
+	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=VARCHAR},</if>
+	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
+	<if test="entity.displayName != null">display_name= #{entity.displayName,jdbcType=CLOB}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.fileId != null">and file_id = #{entity.fileId}</when>
+				<otherwise>and file_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>
