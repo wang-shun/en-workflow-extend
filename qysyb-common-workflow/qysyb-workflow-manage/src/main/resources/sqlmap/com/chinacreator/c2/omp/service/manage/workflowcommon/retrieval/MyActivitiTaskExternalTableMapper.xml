@@ -336,7 +336,7 @@
     </if>
 <!--     把任务处理人名字选出来 -->
 	<if test="involvedUser != null">
-	INNER JOIN ACT_RU_IDENTITYLINK I0 ON RES.ID_ = I0.TASK_ID_
+	INNER JOIN ACT_RU_IDENTITYLINK I ON RES.ID_ = I.TASK_ID_
 	</if>
     <where> 
       <if test="taskId != null">
