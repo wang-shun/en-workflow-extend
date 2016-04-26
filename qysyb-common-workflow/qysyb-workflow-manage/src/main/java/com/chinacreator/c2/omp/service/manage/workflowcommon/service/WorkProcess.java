@@ -17,6 +17,7 @@ import org.activiti.engine.impl.bpmn.behavior.ParallelMultiInstanceBehavior;
 import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
+import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -736,6 +737,10 @@ public class WorkProcess {
 			String beanName = form.getRemark2();
 			IFormOperate formOperate = (IFormOperate) ApplicationContextManager.getContext().getBean(beanName);
 			Map<String,String> valuemap = formOperate.getTaskHandler(entity, businessKey, wf.getProcessInstanceId(), moduleId, wfTransition.getDest(), nextTaskId, wfOperator.getUserId());
+			if(valuemap==null||valuemap.size()==0){
+				valuemap = new HashMap<String,String>();
+				valuemap.put((String)variables.get(HANDLE_TYPE_KEY), (String)variables.get(HANDLE_VALUE_KEY));
+			}
 			setTaskHandler(valuemap,nextTaskId);
 			/*通知处理*/
 			informService = ApplicationContextManager.getContext().getBean(InformService.class);
@@ -758,6 +763,8 @@ public class WorkProcess {
 	 * @param taskId
 	 */
 	public void setTaskHandler(Map<String,String> valuemap,String taskId){
+//		List<IdentityLink> list = taskService.getIdentityLinksForTask(taskId);
+//		taskService.dele
 		if(valuemap!=null&&valuemap.size()==1){
 			for(String key:valuemap.keySet()){
 				switch (key) {
