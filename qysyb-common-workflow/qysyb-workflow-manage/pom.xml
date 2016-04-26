@@ -7,7 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent> 
 	<groupId>com.chinacreator.c2.qyb</groupId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<artifactId>qysyb-workflow-manage</artifactId>
 
 	<dependencies>
@@ -66,8 +66,8 @@
 		
 		<dependency>
    			<groupId>com.chinacreator.c2.qyb</groupId>
-			<artifactId>c2-qyb-common</artifactId>
-    		<version>0.0.1-SNAPSHOT</version>
+			<artifactId>qysyb-workflow-common</artifactId>
+    		<version>0.0.2-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		

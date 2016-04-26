@@ -34,6 +34,6 @@
 		</snapshotRepository>
 	</distributionManagement>
   <build>
-    <finalName>c2-qyb-workflow-resource</finalName>
+    <finalName>qysyb-workflow-resource</finalName>
   </build>
 </project>

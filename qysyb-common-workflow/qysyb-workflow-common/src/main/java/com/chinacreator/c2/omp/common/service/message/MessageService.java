@@ -11,9 +11,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.message.MessageRequest;
-import com.chinacreator.c2.message.MessageRequestBuilder;
-import com.chinacreator.c2.message.MessageSender;
+//import com.chinacreator.c2.message.MessageRequest;
+//import com.chinacreator.c2.message.MessageRequestBuilder;
+//import com.chinacreator.c2.message.MessageSender;
 import com.chinacreator.c2.omp.common.MessageServiceInfo;
 import com.chinacreator.c2.omp.common.UserInfo;
 import com.chinacreator.c2.omp.common.exception.ServiceException;
@@ -88,8 +88,8 @@ public class MessageService implements UtilConstants{
 				}else{
 					category="邮件通知";
 				}
-				MessageRequest messageRequest=new MessageRequestBuilder().channel("email").to(recipient).content(content).category(category).build();
-				MessageSender.getInstance().send(messageRequest);
+//				MessageRequest messageRequest=new MessageRequestBuilder().channel("email").to(recipient).content(content).category(category).build();
+//				MessageSender.getInstance().send(messageRequest);
 				result=true;				
 			}
 
