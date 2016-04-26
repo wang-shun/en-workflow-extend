@@ -1122,7 +1122,6 @@ public class WorkFlowService {
 		if(sps==null){
 			sps = ApplicationContextManager.getContext().getBean(ServiceProductService.class);
 		}
-		List list33 = (List) taskService.createTaskQuery().taskCandidateGroup("1").list();
 		if(con!=null&&con.get(WorkFlowService.IS_EXTERNAL_STORAGE_KEY)!=null){
 			boolean isExternalStorage = (boolean) con.get(WorkFlowService.IS_EXTERNAL_STORAGE_KEY);
 			if(isExternalStorage){

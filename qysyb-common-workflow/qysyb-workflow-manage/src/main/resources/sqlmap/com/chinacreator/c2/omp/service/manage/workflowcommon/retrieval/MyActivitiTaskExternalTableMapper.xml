@@ -179,7 +179,8 @@
     ${limitBefore}
     select distinct RES.* ${limitBetween}
     <!-- 把任务处理人名字选出来 -->
-    ,U0.LAST_ AS USER_NAME
+	,(SELECT GG.NAME_ FROM ACT_ID_GROUP GG WHERE GG.ID_ = I.GROUP_ID_) AS GROUP_NAME
+	,(SELECT UU.LAST_ FROM ACT_ID_USER UU WHERE UU.ID_ = I.USER_ID_) AS USER_NAME
 <!--     外部的表加入结果集 -->
     <foreach collection="forms" index="index" item="var">
          , T${index}.* 
@@ -281,8 +282,6 @@
   <sql id="commonselectETCustomTaskByQueryCriteriaSql">
     <if test="candidateUser != null || candidateGroups != null || bothCandidateAndAssigned">
       inner join ${prefix}ACT_RU_IDENTITYLINK I on I.TASK_ID_ = RES.ID_
-      <!-- 把任务处理人名字选出来 -->
-      inner join ${prefix}ACT_ID_USER U0 ON U0.ID_ = I.USER_ID_
     </if>  
      <foreach collection="sortableValues" index="index" item="var">
      
@@ -338,7 +337,6 @@
 <!--     把任务处理人名字选出来 -->
 	<if test="involvedUser != null">
 	INNER JOIN ACT_RU_IDENTITYLINK I0 ON RES.ID_ = I0.TASK_ID_
-	LEFT JOIN ACT_ID_USER U0 ON I0.USER_ID_ = U0.ID_
 	</if>
     <where> 
       <if test="taskId != null">

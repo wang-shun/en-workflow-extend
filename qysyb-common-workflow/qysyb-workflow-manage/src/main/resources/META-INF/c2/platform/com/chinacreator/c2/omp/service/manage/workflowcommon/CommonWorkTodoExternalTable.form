@@ -343,7 +343,11 @@
       </form:child>
       <form:child xsi:type="form:Field" binding="USER_NAME" id="newField9" name="当前处理人" customize="true">
         <form:control type="widget/col_jqgrid">
-          <form:attributes source="widget/col_jqgrid"/>
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="newField9_customFormatter(cellvalue,options,rowObject)">
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
         </form:control>
         <form:validation/>
       </form:child>
@@ -826,7 +830,18 @@ page_afterDataSourceLoad:function(){
 	params.colModel[2].name = &quot;title&quot;;
 	jQuery(&quot;#list&quot;).jqGrid(params);
 //	jgrid.GridNav();
-*/}</form:scripts>
+*/},
+
+newField9_customFormatter:function(cellvalue,options,rowObject){
+	var userName = rowObject.USER_NAME;
+	var groupName = rowObject.GROUP_NAME;
+	if(userName!=undefined&amp;&amp;userName!=&quot;&quot;){
+		return userName;
+	}
+	if(groupName!=undefined&amp;&amp;groupName!=&quot;&quot;){
+		return &quot;组【&quot;+groupName+&quot;】&quot;;
+	}
+}</form:scripts>
   <form:htmls>&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup2_html&quot;>&#xD;
 &lt;div ng-include=&quot;'f/retrievedisplay'&quot; ng-init=&quot;$params={'retrieveKey':$params.workType==null?'commonext':$params.workType}&quot;>&#xD;
 &lt;/script>&#xD;
