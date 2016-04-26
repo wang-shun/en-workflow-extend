@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
@@ -15,6 +16,7 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.bpmn.behavior.ParallelMultiInstanceBehavior;
 import org.activiti.engine.impl.identity.Authentication;
+import org.activiti.engine.impl.persistence.entity.IdentityLinkEntity;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.task.IdentityLink;
@@ -45,6 +47,7 @@ import com.chinacreator.c2.omp.service.manage.workflowcommon.Form;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.FormField;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.InformService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.bean.WorkFlowTransition;
+import com.chinacreator.c2.omp.service.manage.workflowcommon.cmd.DelTaskCandidatesCmd;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.cmd.FindTaskEntityCmd;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.cmd.JumpActivityByTakeTransitionCmd;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.form.inf.IFormOperate;
@@ -513,8 +516,6 @@ public class WorkProcess {
 
 		WfResult wfresult = null;
 		/*candidateUsers candidateGroup assignee*/
-		String handleType = null;
-		String handleValue = null;
 		String entity =  (String) paramsMap.get("entity");
 		String isStart = paramsMap.get("isStart").toString();
 		String formId = (String) paramsMap.get("formId");
@@ -527,6 +528,7 @@ public class WorkProcess {
 		String variablesStr = (String) paramsMap.get("variables");
 		String opinion = (String) paramsMap.get("opinion");
 		String proInsId = (String) paramsMap.get("proInsId");		
+		String moduleId = (String) paramsMap.get("moduleId");
 		String transitionId = (String) paramsMap.get("transitionId");	
 		String transitionStr = (String) paramsMap.get("transition");
 		WorkFlowTransition wfTransition = JSONObject.parseObject(transitionStr, WorkFlowTransition.class);
@@ -534,20 +536,22 @@ public class WorkProcess {
 		WfOperator wfOperator = JSONObject.parseObject(wfOperatorStr, WfOperator.class);
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
 		Map entitymap = JSONObject.parseObject(entity, Map.class);
-		
-		List<String> assigneList = new ArrayList<String>();
-		String candidateUsers = null;
-		
+
 		chooseHandleTypeValue(variables);
 		try { 
 			/*业务数据持久化*/		
 			FormService formService = ApplicationContextManager.getContext().getBean(FormService.class);
 			Form form = formService.getFormById(formId);
+			String beanName = form.getRemark2();
+			IFormOperate formOperate = (IFormOperate) ApplicationContextManager.getContext().getBean(beanName);
+
 			//业务数据吧上一次保存的一些流程变量去掉
 			entitymap.remove(WorkFlowService.TYPE_ASSIGNEE);
 			entitymap.remove(WorkFlowService.TYPE_CANDIDATEUSERS);
 			entitymap.remove(WorkFlowService.TYPE_CANDIDATEGROUPS);
 			entitymap.remove(WorkFlowService.TYPE_ASSIGNEELIST);
+			entitymap.remove(HANDLE_TYPE_KEY);
+			entitymap.remove(HANDLE_VALUE_KEY);
 			
 			if(form!=null&&form.isIsTableStorage()!=null&&form.isIsTableStorage()){
 				formService.updateFormDataWithExternalTable(bussinessKey,proInsId,entity,wfTransition.getSrc(),form);
@@ -583,7 +587,6 @@ public class WorkProcess {
 				variables.put(WorkFlowService.ACCEPTTIMEL, String.valueOf(System.currentTimeMillis()));
 			}
 			TaskEntity taskEntity = managementService.executeCommand(new FindTaskEntityCmd(currenTaskId));
-
 			ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
 			/*JumpActivityByTakeTransitionCmd 自由流时会签任务处理，*/
 			if(activityImpl.getActivityBehavior() instanceof ParallelMultiInstanceBehavior){
@@ -593,6 +596,14 @@ public class WorkProcess {
 				taskService.complete(currenTaskId);
 				wfresult = new WfResult();
 				wfresult.setResult(WfConstants.WF_CONTROL_EXE_SUCCESS);
+				int nrOfCompletedInstances = (int) taskEntity.getVariables().get("nrOfCompletedInstances");
+				int nrOfInstances = (int) taskEntity.getVariables().get("nrOfInstances");
+				//表示会签完成
+				if(nrOfCompletedInstances==nrOfInstances-1){
+					String nextTaskId = wfRuntimeService.getCurrentActiveTaskIds(proInsId);
+					Map<String,String> valuemap = formOperate.getTaskHandler(entity, bussinessKey, wfresult.getProcessInstanceId(), moduleId, wfTransition.getDest(), nextTaskId, wfOperator.getUserId());
+					setTaskHandler(valuemap,variables,nextTaskId);					
+				}
 				/*通知处理*/
 				informService.informDo();
 				return new ResponseFactory().createResponseBodyJSONObject(JSON.toJSONString(wfresult));
@@ -630,19 +641,16 @@ public class WorkProcess {
 				wfresult = this.goAnyWhereTakeTransition(wfOperator, isStart.equals("true")?true:false, bussinessKey, processDefinitionId, currenTaskId, 
 						transitionId,destTaskDefinitionKey, false, variables);				
 				/* TODO 考虑动态分派到人 这样的话就不用流程图有candidateusers变量了*/
-//				List<Task> listTask = taskService.createTaskQuery().processInstanceId(proInsId).list();
-/*				String[] nextTaskIds = wfresult.getNextTaskId().split(",");
-				for(int i=0;i<nextTaskIds.length;i++){
-					String nextTaskId = nextTaskIds[i];
-					switch(assignType){
-					case WorkFlowService.TYPE_ASSIGNEE:
-						taskService.setAssignee(nextTaskId,assignValue);
-					case WorkFlowService.TYPE_CANDIDATEGROUPS:
-						taskService.addCandidateGroup(nextTaskId, assignValue);
-					case WorkFlowService.TYPE_CANDIDATEUSERS:
-						taskService.addCandidateUser(taskId, userId);
-					}					
-				}*/
+
+				Object multiInstancePor =  wfTransition.getDest().getPorperties().get("multiInstance");
+				if(multiInstancePor!=null&&((String)multiInstancePor).equals("parallel")){//下一步是并行会签 不要选择处理人
+					
+				}else if(multiInstancePor==null){//下一步是普通任务	
+					String nextTaskId = wfresult.getNextTaskId();
+					Map<String,String> valuemap = formOperate.getTaskHandler(entity, bussinessKey, wfresult.getProcessInstanceId(), moduleId, wfTransition.getDest(), nextTaskId, wfOperator.getUserId());
+					setTaskHandler(valuemap,variables,nextTaskId);					
+				}
+
 
 
 				/*通知处理*/
@@ -737,11 +745,8 @@ public class WorkProcess {
 			String beanName = form.getRemark2();
 			IFormOperate formOperate = (IFormOperate) ApplicationContextManager.getContext().getBean(beanName);
 			Map<String,String> valuemap = formOperate.getTaskHandler(entity, businessKey, wf.getProcessInstanceId(), moduleId, wfTransition.getDest(), nextTaskId, wfOperator.getUserId());
-			if(valuemap==null||valuemap.size()==0){
-				valuemap = new HashMap<String,String>();
-				valuemap.put((String)variables.get(HANDLE_TYPE_KEY), (String)variables.get(HANDLE_VALUE_KEY));
-			}
-			setTaskHandler(valuemap,nextTaskId);
+
+			setTaskHandler(valuemap,variables,nextTaskId);
 			/*通知处理*/
 			informService = ApplicationContextManager.getContext().getBean(InformService.class);
 			informService.informDo();			
@@ -762,9 +767,19 @@ public class WorkProcess {
 	 * @param valuemap
 	 * @param taskId
 	 */
-	public void setTaskHandler(Map<String,String> valuemap,String taskId){
-//		List<IdentityLink> list = taskService.getIdentityLinksForTask(taskId);
-//		taskService.dele
+	public void setTaskHandler(Map<String,String> valuemap,Map variables,String taskId){
+		if(taskId==null){
+			return;
+		}
+		//先把之前的候选给去掉 有可能是平台赋的值
+		managementService.executeCommand(new DelTaskCandidatesCmd(taskId));
+
+		if(valuemap==null||valuemap.size()==0){
+			valuemap = new HashMap<String,String>();
+			if(variables.get(HANDLE_TYPE_KEY)!=null&&variables.get(HANDLE_VALUE_KEY)!=null){
+				valuemap.put((String)variables.get(HANDLE_TYPE_KEY), (String)variables.get(HANDLE_VALUE_KEY));
+			}	
+		}
 		if(valuemap!=null&&valuemap.size()==1){
 			for(String key:valuemap.keySet()){
 				switch (key) {
