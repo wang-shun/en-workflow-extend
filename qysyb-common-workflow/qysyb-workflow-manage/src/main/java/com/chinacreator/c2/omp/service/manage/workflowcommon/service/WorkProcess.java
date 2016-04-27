@@ -771,9 +771,6 @@ public class WorkProcess {
 		if(taskId==null){
 			return;
 		}
-		//先把之前的候选给去掉 有可能是平台赋的值
-		managementService.executeCommand(new DelTaskCandidatesCmd(taskId));
-
 		if(valuemap==null||valuemap.size()==0){
 			valuemap = new HashMap<String,String>();
 			if(variables.get(HANDLE_TYPE_KEY)!=null&&variables.get(HANDLE_VALUE_KEY)!=null){
@@ -781,6 +778,8 @@ public class WorkProcess {
 			}	
 		}
 		if(valuemap!=null&&valuemap.size()==1){
+			//先把之前的候选给去掉 有可能是平台赋的值
+			managementService.executeCommand(new DelTaskCandidatesCmd(taskId));
 			for(String key:valuemap.keySet()){
 				switch (key) {
 				case WorkFlowService.TYPE_ASSIGNEE:

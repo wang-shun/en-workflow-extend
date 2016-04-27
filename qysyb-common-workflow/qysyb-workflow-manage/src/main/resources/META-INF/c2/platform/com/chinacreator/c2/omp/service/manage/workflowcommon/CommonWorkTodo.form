@@ -682,7 +682,7 @@ newField5_customFormatter:function(cellvalue,options,rowObject){
 
 newField8_customFormatter:function(cellvalue,options,rowObject){
 //	console.log($model.servicetypes.result[&quot;服务分类&quot;][cellvalue]);
-	return $model.servicetypes.result[&quot;服务分类&quot;][cellvalue];
+	return '{{$model.servicetypes.result[&quot;服务分类&quot;][&quot;'+cellvalue+'&quot;]}}'
 },
 
 title_customFormatter:function(cellvalue,options,rowObject){

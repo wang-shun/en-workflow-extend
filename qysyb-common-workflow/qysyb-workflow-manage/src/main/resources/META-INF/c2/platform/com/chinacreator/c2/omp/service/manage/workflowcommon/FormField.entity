@@ -113,10 +113,15 @@
             </form:control>
           </form:child>
           <form:child xsi:type="form:Field" binding="$model.entity.webDisplayTypeId" id="webDisplayTypeId" name="控件类型">
-            <form:control type="widget/select_simple_dict">
-              <form:attributes source="widget/select_simple_dict">
-                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="工作流_前端控件类型">
-                  <dync:render/>
+            <form:control type="widget/select_simple">
+              <form:attributes source="widget/select_simple">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.allwebcategorylist.result">
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="categoryNo">
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="categoryName">
                   <dync:children/>
                 </dync:attribute>
               </form:attributes>
@@ -216,6 +221,7 @@
         </form:child>
         <form:datasources>
           <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField"/>
+          <form:datasource xsi:type="form:LogicDataSource" id="allwebcategorylist" name="控件类型" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Form.getAllWebDisplayCategoryList" sn="getAllWebDisplayCategoryList"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){
@@ -284,14 +290,15 @@ btn_edit_click:function($event){
             </form:control>
           </form:child>
           <form:child xsi:type="form:Field" binding="$model.entity.webDisplayTypeId" id="webDisplayTypeId" name="控件类型">
-            <form:control type="widget/select_simple_dict">
-              <form:attributes source="widget/select_simple_dict">
-                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="工作流_前端控件类型">
-                  <dync:render/>
+            <form:control type="widget/select_simple">
+              <form:attributes source="widget/select_simple">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.allcategorylist.result">
                   <dync:children/>
                 </dync:attribute>
-                <dync:attribute default="" group="下拉框设置" id="defaultValue" name="默认值" value="WBK">
-                  <dync:render/>
+                <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="categoryNo">
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="categoryName">
                   <dync:children/>
                 </dync:attribute>
               </form:attributes>
@@ -391,6 +398,7 @@ btn_edit_click:function($event){
         </form:child>
         <form:datasources>
           <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField"/>
+          <form:datasource xsi:type="form:LogicDataSource" id="allcategorylist" name="所有控件类型" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Form.getAllWebDisplayCategoryList" sn="getAllWebDisplayCategoryList"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){
