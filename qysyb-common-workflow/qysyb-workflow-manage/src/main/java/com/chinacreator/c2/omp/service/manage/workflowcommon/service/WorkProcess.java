@@ -274,6 +274,8 @@ public class WorkProcess {
 				result.setProcessInstanceId(processInstanceId);
 				result.setNextTaskId(nextTaskIds);
 			} else {
+				//先声明可以避免流程图上处理人出现null
+				taskService.claim(taskId, userId);
 				// 获得当前任务的对应实列
 				Task taskEntity = taskService.createTaskQuery().taskId(taskId)
 						.singleResult();
