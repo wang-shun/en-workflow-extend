@@ -171,7 +171,7 @@
    select * from ${prefix}ACT_RU_TASK where ID_ = #{id}
   </select> -->
   <select id="selectETCustomTaskCount" parameterType="org.activiti.engine.impl.TaskQueryImpl" resultType="long">
-    select count(distinct RES.ID_)
+    select count(RES.ID_)
     <include refid="selectETCustomTaskByQueryCriteriaSql"/>
   </select>
   
