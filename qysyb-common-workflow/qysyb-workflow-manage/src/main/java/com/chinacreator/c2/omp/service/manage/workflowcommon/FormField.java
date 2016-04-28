@@ -92,8 +92,11 @@ public class FormField implements Serializable {
 	@Column(id = "remark8", datatype = "string512")
 	private java.lang.String remark8;
 
-	@Column(id = "remark9", datatype = "mediumdouble")
-	private java.lang.Double remark9;
+	/**
+	 *
+	 */
+	@Column(id = "remark9", datatype = "boolean")
+	private java.lang.Boolean remark9;
 
 	@Column(id = "remark10", datatype = "mediumdouble")
 	private java.lang.Double remark10;
@@ -351,16 +354,16 @@ public class FormField implements Serializable {
 	}
 
 	/**
-	 * 设置${field.desc}
+	 * 设置
 	 */
-	public void setRemark9(java.lang.Double remark9) {
+	public void setRemark9(java.lang.Boolean remark9) {
 		this.remark9 = remark9;
 	}
 
 	/**
-	 * 获取${field.desc}
+	 * 获取
 	 */
-	public java.lang.Double getRemark9() {
+	public java.lang.Boolean isRemark9() {
 		return remark9;
 	}
 

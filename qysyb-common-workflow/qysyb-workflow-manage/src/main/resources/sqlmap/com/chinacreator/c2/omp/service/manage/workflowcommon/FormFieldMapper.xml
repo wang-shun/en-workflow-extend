@@ -121,7 +121,7 @@
 	         <if test="remark6 != null">,#{remark6,jdbcType=VARCHAR}</if>
 	         <if test="ramark7 != null">,#{ramark7,jdbcType=VARCHAR}</if>
 	         <if test="remark8 != null">,#{remark8,jdbcType=VARCHAR}</if>
-	         <if test="remark9 != null">,#{remark9,jdbcType=NUMERIC}</if>
+	         <if test="remark9 != null">,#{remark9,jdbcType=CHAR}</if>
 	         <if test="remark10 != null">,#{remark10,jdbcType=NUMERIC}</if>
 	 	 	 )
 </insert>
@@ -155,7 +155,7 @@
 	<if test="remark6 != null">remark6=#{remark6,jdbcType=VARCHAR},</if>
 	<if test="ramark7 != null">ramark7=#{ramark7,jdbcType=VARCHAR},</if>
 	<if test="remark8 != null">remark8=#{remark8,jdbcType=VARCHAR},</if>
-	<if test="remark9 != null">remark9=#{remark9,jdbcType=NUMERIC},</if>
+	<if test="remark9 != null">remark9=#{remark9,jdbcType=CHAR},</if>
 	<if test="remark10 != null">remark10=#{remark10,jdbcType=NUMERIC}</if>
 </set>
 <where>
@@ -239,7 +239,7 @@
 				#{entity.remark6,jdbcType = VARCHAR},
 				#{entity.ramark7,jdbcType = VARCHAR},
 				#{entity.remark8,jdbcType = VARCHAR},
-				#{entity.remark9,jdbcType = NUMERIC},
+				#{entity.remark9,jdbcType = CHAR},
 				#{entity.remark10,jdbcType = NUMERIC}
 		from dual
 </foreach>
@@ -338,7 +338,7 @@ select
 	<if test="entity.remark6 != null">remark6= #{entity.remark6,jdbcType=VARCHAR},</if>
 	<if test="entity.ramark7 != null">ramark7= #{entity.ramark7,jdbcType=VARCHAR},</if>
 	<if test="entity.remark8 != null">remark8= #{entity.remark8,jdbcType=VARCHAR},</if>
-	<if test="entity.remark9 != null">remark9= #{entity.remark9,jdbcType=NUMERIC},</if>
+	<if test="entity.remark9 != null">remark9= #{entity.remark9,jdbcType=CHAR},</if>
 	<if test="entity.remark10 != null">remark10= #{entity.remark10,jdbcType=NUMERIC}</if>
 	</set>
 		<where>

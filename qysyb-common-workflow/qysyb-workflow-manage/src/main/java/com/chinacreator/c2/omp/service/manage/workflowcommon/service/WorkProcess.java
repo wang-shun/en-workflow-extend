@@ -874,4 +874,12 @@ public class WorkProcess {
 		}
 		return variables;
 	}
+/*	public void removeNullValueInMap(Map<String,Object> map){
+		List set = new ArrayList();
+		for(String key:map.keySet()){
+			if(map.get(key)==null||map.get(key).equals("")){
+				set.add(key);
+			}
+		}
+	}*/
 }

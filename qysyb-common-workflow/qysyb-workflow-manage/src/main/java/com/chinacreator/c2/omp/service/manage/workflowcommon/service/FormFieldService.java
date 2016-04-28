@@ -28,9 +28,14 @@ public class FormFieldService {
 		if(ff==null){
 			return false;
 		}
+		//如果不是存入流程变量 则就是在外部作业务数据存储
+		if(ff.isRemark9()==null||!ff.isRemark9()){
+			return true;
+		}
 		if(ff.getRemark5()==null){
 			return false;
 		}
+
 /*		if(ff.getRemark6()==null){
 			return false;
 		}*/
