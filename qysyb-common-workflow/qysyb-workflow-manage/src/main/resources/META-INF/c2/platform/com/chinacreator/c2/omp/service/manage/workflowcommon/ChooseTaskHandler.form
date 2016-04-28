@@ -70,7 +70,7 @@
           </dync:attribute>
         </form:attributes>
       </form:control>
-      <form:child xsi:type="form:Field" binding="$model.nexttask" id="nexttaskselectview" name="下一节点" customize="true">
+      <form:child xsi:type="form:Field" binding="$model.nexttask" id="nexttaskselectview" name="选择路径" customize="true">
         <form:control type="widget/select_simple">
           <form:attributes source="widget/select_simple">
             <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$params.transitions">

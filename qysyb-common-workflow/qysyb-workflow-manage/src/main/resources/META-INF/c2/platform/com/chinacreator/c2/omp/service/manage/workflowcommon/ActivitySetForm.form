@@ -499,7 +499,7 @@ page_afterDataSourceLoad:function(){
 	
 	$model.entityactivityconfig.$get()
 		.then(function(a){
-			console.log(&quot;activity config entity geted&quot;,a);
+//			console.log(&quot;activity config entity geted&quot;,a);
 			if(angular.isUndefined($model.entityactivityconfig.id)){
 				//maybe msyql do like this
 //				$model.entityactivityconfig.Id = $params.activityId;
@@ -541,6 +541,7 @@ page_afterDataSourceLoad:function(){
 			var returnindex = functions.has_action(&quot;freechoose&quot;);
 			if(returnindex==undefined){
 				$model.freeChoose = false;
+				$model.entityactivityconfig.remark4 = &quot;f/choosetaskhandler&quot;;
 			}else{
 				$model.freeChoose = true;
 			}		
@@ -563,8 +564,11 @@ page_afterDataSourceLoad:function(){
 page_onload:function(){
 	$model.activity_Name = $params.activity_name;
 	/*有一个默认的处理页面*/
-	$model.freechoose = true;
-	$model.entityactivityconfig.remark4 = &quot;f/choosetaskhandler&quot;;
+/*	$model.freechoose = true;
+	if($model.freeChoose==false){
+		$model.entityactivityconfig.remark4 = &quot;f/choosetaskhandler&quot;;
+	}*/
+	
 },
 // save
 newField9_click:function($event){
@@ -809,7 +813,9 @@ newField11_onChange:function(){
 	if($model.freeChoose){
 		this.add_action(&quot;freechoose&quot;);
 	}else{
-		$model.entityactivityconfig.remark4 = &quot;f/choosetaskhandler&quot;;
+		if($model.entityactivityconfig.remark4 == undefined){
+			$model.entityactivityconfig.remark4 = &quot;f/choosetaskhandler&quot;;
+		}	
 		this.del_action(&quot;freechoose&quot;);
 	}	
 	console.log(&quot;actions&quot;,$model.entityactivityconfig.remark2);

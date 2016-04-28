@@ -166,7 +166,7 @@
       <form:child xsi:type="form:Field" id="submitflow" name="提交流程" res="" customize="true">
         <form:control type="widget/button">
           <form:attributes source="widget/button">
-            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="submitflow_click($event)">
+            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="start_flow($event)">
               <dync:render/>
               <dync:children/>
             </dync:attribute>
@@ -775,7 +775,7 @@ commit:function($event){
 			$model.nexthandleid = data.candidateUsers==&quot;&quot;?undefined:data.candidateUsers;
 			
 			$model.transition = data.transition;
-			$model.dest = $model.transition.dest;console.log(&quot;dest transition&quot;,$model.transition);
+			$model.dest = $model.transition.dest;
 			$model.nexttask = $model.transition.id;
 			functions.newField5_click($event);
 			
@@ -783,25 +783,6 @@ commit:function($event){
 		return;
 	}
 	functions.newField5_click($event);
-/*	//选择处理人
-	Modal.open(&quot;f/choosetaskhandler&quot;,{},
-		function(data){
-			
-			var candidateUsersStr = &quot;&quot;;
-			for(var i=0;i&lt;data.length;i++){
-				candidateUsersStr=candidateUsersStr+data[i].id+&quot;,&quot;;
-			}
-			//下一步是会签
-			if($model.isParallel){
-				$model.assigneeList = candidateUsersStr==&quot;&quot;?undefined:candidateUsersStr;//避免传空字符进去，影响判断
-				$model.nexthandlegroupid = undefined;
-				$model.assigneeid = undefined;
-			}else{//TODO 这里还要做细分
-				$model.nexthandleid = candidateUsersStr==&quot;&quot;?undefined:candidateUsersStr;//避免传空字符进去，影响判断
-			}
-			
-			functions.newField5_click($event);
-		});*/
 },
 //提交
 newField5_click:function($event){
@@ -1172,10 +1153,9 @@ timeGenerator:function(){
 	   return CurrentDate;
 		
 },
-//提交流程
-submitflow_click:function($event){
+start_flow:function($event){
 //func 为业务表单提交前验证函数
-	console.log(&quot;transition to take&quot;,$model.transition);
+//	console.log(&quot;transition to take&quot;,$model.transition);
 	if(!angular.isUndefined($model.func)){
 		var a = $model.func();
 		if(a==false){
@@ -1197,12 +1177,38 @@ submitflow_click:function($event){
 	//必填项等验证通过才执行 字段页面提交前函数
 	$model.funcsbeforsubmit();
 	
+	if($model.actions.freechoose!=undefined){
+		var url = $model.actions.freechoose.openUrl;
+		Modal.open(url,{params:$params.params,transitions:$model.getOutTransition.result},function(data){
+			console.log(&quot;choosed&quot;,data);
+			$model.assigneeList = data.assigneeList==&quot;&quot;?undefined:data.assigneeList;//避免传空字符进去，影响判断;
+			$model.assigneeid = data.assignee==&quot;&quot;?undefined:data.assignee;
+			$model.nexthandlegroupid = data.candidateGroups==&quot;&quot;?undefined:data.candidateGroups;
+			$model.nexthandleid = data.candidateUsers==&quot;&quot;?undefined:data.candidateUsers;
+			
+			$model.transition = data.transition;
+			$model.dest = $model.transition.dest;
+			$model.nexttask = $model.transition.id;
+			functions.submitflow_click($event);
+			
+		});
+		return;
+	}
+	functions.submitflow_click($event);
+},
+//提交流程
+submitflow_click:function($event){
+
+
+	
 	var processDefinitionId = $params.params.processDefinitionId;
 	var moduleId =  $params.params.moduleId;
 	var taskDefKey =  $params.params.taskDefKey;
 	var userId = $model.getUser.result.id;
 	var applyBranchId = $model.entity.applyBranchId;
 	variablesJson = {
+			assignee:$model.assigneeid,
+			assigneeList:$model.assigneeList,
 			candidateGroups:$model.nexthandlegroupid,
 			candidateUsers:$model.nexthandleid,
 			&quot;productNo&quot;:$location.search().productNo,
