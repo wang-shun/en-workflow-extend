@@ -44,7 +44,7 @@
       </dync:attribute>
     </form:attributes>
   </form:control>
-  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+  <form:child xsi:type="form:Group" id="formentitydiv" name="新分组">
     <form:control type="container/div">
       <form:attributes source="container/div">
         <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
@@ -104,7 +104,7 @@ page_afterDataSourceLoad:function(){
 	$model.categories = $model.allcategory.result;
 	$scope.formentity = $params.pModel.formentity.result;
 //	$scope.permissionData = $model.permissiondata.result;
-	console.log(&quot;youmeiyou permissiondata?&quot;,$scope.permissionData);
+//	console.log(&quot;youmeiyou permissiondata?&quot;,$scope.permissionData);
 	$scope.$emit('entity',{entity:$scope.formentity});
 	$scope.$emit('func',this.callback);
 	$scope.$emit('funcsbeforsubmit',this.funcsbeforsubmit_callback);
