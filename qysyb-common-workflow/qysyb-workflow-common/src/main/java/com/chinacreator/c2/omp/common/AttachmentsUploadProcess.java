@@ -252,6 +252,7 @@ public class AttachmentsUploadProcess extends UploadProcess{
 		uploadfile.setFileType(realfiletype);
 		uploadfile.setDisplayName(displayname);
 		uploadfile.setBusinessType(businessType);
+		uploadfile.setUploadTime(new Timestamp(System.currentTimeMillis()));
 		ufs.addUploadFile(uploadfile);
 //    	}	
 	}
