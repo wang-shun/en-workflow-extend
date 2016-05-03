@@ -739,6 +739,7 @@ commit:function($event){
 			Messenger.post({
 				'message': &quot;必填项为空！&quot;,
 	            'type': 'error',
+	            'hideAfter':5
 	        });	
 			return;
 		}	
@@ -1165,6 +1166,7 @@ start_flow:function($event){
 			Messenger.post({
 				'message': &quot;必填项为空或格式不正确！&quot;,
 	            'type': 'error',
+	            'hideAfter':5
 	        });	
 			return;
 		}	
@@ -1173,6 +1175,7 @@ start_flow:function($event){
 		Messenger.post({
 			'message': &quot;工单已提交，请勿重复提交！&quot;,
             'type': 'error',
+            'hideAfter':5
         });	
         return;
 	}
@@ -1257,6 +1260,7 @@ submitflow_click:function($event){
 							Messenger.post({
 								'message': &quot;工单提交失败，请关闭本页面后重试&quot;,
 				                'type': 'error',
+				                'hideAfter':5
 				            });				
 					}
 		  });	
@@ -1285,6 +1289,17 @@ newGroup17_onDynamicSelected:function(tab){
 },
 // save draft
 newField4_click:function($event){
+	if(!angular.isUndefined($model.func)){
+		var a = $model.func();
+		if(a==false){
+			Messenger.post({
+				'message': &quot;必填项为空或格式不正确！&quot;,
+	            'type': 'error',
+	            'hideAfter':5
+	        });	
+			return;
+		}	
+	}	
 	var businessKey;
 //	地址栏没有 则是新工单
 	if(angular.isUndefined($model.formBusinessKey)){
@@ -1300,6 +1315,11 @@ newField4_click:function($event){
 	form.formId = $model.formId;
 	$http.post(&quot;ws/updateFormDataWithExternalTable&quot;,{&quot;businessKey&quot;:businessKey,&quot;entityjson&quot;:$model.entity,&quot;form&quot;:form}).success(function(){
 		TabOperator.closeTab(TabOperator.getCurrentTab());
+		Messenger.post({
+								'message': &quot;工单保存成功!&quot;,
+				                'type': 'success',
+				                'hideAfter':5
+				            });
 	});
 }</form:scripts>
   <form:htmls>
