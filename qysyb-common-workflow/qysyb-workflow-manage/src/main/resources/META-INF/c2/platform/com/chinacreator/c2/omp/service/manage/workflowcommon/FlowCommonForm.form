@@ -841,12 +841,14 @@ newField5_click:function($event){
 				 Messenger.post({
 					 'message': &quot;  任务处理完成！&quot;,
 					 'type': 'success',
+					 'hideAfter':5
 				 });
 				 TabOperator.closeTab(TabOperator.getCurrentTab());
 			}else{
 				 Messenger.post({
 					 'message': &quot;  something wrong！&quot;,
 					 'type': 'error',
+					 'hideAfter':5
 				 });			
 			}
 		});	
@@ -933,6 +935,7 @@ newField_click:function($event){
 			 Messenger.post({
 			    'message': &quot;退回成功&quot;,
 			    'type': 'success',
+			    'hideAfter':5
 			 });
 			 TabOperator.closeTab(TabOperator.getCurrentTab());
 		});		
@@ -1247,6 +1250,7 @@ submitflow_click:function($event){
 							Messenger.post({
 								'message': &quot;工单提交成功!&quot;,
 				                'type': 'success',
+				                'hideAfter':5
 				            });
 							TabOperator.closeTab(TabOperator.getCurrentTab());
 					}else{

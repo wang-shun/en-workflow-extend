@@ -3,6 +3,7 @@ package com.chinacreator.c2.omp.common;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -252,6 +253,7 @@ public class AttachmentsUploadProcess extends UploadProcess{
 		uploadfile.setFileType(realfiletype);
 		uploadfile.setDisplayName(displayname);
 		uploadfile.setBusinessType(businessType);
+		uploadfile.setUploadTime(new Timestamp(System.currentTimeMillis()));
 		ufs.addUploadFile(uploadfile);
 //    	}	
 	}
