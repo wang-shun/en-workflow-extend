@@ -24,6 +24,7 @@ import com.chinacreator.c2.flow.detail.WfResult;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkProcess;
+import com.chinacreator.c2.web.controller.ResponseFactory;
 
 /**
  * 
@@ -44,7 +45,12 @@ public class WorkController {
 	 */
 	@RequestMapping(value = "flow/startflow", method = RequestMethod.POST)
 	public Object startWorkFlow(HttpServletRequest request, HttpServletResponse response){	
-		return wp.startWorkFlow(parseParams(request));
+		try{
+			return wp.startWorkFlow(parseParams(request));
+		}catch(Exception e){
+			ResponseFactory responseFactory = new ResponseFactory();
+			return responseFactory.createResponseBodyException(e);
+		}
 	}	
 	/**
 	 * 自有流
@@ -54,7 +60,12 @@ public class WorkController {
 	 */
 	@RequestMapping(value = "flow/goanywhere", method = RequestMethod.POST)
 	public Object goAnyWhere(HttpServletRequest request, HttpServletResponse response){
-		return wp.goAnyWhereTakeTransition(parseParams(request));
+		try{
+			return wp.goAnyWhereTakeTransition(parseParams(request));
+		}catch(Exception e){
+			ResponseFactory responseFactory = new ResponseFactory();
+			return responseFactory.createResponseBodyException(e);
+		}
 	}
 	
 
@@ -66,12 +77,11 @@ public class WorkController {
 	@RequestMapping(value = "flow/reject", method = RequestMethod.POST)
 	@Transactional
 	public Object rejectImp(HttpServletRequest request, HttpServletResponse response){
-		try {
+		try{
 			return workFlowService.goAnyWhere(request, response);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new RuntimeException();
+		}catch(Exception e){
+			ResponseFactory responseFactory = new ResponseFactory();
+			return responseFactory.createResponseBodyException(e);
 		}
 	}
 	/**
