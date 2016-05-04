@@ -840,7 +840,7 @@ newField5_click:function($event){
 		}).success(function(data){
 			if(data.result == &quot;200&quot;){
 				 Messenger.post({
-					 'message': &quot;  任务处理完成！&quot;,
+					 'message': &quot;  操作成功！&quot;,
 					 'type': 'success',
 					 'hideAfter':5
 				 });
@@ -1173,7 +1173,7 @@ start_flow:function($event){
 	}
 	if($model.isCommit){
 		Messenger.post({
-			'message': &quot;工单已提交，请勿重复提交！&quot;,
+			'message': &quot;流程已提交，请勿重复提交！&quot;,
             'type': 'error',
             'hideAfter':5
         });	
@@ -1251,14 +1251,14 @@ submitflow_click:function($event){
 					if(data.result=='200'){
 							$model.isCommit = true;
 							Messenger.post({
-								'message': &quot;工单提交成功!&quot;,
+								'message': &quot;操作成功!&quot;,
 				                'type': 'success',
 				                'hideAfter':5
 				            });
 							TabOperator.closeTab(TabOperator.getCurrentTab());
 					}else{
 							Messenger.post({
-								'message': &quot;工单提交失败，请关闭本页面后重试&quot;,
+								'message': &quot;流程提交失败，请关闭本页面后重试&quot;,
 				                'type': 'error',
 				                'hideAfter':5
 				            });				
@@ -1316,7 +1316,7 @@ newField4_click:function($event){
 	$http.post(&quot;ws/updateFormDataWithExternalTable&quot;,{&quot;businessKey&quot;:businessKey,&quot;entityjson&quot;:$model.entity,&quot;form&quot;:form}).success(function(){
 		TabOperator.closeTab(TabOperator.getCurrentTab());
 		Messenger.post({
-								'message': &quot;工单保存成功!&quot;,
+								'message': &quot;保存成功!&quot;,
 				                'type': 'success',
 				                'hideAfter':5
 				            });
