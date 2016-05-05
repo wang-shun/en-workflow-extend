@@ -556,7 +556,7 @@ public class WorkProcess {
 			entitymap.remove(HANDLE_VALUE_KEY);
 			
 			if(form!=null&&form.isIsTableStorage()!=null&&form.isIsTableStorage()){
-				formService.updateFormDataWithExternalTable(bussinessKey,proInsId,entity,wfTransition.getSrc(),form);
+				formService.updateFormDataWithExternalTable(bussinessKey,proInsId,entity,wfTransition.getSrc(),form,wfOperator.getUserId());
 				List<FormField> list = formService.getFormField(formId);
 				for(FormField ff:list){
 					if(ffs.isFieldStorageEXT(ff)){		//字段是否存外部表
@@ -588,6 +588,9 @@ public class WorkProcess {
 			if(variables.get(WorkFlowService.ACCEPTTIMEL)==null){
 				variables.put(WorkFlowService.ACCEPTTIMEL, String.valueOf(System.currentTimeMillis()));
 			}
+			//业务模块流程变量设置
+			Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(entity, bussinessKey, null, moduleId, variables, wfTransition.getSrc(),wfTransition.getDest(), wfTransition, wfOperator.getUserId());
+			variables.putAll(businessVariable);			
 			TaskEntity taskEntity = managementService.executeCommand(new FindTaskEntityCmd(currenTaskId));
 			ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
 			/*JumpActivityByTakeTransitionCmd 自由流时会签任务处理，*/
@@ -737,15 +740,17 @@ public class WorkProcess {
 					variables.put(WorkFlowService.HANDLE_LIMIT_L, handleLimitl);				
 				}			
 			}
-			
+			String beanName = form.getRemark2();
+			IFormOperate formOperate = (IFormOperate) ApplicationContextManager.getContext().getBean(beanName);
+			//业务模块流程变量设置
+			Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(entity, businessKey, null, moduleId, variables, wfTransition.getSrc(),wfTransition.getDest(), wfTransition, wfOperator.getUserId());
+			variables.putAll(businessVariable);
 			wf = this.StartFlow(wfOperator, businessKey, processDefinitionId, variables);
 			if(form.isIsTableStorage()!=null&&form.isIsTableStorage()){  //业务数据存储到外部表
-				formService.updateFormDataWithExternalTable(businessKey,wf.getProcessInstanceId(),entity, wfTransition.getSrc(),form);
+				formService.updateFormDataWithExternalTable(businessKey,wf.getProcessInstanceId(),entity, wfTransition.getSrc(),form,wfOperator.getUserId());
 			}		
 			
 			String nextTaskId = wf.getNextTaskId();
-			String beanName = form.getRemark2();
-			IFormOperate formOperate = (IFormOperate) ApplicationContextManager.getContext().getBean(beanName);
 			Map<String,String> valuemap = formOperate.getTaskHandler(entity, businessKey, wf.getProcessInstanceId(), moduleId, wfTransition.getDest(), nextTaskId, wfOperator.getUserId());
 
 			setTaskHandler(valuemap,variables,nextTaskId);

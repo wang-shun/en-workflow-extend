@@ -526,7 +526,7 @@ public class FormService {
 	 * @param form
 	 */
 	@SuppressWarnings("rawtypes")
-	public void updateFormDataWithExternalTable(String businessKey,String procInsId,String entityjson,WorkFlowActivity curActivity,Form form){
+	public void updateFormDataWithExternalTable(String businessKey,String procInsId,String entityjson,WorkFlowActivity curActivity,Form form,String curUserId){
 		//表示需要查数据库
 		if(form.getFormNo()==null){
 			form = this.getFormById((form.getFormId()));
@@ -534,7 +534,7 @@ public class FormService {
 		String beanName = form.getRemark2();
 		IFormOperate formOperate = (IFormOperate) ApplicationContextManager.getContext().getBean(beanName);
 		//TODO 把null值改掉
-		formOperate.addOrUpdateEntity(entityjson,businessKey,procInsId, null, curActivity, null);
+		formOperate.addOrUpdateEntity(entityjson,businessKey,procInsId, null, curActivity, curUserId);
 	}
 	/**
 	 * 务数据有自己的表时业务数据的获取
