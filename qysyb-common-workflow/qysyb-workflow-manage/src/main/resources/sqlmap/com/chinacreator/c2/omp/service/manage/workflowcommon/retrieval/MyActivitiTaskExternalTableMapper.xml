@@ -321,10 +321,10 @@
           inner join ${var.tableName} T${index} on RES.PROC_INST_ID_ = T${index}.BUSINESS_KEY   
     </foreach>     
     
-<!--     外部表查询字段 --> 
+<!--  外部表查询字段  正如上面所说 只能连接一张业务表。多张不支持  也就是说前面forms，请保持size为1--> 
     <foreach collection="queriableFields" index="index" item="var">
-    	<if test="var.tableName != null &amp;&amp; var.tableCol != null">
-    		inner join ${var.tableName} B${index} on RES.PROC_INST_ID_ = B${index}.BUSINESS_KEY
+    	<if test="forms[0] != null &amp;&amp; forms[0].tableName != null &amp;&amp; var.tableCol != null">
+    		inner join ${forms[0].tableName} B${index} on RES.PROC_INST_ID_ = B${index}.BUSINESS_KEY
     	</if>     
     </foreach>    
     
