@@ -217,10 +217,10 @@
           inner join ${var.tableName} T${index} on RES.PROC_INST_ID_ = T${index}.BUSINESS_KEY   
     </foreach>
  
-<!--     外部表查询字段 --> 
+<!-- 外部表查询字段  --> 
     <foreach collection="queriableFields" index="index" item="var">
-    	<if test="var.tableName != null &amp;&amp; var.tableCol != null">
-    		inner join ${var.tableName} B${index} on RES.PROC_INST_ID_ = B${index}.BUSINESS_KEY
+    	<if test="forms[0] !=null &amp;&amp; forms[0].tableName != null &amp;&amp; var.tableCol != null">
+    		inner join ${forms[0].tableName} B${index} on RES.PROC_INST_ID_ = B${index}.BUSINESS_KEY
     	</if>     
     </foreach> 
 <!--     如果流程实例没有结束还有任务 查出来 -->
