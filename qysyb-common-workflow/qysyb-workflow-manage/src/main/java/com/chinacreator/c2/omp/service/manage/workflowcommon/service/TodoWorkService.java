@@ -260,7 +260,9 @@ public class TodoWorkService {
 							JSONObject json = (JSONObject)o;
 							long startl = json.getLongValue("startTime");
 							long endl = json.getLongValue("endTime");
-							mTaskQuery = (MTaskQueryImpl) mTaskQuery.processVariableValueGreaterThan(field.getFieldNo(), startl).processVariableValueLessThan(field.getFieldNo(), endl);	
+//							mTaskQuery = (MTaskQueryImpl) mTaskQuery.processVariableValueGreaterThan(field.getFieldNo(), startl).processVariableValueLessThan(field.getFieldNo(), endl);	
+							mTaskQuery.externalTableQueryVariableValueGreaterThanOrEqual(field, startl);
+							mTaskQuery.externalTableQueryVariableValueLessThanOrEqual(field, endl);
 						}						
 					}else{
 						if (field.getFieldType()==null||field.getFieldType().equals("STR")) {
