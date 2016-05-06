@@ -29,6 +29,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.asp.comp.sys.advanced.role.service.RoleService;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
+import com.chinacreator.c2.dao.Dao;
+import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.flow.WfApiFactory;
 import com.chinacreator.c2.flow.api.WfRuntimeService;
 import com.chinacreator.c2.flow.cmd.JumpActivityCmd;
@@ -511,166 +513,201 @@ public class WorkProcess {
 	 * @param paramsMap  字符串化后的参数
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Transactional
-	public Object goAnyWhereTakeTransition(Map<String,Object> paramsMap){
+	public Object goAnyWhereTakeTransition(Map<String,Object> paramsMap) throws Exception{
 
 		WfResult wfresult = null;
-		/*candidateUsers candidateGroup assignee*/
-		String entity =  (String) paramsMap.get("entity");
+		/* candidateUsers candidateGroup assignee */
+		String entity = (String) paramsMap.get("entity");
 		String isStart = paramsMap.get("isStart").toString();
 		String formId = (String) paramsMap.get("formId");
-		String wfOperatorStr = (String) paramsMap.get("wfOperator");	
+		String wfOperatorStr = (String) paramsMap.get("wfOperator");
 		String bussinessKey = (String) paramsMap.get("businessKey");
 		String currenTaskId = (String) paramsMap.get("currenTaskId");
-		String destTaskDefinitionKey = (String) paramsMap.get("destTaskDefinitionKey");
-//		String taskDefKey = paramsMap.get("taskDefKey"); 
-		String processDefinitionId = (String) paramsMap.get("processDefinitionId");
+		String destTaskDefinitionKey = (String) paramsMap
+				.get("destTaskDefinitionKey");
+		// String taskDefKey = paramsMap.get("taskDefKey");
+		String processDefinitionId = (String) paramsMap
+				.get("processDefinitionId");
 		String variablesStr = (String) paramsMap.get("variables");
 		String opinion = (String) paramsMap.get("opinion");
-		String proInsId = (String) paramsMap.get("proInsId");		
+		String proInsId = (String) paramsMap.get("proInsId");
 		String moduleId = (String) paramsMap.get("moduleId");
-		String transitionId = (String) paramsMap.get("transitionId");	
+		String transitionId = (String) paramsMap.get("transitionId");
 		String transitionStr = (String) paramsMap.get("transition");
-		WorkFlowTransition wfTransition = JSONObject.parseObject(transitionStr, WorkFlowTransition.class);
-		
-		WfOperator wfOperator = JSONObject.parseObject(wfOperatorStr, WfOperator.class);
+		WorkFlowTransition wfTransition = JSONObject.parseObject(transitionStr,
+				WorkFlowTransition.class);
+
+		WfOperator wfOperator = JSONObject.parseObject(wfOperatorStr,
+				WfOperator.class);
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
 		Map entitymap = JSONObject.parseObject(entity, Map.class);
 
 		chooseHandleTypeValue(variables);
-		try { 
-			/*业务数据持久化*/		
-			FormService formService = ApplicationContextManager.getContext().getBean(FormService.class);
-			Form form = formService.getFormById(formId);
-			String beanName = form.getRemark2();
-			IFormOperate formOperate = (IFormOperate) ApplicationContextManager.getContext().getBean(beanName);
+		/* 业务数据持久化 */
+		FormService formService = ApplicationContextManager.getContext()
+				.getBean(FormService.class);
+		Form form = formService.getFormById(formId);
+		String beanName = form.getRemark2();
+		IFormOperate formOperate = (IFormOperate) ApplicationContextManager
+				.getContext().getBean(beanName);
 
-			//业务数据吧上一次保存的一些流程变量去掉
-			entitymap.remove(WorkFlowService.TYPE_ASSIGNEE);
-			entitymap.remove(WorkFlowService.TYPE_CANDIDATEUSERS);
-			entitymap.remove(WorkFlowService.TYPE_CANDIDATEGROUPS);
-			entitymap.remove(WorkFlowService.TYPE_ASSIGNEELIST);
-			entitymap.remove(HANDLE_TYPE_KEY);
-			entitymap.remove(HANDLE_VALUE_KEY);
-			
-			if(form!=null&&form.isIsTableStorage()!=null&&form.isIsTableStorage()){
-				formService.updateFormDataWithExternalTable(bussinessKey,proInsId,entity,wfTransition.getSrc(),form,wfOperator.getUserId());
-				List<FormField> list = formService.getFormField(formId);
-				for(FormField ff:list){
-					if(ffs.isFieldStorageEXT(ff)){		//字段是否存外部表
-						entitymap.remove(ff.getFieldNo());
-					}
+		// 业务数据吧上一次保存的一些流程变量去掉
+		entitymap.remove(WorkFlowService.TYPE_ASSIGNEE);
+		entitymap.remove(WorkFlowService.TYPE_CANDIDATEUSERS);
+		entitymap.remove(WorkFlowService.TYPE_CANDIDATEGROUPS);
+		entitymap.remove(WorkFlowService.TYPE_ASSIGNEELIST);
+		entitymap.remove(HANDLE_TYPE_KEY);
+		entitymap.remove(HANDLE_VALUE_KEY);
+
+		if (form != null && form.isIsTableStorage() != null
+				&& form.isIsTableStorage()) {
+			formService
+					.updateFormDataWithExternalTable(bussinessKey, proInsId,
+							entity, wfTransition.getSrc(), form,
+							wfOperator.getUserId());
+			List<FormField> list = formService.getFormField(formId);
+			for (FormField ff : list) {
+				if (ffs.isFieldStorageEXT(ff)) { // 字段是否存外部表
+					entitymap.remove(ff.getFieldNo());
 				}
-				variables.putAll(entitymap);  //一些并没有在表单中的数据 或许在流程变量中更新
-			}else{
-				/*业务数据作为流程变量保存*/
-				variables.putAll(entitymap);
 			}
-			//entitymap中或许有全部的流程变量。这两个不能被覆盖
-//			variables.put("candidateUsers",candidateUsers);	
-//			variables.put("assigneeList", assigneList);							
-/*			FormService formService = ApplicationContextManager.getContext().getBean(FormService.class);
-			formService.updateFormDataByFk(clazzstr,bussinessKey,maptest);*/
-			//添加意见
-			if(opinion!=null){
-				Authentication.setAuthenticatedUserId(wfOperator.getUserId());
-				taskService.addComment(currenTaskId, proInsId, opinion);
+			variables.putAll(entitymap); // 一些并没有在表单中的数据 或许在流程变量中更新
+		} else {
+			/* 业务数据作为流程变量保存 */
+			variables.putAll(entitymap);
+		}
+		// entitymap中或许有全部的流程变量。这两个不能被覆盖
+		// variables.put("candidateUsers",candidateUsers);
+		// variables.put("assigneeList", assigneList);
+		/*
+		 * FormService formService =
+		 * ApplicationContextManager.getContext().getBean(FormService.class);
+		 * formService.updateFormDataByFk(clazzstr,bussinessKey,maptest);
+		 */
+		// 添加意见
+		if (opinion != null) {
+			Authentication.setAuthenticatedUserId(wfOperator.getUserId());
+			taskService.addComment(currenTaskId, proInsId, opinion);
+		}
+		variables.put("userId", wfOperator.getUserId());
+		// 获取流程变量
+		// Task t =
+		// taskService.createTaskQuery().includeProcessVariables().taskId(currenTaskId).singleResult();
+		// taskService.complete(t.getId());
+		// Map map3 = t.getProcessVariables();
+
+		// sla用到了 此时variables应该要有全部的流程变量
+		if (variables.get(WorkFlowService.ACCEPTTIMEL) == null) {
+			variables.put(WorkFlowService.ACCEPTTIMEL,
+					String.valueOf(System.currentTimeMillis()));
+		}
+		// 业务模块流程变量设置
+		Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(
+				entity, bussinessKey, null, moduleId, variables,
+				wfTransition.getSrc(), wfTransition.getDest(), wfTransition,
+				wfOperator.getUserId());
+		if (businessVariable != null && businessVariable.size() > 0) {
+			variables.putAll(businessVariable);
+		}
+		TaskEntity taskEntity = managementService
+				.executeCommand(new FindTaskEntityCmd(currenTaskId));
+		ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
+		/* JumpActivityByTakeTransitionCmd 自由流时会签任务处理， */
+		if (activityImpl.getActivityBehavior() instanceof ParallelMultiInstanceBehavior) {
+			// 先声明接撿然后再走自由泿解决流程图处理人出现null的问頿,
+			// 声明后 assignee便有了值。
+			taskService.claim(currenTaskId, wfOperator.getUserId());
+			taskService.complete(currenTaskId);
+			wfresult = new WfResult();
+			wfresult.setResult(WfConstants.WF_CONTROL_EXE_SUCCESS);
+			int nrOfCompletedInstances = (int) taskEntity.getVariables().get(
+					"nrOfCompletedInstances");
+			int nrOfInstances = (int) taskEntity.getVariables().get(
+					"nrOfInstances");
+			// 表示会签完成
+			if (nrOfCompletedInstances == nrOfInstances - 1) {
+				String nextTaskId = wfRuntimeService
+						.getCurrentActiveTaskIds(proInsId);
+				Map<String, String> valuemap = formOperate.getTaskHandler(
+						entity, bussinessKey, wfresult.getProcessInstanceId(),
+						moduleId, wfTransition.getDest(), nextTaskId,
+						wfOperator.getUserId());
+				setTaskHandler(valuemap, variables, nextTaskId);
 			}
-			variables.put("userId", wfOperator.getUserId());
-			//获取流程变量
-//			Task t = taskService.createTaskQuery().includeProcessVariables().taskId(currenTaskId).singleResult();
-//			taskService.complete(t.getId());
-//			Map map3 = t.getProcessVariables();
-			
-//			sla用到了 此时variables应该要有全部的流程变量
-			if(variables.get(WorkFlowService.ACCEPTTIMEL)==null){
-				variables.put(WorkFlowService.ACCEPTTIMEL, String.valueOf(System.currentTimeMillis()));
-			}
-			//业务模块流程变量设置
-			Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(entity, bussinessKey, null, moduleId, variables, wfTransition.getSrc(),wfTransition.getDest(), wfTransition, wfOperator.getUserId());
-			if(businessVariable!=null&&businessVariable.size()>0){
-				variables.putAll(businessVariable);		
-			}			
-			TaskEntity taskEntity = managementService.executeCommand(new FindTaskEntityCmd(currenTaskId));
-			ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
-			/*JumpActivityByTakeTransitionCmd 自由流时会签任务处理，*/
-			if(activityImpl.getActivityBehavior() instanceof ParallelMultiInstanceBehavior){
-				//先声明接撿然后再走自由泿解决流程图处理人出现null的问頿,
-				//声明后 assignee便有了值。
-				taskService.claim(currenTaskId, wfOperator.getUserId());
-				taskService.complete(currenTaskId);
+			/* 通知处理 */
+			informService.informDo();
+			return new ResponseFactory().createResponseBodyJSONObject(JSON
+					.toJSONString(wfresult));
+		}
+
+		/* 平台自由流时，会签任务处理 此时variables应该要有全部的流程变量 */
+		if (variables.get("nrOfCompletedInstances") != null
+				&& variables.get("nrOfInstances") != null) {
+			int nrOfCompletedInstances = (int) variables
+					.get("nrOfCompletedInstances");
+			int nrOfInstances = (int) variables.get("nrOfInstances");
+			// 表示还有人没有会签完成
+			if (nrOfCompletedInstances < nrOfInstances - 1) {
+				/* 还有人没有会签完成 complete就好 不要流转到下一步去 */
+				taskService.complete(currenTaskId, variables);
+
 				wfresult = new WfResult();
 				wfresult.setResult(WfConstants.WF_CONTROL_EXE_SUCCESS);
-				int nrOfCompletedInstances = (int) taskEntity.getVariables().get("nrOfCompletedInstances");
-				int nrOfInstances = (int) taskEntity.getVariables().get("nrOfInstances");
-				//表示会签完成
-				if(nrOfCompletedInstances==nrOfInstances-1){
-					String nextTaskId = wfRuntimeService.getCurrentActiveTaskIds(proInsId);
-					Map<String,String> valuemap = formOperate.getTaskHandler(entity, bussinessKey, wfresult.getProcessInstanceId(), moduleId, wfTransition.getDest(), nextTaskId, wfOperator.getUserId());
-					setTaskHandler(valuemap,variables,nextTaskId);					
-				}
-				/*通知处理*/
+				/* 通知处理 */
 				informService.informDo();
-				return new ResponseFactory().createResponseBodyJSONObject(JSON.toJSONString(wfresult));
-			}
-			
-			/*平台自由流时，会签任务处理 此时variables应该要有全部的流程变量*/
-			if(variables.get("nrOfCompletedInstances")!=null&&variables.get("nrOfInstances")!=null){
-				int nrOfCompletedInstances = (int) variables.get("nrOfCompletedInstances");
-				int nrOfInstances = (int) variables.get("nrOfInstances");
-				//表示还有人没有会签完成
-				if(nrOfCompletedInstances<nrOfInstances-1){
-					/*还有人没有会签完成  complete就好 不要流转到下一步去*/
-					taskService.complete(currenTaskId, variables);
-
-					wfresult = new WfResult();
-					wfresult.setResult(WfConstants.WF_CONTROL_EXE_SUCCESS);
-					/*通知处理*/
-					informService.informDo();
-				}else{
-					//先声明接撿然后再走自由泿解决流程图处理人出现null的问頿
-					taskService.claim(currenTaskId, wfOperator.getUserId());
-					wfresult = this.goAnyWhere(wfOperator, isStart.equals("true")?true:false, bussinessKey, processDefinitionId, currenTaskId, 
-							destTaskDefinitionKey, false, variables);
-					/*通知处理*/
-					informService.informDo();
-				}
-			}else{			
-				//先声明接撿然后再走自由泿解决流程图处理人出现null的问頿,
-				//声明后 assignee便有了值。
+			} else {
+				// 先声明接撿然后再走自由泿解决流程图处理人出现null的问頿
 				taskService.claim(currenTaskId, wfOperator.getUserId());
-				//平台自由流
-//				wfresult = wp.goAnyWhere(wfOperator, isStart.equals("true")?true:false, bussinessKey, processDefinitionId, currenTaskId, 
-//						destTaskDefinitionKey, false, variables);
-				//JumpActivityByTakeTransitionCmd 自由流
-				wfresult = this.goAnyWhereTakeTransition(wfOperator, isStart.equals("true")?true:false, bussinessKey, processDefinitionId, currenTaskId, 
-						transitionId,destTaskDefinitionKey, false, variables);				
-				/* TODO 考虑动态分派到人 这样的话就不用流程图有candidateusers变量了*/
-
-				Object multiInstancePor =  wfTransition.getDest().getPorperties().get("multiInstance");
-				if(multiInstancePor!=null&&((String)multiInstancePor).equals("parallel")){//下一步是并行会签 不要选择处理人
-					
-				}else if(multiInstancePor==null){//下一步是普通任务	
-					String nextTaskId = wfresult.getNextTaskId();
-					Map<String,String> valuemap = formOperate.getTaskHandler(entity, bussinessKey, wfresult.getProcessInstanceId(), moduleId, wfTransition.getDest(), nextTaskId, wfOperator.getUserId());
-					setTaskHandler(valuemap,variables,nextTaskId);					
-				}
-
-
-
-				/*通知处理*/
-				informService = ApplicationContextManager.getContext().getBean(InformService.class);
+				wfresult = this.goAnyWhere(wfOperator,
+						isStart.equals("true") ? true : false, bussinessKey,
+						processDefinitionId, currenTaskId,
+						destTaskDefinitionKey, false, variables);
+				/* 通知处理 */
 				informService.informDo();
-				
-			}		
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new RuntimeException();
+			}
+		} else {
+			// 先声明接撿然后再走自由泿解决流程图处理人出现null的问頿,
+			// 声明后 assignee便有了值。
+			taskService.claim(currenTaskId, wfOperator.getUserId());
+			// 平台自由流
+			// wfresult = wp.goAnyWhere(wfOperator,
+			// isStart.equals("true")?true:false, bussinessKey,
+			// processDefinitionId, currenTaskId,
+			// destTaskDefinitionKey, false, variables);
+			// JumpActivityByTakeTransitionCmd 自由流
+			wfresult = this.goAnyWhereTakeTransition(wfOperator,
+					isStart.equals("true") ? true : false, bussinessKey,
+					processDefinitionId, currenTaskId, transitionId,
+					destTaskDefinitionKey, false, variables);
+			/* TODO 考虑动态分派到人 这样的话就不用流程图有candidateusers变量了 */
+
+			Object multiInstancePor = wfTransition.getDest().getPorperties()
+					.get("multiInstance");
+			if (multiInstancePor != null
+					&& ((String) multiInstancePor).equals("parallel")) {// 下一步是并行会签
+																		// 不要选择处理人
+
+			} else if (multiInstancePor == null) {// 下一步是普通任务
+				String nextTaskId = wfresult.getNextTaskId();
+				Map<String, String> valuemap = formOperate.getTaskHandler(
+						entity, bussinessKey, wfresult.getProcessInstanceId(),
+						moduleId, wfTransition.getDest(), nextTaskId,
+						wfOperator.getUserId());
+				setTaskHandler(valuemap, variables, nextTaskId);
+			}
+
+			/* 通知处理 */
+			informService = ApplicationContextManager.getContext().getBean(
+					InformService.class);
+			informService.informDo();
+
 		}
-		return new ResponseFactory().createResponseBodyJSONObject(JSON.toJSONString(wfresult));		
+		return new ResponseFactory().createResponseBodyJSONObject(JSON
+				.toJSONString(wfresult));
 	}	
 	/**
 	 * 
