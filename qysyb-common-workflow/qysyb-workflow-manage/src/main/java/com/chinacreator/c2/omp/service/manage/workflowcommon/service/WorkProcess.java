@@ -590,7 +590,9 @@ public class WorkProcess {
 			}
 			//业务模块流程变量设置
 			Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(entity, bussinessKey, null, moduleId, variables, wfTransition.getSrc(),wfTransition.getDest(), wfTransition, wfOperator.getUserId());
-			variables.putAll(businessVariable);			
+			if(businessVariable!=null&&businessVariable.size()>0){
+				variables.putAll(businessVariable);		
+			}			
 			TaskEntity taskEntity = managementService.executeCommand(new FindTaskEntityCmd(currenTaskId));
 			ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
 			/*JumpActivityByTakeTransitionCmd 自由流时会签任务处理，*/
@@ -744,7 +746,9 @@ public class WorkProcess {
 			IFormOperate formOperate = (IFormOperate) ApplicationContextManager.getContext().getBean(beanName);
 			//业务模块流程变量设置
 			Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(entity, businessKey, null, moduleId, variables, wfTransition.getSrc(),wfTransition.getDest(), wfTransition, wfOperator.getUserId());
-			variables.putAll(businessVariable);
+			if(businessVariable!=null&&businessVariable.size()>0){
+				variables.putAll(businessVariable);		
+			}
 			wf = this.StartFlow(wfOperator, businessKey, processDefinitionId, variables);
 			if(form.isIsTableStorage()!=null&&form.isIsTableStorage()){  //业务数据存储到外部表
 				formService.updateFormDataWithExternalTable(businessKey,wf.getProcessInstanceId(),entity, wfTransition.getSrc(),form,wfOperator.getUserId());
