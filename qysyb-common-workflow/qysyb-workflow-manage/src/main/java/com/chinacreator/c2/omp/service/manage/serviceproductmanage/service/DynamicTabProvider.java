@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.restlet.Application;
+
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
+import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.omp.common.RelToTab;
 import com.chinacreator.c2.omp.common.Tab;
 import com.chinacreator.c2.omp.common.bean.TabDescriptionWithTabId;
+import com.chinacreator.c2.omp.service.manage.serviceproductmanage.ServiceProduct;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.ActivityConfig;
+import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService;
 import com.chinacreator.c2.ui.beans.TabDescription;
 /**
  * 
@@ -73,6 +78,38 @@ public class DynamicTabProvider {
 			if(idstr!=null){
 				String[] ids = idstr.split(",");
 				List<TabDescriptionWithTabId> list = this.generateProductTab(productId, params);
+				for(TabDescriptionWithTabId tab:list){
+					String tabId = tab.getTabId();
+					for(String s:ids){
+						if(tabId.equals(s)){
+							result.add(tab);
+						}
+					}
+				}				
+			}			
+		}
+
+		return result;
+	}
+	/**
+	 * 获取查看页面的tab标签页
+	 * @param productId
+	 * @param params
+	 * @param activityId
+	 * @return
+	 */
+	public List<TabDescriptionWithTabId> generateProductTabForView(ServiceProduct serviceProduct,Map params,String activityId){
+		WorkFlowService wfs = ApplicationContextManager.getContext().getBean(WorkFlowService.class);
+		List<TabDescriptionWithTabId> result = new ArrayList<TabDescriptionWithTabId>();
+		Dao<ActivityConfig> daoac = DaoFactory.create(ActivityConfig.class);
+		ActivityConfig ac = new ActivityConfig();
+		ac.setId(wfs.getEndActivityByModuleId(serviceProduct.getProductId()).getId());
+		ActivityConfig config = daoac.selectOne(ac);
+		if(config!=null){
+			String idstr = config.getRemark1();
+			if(idstr!=null){
+				String[] ids = idstr.split(",");
+				List<TabDescriptionWithTabId> list = this.generateProductTab(serviceProduct.getProductId(), params);
 				for(TabDescriptionWithTabId tab:list){
 					String tabId = tab.getTabId();
 					for(String s:ids){

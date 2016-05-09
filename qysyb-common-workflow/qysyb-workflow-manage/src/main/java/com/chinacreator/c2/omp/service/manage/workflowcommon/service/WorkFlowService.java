@@ -129,6 +129,7 @@ public class WorkFlowService {
 	/**
 	 * 如下是activiti原生接口篿从spring中取bean即可
 	 */
+	@Autowired
 	private RepositoryService repositoryService;
 	private TaskService taskService ;
 //	private IdentityService identityService;
@@ -143,175 +144,13 @@ public class WorkFlowService {
 	private WfRuntimeService wfRuntimeService;
 	private UserService userService;
 	private RuntimeService runtimeService;
+	@Autowired
 	private WfManagerService wfManagerService;
 	
 	private ServiceProductService sps;
 	private InformService informService;
 	@Autowired
 	private FormFieldService ffs;
-	/**
-	 * 启动流程
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@Transactional
-	public Object startWorkFlow(HttpServletRequest request, HttpServletResponse response){
-		WfResult wf = null;
-		if(wp==null){
-			wp = ApplicationContextManager.getContext().getBean(WorkProcess.class);
-		}
-		String entity = null;
-		String moduleId = null;
-		String formId = null;
-		String wfOperatorStr = null;
-		String businessKey = null;
-		String processDefinitionId = null;
-		String variablesStr = null;
-		Map map = request.getParameterMap();
-		//get 方法获取参数
-		if(map!=null&&map.size()>0){
-			entity = ((String[]) map.get("entity"))[0];
-			wfOperatorStr = ((String[]) map.get("wfOperator"))[0];
-			moduleId = ((String[]) map.get("moduleId"))[0];
-			businessKey = ((String[]) map.get("businessKey"))[0];
-			formId = ((String[]) map.get("formId"))[0];
-			processDefinitionId = ((String[]) map.get("processDefinitionId"))[0];
-			variablesStr = ((String[]) map.get("variables"))[0];			
-		}
-		//post 方法获取参数
-		if(map==null||map.size()==0){
-			StringBuffer jb = new StringBuffer();
-			String line = null;
-			try {
-				BufferedReader reader = request.getReader();
-				while ((line = reader.readLine()) != null)
-					jb.append(line);
-				map = JSONObject.parseObject(jb.toString(),Map.class);
-				moduleId = (String) map.get("moduleId");
-				entity = ((JSONObject) map.get("entity")).toString();
-				wfOperatorStr = ((JSONObject) map.get("wfOperator")).toString();
-				businessKey = ((String) map.get("businessKey"));
-				formId = ((String) map.get("formId"));
-				processDefinitionId = ((String) map.get("processDefinitionId"));
-				variablesStr = ((JSONObject) map.get("variables")).toString();
-			}catch(Exception e){
-				e.printStackTrace();
-				throw new RuntimeException();
-			}			
-		}
-	
-		WfOperator wfOperator = JSONObject.parseObject(wfOperatorStr, WfOperator.class);
-		Map<String,Object> variables = JSONObject.parseObject(variablesStr, Map.class);
-		//happentimel 用来计算sla。
-		variables.put(WorkFlowService.HAPPENEDTIMEL,String.valueOf(System.currentTimeMillis()));
-		RoleService roleService = ApplicationContextManager.getContext().getBean(RoleService.class);
-		UserJobService userJobService = ApplicationContextManager.getContext().getBean(UserJobService.class);
-		if(variables.get("candidateUsers")==null&&variables.get("candidateGroups")!=null){
-			String jobid = (String) variables.get("candidateGroups");
-			List<UserDTO> us = new ArrayList();;
-			if(userJobService!=null){
-				us = userJobService.getAllUserJob(jobid);
-			}
-			
-			if(us.size()==0&&roleService!=null){
-				us = roleService.queryUsers(jobid);
-			}
-			StringBuilder sb = new StringBuilder();
-			for(UserDTO u:us){
-				sb.append(u.getUserId()).append(",");
-			}
-			if(sb.length()==0){
-				WfResult wfs = new WfResult();
-				wfs.setResult("303");
-				return new ResponseFactory().createResponseBodyJSONObject(JSON.toJSONString(wfs));
-			}
-			variables.put("candidateUsers",sb.substring(0, sb.length()-1));		
-		}else if(variables.get("candidateUsers")!=null&&variables.get("candidateGroups")==null){
-			String s = (String)variables.get("candidateUsers");
-			if(s.length()==0){
-				WfResult wfs = new WfResult();
-				wfs.setResult("303");
-				return new ResponseFactory().createResponseBodyJSONObject(JSON.toJSONString(wfs));
-			}
-			variables.put("candidateUsers",s.substring(0, s.length()-1));	
-		}
-		try {			
-			Map<String,Object> mapentity = JSONObject.parseObject(entity, Map.class);
-			FormService formService = ApplicationContextManager.getContext().getBean(FormService.class);
-			Form form = formService.getFormById(formId);
-			if((form!=null&&form.isIsTableStorage()==null)||!form.isIsTableStorage()){
-				//业务数据作为流程变量保存
-				variables.putAll(mapentity);					
-			}
-		
-			
-/*			FormService formService = ApplicationContextManager.getContext().getBean(FormService.class);
-			formService.updateFormDataByFk(clazzstr,businessKey,maptest);
-			if(maptest.get(WorkFlowService.PRIKEY)!=null){
-				variables.put(WorkFlowService.PRIKEY, (String) maptest.get(WorkFlowService.PRIKEY));
-			}
-			String workTitle = null;
-			if(maptest.get(WorkFlowService.WORKTITLEKEY)!=null){
-				workTitle = (String) maptest.get(WorkFlowService.WORKTITLEKEY);
-				variables.put(WorkFlowService.WORKTITLEKEY, workTitle); 
-			}*/
-			/*module_id 即是产品id*/
-//			String moduleId = (String) maptest.get(MODULE_ID_KEY);			
-			ServiceProductService sps = ApplicationContextManager.getContext().getBean(ServiceProductService.class);
-			ServiceProduct sp = sps.getServiceProductById(moduleId);
-			List<ServiceAgreement> listsla = sps.getSLABySP(sp);
-					
-			/*如果业务数据实体有值没在form中 存入流程变量*/
-			for(String s:mapentity.keySet()){
-				FormField ff = ffs.getFormFieldByFieldNo(s);
-				if(ff!=null&&!ffs.isFieldStorageEXT(ff)){
-					variables.put(s,mapentity.get(s));
-				}
-			}
-			/*为了能够按产品名称排序，等。传入流程变量*/
-			variables.put(PRODUCTNAMEKEY, sp.getProductName());
-			variables.put(MODULE_ID_KEY, moduleId);
-			variables.put(PRODUCTNOKEY, sp.getProductNo());
-			variables.put(SERVICETYPEKEY, sp.getServiceTypeId());
-/*			List list = formService.getFormField(formId);
-			for(String fieldNo:mapentity.keySet()){
-
-			}*/
-			
-			if(listsla.size()>0){
-				ServiceAgreementService sams = ApplicationContextManager.getContext().getBean(ServiceAgreementService.class);
-				ServiceAgreement sla = sams.chooseAServiceAgreement(listsla);	
-				if(sla!=null){
-					int acceptLimit = sams.getKpiValueBySla("FWXYSJ", sla);//分钟
-					long acceptLimitl = 60000*acceptLimit;
-					int handleLimit = sams.getKpiValueBySla("FWJJSJ", sla);
-					long handleLimitl = 60000*handleLimit;			
-					variables.put(WorkFlowService.ACCEPT_LIMIT_L, acceptLimitl);
-					variables.put(WorkFlowService.HANDLE_LIMIT_L, handleLimitl);				
-				}			
-			}
-			
-			wf = wp.StartFlow(wfOperator, businessKey, processDefinitionId, variables);
-			if(form.isIsTableStorage()!=null&&form.isIsTableStorage()){  //业务数据存储到外部表
-//				formService.updateFormDataWithExternalTable(businessKey,wf.getProcessInstanceId(),entity, form);
-			}		
-			
-			/*通知处理*/
-			informService = ApplicationContextManager.getContext().getBean(InformService.class);
-			informService.informDo();
-//			runtimeService.setVariable(runtimeService.createExecutionQuery().processInstanceId(wf.getProcessInstanceId()).singleResult().getId(), WorkFlowService.WORKTITLEKEY, (String)workTitle);
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new RuntimeException();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new RuntimeException();
-		};
-		return new ResponseFactory().createResponseBodyJSONObject(JSON.toJSONString(wf));
-	}	
 	/**
 	 * 这个自由流就是完全自由流，任意节点跳跃。先摧毁当前execution，然后执行新的execution。
 	 * @param request
@@ -496,6 +335,30 @@ public class WorkFlowService {
 	}
 	
 	/**
+	 * 获取一个结束节点
+	 * @param sp
+	 * @return
+	 */
+	public ActivityImpl getEndActivityByModuleId(String moduleId){
+		
+		try {		
+			WfProcessDefinition wfProDef = wfManagerService.getBindProcessByModuleId(moduleId);
+			ProcessDefinitionEntity def = (ProcessDefinitionEntity) ((RepositoryServiceImpl)repositoryService).getDeployedProcessDefinition(wfProDef.getId()); 
+			List<ActivityImpl> activitiList = def.getActivities();	
+			for(ActivityImpl activityImpl:activitiList){
+				String activityType = (String) activityImpl.getProperty("type");
+				if(activityType.equals("endEvent")){
+					return activityImpl;
+				}
+			}			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	/**
 	 * 获取节点的出去分撿
 	 * @param procInstanceId
 	 * @param procDefId
@@ -503,7 +366,6 @@ public class WorkFlowService {
 	 * @return
 	 */
 	public List<WorkFlowTransition> getOutTransition(String procInstanceId,String procDefId,String activitiId){
-		repositoryService = ApplicationContextManager.getContext().getBean(RepositoryService.class);
 		List<WorkFlowTransition>  outWfTransitions = new ArrayList<WorkFlowTransition>();	  
 		ProcessDefinitionEntity def = (ProcessDefinitionEntity) ((RepositoryServiceImpl)repositoryService).getDeployedProcessDefinition(procDefId);  	  
 		List<ActivityImpl> activitiList = def.getActivities();	
@@ -554,7 +416,12 @@ public class WorkFlowService {
 		}
 		return null;  
 	}
-	
+	/**
+	 * 获取流程图中子流程图的出线
+	 * @param subAct
+	 * @param activitiId
+	 * @return
+	 */
 	public List<WorkFlowTransition> getOutTransitionInsub(ActivityImpl subAct,String activitiId){
 		if(!(subAct.getActivityBehavior() instanceof SubProcessActivityBehavior)){
 			return null;

@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.springframework.stereotype.Service;
 
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
+import com.chinacreator.c2.omp.service.manage.serviceproductmanage.ServiceProduct;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.FieldPermission;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Form;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.FormField;
@@ -33,6 +35,13 @@ public class FieldPermissionService {
 		Form f = new Form();
 		f.setFormId(formId);
 		List<FormField> listff = fs.getFormField(formId);
+		
+/*		FieldPermission con = new FieldPermission();
+//		fp.setFieldId(ff);
+		con.setFormId(f);
+		con.setBusinessKey(businessKey);
+		List<FieldPermission> listfp = daofp.select(con);*/
+		//此处的逻辑是不是有点可以优化的意思？
 		for(FormField ff:listff){
 			HashMap<String,Object> hm = new HashMap<String,Object>();
 			hm.put("fieldNo", ff.getFieldNo());
@@ -55,6 +64,64 @@ public class FieldPermissionService {
 			mapresult.put(ff.getFieldNo(), hm);
 		}
 		return mapresult;	
+	}
+	/**
+	 * 获取查看的权限 目前查看暂时就是去结束节点的权限 TODO 完善
+	 * @param serviceProduct
+	 * @param businessKey
+	 * @return
+	 */
+	public Map<String,Map<String,Object>> getFieldPermissionDataForView(ServiceProduct serviceProduct,String businessKey){
+		Dao<FieldPermission> daofp = DaoFactory.create(FieldPermission.class);
+		FormService fs = ApplicationContextManager.getContext().getBean(FormService.class);
+		WorkFlowService wfs = ApplicationContextManager.getContext().getBean(WorkFlowService.class);
+		Map<String,Map<String,Object>> mapresult = new HashMap<String,Map<String,Object>>();		
+		FieldPermission con = new FieldPermission();
+		Form f = new Form();
+		f.setFormId(serviceProduct.getFormId());
+		con.setFormId(f);
+		ActivityImpl act = wfs.getEndActivityByModuleId(serviceProduct.getProductId());
+		con.setBusinessKey(act.getId());
+		List<FieldPermission> listfp = daofp.select(con);
+		List<FormField> listff = fs.getFormField(serviceProduct.getFormId());
+		for(FormField ff:listff){
+			HashMap<String,Object> hm = new HashMap<String,Object>();
+			FieldPermission fp = this.getFieldPermissionFromList(listfp, ff, f);
+			if(fp!=null){
+				hm.put("readPermission", fp.isReadPermission());
+				hm.put("writePermission", fp.isWritePermission());
+				hm.put("visible", fp.isVisible());
+				hm.put("fillnecessary", fp.isFillNecessary());	
+			}else{
+				hm.put("readPermission", true);
+				hm.put("writePermission", true);
+				hm.put("visible", true);	
+				hm.put("fillnecessary", false);	
+			}
+			mapresult.put(ff.getFieldNo(), hm);
+		}
+		return mapresult;
+	}
+	/**
+	 * 辅助方法
+	 * @param listfp
+	 * @param formField
+	 * @param form
+	 * @return
+	 */
+	public FieldPermission getFieldPermissionFromList(List<FieldPermission> listfp,FormField formField,Form form){
+		for(FieldPermission fp:listfp){
+			FormField fField = fp.getFieldId();
+			if(!fField.getFieldNo().equals(formField.getFieldNo())){
+				continue;
+			}
+			Form f = fp.getFormId();
+			if(!f.getFormId().equals(form.getFormId())){
+				continue;
+			}
+			return fp;
+		}
+		return null;
 	}
 	/**
 	 * save
