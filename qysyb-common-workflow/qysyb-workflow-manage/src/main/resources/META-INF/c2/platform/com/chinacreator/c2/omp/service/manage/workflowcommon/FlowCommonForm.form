@@ -1001,7 +1001,7 @@ page_afterDataSourceLoad:function(){
 	$model.activityName = $model.getOutTransition.result[0].src.name;
 
 	$model.formId = $model.serviceproduct.result.formId;
-	$http.post(&quot;ws/getformfiledpermissiondata&quot;,{&quot;formId&quot;:$model.formId,&quot;businessKey&quot;:$params.params.taskDefKey}).success(function(data){
+	$http.post(&quot;ws/getformfiledpermissiondata&quot;,{&quot;serviceProduct&quot;:$model.serviceproduct.result,&quot;businessKey&quot;:$params.params.taskDefKey}).success(function(data){
 //		$scope.$apply(function(){$scope.permissionData = data.result;});	
 		$scope.permissionData = data.result;
 	});

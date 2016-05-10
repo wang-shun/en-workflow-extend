@@ -808,8 +808,10 @@ newField_nodeClick:function(event,treeId,treeNode,clickFlag){
 		});
 	}else{
 		var moduleId = selectNode.id;
-		$http.post(&quot;ws/getserviceproductbyid&quot;,{id:moduleId}).success(function(a){
+		$http.post(&quot;ws/getserviceproductbyid&quot;,{id:moduleId}).success(function(a){		
 			$model.formId = a.result.formId;
+			$model.serviceProduct = a.result;
+//			console.log(&quot;product&quot;,$model.serviceProduct);
 		});
 		
 		$http.get(&quot;ws/getBindProcess&quot;,{params:{moduleId:moduleId}}).success(function(data){
@@ -1096,14 +1098,22 @@ btn_reset:function($event){
 },
 formsetting:function(a){
 	var taskDefId = $(&quot;#activity_activityId&quot;).val();
-	Modal.open(&quot;f/servicemanagefieldpermissionconfig&quot;,{moduleId:$scope.moduleId,activityId:taskDefId,formId:$model.formId});
+	Modal.open(&quot;f/servicemanagefieldpermissionconfig&quot;,{serviceProduct:$model.serviceProduct,moduleId:$scope.moduleId,activityId:taskDefId,formId:$model.formId});
 },
 activitysetting:function(){
 	var taskDefId = $(&quot;#activity_activityId&quot;).val();
 	var processDefId = $(&quot;#processDefId&quot;).val();
 	var activity_name = $(&quot;#activity_name&quot;).val();
 	console.log(&quot;activity_name&quot;,$model.activity_name);
-	Modal.open(&quot;f/servicemanageactivityconfig&quot;,{activity_name:activity_name,processDefId:processDefId,moduleId:$scope.moduleId,activityId:taskDefId,formId:$model.formId});
+	Modal.open(&quot;f/servicemanageactivityconfig&quot;,
+			{
+				activity_name:activity_name,
+				processDefId:processDefId,
+				moduleId:$scope.moduleId,
+				activityId:taskDefId,
+				formId:$model.formId,
+				servicepProduct:$model.serviceProduct
+				});
 },
 page_onload:function(){
 	$view.popmenudiv.getDom().context.oncontextmenu = this.norightclick;

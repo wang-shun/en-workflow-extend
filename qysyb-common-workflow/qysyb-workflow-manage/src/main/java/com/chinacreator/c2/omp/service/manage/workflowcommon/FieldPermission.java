@@ -24,10 +24,10 @@ public class FieldPermission implements Serializable {
 	private FormField fieldId;
 
 	/**
-	 *表单ID
+	 *事项ID
 	 */
-	@Column(id = "form_id", association = true)
-	private Form formId;
+	@Column(id = "module_id", datatype = "string256")
+	private java.lang.String moduleId;
 
 	/**
 	 *业务key
@@ -91,17 +91,17 @@ public class FieldPermission implements Serializable {
 	}
 
 	/**
-	 * 设置表单ID
+	 * 设置事项ID
 	 */
-	public void setFormId(Form formId) {
-		this.formId = formId;
+	public void setModuleId(java.lang.String moduleId) {
+		this.moduleId = moduleId;
 	}
 
 	/**
-	 * 获取表单ID
+	 * 获取事项ID
 	 */
-	public Form getFormId() {
-		return formId;
+	public java.lang.String getModuleId() {
+		return moduleId;
 	}
 
 	/**

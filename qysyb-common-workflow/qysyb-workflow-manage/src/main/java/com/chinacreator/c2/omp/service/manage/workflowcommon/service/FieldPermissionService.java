@@ -28,13 +28,13 @@ public class FieldPermissionService {
 	 * @param businessKey
 	 * @return
 	 */
-	public Map<String,Map<String,Object>> getFieldPermissionData(String formId,String businessKey){
+	public Map<String,Map<String,Object>> getFieldPermissionData(ServiceProduct serviceProduct,String businessKey){
 		Dao<FieldPermission> daofp = DaoFactory.create(FieldPermission.class);
 		FormService fs = ApplicationContextManager.getContext().getBean(FormService.class);
 		Map<String,Map<String,Object>> mapresult = new HashMap<String,Map<String,Object>>();
-		Form f = new Form();
-		f.setFormId(formId);
-		List<FormField> listff = fs.getFormField(formId);
+//		Form f = new Form();
+//		f.setFormId(formId);
+		List<FormField> listff = fs.getFormField(serviceProduct.getFormId());
 		
 /*		FieldPermission con = new FieldPermission();
 //		fp.setFieldId(ff);
@@ -47,7 +47,7 @@ public class FieldPermissionService {
 			hm.put("fieldNo", ff.getFieldNo());
 			FieldPermission fp = new FieldPermission();
 			fp.setFieldId(ff);
-			fp.setFormId(f);
+			fp.setModuleId(serviceProduct.getProductId());
 			fp.setBusinessKey(businessKey);
 			fp = daofp.selectOne(fp);
 			if(fp!=null){
@@ -76,17 +76,19 @@ public class FieldPermissionService {
 		FormService fs = ApplicationContextManager.getContext().getBean(FormService.class);
 		WorkFlowService wfs = ApplicationContextManager.getContext().getBean(WorkFlowService.class);
 		Map<String,Map<String,Object>> mapresult = new HashMap<String,Map<String,Object>>();		
-		FieldPermission con = new FieldPermission();
+		
 		Form f = new Form();
 		f.setFormId(serviceProduct.getFormId());
-		con.setFormId(f);
+		
+		FieldPermission con = new FieldPermission();
+		con.setModuleId(serviceProduct.getProductId());
 		ActivityImpl act = wfs.getEndActivityByModuleId(serviceProduct.getProductId());
 		con.setBusinessKey(act.getId());
 		List<FieldPermission> listfp = daofp.select(con);
 		List<FormField> listff = fs.getFormField(serviceProduct.getFormId());
 		for(FormField ff:listff){
 			HashMap<String,Object> hm = new HashMap<String,Object>();
-			FieldPermission fp = this.getFieldPermissionFromList(listfp, ff, f);
+			FieldPermission fp = this.getFieldPermissionFromList(listfp, ff, serviceProduct.getProductId());
 			if(fp!=null){
 				hm.put("readPermission", fp.isReadPermission());
 				hm.put("writePermission", fp.isWritePermission());
@@ -109,14 +111,13 @@ public class FieldPermissionService {
 	 * @param form
 	 * @return
 	 */
-	public FieldPermission getFieldPermissionFromList(List<FieldPermission> listfp,FormField formField,Form form){
+	public FieldPermission getFieldPermissionFromList(List<FieldPermission> listfp,FormField formField,String moduleId){
 		for(FieldPermission fp:listfp){
 			FormField fField = fp.getFieldId();
 			if(!fField.getFieldNo().equals(formField.getFieldNo())){
 				continue;
 			}
-			Form f = fp.getFormId();
-			if(!f.getFormId().equals(form.getFormId())){
+			if(!moduleId.equals(fp.getModuleId())){
 				continue;
 			}
 			return fp;
@@ -130,14 +131,12 @@ public class FieldPermissionService {
 	 * @param map
 	 * @return
 	 */
-	public int saveFieldPermissionData(String formId,String businessKey,Map<String,Map<String,Object>> map){
+	public int saveFieldPermissionData(ServiceProduct serviceProduct,String businessKey,Map<String,Map<String,Object>> map){
 		Dao<FieldPermission> daofp = DaoFactory.create(FieldPermission.class);
 		FormService fs = ApplicationContextManager.getContext().getBean(FormService.class);
-		List<FormField> listff = fs.getFormField(formId);
+		List<FormField> listff = fs.getFormField(serviceProduct.getFormId());
 		List<FieldPermission> listfpinsert = new ArrayList<FieldPermission>();
 		List<FieldPermission> listfpupdate = new ArrayList<FieldPermission>();
-		Form f = new Form();
-		f.setFormId(formId);
 		for(FormField ff:listff){
 			FieldPermission fp = new FieldPermission();
 			Map<String,Object> map1 = map.get(ff.getFieldNo());
@@ -145,7 +144,7 @@ public class FieldPermissionService {
 
 				fp.setBusinessKey(businessKey);
 				fp.setFieldId(ff);
-				fp.setFormId(f);
+				fp.setModuleId(serviceProduct.getProductId());
 				FieldPermission fpp = daofp.selectOne(fp);
 				boolean readPermission = (boolean) (map1.get(FieldPermissionService.READPERMISSIONKEY)==null?true:map1.get(FieldPermissionService.READPERMISSIONKEY));
 				boolean writePermission = (boolean) (map1.get(FieldPermissionService.WRITEPERMISSIONKEY)==null?true:map1.get(FieldPermissionService.WRITEPERMISSIONKEY));

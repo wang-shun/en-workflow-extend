@@ -135,7 +135,7 @@
       <form:param id="formId" name="新输入参数" value="$params.formId"/>
     </form:datasource>
     <form:datasource xsi:type="form:LogicDataSource" id="allpermissiondata" name="权限数据" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.getFieldsPermissionData" sn="getfieldspermissiondata">
-      <form:param id="formId" name="新输入参数" value="$params.formId"/>
+      <form:param id="serviceProduct" name="新输入参数" value="$params.serviceProduct"/>
       <form:param id="businessKey" name="新输入参数" value="$params.activityId"/>
     </form:datasource>
     <form:datasource xsi:type="form:LogicDataSource" id="dictdatalist" name="字典" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
@@ -211,7 +211,7 @@ page_afterDataSourceLoad:function(){
 
 newField_click:function($event){
 	console.log(&quot;b&quot;,$model.allpermissiondata.result);
-	$http.post(&quot;ws/savefieldspermissiondata&quot;,{formId:$params.formId,businessKey:$params.activityId,map:$model.allpermissiondata.result});
+	$http.post(&quot;ws/savefieldspermissiondata&quot;,{serviceProduct:$params.serviceProduct,businessKey:$params.activityId,map:$model.allpermissiondata.result});
 	Modal.instance.close();
 },
 
@@ -220,7 +220,7 @@ newField1_click:function($event){
 },
 
 newField3_click:function($event){
-	$http.post(&quot;ws/savefieldspermissiondata&quot;,{formId:$params.formId,businessKey:$params.moduleId,map:$model.allpermissiondata.result})
+	$http.post(&quot;ws/savefieldspermissiondata&quot;,{serviceProduct:$params.serviceProduct,businessKey:$params.moduleId,map:$model.allpermissiondata.result})
 	.success(function(a){
 			Messenger.post({
 				'message': &quot;模板保存成功！&quot;,
@@ -230,7 +230,7 @@ newField3_click:function($event){
 },
 
 newField2_click:function($event){
-	$model.allpermissiondata.$load({formId:$params.formId,businessKey:$params.moduleId})
+	$model.allpermissiondata.$load({serviceProduct:$params.serviceProduct,businessKey:$params.moduleId})
 	.then(function(){
 			Messenger.post({
 				'message': &quot;模板载入成功！&quot;,
