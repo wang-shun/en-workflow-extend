@@ -1021,10 +1021,9 @@ page_afterDataSourceLoad:function(){
 /*	if(angular.isUndefined($params.params.businessKey)){
 		$params.params.businessKey = $model.businessKey;
 	}*/
-	var paramsfortabs = $params.params;
-	paramsfortabs.businessKey = $model.businessKey;
-	paramsfortabs.serviceproduct = $model.serviceproduct.result;
-	paramsfortabs.servicetypes = $model.servicetypes.result;
+	
+	$params.params.serviceproduct = $model.serviceproduct.result;
+	$params.params.serviceproduct = $model.serviceproduct.result;
 	$http.post(&quot;ws/getalltabsforactivity&quot;,{productId:$params.params.moduleId,params:$params.params,activityId:$params.params.taskDefKey}).success(function(data){
 //		console.log(&quot;tabs&quot;,data);
 		$model.dynamictabs = data.result;
