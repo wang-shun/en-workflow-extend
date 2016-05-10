@@ -907,12 +907,7 @@ page_afterDataSourceLoad:function(){
 	$scope.$on('funcsbeforsubmit',function(event,msg){
 		$model.funcsbeforsubmit = msg;
 	});
-	$scope.$on('applicant',function(event,applicant){
-		$scope.applicant = applicant;
-	});
-	$scope.$on('applicantName',function(event,applicantName){
-		$scope.applicantName = applicantName;
-	});
+
 //	$model.activityName = $model.getOutTransition.result[0].src.name;
 
 	$model.formId = $model.serviceproduct.result.formId;

@@ -992,12 +992,12 @@ page_afterDataSourceLoad:function(){
 	$scope.$on('funcsbeforsubmit',function(event,msg){
 		$model.funcsbeforsubmit = msg;
 	});
-	$scope.$on('applicant',function(event,applicant){
-		$scope.applicant = applicant;
-	});
-	$scope.$on('applicantName',function(event,applicantName){
-		$scope.applicantName = applicantName;
-	});
+	//tab 页中的check函数
+	$model.tabcheckfuncs = new Array();
+	$scope.$on(&quot;tabcheck&quot;,function(event,msg){
+//		console.log(&quot;recmsg&quot;,msg);
+		$model.tabcheckfuncs.push(msg);
+	});	
 	$model.activityName = $model.getOutTransition.result[0].src.name;
 
 	$model.formId = $model.serviceproduct.result.formId;
@@ -1105,6 +1105,18 @@ page_afterDataSourceLoad:function(){
 			}
 		});	
 },
+dotabchecks:function(){
+	var a = $model.tabcheckfuncs;
+	var result = {&quot;status&quot;:true,&quot;msg&quot;:&quot;everthing is ok!&quot;};
+	for(var aa in a){
+		var checkresult = a[aa].func();
+		if(result.status==false){
+//			console.log(a[aa]);
+			return  checkresult;
+		}
+	}
+	return result;	
+},
 //选择组事件
 handlegroupdiv_change:function(){
 	$http.get(&quot;ws/getuserjobbyid&quot;,{
@@ -1178,10 +1190,15 @@ start_flow:function($event){
         });	
         return;
 	}
-//	console.log(&quot;$model.funcsbeforsubmit&quot;,$model.funcsbeforsubmit);
-	//必填项等验证通过才执行 字段页面提交前函数
-	$model.funcsbeforsubmit();
-	
+	var checkresult = functions.dotabchecks();
+	if(checkresult.status==false){
+		Messenger.post({
+			'message': checkresult.msg,
+            'type': 'error',
+            'hideAfter':5
+        });		
+        return;	
+	}
 	if($model.actions.freechoose!=undefined){
 		var url = $model.actions.freechoose.openUrl;
 		Modal.open(url,{params:$params.params,transitions:$model.getOutTransition.result},function(data){
