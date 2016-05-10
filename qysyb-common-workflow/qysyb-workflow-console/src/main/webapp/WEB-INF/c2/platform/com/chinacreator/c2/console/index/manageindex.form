@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="运维首页" sn="manageindex" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="manageindexpage" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup_html">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="overflow:auto;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="true">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="margin-top: 10px;margin-right:10px;margin-bottom:10px;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Group" id="newGroup3" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="6">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup3_html">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="height:300px">
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Group" id="newGroup4" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup4_html">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="6">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="height:300px">
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup5" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Group" id="newGroup6" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="6">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup6_html">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="height:300px">
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Group" id="newGroup2" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup2_html">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="6">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="height:300px">
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="allservicetype" name="所有服务类型" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
+      <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;服务分类&quot;]"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="allserviceproduct" name="服务产品" logic="rule:com.chinacreator.c2.omp.serviceproductmanage.getAllServiceProduct" sn="getallserviceproduct"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="numbysts" name="各服务类型工单数量" logic="rule:com.chinacreator.c2.omp.workflowcommon.numbyservicetypes" sn="counttotalbysts">
+      <form:param id="serviceType" name="新输入参数"/>
+      <form:param id="starttime" name="新输入参数"/>
+      <form:param id="endtime" name="新输入参数"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>
+
+page_onload:function(){
+	functions.getdate();
+/*	var imgs = document.getElementById(&quot;listservicetotal&quot;).getElementsByTagName(&quot;img&quot;);
+　　　imgSizer.collate(imgs);*/
+},
+
+getdate:function(){
+	var date=new Date();
+	var y=date.getFullYear(),mm=date.getMonth(),d=date.getDate(),h=date.getHours(),m=date.getMinutes(),s=date.getSeconds(),w=date.getDay();
+	if(m&lt;=9){	
+		m=&quot;0&quot;+m;
+	}
+	if(s&lt;=9){
+		s=&quot;0&quot;+s
+	}
+	mm=mm+1;
+	document.getElementById('time').innerHTML=y+&quot;年&quot;+mm+&quot;月&quot;+d+&quot;日&quot;+&quot;&lt;br>&quot;+&quot;星期&quot;+w+&quot;&lt;br>&quot;+h+&quot;:&quot;+m+&quot;:&quot;+s;
+	window.setTimeout(functions.getdate,1000);
+},
+
+page_afterDataSourceLoad:function(){
+	//颜色
+	var b = $model.allservicetype.result['服务分类'];
+	var colors = new Array(&quot;#41b2bb&quot;,&quot;#58bc7c&quot;,&quot;#8595d2&quot;,&quot;#1091c6&quot;,&quot;#947fc9&quot;);
+	for(var i=0;i&lt;b.length;i++){
+		b[i].color = colors[i];
+	}
+	
+	//图标
+	var icons = new Array(&quot;event.png&quot;,&quot;problem.png&quot;,&quot;change.png&quot;,&quot;publish.png&quot;,&quot;configure.png&quot;);
+	for(var i=0;i&lt;b.length;i++){
+		b[i].icon = icons[i];
+	}
+	$model.a = b;
+	// console.log($model.a);
+},
+
+
+/*addLoadEvent:function() {
+　　
+　　}*/</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup4_html&quot;>
+	&lt;div ng-include=&quot;'f/companyFile'&quot;  ng-init=&quot;$params={}&quot;>&lt;/div>
+&lt;/script>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup2_html&quot;>
+	&lt;div ng-include=&quot;'f/myworktodo'&quot;  ng-init=&quot;$params={}&quot;>&lt;/div>
+&lt;/script>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>
+&lt;div id=&quot;listservicetotal&quot; >
+   &lt;ul>
+	&lt;li class=&quot;bt&quot; style=&quot;background-color:#41b2bb&quot;>数据统计（最近一个月合计）&lt;/li>
+    &lt;li ng-repeat=&quot;tmp in $model.a&quot; style=&quot;background:{{tmp.color}}&quot;>
+       &lt;div class=&quot;xicon&quot;>
+	   &lt;img  src=&quot;assets/images/servicetype/{{tmp.icon}}&quot; class=&quot;img-responsive&quot;>
+      &lt;/div>
+      &lt;div class=&quot;right&quot;>
+	   &lt;p class=&quot;dxsz&quot;>{{$model.numbysts.result[tmp.dictdataName]}}&lt;/p>
+	   &lt;p class=&quot;zhus&quot;>{{tmp.dictdataValue}}&lt;/p>
+		&lt;/div>
+	&lt;/li>
+	&lt;li style=&quot;width:24%;background:#fff;&quot;>
+	   &lt;div id=&quot;timeicon&quot;>&lt;img src=&quot;assets/images/servicetype/time.png&quot; class=&quot;img-responsive&quot;>&lt;/div>
+	   &lt;div id=&quot;time&quot;>
+	   &lt;/div>
+	&lt;/li>
+   &lt;/ul>
+
+&lt;/div>
+&lt;/script>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup3_html&quot;>
+	&lt;div ng-include=&quot;'f/companyNews'&quot;  ng-init=&quot;$params={}&quot;>&lt;/div>
+&lt;/script>
+
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup6_html&quot;>
+	&lt;div ng-include=&quot;'f/servicemanagenoticelist'&quot;  ng-init=&quot;$params={}&quot;>&lt;/div>
+&lt;/script>
+
+&lt;style>
+	#listservicetotal p{
+	    margin:0px;
+	}
+   #listservicetotal{
+      height:165px;
+	  background:#1d325d;
+	  font-family:Microsoft YaHei,Helvetica, Arial, sans-serif;
+   }
+   #listservicetotal ul{
+       list-style:none;
+	   padding:15px 10px;
+	   color:#fff;
+	   font-size:small;
+	   font-weight:bold;
+   }
+   #listservicetotal .bt{
+     border:none;
+	 width:100%;
+	 line-height:33px;
+	 height:35px;
+	 padding-left:10px;
+	 margin-bottom:10px;
+   }
+   #listservicetotal li{
+      width:14%;
+	  height:90px;
+	  border:3px solid #dadada;
+	  border-radius:15px;
+	  margin-right:1%;
+	  float:left;
+   }
+   .img-responsive{
+     max-width: 100%;
+     height: auto;
+     display: block;
+   }
+   .xicon{
+      position:relative;
+	  padding-top:40px;
+	  padding-left:5%;
+	  width:30%;
+	  float:left;
+   }
+   .right{
+     width:100%;
+	 text-align:right;
+	 padding-top:5px;
+   }
+   .dxsz{
+      padding-right:6%;
+      font-size:2.5em;
+	  font-weight:bolder;
+   }
+   .zhus{
+     padding:1% 6%;
+   }
+    
+   #timeicon{
+      width:30%;
+	  height:100%;
+	  float:left;
+	  padding-left:7%;
+	  border-right:3px solid #dadada;
+      background-color:#f9c04c;
+	  border-radius:12px 0px 0px 12px;
+   }
+   #timeicon img{
+     padding-top:25px;
+   }
+   #time{
+     color:#000;
+	 text-align:center;
+	 padding-top:15px;
+   }
+&lt;/style>
+
+</form:htmls>
+</form:Form>

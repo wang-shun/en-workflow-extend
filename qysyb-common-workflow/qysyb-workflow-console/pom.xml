@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.chinacreator.c2.qyb</groupId>
+		<artifactId>qysyb-workflow-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>qysyb-workflow-console</artifactId>
+	<packaging>war</packaging>
+
+	<dependencies>	
+		<dependency>
+			<groupId>com.chinacreator.c2.qyb</groupId>
+			<artifactId>qysyb-workflow-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>	     		
+		 <dependency>
+			<groupId>com.chinacreator.c2</groupId>
+			<artifactId>c2-sys-std-oracle</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+
+
+		
+		<dependency>
+		  <groupId>com.chinacreator.c2.qyb</groupId>
+			<version>0.0.1-SNAPSHOT</version>
+		  <artifactId>qysyb-workflow-resource</artifactId>
+		  <type>war</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.chinacreator.c2.qyb</groupId>
+			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>qysyb-workflow-manage</artifactId>		
+		</dependency>
+		
+		<dependency>
+			<groupId>com.chinacreator.c2</groupId>
+			<artifactId>c2-flow-ui</artifactId>
+			<version>4.1.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.chinacreator.c2</groupId>
+			<artifactId>c2-flow-resources</artifactId>
+			<version>4.1.5.2.1-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>com.chinacreator.c2</groupId>
+			<artifactId>c2-flow-api</artifactId>
+			<version>4.1.5.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chinacreator.c2</groupId>
+			<artifactId>c2-sys-ui-components</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+			 <dependency>
+			<groupId>com.chinacreator.c2</groupId>
+			<artifactId>c2-module-captcha</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		
+			
+		<dependency>
+		  <groupId>com.chinacreator.c2</groupId>
+		  <artifactId>c2-runtime</artifactId>
+		  <version>4.2.1.2</version>
+		</dependency>	
+		<dependency>
+		  <groupId>com.chinacreator.c2</groupId>
+		  <artifactId>c2-ui-components</artifactId>
+		  <version>4.2.8-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.chinacreator.c2</groupId>
+			<artifactId>c2-module-fs-dir</artifactId>
+			<version>1.1.8</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			 <scope>provided</scope> 
+		</dependency>
+
+
+	</dependencies>
+	
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.9.v20130131</version>
+			</plugin>
+		</plugins>
+	</build>
+	<!-- <build> <finalName>$cfg.projectName</finalName> </build> -->
+</project>

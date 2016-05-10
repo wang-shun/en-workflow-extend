@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getSystemInfo" log="false" className="com.chinacreator.c2.console.service.SysService" method="getSystemInfo">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取系统信息</name>
+  <inputs/>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="com.chinacreator.c2.console.vo.SysInfo"/>
+  </outputs>
+  <params/>
+  <return signature="QSysInfo;" type="com.chinacreator.c2.console.vo.SysInfo"/>
+</CustomRule>

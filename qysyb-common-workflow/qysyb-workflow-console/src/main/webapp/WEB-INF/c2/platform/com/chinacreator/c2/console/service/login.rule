@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="userLogin" log="false" className="com.chinacreator.c2.console.service.LoginService" method="login">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>登录</name>
+  <desc>登录</desc>
+  <inputs>
+    <input collection="false" desc="帐号" id="userName" required="false" type="String"/>
+    <input collection="false" desc="密码" id="passWord" required="false" type="String"/>
+    <input collection="false" desc="" id="captcha" required="false" type="String"/>
+  </inputs>
+  <outputs/>
+  <params>
+    <param autoValue="Input.userName" name="userName" signature="QString;" type="String"/>
+    <param autoValue="Input.passWord" name="passWord" signature="QString;" type="String"/>
+    <param autoValue="Input.captcha" name="captcha" signature="QString;" type="String"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

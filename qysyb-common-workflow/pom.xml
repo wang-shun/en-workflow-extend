@@ -22,7 +22,7 @@
 		<module>qysyb-workflow-common</module>
 		<module>qysyb-workflow-manage</module>
 		<module>qysyb-workflow-resource</module>
-
+		<module>qysyb-workflow-console</module>
 	</modules>
 	<distributionManagement>
 		<repository>
