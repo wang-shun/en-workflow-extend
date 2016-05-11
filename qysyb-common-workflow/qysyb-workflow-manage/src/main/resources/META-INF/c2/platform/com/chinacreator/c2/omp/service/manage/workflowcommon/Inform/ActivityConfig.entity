@@ -9,7 +9,7 @@
     <docket:attribute code="id" nullable="false" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="process_def_id" name="流程定义id" nullable="true" type="string128" default="">
+    <docket:attribute code="module_id" name="事项Id(服务产品Id)" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="task_def_id" name="环节" nullable="true" type="string256" default="">
@@ -18,25 +18,37 @@
     <docket:attribute code="action" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="inform_type" name="是否邮件通知" nullable="true" type="string256" default="">
+    <docket:attribute code="inform_type" name="通知类型" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="needclaim" name="需要签收" nullable="true" type="smallint" default="">
+    <docket:attribute code="needclaim" length="1" name="需要签收" nullable="true" type="boolean" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="is_sla_time" name="是否计入处理时间" nullable="true" type="smallint" default="">
+    <docket:attribute code="is_sla_time" length="1" name="是否计入处理时间" nullable="true" type="boolean" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark1" name="用来设置节点包含哪些tab页" nullable="true" type="string2000" default="">
+    <docket:attribute code="include_tabs" name="用来设置节点包含哪些tab页" nullable="true" type="string2000" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark2" name="2" nullable="true" type="string256" default="">
+    <docket:attribute code="include_actions" name="节点进行的操作" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark3" name="3" nullable="true" type="string256" default="">
+    <docket:attribute code="return_activity" name="退回操作退回到环节的ID" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark4" name="4" nullable="true" type="string256" default="">
+    <docket:attribute code="freechoose_url" name="自由选择的url" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark1" nullable="true" type="string1024" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark2" nullable="true" type="string1024" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark3" length="1" name="" nullable="true" type="boolean" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark4" nullable="true" type="smallint" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
   </docket:attributes>

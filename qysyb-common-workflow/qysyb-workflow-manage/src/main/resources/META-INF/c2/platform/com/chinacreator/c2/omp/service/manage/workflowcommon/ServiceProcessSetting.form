@@ -1112,7 +1112,7 @@ activitysetting:function(){
 				moduleId:$scope.moduleId,
 				activityId:taskDefId,
 				formId:$model.formId,
-				servicepProduct:$model.serviceProduct
+				serviceProduct:$model.serviceProduct
 				});
 },
 page_onload:function(){

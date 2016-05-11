@@ -666,6 +666,7 @@
     </form:datasource>
     <form:datasource xsi:type="form:LogicDataSource" id="activityactions" name="环节的操作" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.getactivityactions" sn="getactivityactions">
       <form:param id="activityId" name="新输入参数" value="$params.params.taskDefKey"/>
+      <form:param id="moduleId" name="新输入参数" value="$params.params.moduleId"/>
     </form:datasource>
   </form:datasources>
   <form:scripts>
@@ -1105,12 +1106,13 @@ page_afterDataSourceLoad:function(){
 			}
 		});	
 },
+//tab页的验证函数
 dotabchecks:function(){
 	var a = $model.tabcheckfuncs;
 	var result = {&quot;status&quot;:true,&quot;msg&quot;:&quot;everthing is ok!&quot;};
 	for(var aa in a){
 		var checkresult = a[aa].func();
-		if(result.status==false){
+		if(checkresult.status==false){
 //			console.log(a[aa]);
 			return  checkresult;
 		}

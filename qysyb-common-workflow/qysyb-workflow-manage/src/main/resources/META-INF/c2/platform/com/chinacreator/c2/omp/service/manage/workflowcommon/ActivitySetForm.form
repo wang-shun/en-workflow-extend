@@ -141,7 +141,7 @@
               </form:control>
               <form:validation/>
             </form:child>
-            <form:child xsi:type="form:Field" binding="$model.entityactivityconfig.remark3" id="newField8" name="退回环节" customize="true">
+            <form:child xsi:type="form:Field" binding="$model.entityactivityconfig.returnActivity" id="newField8" name="退回环节" customize="true">
               <form:control type="widget/select_simple">
                 <form:attributes source="widget/select_simple">
                   <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="8">
@@ -185,7 +185,7 @@
               </form:control>
               <form:validation/>
             </form:child>
-            <form:child xsi:type="form:Field" binding="$model.entityactivityconfig.remark4" id="newField12" name="选择页面" customize="true">
+            <form:child xsi:type="form:Field" binding="$model.entityactivityconfig.freechooseUrl" id="newField12" name="选择页面" customize="true">
               <form:control type="widget/text">
                 <form:attributes source="widget/text">
                   <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="$model.freeChoose">
@@ -466,7 +466,6 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
-    <form:datasource xsi:type="form:EntityDataSource" id="entityactivityconfig" name="单实体数据源" data="" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.ActivityConfig"/>
     <form:datasource xsi:type="form:LogicDataSource" id="dictdata" name="字典数据" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
       <form:param id="dictTypeNames" name="字典名称数组" value="['工作流_通知方式']"/>
     </form:datasource>
@@ -492,18 +491,58 @@ page_afterDataSourceLoad:function(){
 //	console.log(&quot;params&quot;,$params);
 //	console.log(&quot;activities&quot;,$model.activities.result);
 	$model.a = $model.dictdata.result['工作流_通知方式'];
-//主键属性赋值 fo_r get but oracle didnt get it?//
-//	$model.entityactivityconfig.Id = $params.activityId;
-	//so oracle do this
-	$model.entityactivityconfig.id = $params.activityId;
 	
-	$model.entityactivityconfig.$get()
+	var con = {};
+	con.processDefId = $params.serviceProduct.productId;
+	con.taskDefId = $params.activityId;
+	$http.post(&quot;ws/getactivityconfigbycon&quot;,{con:con}).success(function(data){
+		console.log(&quot;service geted data&quot;,data);
+		$model.entityactivityconfig = data.result;
+		if(angular.isUndefined($model.entityactivityconfig.taskDefId)){
+			$model.entityactivityconfig.taskDefId = $params.activityId;
+		}
+		if(!angular.isUndefined($model.entityactivityconfig.informType)){
+//			console.log(&quot;activity config entity geted&quot;,$model.entityactivityconfig);
+			var informs = $model.entityactivityconfig.informType.split(&quot;,&quot;);
+			var options = $view.assigneInformType.getOptions();
+			angular.forEach(options,function(v){				
+				for(x in informs){
+					if(informs[x]==v.value){
+						v.checked = true;
+					}
+				}
+			});					
+		}	
+		//tabs
+		if(!angular.isUndefined($model.entityactivityconfig.includeTabs)){						
+			var tabs = $model.entityactivityconfig.includeTabs.split(&quot;,&quot;);
+			var taboptions = $view.producttabs.getOptions();	
+			angular.forEach(taboptions,function(v){				
+				for(x in tabs){
+					if(tabs[x]==v.value){
+						v.checked = true;
+					}
+				}
+			});
+		}	
+		var returnindex = functions.has_action(&quot;return&quot;);
+		if(returnindex==undefined){
+			$model.allowReject = false;
+		}else{
+			$model.allowReject = true;
+		}
+		var returnindex = functions.has_action(&quot;freechoose&quot;);
+		if(returnindex==undefined){
+			$model.freeChoose = false;
+			$model.entityactivityconfig.freeshooseUrl = &quot;f/choosetaskhandler&quot;;
+		}else{
+			$model.freeChoose = true;
+		}				
+	});
+/*	$model.entityactivityconfig.$get()
 		.then(function(a){
 //			console.log(&quot;activity config entity geted&quot;,a);
 			if(angular.isUndefined($model.entityactivityconfig.id)){
-				//maybe msyql do like this
-//				$model.entityactivityconfig.Id = $params.activityId;
-				// oracle must do like this
 				$model.entityactivityconfig.id = $params.activityId;
 			}
 
@@ -546,7 +585,8 @@ page_afterDataSourceLoad:function(){
 				$model.freeChoose = true;
 			}		
 		});
-		
+*/
+//用户关注设置		
 	var con = {};
 	con.taskDefId = $params.activityId;
 	con.processDefId = $params.moduleId;
@@ -555,7 +595,7 @@ page_afterDataSourceLoad:function(){
 		.success(function(a){
 			functions.do_view(a.result);
 			$model.obseverId = $model.observerId;
-			console.log(&quot;retruned a is &quot;,a);
+//			console.log(&quot;retruned a is &quot;,a);
 		});
 		
 
@@ -613,27 +653,16 @@ newField9_click:function($event){
 //	console.log(&quot;selected tabs in front&quot;,selectedtabs);
 	
 	$model.entityactivityconfig.informType = angular.isUndefined(result)?&quot;&quot;:result;
-	$model.entityactivityconfig.remark1 = angular.isUndefined(selectedtabs)?&quot;&quot;:selectedtabs;
-	
-	console.log(&quot;entity before save&quot;,$model.entityactivityconfig);
-	//很奇怪的，如果有主键save就是更新操作，但是属性名id依然是插入操作，Id才会更新，然而get出来的实体属性名却是id
-	//移植oracle后下面代码不正常。报错重复主键，奇怪啊
-/*	if(!angular.isUndefined($model.entityactivityconfig.id)){
-		$model.entityactivityconfig.Id = $model.entityactivityconfig.id;
-	}
-	$model.entityactivityconfig.$save(function(){
+	$model.entityactivityconfig.includeTabs = angular.isUndefined(selectedtabs)?&quot;&quot;:selectedtabs;
+	//4 dev
+	$model.entityactivityconfig.moduleId = $params.serviceProduct.productId;
+//	console.log(&quot;entity before save&quot;,$model.entityactivityconfig);
+
+	$http.post(&quot;ws/saveactivityconfig&quot;,{activityConfig:$model.entityactivityconfig}).success(function(data){
 		Messenger.post({type:'success',message:'保存成功'});
-		Modal.instance.close();
-	});*/
-	//oracle 调试
-/*	if(!angular.isUndefined($model.entityactivityconfig.id)){
-		$model.entityactivityconfig.id = $model.entityactivityconfig.id;
-	}*/
-	$model.entityactivityconfig.$save(function(){
-		Messenger.post({type:'success',message:'保存成功'});
-		Modal.instance.close();
+		Modal.instance.close();		
 	});
-	
+	//用户关注设置
 	var con = {};
 	con.taskDefId = $params.activityId;
 	con.processDefId = $params.moduleId;
@@ -763,17 +792,17 @@ do_view:function(a){
 
 },
 add_action:function(action){
-	if($model.entityactivityconfig.remark2==undefined||$model.entityactivityconfig.remark2==&quot;&quot;){
-		$model.entityactivityconfig.remark2 = action;
+	if($model.entityactivityconfig.includeActions==undefined||$model.entityactivityconfig.includeActions==&quot;&quot;){
+		$model.entityactivityconfig.includeActions = action;
 	}else{
 		var index = this.has_action(action);
 		if(index==undefined){
-			$model.entityactivityconfig.remark2 = $model.entityactivityconfig.remark2+&quot;,&quot;+action;
+			$model.entityactivityconfig.includeActions = $model.entityactivityconfig.includeActions+&quot;,&quot;+action;
 		}	
 	}
 },
 has_action:function(action){
-	var a = $model.entityactivityconfig.remark2.split(&quot;,&quot;);
+	var a = $model.entityactivityconfig.includeActions.split(&quot;,&quot;);
 	var index = undefined;
 	for(var i=0;i&lt;a.length;i++){
 		if(a[i] == action){
@@ -784,8 +813,8 @@ has_action:function(action){
 	return index;
 },
 del_action:function(action){
-	if($model.entityactivityconfig.remark2!=undefined){
-		var a = $model.entityactivityconfig.remark2.split(&quot;,&quot;);
+	if($model.entityactivityconfig.includeActions!=undefined){
+		var a = $model.entityactivityconfig.includeActions.split(&quot;,&quot;);
 		var index = undefined;
 		for(var i=0;i&lt;a.length;i++){
 			if(a[i] == action){
@@ -795,7 +824,7 @@ del_action:function(action){
 		}
 		if(index!=undefined){
 			a.splice(index,1);
-			$model.entityactivityconfig.remark2 = a.join(&quot;,&quot;)
+			$model.entityactivityconfig.includeActions = a.join(&quot;,&quot;)
 		}					
 	}
 },
@@ -803,22 +832,22 @@ newField7_onChange:function(){
 	if($model.allowReject){
 		this.add_action(&quot;return&quot;);
 	}else{
-		$model.entityactivityconfig.remark3 = undefined;
+		$model.entityactivityconfig.returnActivity = undefined;
 		this.del_action(&quot;return&quot;);
 	}
-	console.log(&quot;actions&quot;,$model.entityactivityconfig.remark2);
+//	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);
 },
 
 newField11_onChange:function(){
 	if($model.freeChoose){
 		this.add_action(&quot;freechoose&quot;);
 	}else{
-		if($model.entityactivityconfig.remark4 == undefined){
-			$model.entityactivityconfig.remark4 = &quot;f/choosetaskhandler&quot;;
+		if($model.entityactivityconfig.freeChooseUrl == undefined){
+			$model.entityactivityconfig.freeChooseUrl = &quot;f/choosetaskhandler&quot;;
 		}	
 		this.del_action(&quot;freechoose&quot;);
 	}	
-	console.log(&quot;actions&quot;,$model.entityactivityconfig.remark2);
+//	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);
 }</form:scripts>
   <form:htmls>
 </form:htmls>

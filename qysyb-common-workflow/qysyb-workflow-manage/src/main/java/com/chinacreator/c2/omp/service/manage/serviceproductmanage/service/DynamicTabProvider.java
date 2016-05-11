@@ -71,10 +71,11 @@ public class DynamicTabProvider {
 		List<TabDescriptionWithTabId> result = new ArrayList<TabDescriptionWithTabId>();
 		Dao<ActivityConfig> daoac = DaoFactory.create(ActivityConfig.class);
 		ActivityConfig ac = new ActivityConfig();
-		ac.setId(activityId);
+		ac.setTaskDefId(activityId);
+		ac.setModuleId(productId);
 		ActivityConfig config = daoac.selectOne(ac);
 		if(config!=null){
-			String idstr = config.getRemark1();
+			String idstr = config.getIncludeTabs();
 			if(idstr!=null){
 				String[] ids = idstr.split(",");
 				List<TabDescriptionWithTabId> list = this.generateProductTab(productId, params);
@@ -103,10 +104,11 @@ public class DynamicTabProvider {
 		List<TabDescriptionWithTabId> result = new ArrayList<TabDescriptionWithTabId>();
 		Dao<ActivityConfig> daoac = DaoFactory.create(ActivityConfig.class);
 		ActivityConfig ac = new ActivityConfig();
-		ac.setId(wfs.getEndActivityByModuleId(serviceProduct.getProductId()).getId());
+		ac.setTaskDefId(wfs.getEndActivityByModuleId(serviceProduct.getProductId()).getId());
+		ac.setModuleId(serviceProduct.getProductId());
 		ActivityConfig config = daoac.selectOne(ac);
 		if(config!=null){
-			String idstr = config.getRemark1();
+			String idstr = config.getIncludeTabs();
 			if(idstr!=null){
 				String[] ids = idstr.split(",");
 				List<TabDescriptionWithTabId> list = this.generateProductTab(serviceProduct.getProductId(), params);

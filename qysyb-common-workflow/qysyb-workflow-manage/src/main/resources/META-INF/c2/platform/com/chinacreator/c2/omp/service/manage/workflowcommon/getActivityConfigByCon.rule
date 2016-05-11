@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getactivityconfigbycon" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.ActivityConfigService" method="getActivityConfigOne">
+  <name>按条件获取节点配置</name>
+  <desc>按条件获取一个节点配置</desc>
+  <inputs>
+    <input collection="false" desc="@return" id="con" required="true" type="com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.ActivityConfig"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.ActivityConfig"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.con" name="con" signature="QActivityConfig;" type="com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.ActivityConfig"/>
+  </params>
+  <return signature="QActivityConfig;" type="com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.ActivityConfig"/>
+</CustomRule>

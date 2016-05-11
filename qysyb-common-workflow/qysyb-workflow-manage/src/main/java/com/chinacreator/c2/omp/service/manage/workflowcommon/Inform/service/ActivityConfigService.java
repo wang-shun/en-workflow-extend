@@ -30,20 +30,35 @@ public class ActivityConfigService {
 		return daoac.selectOne(ac);
 	}
 	/**
-	 * 
+	 * 按条件获取一个节点配置
 	 * @param o
 	 * @return
 	 */
-	public ActivityConfig getActivityConfigOne(ActivityConfig o){
-		if(o.getId()==null){
-			return new ActivityConfig();
-		}
+	public ActivityConfig getActivityConfigOne(ActivityConfig con){
 		Dao<ActivityConfig> daoac = DaoFactory.create(ActivityConfig.class);
-		ActivityConfig ac = daoac.selectOne(o);
+		ActivityConfig ac = daoac.selectOne(con);
 		if(ac==null){
 			return new ActivityConfig();
 		}else{
 			return ac;
+		}
+	}
+	/**
+	 * update activity config
+	 * @param activityConfig
+	 * @return
+	 */
+	public int saveActivityConfig(ActivityConfig activityConfig){
+		Dao<ActivityConfig> daoac = DaoFactory.create(ActivityConfig.class);
+		ActivityConfig con = new ActivityConfig();
+		con.setModuleId(activityConfig.getModuleId());
+		con.setTaskDefId(activityConfig.getTaskDefId());
+		ActivityConfig ac = daoac.selectOne(con);
+		if(ac==null){
+			return daoac.insert(activityConfig);
+		}else{
+			activityConfig.setId(ac.getId());
+			return daoac.update(activityConfig);
 		}
 	}
 	/**
@@ -52,22 +67,26 @@ public class ActivityConfigService {
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Map getActivityActions(String activityId){
+	public Map getActivityActions(String moduleId,String activityId){
 		Map action = new HashMap<String,Object>();
-		ActivityConfig ac = this.getActivityConfigById(activityId);
-		if(ac!=null&&ac.getRemark2()!=null&&ac.getRemark2()!=""){
-			String actionStr = ac.getRemark2();
+		Dao<ActivityConfig> daoac = DaoFactory.create(ActivityConfig.class);
+		ActivityConfig con = new ActivityConfig();
+		con.setModuleId(moduleId);
+		con.setTaskDefId(activityId);		
+		ActivityConfig ac = daoac.selectOne(con);
+		if(ac!=null&&ac.getIncludeActions()!=null&&ac.getIncludeActions()!=""){
+			String actionStr = ac.getIncludeActions();
 			String[] actions = actionStr.split(",");
 			for(String s:actions){
 				switch(s){
 				case "return":
 					Map actionPorperty = new HashMap<String,String>();
-					actionPorperty.put("returnTo", ac.getRemark3());
+					actionPorperty.put("returnTo", ac.getReturnActivity());
 					action.put(s, actionPorperty);
 					break;
 				case "freechoose":
 					Map actionPorperty1 = new HashMap<String,String>();
-					actionPorperty1.put("openUrl", ac.getRemark4());
+					actionPorperty1.put("openUrl", ac.getFreechooseUrl());
 					action.put(s, actionPorperty1);
 				}
 			}			
