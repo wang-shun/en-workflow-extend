@@ -78,7 +78,7 @@ public class WorkController {
 	@Transactional
 	public Object rejectImp(HttpServletRequest request, HttpServletResponse response){
 		try{
-			return workFlowService.goAnyWhere(request, response);
+			return wp.goAnyWhere(parseParams(request));
 		}catch(Exception e){
 			ResponseFactory responseFactory = new ResponseFactory();
 			return responseFactory.createResponseBodyException(e);
@@ -111,7 +111,7 @@ public class WorkController {
 				map = JSONObject.parseObject(jb.toString(),Map.class);
 				Set<String> ketSet = map.keySet();
 				for(String key:ketSet){
-					if(key.equals("variables")||key.equals("wfOperator")||key.equals("entity")||key.equals("transition")){
+					if(key.equals("variables")||key.equals("wfOperator")||key.equals("entity")||key.equals("transition")||key.equals("curActivity")){
 						result.put(key,((JSONObject) map.get(key)).toString());
 					}else{
 						result.put(key, map.get(key));

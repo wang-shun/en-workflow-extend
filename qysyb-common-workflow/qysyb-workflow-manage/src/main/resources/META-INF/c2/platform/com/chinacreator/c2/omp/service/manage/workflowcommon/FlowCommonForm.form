@@ -865,6 +865,7 @@ newField5_click:function($event){
 					businessKey:$params.params.businessKey
 				}
 		    },
+		    curActivity:$model.transition.src,
 		    businessKey:$params.params.businessKey,
 			currenTaskId:$params.params.taskId,
 			processDefinitionId:$params.params.processDefinitionId,
@@ -877,7 +878,7 @@ newField5_click:function($event){
 			console.log(data);
 			 Messenger.post({
 			    'message': data.result.result,
-			    'type': 'error',
+			    'type': 'success',
 			});
 		});		
 	}
@@ -921,6 +922,7 @@ newField_click:function($event){
 					businessKey:$model.businessKey
 				}
 		    },
+		    curActivity:$model.transition.src,
 		    businessKey:$params.params.businessKey,
 			isStart:false,
 			processDefinitionId:$params.params.processDefinitionId,
