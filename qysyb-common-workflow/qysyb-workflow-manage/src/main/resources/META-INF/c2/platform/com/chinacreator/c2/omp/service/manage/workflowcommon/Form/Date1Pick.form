@@ -105,6 +105,7 @@
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="事件设置" id="onChange" name="状态改变" value="datechoose_onChange($event)">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -136,7 +137,8 @@ page_afterDataSourceLoad:function(){
 	var m = $scope.formentity[$params.fieldNo];
 //	var m = &quot;1457971200000&quot;;
 	if(m==undefined||m==&quot;&quot;){ //非数字值
-		//none
+		$model.bind = new Date().getTime();
+		$scope.formentity[$params.fieldNo] = $model.bind;
 	}else if(!isNaN(m)){
 		var a = parseInt(m);
 		$model.bind = a;
