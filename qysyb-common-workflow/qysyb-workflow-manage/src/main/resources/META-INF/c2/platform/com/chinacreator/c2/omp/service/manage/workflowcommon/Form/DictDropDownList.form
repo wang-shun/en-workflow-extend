@@ -120,6 +120,9 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
+          <dync:attribute default="false" group="下拉框设置" id="firstSelected" name="选中第一个" value="true">
+            <dync:children/>
+          </dync:attribute>
         </form:attributes>
       </form:control>
       <form:validation/>
