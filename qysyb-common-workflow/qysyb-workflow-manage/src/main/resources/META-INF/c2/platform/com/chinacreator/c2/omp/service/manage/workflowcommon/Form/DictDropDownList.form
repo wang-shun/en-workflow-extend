@@ -38,7 +38,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -121,6 +121,13 @@
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="false" group="下拉框设置" id="firstSelected" name="选中第一个" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="simple" group="下拉框设置" id="filterType" name="数据过滤方式" value="custom">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="下拉框设置" id="customFilter" name="过滤器" value="dictdropdownoption_customFilter(data)">
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -135,16 +142,13 @@
 
 page_afterDataSourceLoad:function(){
 //	console.log($scope.formentity[$params.fieldNo]);
-	if(!angular.isUndefined($scope.formentity[$params.fieldNo])||$scope.formentity[$params.fieldNo]!=&quot;&quot;){
-		$model.bind = $scope.formentity[$params.fieldNo];
-	}
-	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
 //	$scope.add_observedfield(&quot;incidentLevelId&quot;,$params.fieldNo,this.linkcallback);
 },
 
 dictdropdownlist_change:function(){
 	$scope.formentity[$params.fieldNo] = $model.bind;
 	$scope.update_obervable($params.fieldNo,$scope.formentity);
+	console.log($scope.formentity);
 },
 check:function(){
 	return $view.mainForm.check();
@@ -153,5 +157,18 @@ linkcallback:function(src,data){
 /*	console.log(&quot;src&quot;,src);
 	console.log(data);
 	console.log(&quot;eventlevel changed&quot;,$params.fieldNo)*/
+},
+
+page_onload:function(){
+	
+},
+
+dictdropdownoption_customFilter:function(data){
+	$model.bind = data[0].dictdataName;
+	$scope.formentity[$params.fieldNo] = data[0].dictdataName; 
+/*	if(!angular.isUndefined($scope.formentity[$params.fieldNo])||$scope.formentity[$params.fieldNo]!=&quot;&quot;){
+		$model.bind = $scope.formentity[$params.fieldNo];
+	}*/
+	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
 }</form:scripts>
 </form:Form>
