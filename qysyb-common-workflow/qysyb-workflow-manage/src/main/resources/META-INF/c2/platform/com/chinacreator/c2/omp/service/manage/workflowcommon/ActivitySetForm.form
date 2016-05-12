@@ -491,9 +491,8 @@ page_afterDataSourceLoad:function(){
 //	console.log(&quot;params&quot;,$params);
 //	console.log(&quot;activities&quot;,$model.activities.result);
 	$model.a = $model.dictdata.result['工作流_通知方式'];
-	
 	var con = {};
-	con.processDefId = $params.serviceProduct.productId;
+	con.moduleId = $params.serviceProduct.productId;
 	con.taskDefId = $params.activityId;
 	$http.post(&quot;ws/getactivityconfigbycon&quot;,{con:con}).success(function(data){
 		console.log(&quot;service geted data&quot;,data);

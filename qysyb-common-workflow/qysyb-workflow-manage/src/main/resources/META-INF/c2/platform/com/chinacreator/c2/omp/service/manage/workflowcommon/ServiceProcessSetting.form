@@ -808,6 +808,7 @@ newField_nodeClick:function(event,treeId,treeNode,clickFlag){
 		});
 	}else{
 		var moduleId = selectNode.id;
+		$scope.moduleId=moduleId;
 		$http.post(&quot;ws/getserviceproductbyid&quot;,{id:moduleId}).success(function(a){		
 			$model.formId = a.result.formId;
 			$model.serviceProduct = a.result;
@@ -816,8 +817,7 @@ newField_nodeClick:function(event,treeId,treeNode,clickFlag){
 		
 		$http.get(&quot;ws/getBindProcess&quot;,{params:{moduleId:moduleId}}).success(function(data){
 			$scope.bindProcessId=data.result.id;
-			$scope.bindProcess=data.result.key;
-			$scope.moduleId=moduleId;
+			$scope.bindProcess=data.result.key;			
 			 $(&quot;#activity_activityId&quot;).val('');
 			var srcUrlPre = 'workflow/diagram-viewer/myProcessDefView.jsp?processDefinitionId=';
 			var processDefinitionId_ = data.result.id;
