@@ -29,25 +29,38 @@
 				<version>4.2.8.1</version>
 				<scope>provided</scope>
 			</dependency>
+			
+			
+		<dependency>
+			<groupId>com.chinacreator.c2</groupId>
+			<artifactId>c2-flow-core</artifactId>
+			<version>4.1.5.2.1</version>		
+		</dependency>			
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-flow-resources</artifactId>
 			<version>4.1.5.2.1-SNAPSHOT</version>
 			<type>war</type>
-			<scope>provided</scope>
+			<!-- <scope>provided</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-flow-ui</artifactId>
 			<version>4.1.5.2</version>
-			<scope>provided</scope>
+			<!-- <scope>provided</scope> -->
+			<exclusions>
+				<exclusion>
+					<groupId>com.chinacreator.c2</groupId>
+					<artifactId>c2-flow-core</artifactId>			
+				</exclusion>
+			</exclusions>			
 		</dependency>
 
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-flow-api</artifactId>
 			<version>4.1.5.2</version>
-			<scope>provided</scope>
+			<!-- <scope>provided</scope> -->
 		</dependency>
 			
 		<dependency>
