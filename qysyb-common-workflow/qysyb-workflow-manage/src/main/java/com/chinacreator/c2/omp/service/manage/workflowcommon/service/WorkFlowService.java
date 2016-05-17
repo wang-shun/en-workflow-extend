@@ -20,6 +20,8 @@ import org.activiti.engine.ManagementService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricActivityInstanceQuery;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -2471,5 +2473,22 @@ public class WorkFlowService {
 		List list = this.getProcessInstancesByProcessVariable(variable, null,
 				null);
 		return list.size() > 0 ? true : false;
+	}
+
+	public String getRecoverToTaskDefId(String proInsId, String taskId,
+			String userId, String businessId) {
+		HistoricActivityInstanceQuery htiQuery = historyService
+				.createHistoricActivityInstanceQuery();
+		List<HistoricActivityInstance> htiList = htiQuery
+				.processInstanceId(proInsId).finished()
+				.orderByHistoricActivityInstanceEndTime().desc().listPage(0, 1);
+		HistoricActivityInstance lastActivity = htiList.get(0);
+		if (lastActivity.getAssignee() != null
+				&& lastActivity.getAssignee().equals(userId)
+				&& lastActivity.getActivityType() != null
+				&& lastActivity.getActivityType().equals("userTask")) {
+			return lastActivity.getActivityId();
+		}
+		return null;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.ManagementService;
@@ -46,6 +47,7 @@ import com.chinacreator.c2.omp.service.manage.workflowcommon.bean.WorkFlowTransi
 import com.chinacreator.c2.omp.service.manage.workflowcommon.cmd.DelTaskCandidatesCmd;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.cmd.FindTaskEntityCmd;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.cmd.JumpActivityByTakeTransitionCmd;
+import com.chinacreator.c2.omp.service.manage.workflowcommon.cmd.RecoverTaskCmd;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.form.inf.IFormOperate;
 import com.chinacreator.c2.web.controller.ResponseFactory;
 
@@ -93,7 +95,7 @@ public class WorkProcess {
 	 * @throws ServiceException
 	 */
 	@Transactional
-	public WfResult StartFlow(WfOperator wfOperator, String bussinessId,
+	public WfResult startFlow(WfOperator wfOperator, String bussinessId,
 			String processDefinitionId, Map variables) {
 		WfResult wfResult = null;
 		try {
@@ -233,6 +235,45 @@ public class WorkProcess {
 		// eventWorkService.deleteEventWorkByBusId(entity.getBusinesskey());
 		// }
 		return result;
+	}
+
+	/**
+	 * 
+	 * @param paramsMap
+	 * @return
+	 */
+	public Object recoverTask(Map<String, Object> paramsMap) {
+		String processInstanceId = (String) paramsMap.get("proInsId");
+		String recoverReason = (String) paramsMap.get("recoverReason");
+		String recoverToActivityId = (String) paramsMap.get("recoverToActivityId");
+		String variablesStr = (String) paramsMap.get("variables");
+		String userId = (String) paramsMap.get("userId");
+		Map variables = JSONObject.parseObject(variablesStr, Map.class);
+		RecoverTaskCmd recoverTaskCmd = new RecoverTaskCmd(processInstanceId,
+				recoverReason, recoverToActivityId, variables,userId);
+		WfResult wfresult = managementService.executeCommand(recoverTaskCmd);
+		/* 通知处理 */
+		informService = ApplicationContextManager.getContext().getBean(
+				InformService.class);
+		informService.informDo();
+		return new ResponseFactory().createResponseBodyJSONObject(JSON
+				.toJSONString(wfresult));
+	}
+
+	/**
+	 * 
+	 * @param processInstanceId
+	 * @param recoverReason
+	 * @param recoverToActivityId
+	 * @param variables
+	 * @return
+	 */
+	public WfResult recoverTask(String processInstanceId, String recoverReason,
+			String recoverToActivityId, Map variables,String userId) {
+		RecoverTaskCmd recoverTaskCmd = new RecoverTaskCmd(processInstanceId,
+				recoverReason, recoverToActivityId, variables,userId);
+		WfResult wfresult = managementService.executeCommand(recoverTaskCmd);
+		return wfresult;
 	}
 
 	/**
@@ -849,7 +890,7 @@ public class WorkProcess {
 			if (businessVariable != null && businessVariable.size() > 0) {
 				variables.putAll(businessVariable);
 			}
-			wf = this.StartFlow(wfOperator, businessKey, processDefinitionId,
+			wf = this.startFlow(wfOperator, businessKey, processDefinitionId,
 					variables);
 			if (form.isIsTableStorage() != null && form.isIsTableStorage()) { // 业务数据存储到外部表
 				formService.updateFormDataWithExternalTable(businessKey,

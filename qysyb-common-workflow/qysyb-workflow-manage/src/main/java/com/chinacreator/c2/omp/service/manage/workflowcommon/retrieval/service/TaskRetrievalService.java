@@ -38,7 +38,7 @@ public class TaskRetrievalService {
 		    @SuppressWarnings("unchecked")  
 		    @Override  
 		    public List<Task> execute(CommandContext commandContext) { 
-		    	SqlSessionFactory f = commandContext.getDbSqlSession().getDbSqlSessionFactory().getSqlSessionFactory();
+/*		    	SqlSessionFactory f = commandContext.getDbSqlSession().getDbSqlSessionFactory().getSqlSessionFactory();
 		    	Configuration configuration = f.getConfiguration();
 		    	InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sqlmap/com/chinacreator/c2/omp/service/manage/workflowcommon/retrieval/MyActivitiTaskMapper.xml");
 	    		try {
@@ -47,7 +47,7 @@ public class TaskRetrievalService {
 	    					configuration.getSqlFragments()).parse();
 	    		} catch (Throwable e) {
 	
-	    		}		    	 
+	    		}	*/	    	 
 
 		    	List<QueryVariableValue> queryVariableValues1 = taskQuery.getQueryVariableValues();
 				VariableTypes types1 = Context.getProcessEngineConfiguration().getVariableTypes();
@@ -78,7 +78,7 @@ public class TaskRetrievalService {
 		    public Integer execute(CommandContext commandContext) {  
 //		    	String path = "E:\\c2_workplace\\c2-omp-console-parent\\c2-omp-service-parent\\c2-omp-service-manage\\target\\classes\\sqlmap\\com\\chinacreator\\c2\\omp\\service\\manage\\workflowcommon\\retrieval\\MyActivitiTaskMapper.xml";
 //		    	File file = new File(path);
-		    	SqlSessionFactory f = commandContext.getDbSqlSession().getDbSqlSessionFactory().getSqlSessionFactory();
+/*		    	SqlSessionFactory f = commandContext.getDbSqlSession().getDbSqlSessionFactory().getSqlSessionFactory();
 		    	Configuration configuration = f.getConfiguration();
 		    	InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sqlmap/com/chinacreator/c2/omp/service/manage/workflowcommon/retrieval/MyActivitiTaskMapper.xml");
 	    		try {
@@ -87,7 +87,7 @@ public class TaskRetrievalService {
 	    					configuration.getSqlFragments()).parse();
 	    		} catch (Throwable e) {
 	
-	    		}
+	    		}*/
 //		    	if (file.exists()) {
 //		    		try {
 //		    			new XMLMapperBuilder(new FileInputStream(file), configuration,
@@ -131,7 +131,7 @@ public class TaskRetrievalService {
 		    @SuppressWarnings("unchecked")  
 		    @Override  
 		    public List<Map> execute(CommandContext commandContext) { 
-		    	SqlSessionFactory f = commandContext.getDbSqlSession().getDbSqlSessionFactory().getSqlSessionFactory();
+/*		    	SqlSessionFactory f = commandContext.getDbSqlSession().getDbSqlSessionFactory().getSqlSessionFactory();
 		    	Configuration configuration = f.getConfiguration();
 		    	InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sqlmap/com/chinacreator/c2/omp/service/manage/workflowcommon/retrieval/MyActivitiTaskExternalTableMapper.xml");
 	    		try {
@@ -140,7 +140,7 @@ public class TaskRetrievalService {
 	    					configuration.getSqlFragments()).parse();
 	    		} catch (Throwable e) {
 	
-	    		}		    	 
+	    		}*/		    	 
 
 		    	List<QueryVariableValue> queryVariableValues1 = taskQuery.getQueryVariableValues();
 				VariableTypes types1 = Context.getProcessEngineConfiguration().getVariableTypes();
@@ -167,7 +167,7 @@ public class TaskRetrievalService {
 		    @SuppressWarnings("unchecked")  
 		    @Override  
 		    public Integer execute(CommandContext commandContext) { 
-		    	SqlSessionFactory f = commandContext.getDbSqlSession().getDbSqlSessionFactory().getSqlSessionFactory();
+/*		    	SqlSessionFactory f = commandContext.getDbSqlSession().getDbSqlSessionFactory().getSqlSessionFactory();
 		    	Configuration configuration = f.getConfiguration();
 		    	InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sqlmap/com/chinacreator/c2/omp/service/manage/workflowcommon/retrieval/MyActivitiTaskExternalTableMapper.xml");
 	    		try {
@@ -176,7 +176,7 @@ public class TaskRetrievalService {
 	    					configuration.getSqlFragments()).parse();
 	    		} catch (Throwable e) {
 	
-	    		}		    	 
+	    		}*/		    	 
 
 		    	List<QueryVariableValue> queryVariableValues1 = taskQuery.getQueryVariableValues();
 				VariableTypes types1 = Context.getProcessEngineConfiguration().getVariableTypes();

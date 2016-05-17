@@ -92,13 +92,24 @@ public class WorkController {
 		}
 	}
 
-	// @RequestMapping(value = "flow/recover", method = RequestMethod.POST)
-	// @Transactional
-	// public Object recover(HttpServletRequest request,
-	// HttpServletResponse response) {
-	// return response;
-	//
-	// }
+	/**
+	 * 追回
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "flow/recover", method = RequestMethod.POST)
+	@Transactional
+	public Object recover(HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			return wp.recoverTask(parseParams(request));
+		} catch (Exception e) {
+			ResponseFactory responseFactory = new ResponseFactory();
+			return responseFactory.createResponseBodyException(e);
+		}
+
+	}
 
 	/**
 	 * 把流程请求的参数解析成map

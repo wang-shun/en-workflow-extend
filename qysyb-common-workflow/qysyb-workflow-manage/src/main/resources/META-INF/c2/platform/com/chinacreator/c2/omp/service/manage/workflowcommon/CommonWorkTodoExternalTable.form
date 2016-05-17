@@ -64,13 +64,16 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
+          <dync:attribute default="" group="加载后事件" id="onSelectRow" name="选择行" value="list_onSelectRow(rowid,status,e)">
+            <dync:children/>
+          </dync:attribute>
         </form:attributes>
       </form:control>
       <form:child xsi:type="form:Group" id="toolbar_table" name="toolbar_table">
         <form:control type="container/toolbar_table">
           <form:attributes source="container/toolbar_table"/>
         </form:control>
-        <form:child xsi:type="form:Field" id="newField1" name="事件办理" res="N6za67_3RkScmTM6NwHUEQ" customize="true">
+        <form:child xsi:type="form:Field" id="newField1" name="事件办理" res="" customize="true">
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-wrench">
@@ -89,7 +92,7 @@
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" id="newField2" name="流程监控" res="ryu2lGhpQ2uyU_gYeyTG8Q" customize="true">
+        <form:child xsi:type="form:Field" id="newField2" name="流程监控" res="" customize="true">
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-bar-chart-o">
@@ -108,7 +111,7 @@
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" id="newField7" name="查询" res="HpaBEWnKTNSqt8acNmHU6g" customize="true">
+        <form:child xsi:type="form:Field" id="newField7" name="查询" res="" customize="true">
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
@@ -131,7 +134,7 @@
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" id="newField6" name="刷新" res="6jKdCbbwRHW8UMfPk0Djjw" customize="true">
+        <form:child xsi:type="form:Field" id="newField6" name="刷新" res="" customize="true">
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="custom" group="事件设置" id="clickType" name="事件类型" value="refrash">
@@ -143,6 +146,25 @@
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="recoverworkbtn" name="追回工单" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-undo">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="red2">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="recoverwork_click(rowId,rowData,tableData)">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -345,6 +367,7 @@
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="newField9_customFormatter(cellvalue,options,rowObject)">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -636,6 +659,7 @@ prio_customFormatter:function(cellvalue,options,rowObject){
 },
 
 page_onload:function(){
+	$('#recoverworkbtn').prop('disabled', true);
 	if(TabOperator!=null){
 	/*先保存之前的监听事件*/
 		var onSelectBefore = TabOperator.config().events.onSelect;
@@ -841,6 +865,32 @@ newField9_customFormatter:function(cellvalue,options,rowObject){
 	if(groupName!=undefined&amp;&amp;groupName!=&quot;&quot;){
 		return &quot;组【&quot;+groupName+&quot;】&quot;;
 	}
+},
+//追回
+recoverwork_click:function(rowId,rowData,tableData){
+//	console.log(&quot;rowData&quot;,rowData);
+	$http.post(&quot;flow/recover&quot;,
+			{
+				recoverToActivityId:$model.recoverToActivityId,
+				proInsId:rowData.proinsid,
+				userId:$scope.subject.id
+			}).success(function(data){
+			
+			});
+},
+
+list_onSelectRow:function(rowid,status,e){
+	var rowData = $view.list.getRowData(rowid);
+
+	$http.post(&quot;ws/getrecovertotaskdefid&quot;,{proInsId:rowData.proinsid,userId:$scope.subject.id}).success(function(data){
+		if(data.result!=undefined){
+			$model.recoverToActivityId = data.result;
+			$('#recoverworkbtn').prop('disabled', false);
+		}else{
+			$('#recoverworkbtn').prop('disabled', true);
+		}
+	});
+//	$view.recoverworkbtn.
 }</form:scripts>
   <form:htmls>&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup2_html&quot;>&#xD;
 &lt;div ng-include=&quot;'f/retrievedisplay'&quot; ng-init=&quot;$params={'retrieveKey':$params.workType==null?'commonext':$params.workType}&quot;>&#xD;

@@ -31,9 +31,6 @@
     <resource id="F8sX_iyWTzyTKK1kFxQV0Q" name="[实体:服务协议][操作:edit]修改" path="e/serviceagreement/edit" type="entity_op"/>
     <resource id="jzlPDQgxQzuFty64OT7q1A" name="[实体:服务协议][操作:get]单记录查询" path="e/serviceagreement/get" type="entity_op"/>
     <resource id="ibGIzmcHSKahBZPqe2GGpw" name="[实体:服务协议][操作:view]查看" path="e/serviceagreement/view" type="entity_op"/>
-    <resource id="N6za67_3RkScmTM6NwHUEQ" name="[表单:通用工单待办表单][表格按钮]事件办理" path="f/commonworktodo/newGroup/list/toolbar_table/newField1" type="dom"/>
-    <resource id="ryu2lGhpQ2uyU_gYeyTG8Q" name="[表单:通用工单待办表单][表格按钮]流程监控" path="f/commonworktodo/newGroup/list/toolbar_table/newField2" type="dom"/>
-    <resource id="HpaBEWnKTNSqt8acNmHU6g" name="[表单:通用工单待办表单][表格按钮]查询" path="f/commonworktodo/newGroup/list/toolbar_table/newField7" type="dom"/>
     <resource id="6jKdCbbwRHW8UMfPk0Djjw" name="[表单:通用工单待办表单][表格按钮]刷新" path="f/commonworktodo/newGroup/list/toolbar_table/newField6" type="dom"/>
     <resource id="yUJsd4bgTwGilNu4qJWoxQ" name="[表单:通用流程任务表单][表格按钮]关联故障设备" path="f/flowcommonform/xunijiliuchengbd/newGroup17/newGroup4/newGroup5/listasset/toolbar_table/buttonAdd" type="dom"/>
     <resource id="RDN15rPPQNyI_bN7gmX4-Q" name="[表单:通用流程任务表单][表格按钮]删除" path="f/flowcommonform/xunijiliuchengbd/newGroup17/newGroup4/newGroup5/listasset/toolbar_table/newField6" type="dom"/>
