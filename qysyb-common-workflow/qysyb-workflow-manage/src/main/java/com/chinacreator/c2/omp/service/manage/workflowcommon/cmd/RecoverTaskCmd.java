@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.delegate.TaskListener;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEventBuilder;
@@ -16,13 +17,18 @@ import org.activiti.engine.impl.db.DbSqlSession;
 import org.activiti.engine.impl.db.PersistentObject;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
+import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.impl.persistence.entity.TaskEntityManager;
+import org.activiti.engine.impl.pvm.PvmException;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.impl.pvm.process.ProcessDefinitionImpl;
+import org.activiti.engine.impl.pvm.process.ScopeImpl;
+import org.activiti.engine.impl.pvm.runtime.AtomicOperation;
 import org.activiti.engine.impl.pvm.runtime.InterpretableExecution;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.Job;
 import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
@@ -43,6 +49,7 @@ public class RecoverTaskCmd implements Command<WfResult> {
 	private String recoverToActivityId;
 	private Map variables;
 	private String userId;
+	private String deleteRootId;
 
 	public RecoverTaskCmd(String processInstanceId, String recoverReason,
 			String recoverToActivityId, Map variables, String userId) {
@@ -91,7 +98,7 @@ public class RecoverTaskCmd implements Command<WfResult> {
 		return wfresult;
 	}
 
-	public void destroyScope(ExecutionEntity executionEntity, String reason) {
+	public void destroyScope(ExecutionEntity executionEntity,String reason) {
 		// remove all child executions and sub process instances:
 		List<InterpretableExecution> executions = new ArrayList<InterpretableExecution>(
 				executionEntity.getExecutions());
@@ -99,7 +106,8 @@ public class RecoverTaskCmd implements Command<WfResult> {
 			if (childExecution.getSubProcessInstance() != null) {
 				childExecution.getSubProcessInstance().deleteCascade(reason);
 			}
-			childExecution.deleteCascade(reason);
+			deleteCascadeExecute(childExecution,childExecution.getId(),reason);
+//			childExecution.deleteCascade(reason);
 		}
 
 		removeTasks(executionEntity, reason);
@@ -209,4 +217,192 @@ public class RecoverTaskCmd implements Command<WfResult> {
 		}
 	}
 
+	private void deleteCascadeExecute(InterpretableExecution execution, String rootId, String reason) {
+		if(rootId!=null){
+			this.deleteRootId = rootId;
+		}		
+		InterpretableExecution firstLeaf = findFirstLeaf(execution);
+//		execution.d.deleteCascade(deleteReason);
+		if (firstLeaf.getSubProcessInstance() != null) {
+			firstLeaf.getSubProcessInstance().deleteCascade(
+					execution.getDeleteReason());
+		}
+
+//		firstLeaf.performOperation(AtomicOperation.DELETE_CASCADE_FIRE_ACTIVITY_END);
+		eventAtomicOperationExecute(firstLeaf,AtomicOperation.DELETE_CASCADE_FIRE_ACTIVITY_END.toString());
+	}
+
+	private void deleteExecute(InterpretableExecution execution, String reason) {
+//		execution.deletereason = 
+		InterpretableExecution firstLeaf = findFirstLeaf(execution);
+
+		if (firstLeaf.getSubProcessInstance() != null) {
+			firstLeaf.getSubProcessInstance().deleteCascade(
+					execution.getDeleteReason());
+		}
+
+//		firstLeaf.performOperation(AtomicOperation.DELETE_CASCADE_FIRE_ACTIVITY_END);
+		eventAtomicOperationExecute(firstLeaf,AtomicOperation.DELETE_CASCADE_FIRE_ACTIVITY_END.toString());
+	}
+	@SuppressWarnings("unchecked")
+	protected InterpretableExecution findFirstLeaf(
+			InterpretableExecution execution) {
+		List<InterpretableExecution> executions = (List<InterpretableExecution>) execution
+				.getExecutions();
+		if (executions.size() > 0) {
+			return findFirstLeaf(executions.get(0));
+		}
+		return execution;
+	}
+	
+	private void eventAtomicOperationExecute(InterpretableExecution execution,String eventName){
+	    ScopeImpl scope = getScope(execution);
+	    List<ExecutionListener> exectionListeners = scope.getExecutionListeners(eventName);
+	    int executionListenerIndex = execution.getExecutionListenerIndex();
+	    
+	    if (exectionListeners.size()>executionListenerIndex) {
+	      execution.setEventName(eventName);
+	      execution.setEventSource(scope);
+	      ExecutionListener listener = exectionListeners.get(executionListenerIndex);
+	      try {
+	        listener.notify(execution);
+	      } catch (RuntimeException e) {
+	        throw e;
+	      } catch (Exception e) {
+	        throw new PvmException("couldn't execute event listener : "+e.getMessage(), e);
+	      }
+	      execution.setExecutionListenerIndex(executionListenerIndex+1);
+	      eventAtomicOperationExecute(execution,eventName);
+//	      execution.performOperation(this);
+
+	    } else {
+	      execution.setExecutionListenerIndex(0);
+	      execution.setEventName(null);
+	      execution.setEventSource(null);
+	      
+	      AtomicOperationDeleteCascadeFireActivityEndeventNotificationsCompleted(execution);
+	    }		
+	}
+
+	protected void AtomicOperationDeleteCascadeFireActivityEndeventNotificationsCompleted(InterpretableExecution execution) {
+		ActivityImpl activity = (ActivityImpl) execution.getActivity();
+		if ((execution.isScope()) && (activity != null)
+				&& (!activity.isScope())) {
+			execution.setActivity(activity.getParentActivity());
+			execution
+					.performOperation(AtomicOperation.DELETE_CASCADE_FIRE_ACTIVITY_END);
+
+		} else {
+			if (execution.isScope()) {
+				execution.destroy();
+			}
+
+//			execution.remove();
+			removeExecution(execution);
+			if (Context.getProcessEngineConfiguration() != null
+					&& Context.getProcessEngineConfiguration()
+							.getEventDispatcher().isEnabled()) {
+				Context.getProcessEngineConfiguration()
+						.getEventDispatcher()
+						.dispatchEvent(
+								ActivitiEventBuilder.createEntityEvent(
+										ActivitiEventType.ENTITY_DELETED,
+										execution));
+			}
+
+			if (!execution.getId().equals(deleteRootId)) {
+				InterpretableExecution parent = (InterpretableExecution) execution
+						.getParent();
+				if (parent != null) {
+//					parent.performOperation(AtomicOperation.DELETE_CASCADE);
+					deleteCascadeExecute(parent,null,null);
+				}
+			}
+		}
+	}
+
+	protected ScopeImpl getScope(InterpretableExecution execution) {
+		ActivityImpl activity = (ActivityImpl) execution.getActivity();
+
+		if (activity != null) {
+			return activity;
+		} else {
+			InterpretableExecution parent = (InterpretableExecution) execution
+					.getParent();
+			if (parent != null) {
+				return getScope((InterpretableExecution) execution.getParent());
+			}
+			return execution.getProcessDefinition();
+		}
+	}
+	
+	public void removeExecution(InterpretableExecution iexecution) {
+		ExecutionEntity execution = (ExecutionEntity) iexecution;
+//		ensureParentInitialized((ExecutionEntity) execution);
+		if (execution.getParent() != null) {
+//			ensureExecutionsInitialized((ExecutionEntity) execution.getParent());
+			execution.getParent().getExecutions().remove(execution);
+		}
+
+		// delete all the variable instances
+//		execution.ensureVariableInstancesInitialized();
+		execution.deleteVariablesInstanceForLeavingScope();
+
+		// delete all the tasks
+		removeTasks(execution,null);
+
+		// remove all jobs
+		removeJobs(execution);
+
+		// remove all event subscriptions for this scope, if the scope has event
+		// subscriptions:
+		removeEventSubscriptions(execution);
+
+		// remove event scopes:
+		removeEventScopes(execution);
+
+		// remove identity links
+		execution.removeIdentityLinks();
+
+		// finally delete this execution
+		Context.getCommandContext().getDbSqlSession().delete(execution);
+	}
+	
+	protected void ensureParentInitialized(ExecutionEntity execution) {
+		if (execution.getParent() == null && execution.getParent().getId() != null) {
+			execution.setParent(Context.getCommandContext().getExecutionEntityManager()
+					.findExecutionById(execution.getParent().getId()));
+		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected void ensureExecutionsInitialized(ExecutionEntity execution) {
+		if (execution.getExecutions() == null) {
+			execution.setExecutions(Context.getCommandContext()
+					.getExecutionEntityManager()
+					.findChildExecutionsByParentExecutionId(execution.getId()));
+		}
+	}
+
+	private void removeEventSubscriptions(ExecutionEntity execution) {
+		for (EventSubscriptionEntity eventSubscription : execution.getEventSubscriptions()) {
+			if (execution.getReplacedBy() != null) {
+				eventSubscription.setExecution((ExecutionEntity) execution.getReplacedBy());
+			} else {
+				eventSubscription.delete();
+			}
+		}
+	}
+	
+	private void removeEventScopes(ExecutionEntity execution) {
+		List<InterpretableExecution> childExecutions = new ArrayList<InterpretableExecution>(
+				execution.getExecutions());
+		for (InterpretableExecution childExecution : childExecutions) {
+			if (childExecution.isEventScope()) {
+//				log.debug("removing eventScope {}", childExecution);
+				childExecution.destroy();
+				childExecution.remove();
+			}
+		}
+	}
 }
