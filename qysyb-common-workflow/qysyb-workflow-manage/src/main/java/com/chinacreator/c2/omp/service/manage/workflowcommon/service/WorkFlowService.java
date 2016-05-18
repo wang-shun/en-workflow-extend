@@ -35,6 +35,7 @@ import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.impl.pvm.PvmActivity;
 import org.activiti.engine.impl.pvm.PvmTransition;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
+import org.activiti.engine.impl.pvm.process.ProcessDefinitionImpl;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
@@ -2494,12 +2495,18 @@ public class WorkFlowService {
 				.orderByHistoricActivityInstanceEndTime().desc().listPage(0, 1);
 		HistoricActivityInstance lastActivity = htiList.get(0);
 		
+		String processDefinitionId = lastActivity.getProcessDefinitionId();
+		ProcessDefinitionImpl processDefinition = (ProcessDefinitionImpl) repositoryService.getProcessDefinition(processDefinitionId);
+		ActivityImpl activity = processDefinition.findActivity(lastActivity.getActivityId());	
+		
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 		if (lastActivity.getAssignee() != null
 				&& lastActivity.getAssignee().equals(userId)
+				&& activity.getProperty("multiInstance")==null
+//				&& !activity.getProperty("multiInstance").equals("parallel")
 				&& lastActivity.getActivityType() != null
 				&& lastActivity.getActivityType().equals("userTask")
-				&& !task.getTaskDefinitionKey().equals(lastActivity.getActivityId())) {//最后完成任务定义和当前任务定义一样表示是被追回过的任务了
+				&& !task.getTaskDefinitionKey().equals(lastActivity.getActivityId())) {//最后完成任务定义和当前任务定义一样表示是被追回过的任务了，或者是正在会签中
 			return lastActivity.getActivityId();
 		}
 		return null;

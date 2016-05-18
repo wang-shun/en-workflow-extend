@@ -38,7 +38,7 @@ import com.chinacreator.c2.flow.detail.WfResult;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.bean.ActivityInstancePersistentObject;
 
-/**
+/**追回任务类
  * @author qiao.li
  * @version 创建时间：2016年5月13日 上午10:05:48 类说明
  */
