@@ -1021,9 +1021,9 @@ page_afterDataSourceLoad:function(){
 		$model.businessKey =  $params.params.moduleId+&quot;_&quot;+this.timeGenerator();
 	}
 	$params.params.formBusinessKey = $model.formBusinessKey;
-/*	if(angular.isUndefined($params.params.businessKey)){
+	if(angular.isUndefined($params.params.businessKey)){
 		$params.params.businessKey = $model.businessKey;
-	}*/
+	}
 	
 	$params.params.serviceproduct = $model.serviceproduct.result;
 	$params.params.serviceproduct = $model.serviceproduct.result;
