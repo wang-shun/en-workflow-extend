@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="通用工单待办表单EXT" res="" sn="commonworktodoext" type="form">
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="通用工单已办表单EXT" res="" sn="commonworkdoneext" type="form">
   <form:control type="page/normal">
     <form:attributes source="page/normal">
       <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
@@ -60,7 +60,11 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" group="表格设置" id="paramData" name="初始化参数" value="{&quot;serviceTypeId&quot;:$params.workType,&quot;isExternalStorage&quot;:true,&quot;formId&quot;:$params.formId,needInvolved:$params.needInvolved==null?false:$params.needInvolved}">
+          <dync:attribute default="" group="表格设置" id="paramData" name="初始化参数" value="{&quot;serviceTypeId&quot;:$params.workType,&quot;isExternalStorage&quot;:true,&quot;formId&quot;:$params.formId,needInvolved:true}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="加载后事件" id="onSelectRow" name="选择行" value="list_onSelectRow(rowid,status,e)">
             <dync:render/>
             <dync:children/>
           </dync:attribute>
@@ -143,6 +147,25 @@
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="recoverworkbtn" name="追回工单" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-undo">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="red2">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="recoverwork_click(rowId,rowData,tableData)">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -637,6 +660,7 @@ prio_customFormatter:function(cellvalue,options,rowObject){
 },
 
 page_onload:function(){
+	$('#recoverworkbtn').prop('disabled', true);
 	if(TabOperator!=null){
 	/*先保存之前的监听事件*/
 		var onSelectBefore = TabOperator.config().events.onSelect;
@@ -852,14 +876,17 @@ recoverwork_click:function(rowId,rowData,tableData){
 				proInsId:rowData.proinsid,
 				userId:$scope.subject.id
 			}).success(function(data){
-			
+					Messenger.post({
+						'message': &quot;追回成功&quot;,
+		                'type': 'success'
+		            });				
 			});
 },
 
 list_onSelectRow:function(rowid,status,e){
 	var rowData = $view.list.getRowData(rowid);
 
-	$http.post(&quot;ws/getrecovertotaskdefid&quot;,{proInsId:rowData.proinsid,userId:$scope.subject.id}).success(function(data){
+	$http.post(&quot;ws/getrecovertotaskdefid&quot;,{taskId:rowData.taskId,proInsId:rowData.proinsid,userId:$scope.subject.id}).success(function(data){
 		if(data.result!=undefined){
 			$model.recoverToActivityId = data.result;
 			$('#recoverworkbtn').prop('disabled', false);

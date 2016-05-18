@@ -135,8 +135,10 @@ public class WorkFlowService {
 	 */
 	@Autowired
 	private RepositoryService repositoryService;
+	@Autowired
 	private TaskService taskService;
 	// private IdentityService identityService;
+	@Autowired
 	private HistoryService historyService;
 	@Autowired
 	private ManagementService managementService;
@@ -2475,6 +2477,14 @@ public class WorkFlowService {
 		return list.size() > 0 ? true : false;
 	}
 
+	/**
+	 * 获取追回的目的环节id
+	 * @param proInsId
+	 * @param taskId
+	 * @param userId
+	 * @param businessId
+	 * @return
+	 */
 	public String getRecoverToTaskDefId(String proInsId, String taskId,
 			String userId, String businessId) {
 		HistoricActivityInstanceQuery htiQuery = historyService
@@ -2483,10 +2493,13 @@ public class WorkFlowService {
 				.processInstanceId(proInsId).finished()
 				.orderByHistoricActivityInstanceEndTime().desc().listPage(0, 1);
 		HistoricActivityInstance lastActivity = htiList.get(0);
+		
+		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 		if (lastActivity.getAssignee() != null
 				&& lastActivity.getAssignee().equals(userId)
 				&& lastActivity.getActivityType() != null
-				&& lastActivity.getActivityType().equals("userTask")) {
+				&& lastActivity.getActivityType().equals("userTask")
+				&& !task.getTaskDefinitionKey().equals(lastActivity.getActivityId())) {//最后完成任务定义和当前任务定义一样表示是被追回过的任务了
 			return lastActivity.getActivityId();
 		}
 		return null;
