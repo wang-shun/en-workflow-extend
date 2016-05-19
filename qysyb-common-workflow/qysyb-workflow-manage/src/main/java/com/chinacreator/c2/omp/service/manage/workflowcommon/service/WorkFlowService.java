@@ -411,10 +411,10 @@ public class WorkFlowService {
 	 * @param taskDefKey
 	 * @return
 	 */
-	public List<DropDownListOption> getActivityCandidates(
+	public List<Map> getActivityCandidates(
 			String processDefinitionId, String moduleId, String taskDefKey) {
 		Map map = new HashMap();
-		List<DropDownListOption> ddlolist = new ArrayList<DropDownListOption>();
+		List<Map> ddlolist = new ArrayList<Map>();
 		List<Map> list;
 		map.put("processDefinitionId", processDefinitionId);
 		map.put("moduleId", moduleId);
@@ -432,14 +432,16 @@ public class WorkFlowService {
 			if (performer != null && !performer.isEmpty()) {
 				String[] performers = performer.split(",");
 				for (String s : performers) {
-					DropDownListOption ddlo = new DropDownListOption();
-					ddlo.setId(s);
+					Map ddlo = new HashMap();
+					ddlo.put("id", s);
 					map1.put("performer", s);
 					List<Map> list1 = sqlsession
 							.selectList(
 									"com.chinacreator.c2.omp.workflowcommon.WorkFlowMapper.getUserInfoById",
 									map1);
-					ddlo.setName((String) list1.get(0).get("LAST_"));
+//					ddlo.setName((String) list1.get(0).get("LAST_"));
+					ddlo.put("name", (String) list1.get(0).get("LAST_"));
+					ddlo.put("category", "user");
 					ddlolist.add(ddlo);
 				}
 
@@ -448,14 +450,17 @@ public class WorkFlowService {
 
 				String[] groups = group_performer.split(",");
 				for (String s : groups) {
-					DropDownListOption ddlo = new DropDownListOption();
-					ddlo.setId(s);
+					Map ddlo = new HashMap();
+//					ddlo.setId(s);
+					ddlo.put("id", s);
 					map1.put("group_performer", s);
 					List<Map> list1 = sqlsession
 							.selectList(
 									"com.chinacreator.c2.omp.workflowcommon.WorkFlowMapper.getGroupInfoById",
 									map1);
-					ddlo.setName((String) list1.get(0).get("NAME_"));
+//					ddlo.setName((String) list1.get(0).get("NAME_"));
+					ddlo.put("name", (String) list1.get(0).get("NAME_"));
+					ddlo.put("category", "group");
 					ddlolist.add(ddlo);
 				}
 			}

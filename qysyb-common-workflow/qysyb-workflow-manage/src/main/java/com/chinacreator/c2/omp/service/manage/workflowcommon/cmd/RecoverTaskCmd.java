@@ -187,9 +187,9 @@ public class RecoverTaskCmd implements Command<WfResult> {
 						.list();
 				for (HistoricActivityInstance hai : list) {
 					if (hai.getTaskId().equals(taskId)) {
-						PersistentObject persistentObject = new ActivityInstancePersistentObject();
+/*						PersistentObject persistentObject = new ActivityInstancePersistentObject();
 						persistentObject.setId(hai.getId());
-/*						commandContext
+						commandContext
 								.getHistoricActivityInstanceEntityManager()
 								.delete(persistentObject);*/
 						DbSqlSession session = Context.getCommandContext().getSession(
