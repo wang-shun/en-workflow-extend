@@ -148,12 +148,15 @@
                     <dync:render/>
                     <dync:children/>
                   </dync:attribute>
-                  <dync:attribute default="true" group="基本设置" id="show" name="可见" value="$model.allowReject">
+                  <dync:attribute default="true" group="基本设置" id="show" name="可见" value="">
                     <dync:render/>
                     <dync:children/>
                   </dync:attribute>
                   <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.activities.result">
                     <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="false" group="基本设置" id="selectDisabled" name="禁用" value="!$model.allowReject">
                     <dync:children/>
                   </dync:attribute>
                 </form:attributes>
@@ -185,20 +188,61 @@
               </form:control>
               <form:validation/>
             </form:child>
-            <form:child xsi:type="form:Field" binding="$model.entityactivityconfig.freechooseUrl" id="newField12" name="选择页面" customize="true">
-              <form:control type="widget/text">
-                <form:attributes source="widget/text">
-                  <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="$model.freeChoose">
+            <form:child xsi:type="form:Group" id="newGroup10" name="简单容器(DIV)">
+              <form:control type="container/div">
+                <form:attributes source="container/div">
+                  <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
                     <dync:render/>
                     <dync:children/>
                   </dync:attribute>
-                  <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="8">
+                  <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="8">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="!$model.freeChoose">
                     <dync:render/>
                     <dync:children/>
                   </dync:attribute>
                 </form:attributes>
               </form:control>
-              <form:validation/>
+              <form:child xsi:type="form:Field" binding="$model.entityactivityconfig.freechooseUrl" id="newField12" name="选择页面" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text">
+                    <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.filtertype" id="filtertypediv" name="组内过滤" customize="true">
+                <form:control type="widget/radio_group">
+                  <form:attributes source="widget/radio_group">
+                    <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;falsefilter&quot;:&quot;无过滤&quot;,&quot;orgfilter&quot;:&quot;按部门过滤&quot;,&quot;orgbossfilter&quot;:&quot;按部门&amp;领导过滤&quot;}">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="" group="单选按钮组设置" id="defaultValue" name="默认值" value="falsefilter">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="" group="事件设置" id="clickEvent" name="选中事件" value="filtertypediv_clickEvent(value)">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
             </form:child>
           </form:child>
         </form:child>
@@ -536,8 +580,17 @@ page_afterDataSourceLoad:function(){
 			$model.entityactivityconfig.freeshooseUrl = &quot;f/choosetaskhandler&quot;;
 		}else{
 			$model.freeChoose = true;
-		}				
+		}	
+		var filtervalue = functions.get_action(&quot;filtertype&quot;);
+		console.log(&quot;saved filtervalue&quot;,filtervalue);
+		if(filtervalue){
+			var kvs = filtervalue.split(&quot;:&quot;);
+			var value = kvs[1];
+			$model.filtertype = value;
+		}			
 	});
+	
+	
 /*	$model.entityactivityconfig.$get()
 		.then(function(a){
 //			console.log(&quot;activity config entity geted&quot;,a);
@@ -790,21 +843,31 @@ do_view:function(a){
 	}
 
 },
-add_action:function(action){
+add_action:function(action,value){
 	if($model.entityactivityconfig.includeActions==undefined||$model.entityactivityconfig.includeActions==&quot;&quot;){
-		$model.entityactivityconfig.includeActions = action;
+		$model.entityactivityconfig.includeActions = value;
 	}else{
-		var index = this.has_action(action);
+/*		var index = this.has_action(action);
 		if(index==undefined){
-			$model.entityactivityconfig.includeActions = $model.entityactivityconfig.includeActions+&quot;,&quot;+action;
-		}	
+			$model.entityactivityconfig.includeActions = $model.entityactivityconfig.includeActions+&quot;,&quot;+value;
+		}*/	
+		this.del_action(action);
+		$model.entityactivityconfig.includeActions = $model.entityactivityconfig.includeActions+&quot;,&quot;+value;
+	}
+},
+get_action:function(action){
+	var a = $model.entityactivityconfig.includeActions.split(&quot;,&quot;);
+	for(var i=0;i&lt;a.length;i++){
+		if(a[i].match(action)){
+			return a[i];
+		}
 	}
 },
 has_action:function(action){
 	var a = $model.entityactivityconfig.includeActions.split(&quot;,&quot;);
 	var index = undefined;
 	for(var i=0;i&lt;a.length;i++){
-		if(a[i] == action){
+		if(a[i].match(action)){
 			index = i;
 			break;
 		}
@@ -816,7 +879,7 @@ del_action:function(action){
 		var a = $model.entityactivityconfig.includeActions.split(&quot;,&quot;);
 		var index = undefined;
 		for(var i=0;i&lt;a.length;i++){
-			if(a[i] == action){
+			if(a[i].match(action)){
 				index = i;
 				break;
 			}
@@ -829,7 +892,7 @@ del_action:function(action){
 },
 newField7_onChange:function(){
 	if($model.allowReject){
-		this.add_action(&quot;return&quot;);
+		this.add_action(&quot;return&quot;,&quot;return&quot;);
 	}else{
 		$model.entityactivityconfig.returnActivity = undefined;
 		this.del_action(&quot;return&quot;);
@@ -839,14 +902,37 @@ newField7_onChange:function(){
 
 newField11_onChange:function(){
 	if($model.freeChoose){
-		this.add_action(&quot;freechoose&quot;);
+		this.add_action(&quot;freechoose&quot;,&quot;freechoose&quot;);
 	}else{
 		if($model.entityactivityconfig.freeChooseUrl == undefined){
 			$model.entityactivityconfig.freeChooseUrl = &quot;f/choosetaskhandler&quot;;
 		}	
 		this.del_action(&quot;freechoose&quot;);
 	}	
-//	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);
+	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);
+},
+assemble_action:function(key,value,arrayvalues){
+	if(value!=undefined){
+		return key+&quot;:&quot;+value;
+	}
+	if(arrayvalues instanceof Array){
+		var result = &quot;&quot;;
+		for(var i=0;i&lt;arrayvalues.length;i++){
+			result = result + &quot;|&quot; + arrayvalues[i]
+		}
+		return key+&quot;:&quot;+result;
+	}
+},
+//过滤选中事件
+filtertypediv_clickEvent:function(value){
+	if(value!=&quot;falsefilter&quot;){
+		console.log(&quot;selected filter&quot;,value);
+		var action = functions.assemble_action(&quot;filtertype&quot;,value);
+		this.add_action(&quot;filtertype&quot;,action);
+	}else{
+		this.del_action(&quot;filtertype&quot;);
+	}
+	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);	
 }</form:scripts>
   <form:htmls>
 </form:htmls>

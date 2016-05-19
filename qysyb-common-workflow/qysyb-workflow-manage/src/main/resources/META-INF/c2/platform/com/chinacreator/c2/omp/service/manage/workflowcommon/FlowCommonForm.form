@@ -769,7 +769,7 @@ commit:function($event){
 	}
 	if($model.actions.freechoose!=undefined){
 		var url = $model.actions.freechoose.openUrl;
-		Modal.open(url,{params:$params.params,transitions:$model.getOutTransition.result},function(data){
+		Modal.open(url,{actions:$model.actions,formentity:$model.entity,params:$params.params,transitions:$model.getOutTransition.result},function(data){
 			console.log(&quot;choosed&quot;,data);
 			$model.assigneeList = data.assigneeList==&quot;&quot;?undefined:data.assigneeList;//避免传空字符进去，影响判断;
 			$model.assigneeid = data.assignee==&quot;&quot;?undefined:data.assignee;
@@ -812,78 +812,47 @@ newField5_click:function($event){
 		assigneeList:$model.assigneeList,
 		wfComment:$model.opinion
 	}
-	if($model.handleway==&quot;处理完成&quot;){
-		$http.post(&quot;flow/goanywhere&quot;,
-			{
-				transition:$model.transition,
-				transitionId:transitionId,
-				formId:$model.formId,
-				wfOperator:{
-					userId:userId,
-					businessData:{
-						moduleId:moduleId,
-						businessKey:$params.businessKey
-					}
-			    },
-			    businessKey:$params.params.businessKey,
-				isStart:false,
-				processDefinitionId:$params.params.processDefinitionId,
-				moduleId:$params.params.moduleId,
-				currenTaskId:$params.params.taskId,
-				destTaskDefinitionKey:$model.dest.id,
-				useHisAssignee:false,
-				variables:variables,
-				entity:$model.entity,
-				proInsId:$params.params.processInstanceId,
-				taskDefKey:$params.params.taskDefKey,
-				opinion:$model.opinion
-			
-		}).success(function(data){
-			if(data.result == &quot;200&quot;){
-				 Messenger.post({
-					 'message': &quot;  操作成功！&quot;,
-					 'type': 'success',
-					 'hideAfter':5
-				 });
-				 TabOperator.closeTab(TabOperator.getCurrentTab());
-			}else{
-				 Messenger.post({
-					 'message': &quot;  something wrong！&quot;,
-					 'type': 'error',
-					 'hideAfter':5
-				 });			
-			}
-		});	
-	}else if($model.handleway==&quot;退回&quot;){
-		$http.get(&quot;flow/reject&quot;,
-		{params:{
-			clazz:$model.clazz,
+	$http.post(&quot;flow/goanywhere&quot;,
+		{
+			transition:$model.transition,
+			transitionId:transitionId,
+			formId:$model.formId,
 			wfOperator:{
 				userId:userId,
 				businessData:{
 					moduleId:moduleId,
-					businessKey:$params.params.businessKey
+					businessKey:$params.businessKey
 				}
 		    },
-		    curActivity:$model.transition.src,
 		    businessKey:$params.params.businessKey,
-			currenTaskId:$params.params.taskId,
+			isStart:false,
 			processDefinitionId:$params.params.processDefinitionId,
-			taskDefKey:$params.params.taskDefKey,
+			moduleId:$params.params.moduleId,
+			currenTaskId:$params.params.taskId,
+			destTaskDefinitionKey:$model.dest.id,
+			useHisAssignee:false,
 			variables:variables,
 			entity:$model.entity,
-			rejectMessage:&quot;reject&quot;,
-		}
+			proInsId:$params.params.processInstanceId,
+			taskDefKey:$params.params.taskDefKey,
+			opinion:$model.opinion
+		
 	}).success(function(data){
-			console.log(data);
+		if(data.result == &quot;200&quot;){
 			 Messenger.post({
-			    'message': data.result.result,
-			    'type': 'success',
-			});
-		});		
-	}
-
-	
+				 'message': &quot;  操作成功！&quot;,
+				 'type': 'success',
+				 'hideAfter':5
+			 });
+			 TabOperator.closeTab(TabOperator.getCurrentTab());
+		}else{
+			 Messenger.post({
+				 'message': &quot;  something wrong！&quot;,
+				 'type': 'error',
+				 'hideAfter':5
+			 });			
+		}
+	});		
 },
 
 newField2_click:function($event){
@@ -1103,9 +1072,6 @@ page_afterDataSourceLoad:function(){
 					//	$model.handleid = $model.handles[0].userId;
 					});	
 			$params.nextname = $view.nexttaskview.getOptionObj($model.nexttask).dest.name;
-			if($params.nextname == &quot;反馈申请人&quot;){
-				$model.isAssigneeApplicant = true;
-			}
 		});	
 },
 //tab页的验证函数
@@ -1205,7 +1171,7 @@ start_flow:function($event){
 	}
 	if($model.actions.freechoose!=undefined){
 		var url = $model.actions.freechoose.openUrl;
-		Modal.open(url,{params:$params.params,transitions:$model.getOutTransition.result},function(data){
+		Modal.open(url,{actions:$model.actions,formentity:$model.entity,params:$params.params,transitions:$model.getOutTransition.result},function(data){
 			console.log(&quot;choosed&quot;,data);
 			$model.assigneeList = data.assigneeList==&quot;&quot;?undefined:data.assigneeList;//避免传空字符进去，影响判断;
 			$model.assigneeid = data.assignee==&quot;&quot;?undefined:data.assignee;
@@ -1223,10 +1189,7 @@ start_flow:function($event){
 	functions.submitflow_click($event);
 },
 //提交流程
-submitflow_click:function($event){
-
-
-	
+submitflow_click:function($event){	
 	var processDefinitionId = $params.params.processDefinitionId;
 	var moduleId =  $params.params.moduleId;
 	var taskDefKey =  $params.params.taskDefKey;

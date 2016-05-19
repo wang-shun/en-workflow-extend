@@ -1,5 +1,6 @@
 package com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,22 @@ public class ActivityConfigService {
 					Map actionPorperty1 = new HashMap<String,String>();
 					actionPorperty1.put("openUrl", ac.getFreechooseUrl());
 					action.put(s, actionPorperty1);
+					break;
+				default:
+					String[] kvs = s.split(":");
+					if(kvs.length==2){
+						String key = kvs[0];
+						String values = kvs[1];
+						String[] vs = values.split("\\|");
+						List list = new ArrayList();
+						for(String ss : vs){
+							list.add(ss);
+						}
+//						Map actionPorperty2 = new HashMap<String,String>();	
+//						actionPorperty2.put(key, list);
+						action.put(key, list);
+					}
+
 				}
 			}			
 		}
