@@ -149,6 +149,7 @@ public class WorkFlowService {
 	@Autowired
 	private WorkProcess wp;
 	private WfRuntimeService wfRuntimeService;
+	@Autowired
 	private UserService userService;
 	private RuntimeService runtimeService;
 	@Autowired
@@ -2515,5 +2516,64 @@ public class WorkFlowService {
 			return lastActivity.getActivityId();
 		}
 		return null;
+	}
+
+	@Autowired
+	UserJobService userJobService;
+	public List<Map> getHandlerFormCandidateWithFilter(
+			String processDefinitionId, String moduleId, String taskDefKey,
+			String filterType, String curUserId) {
+		List<Map> result = new ArrayList<Map>();
+		List<Map> list = this.getActivityCandidates(processDefinitionId,
+				moduleId, taskDefKey);
+		String orgName = userService.queryMainOrg(curUserId).getOrgName();
+		for (Map map : list) {
+			String category = (String) map.get("category");
+			String id = (String) map.get("id");
+			if (category.equals("group")) {
+				//则不需要过滤  返回组内所有人还是返回组呢？？
+				if(filterType==null){
+					List<UserDTO> userList = userJobService.getAllUserJob(id);
+					for(UserDTO user:userList){
+						Map map1 = new HashMap();
+						map1.put("id", user.getUserId());
+						map1.put("name", user.getUserRealname());
+						map1.put("type", "user");
+						map1.put("category", orgName);
+						result.add(map1);
+					}
+					return result;
+				}			
+				switch(filterType){
+				case "orgfilter":
+					
+					List<UserDTO> userList = userJobService
+					.getAllUserFromJobWithSameOrg(id, curUserId);	
+					for(UserDTO user:userList){
+						Map map1 = new HashMap();
+						map1.put("id", user.getUserId());
+						map1.put("name", user.getUserRealname());
+						map1.put("type", "user");
+						map1.put("category", orgName);
+						result.add(map1);
+					}
+					break;
+				case "orgbossfilter":
+					break;
+//				default:
+//					Map map1 = new HashMap();
+//					map1.put("id", id);
+//					map1.put("name",(String) map.get("name"));
+//					map1.put("type", "group");
+//					map1.put("category", orgName);
+//					result.add(map1);	
+//					break;
+				}
+
+			} else if (category.equals("user")) {
+
+			}
+		}
+		return result;
 	}
 }
