@@ -1056,6 +1056,7 @@ page_beforeDataSourceLoad:function($params){
 	$params.params.processDefinitionId =  locationparams.processDefinitionId;
 	//不止为何 数据源中的参数不能再￥params.params中取
 	$params.moduleId = locationparams.moduleId;
+	$params.params.EditType = &quot;4,0&quot;;  // 正文编辑类型
 },
 //选中处理人
 newField3_change:function(){

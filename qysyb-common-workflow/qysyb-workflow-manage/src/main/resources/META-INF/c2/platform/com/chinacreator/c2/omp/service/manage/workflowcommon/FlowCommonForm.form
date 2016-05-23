@@ -1121,6 +1121,8 @@ dateconvert:function(a){
 
 page_beforeDataSourceLoad:function($params){
 //	console.log($params);
+	$params.params.att_type = &quot;view_edit&quot;;  // 附件查看类型
+	$params.params.EditType = &quot;1,0&quot;;  // 正文编辑类型
 },
 //选中处理人
 newField3_change:function(){
