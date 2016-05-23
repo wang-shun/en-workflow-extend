@@ -12,7 +12,9 @@ import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.ActivityConfig;
 @Service
 public class ActivityConfigService {
-	
+	public final static String ACTION_FILTERTYPE = "filtertype";
+	public final static String ACTION_RETURN = "return";
+	public final static String ACTION_FREECHOOSE = "freechoose";
 	/**
 	 * 
 	 * @param ac

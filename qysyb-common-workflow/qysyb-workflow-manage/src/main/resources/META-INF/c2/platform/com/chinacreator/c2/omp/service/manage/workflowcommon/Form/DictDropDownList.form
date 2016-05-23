@@ -125,9 +125,7 @@
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="simple" group="下拉框设置" id="filterType" name="数据过滤方式" value="custom">
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="下拉框设置" id="customFilter" name="过滤器" value="dictdropdownoption_customFilter(data)">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -148,7 +146,7 @@ page_afterDataSourceLoad:function(){
 dictdropdownlist_change:function(){
 	$scope.formentity[$params.fieldNo] = $model.bind;
 	$scope.update_obervable($params.fieldNo,$scope.formentity);
-	console.log($scope.formentity);
+//	console.log($scope.formentity);
 },
 check:function(){
 	return $view.mainForm.check();
@@ -160,7 +158,9 @@ linkcallback:function(src,data){
 },
 
 page_onload:function(){
-	
+	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
+//	console.log(&quot;bind value&quot;,$model.bind);
+	this.dictdropdownlist_change();
 },
 
 dictdropdownoption_customFilter:function(data){
@@ -169,6 +169,6 @@ dictdropdownoption_customFilter:function(data){
 /*	if(!angular.isUndefined($scope.formentity[$params.fieldNo])||$scope.formentity[$params.fieldNo]!=&quot;&quot;){
 		$model.bind = $scope.formentity[$params.fieldNo];
 	}*/
-	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
+	
 }</form:scripts>
 </form:Form>

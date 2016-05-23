@@ -135,14 +135,17 @@ public class FormService {
 		
 		Form form = this.getFormById(formId);
 
-		if(proInsId!=null){
+		if(proInsId!=null&&!proInsId.equals("null")&&!proInsId.equals("undefined")){
 			//业务数据存储外部表单
 			if(form!=null&&form.isIsTableStorage()!=null&&form.isIsTableStorage()){
 				RuntimeService runtimeService = ApplicationContextManager.getContext().getBean(RuntimeService.class);
 				ProcessInstanceQuery  piq = runtimeService.createProcessInstanceQuery();
 				ProcessInstance proins = piq.processInstanceId(proInsId).includeProcessVariables().singleResult();
-				map = proins.getProcessVariables();  //流程变量也给返回出去
-				Map busMap = this.getFormDataWithExternalTable(businessKey,proInsId, null, form); //业务表中到底存流程实例
+				if(proins!=null){//这里如果为null的话 应该是已结束的实例了。那么流程变量这里是没有拿出来了。Q 这里需不需要把流程变量返回出去呢
+					map = proins.getProcessVariables();  //流程变量也给返回出去
+				}
+				
+				Map busMap = this.getFormDataWithExternalTable(businessKey,proInsId, null, form); //业务表中存流程实例
 				if(busMap!=null)
 					map.putAll(busMap);//业务数据
 				return map;
@@ -183,7 +186,7 @@ public class FormService {
 
 			form=this.getFormById(formId);
 			if(form!=null&&form.isIsTableStorage()!=null&&form.isIsTableStorage()){  //外部表单存储业务数据时获取历史数据
-				Map busMap = this.getFormDataWithExternalTable(businessKey,businessKey, null, form);
+				Map busMap = this.getFormDataWithExternalTable(businessKey,hisins.getId(), null, form);
 				if(busMap!=null)
 					map.putAll(busMap);
 				return map;

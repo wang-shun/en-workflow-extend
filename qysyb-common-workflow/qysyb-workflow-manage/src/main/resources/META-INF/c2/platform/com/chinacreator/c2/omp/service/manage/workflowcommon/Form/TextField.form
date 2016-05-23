@@ -104,7 +104,7 @@ newField_change:function(){
 },
 
 page_onload:function(){
-	console.log(&quot;view&quot;,$view);
+//	console.log(&quot;view&quot;,$view);
 	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
 },
 check:function(){

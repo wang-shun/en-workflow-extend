@@ -76,6 +76,7 @@ import com.chinacreator.c2.omp.service.manage.workflowcommon.Form;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.FormField;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.WorkAssetRel;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.WorkRel;
+import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.ActivityConfigService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.InformService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.UserConcernedConfigService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.bean.DropDownListOption;
@@ -2520,9 +2521,21 @@ public class WorkFlowService {
 
 	@Autowired
 	UserJobService userJobService;
+	@Autowired
+	ActivityConfigService activityConfigService;
 	public List<Map> getHandlerFormCandidateWithFilter(
 			String processDefinitionId, String moduleId, String taskDefKey,
 			String filterType, String curUserId) {
+		if(filterType==null){
+			Map actions = activityConfigService.getActivityActions(moduleId, taskDefKey);
+			if(actions.containsKey(ActivityConfigService.ACTION_FILTERTYPE)){
+				List filterTypes = (List) actions.get(ActivityConfigService.ACTION_FILTERTYPE);
+				//TODO
+				if(filterTypes.size()==1){
+					filterType = (String) filterTypes.get(0);
+				}
+			}
+		}
 		List<Map> result = new ArrayList<Map>();
 		List<Map> list = this.getActivityCandidates(processDefinitionId,
 				moduleId, taskDefKey);
