@@ -59,7 +59,7 @@ public class ArchhandleServiceImpl  {
 
 	public List<Archhandle> getArchhandle(Archhandle archhandle) {
 		Dao<Archhandle> dao = DaoFactory.create(Archhandle.class);
-		return dao.select(archhandle,new Sortable(new Order("auditTime","desc")));
+		return dao.select(archhandle,new Sortable(new Order("auditTime","asc")));
 	}
 	
 	public List<Archhandle> getArchhandle(Archhandle archhandle,String businessKey) {

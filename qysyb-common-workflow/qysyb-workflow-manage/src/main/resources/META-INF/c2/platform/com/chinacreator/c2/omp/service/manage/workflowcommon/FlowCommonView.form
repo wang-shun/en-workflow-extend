@@ -126,16 +126,15 @@
         <form:child xsi:type="form:Group" id="newGroup21" name="简单容器(DIV)">
           <form:control type="container/toolbar">
             <form:attributes source="container/toolbar">
-              <dync:attribute default="center" group="基本设置" id="position" name="按钮位置" value="pull-left">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
               <dync:attribute default="" group="样式设置" id="marginBottom" name="底部外边距" value="0">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="样式设置" id="marginTop" name="顶部外边距" value="10">
                 <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="center" group="基本设置" id="position" name="按钮位置" value="pull-left">
                 <dync:children/>
               </dync:attribute>
             </form:attributes>

@@ -149,9 +149,13 @@ page_afterDataSourceLoad:function(){
 
 page_onload:function(){
 //默认赋值
+	//console.log(&quot;content&quot;, $params.params.content);
+	//alert($params.params.content);
 	var actName = $view.newField.getOptionObj($model.act);
 	var con = $model.content==undefined?&quot;&quot;:$model.content;
-	$model.content = actName.dictdataValue+&quot; &quot;+con;	
+	//$model.content = actName.dictdataValue+&quot; &quot;+con;	
+	$model.content = $params.params.content; 
+	
 },
 //取消
 newField3_click:function($event){
