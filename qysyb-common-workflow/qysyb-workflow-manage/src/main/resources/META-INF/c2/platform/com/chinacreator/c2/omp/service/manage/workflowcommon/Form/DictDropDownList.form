@@ -120,12 +120,10 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="false" group="下拉框设置" id="firstSelected" name="选中第一个" value="true">
-            <dync:render/>
+          <dync:attribute default="simple" group="下拉框设置" id="filterType" name="数据过滤方式" value="custom">
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="simple" group="下拉框设置" id="filterType" name="数据过滤方式" value="custom">
-            <dync:render/>
+          <dync:attribute default="" group="下拉框设置" id="customFilter" name="过滤器" value="dictdropdownoption_customFilter(data)">
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -160,15 +158,17 @@ linkcallback:function(src,data){
 page_onload:function(){
 	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
 //	console.log(&quot;bind value&quot;,$model.bind);
-	this.dictdropdownlist_change();
+//	this.dictdropdownlist_change();
 },
 
 dictdropdownoption_customFilter:function(data){
-	$model.bind = data[0].dictdataName;
-	$scope.formentity[$params.fieldNo] = data[0].dictdataName; 
-/*	if(!angular.isUndefined($scope.formentity[$params.fieldNo])||$scope.formentity[$params.fieldNo]!=&quot;&quot;){
-		$model.bind = $scope.formentity[$params.fieldNo];
-	}*/
-	
+//	console.log($params.fieldNo,data)
+//	选择第一个
+	if($scope.formentity[$params.fieldNo]==undefined||$scope.formentity[$params.fieldNo]==&quot;&quot;){
+		$model.bind = data[0].dictdataName;
+		$scope.formentity[$params.fieldNo] = data[0].dictdataName;		
+	}else{
+		$model.bind = $scope.formentity[$params.fieldNo]
+	}
 }</form:scripts>
 </form:Form>
