@@ -471,10 +471,40 @@
         and (
           <!-- exists(select LINK.USER_ID_ from ${prefix}ACT_RU_IDENTITYLINK LINK where USER_ID_ = #{involvedUser} and LINK.TASK_ID_ = RES.ID_) -->
   <!--         涉及到的工单 改成这样吧 这样应该就是 我自己参与过的流程都能查询出来 -->
-          exists(select LINK.USER_ID_ from ${prefix}ACT_RU_IDENTITYLINK LINK where USER_ID_ = #{involvedUser} and LINK .PROC_INST_ID_ = RES.PROC_INST_ID_)
-          or RES.ASSIGNEE_ = #{involvedUser}
-          or RES.OWNER_ = #{involvedUser}
-          )
+	         exists(select LINK.USER_ID_ from ${prefix}ACT_RU_IDENTITYLINK LINK where USER_ID_ = #{involvedUser} and LINK .PROC_INST_ID_ = RES.PROC_INST_ID_)
+	         or RES.ASSIGNEE_ = #{involvedUser}
+	         or RES.OWNER_ = #{involvedUser}
+	         )
+<!-- 							AND RES.ASSIGNEE_ <> #{involvedUser}					 
+ 							AND RES.ASSIGNEE_ IS NOT NULL -->
+<!-- 			AND I.USER_ID_ &lt;&gt; #{involvedUser}
+			OR I.GROUP_ID_ NOT IN (
+				SELECT
+					G .GROUP_ID_
+				FROM
+					ACT_ID_MEMBERSHIP G
+				WHERE
+					G .USER_ID_ = #{involvedUser}
+			) -->
+			AND NOT EXISTS (
+				SELECT
+					LINK1 .USER_ID_
+				FROM
+					ACT_RU_IDENTITYLINK LINK1
+				WHERE
+				(
+					LINK1.USER_ID_ = #{involvedUser}
+					OR LINK1.GROUP_ID_ IN (
+						SELECT
+							G .GROUP_ID_
+						FROM
+							ACT_ID_MEMBERSHIP G
+						WHERE
+							G .USER_ID_ = #{involvedUser}
+					)
+				)
+				AND LINK1.TASK_ID_ = RES.ID_
+			)				
       </if>
       <foreach item="var" collection="sortableValues" index="index">
       
