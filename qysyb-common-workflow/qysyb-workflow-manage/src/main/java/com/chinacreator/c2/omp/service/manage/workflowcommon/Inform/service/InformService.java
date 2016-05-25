@@ -9,16 +9,17 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
-import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
-import org.activiti.engine.history.HistoricVariableInstance;
 import org.activiti.engine.impl.persistence.entity.CommentEntity;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.IdentityLink;
-import org.activiti.engine.task.Task;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
@@ -28,6 +29,8 @@ import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.ActivityConf
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.UserConcernedConfig;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.impl.MEmailTask;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.inf.EmailTask;
+import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.inf.InformTask;
+import com.chinacreator.c2.omp.service.manage.workflowcommon.service.UserJobService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService;
 
 /**
@@ -53,6 +56,9 @@ public class InformService {
 	public final static String EVENT_TYPE_COMMENT = "commentEvent";
 	public final static String EVENT_TYPE_TASK = "taskEvent";
 	
+	public final static String CC_INFORM_TYPES = "ccInformTypes";
+	public final static String CC_INFORM_USERIDS = "ccToUserIds";
+	
 	public final static String TASK_INFORM_EMAIL_TEMPLATE = "亲爱的 %s:\n有一个工单处于 "
 			+ "%s 阶段,需要您的签收或处理。\n可以点击如下链接登录系统:"
 			+"%s\n如果您的email程序不支持链接点击，请将上面的地址拷贝至您的浏览器的地址栏进入。\n  "
@@ -67,16 +73,18 @@ public class InformService {
 	private List<ActivitiEntityEvent> taskEvents = new ArrayList<ActivitiEntityEvent>();
 	private List<ActivitiEntityEvent> commentEvents = new ArrayList<ActivitiEntityEvent>();
 	//防止重复发送邮件
-	private List<EmailTask> listTaskTodo = new ArrayList<EmailTask>();
+	private List<InformTask> listTaskTodo = new ArrayList<InformTask>();
 	
 	private ActivityConfigService activityConfigService;
 	private UserConcernedConfigService userConcernedConfigService;
+	@Autowired
 	private ServiceProductService productService;
 	private RuntimeService runtimService;
+	@Autowired
 	private TaskService taskService;
 	private HistoryService historyService;
 
-	
+	private String ccInformJsonStr;
 	/**
 	 * 
 	 */
@@ -84,6 +92,7 @@ public class InformService {
 		/*通知出错不要导致流程回滚,抓获异常*/
 		try{
 			for(ActivitiEntityEvent e:taskEvents){
+				informCcInformsTask(e);
 				informActivityConfigTask(e);
 				informUserConcernedConfigTask(e);
 			}	
@@ -94,8 +103,11 @@ public class InformService {
 		}catch(Exception e){
 			System.out.println("执行流程通知异常");
 			e.printStackTrace();
+			listTaskTodo.clear();
+			taskEvents.clear();
+			commentEvents.clear();
 		}
-		for(EmailTask t:listTaskTodo){
+		for(InformTask t:listTaskTodo){
 			t.start();
 		}
 		listTaskTodo.clear();
@@ -103,15 +115,54 @@ public class InformService {
 		commentEvents.clear();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void informCcInformsTask(ActivitiEntityEvent e) {
+		Map ccInformsInfo = JSONObject.parseObject(ccInformJsonStr, Map.class);
+		if(ccInformsInfo!=null&&ccInformsInfo.get(CC_INFORM_TYPES)!=null&&ccInformsInfo.get(CC_INFORM_USERIDS)!=null){
+			JSONArray ccTypes = (JSONArray) ccInformsInfo.get(CC_INFORM_TYPES);
+			JSONArray ccUserIds = (JSONArray) ccInformsInfo.get(CC_INFORM_USERIDS);
+			TaskEntity entity = (TaskEntity) e.getEntity();
+
+			String content = entity.getName();
+			Map<String,String> contentMap = new HashMap<String,String>();
+			contentMap.put(InformService.WORKSTATGEKEY, content);
+			contentMap.put(InformService.CATEGORY_KEY,"嗯 这里是什么意思？");
+			contentMap.put(InformService.STR_TEMPLATE_KEY, InformService.TASK_INFORM_EMAIL_TEMPLATE);
+			for(int i=0;i<ccTypes.size();i++){
+				String type = ccTypes.getString(i);
+				for(int j=0;j<ccUserIds.size();j++){
+					String userId = ccUserIds.getJSONObject(i).getString("id");
+					switch(type){
+					case InformService.INFORM_TYPE_EMAIL:
+						InformTask task = new MEmailTask(userId,null,contentMap);
+						task.init();
+						if(!listTaskTodo.contains(task)){
+							listTaskTodo.add(task);
+						}		
+						break;
+					case InformService.INFORM_TYPE_PHONE_MSG:
+						//短信通知实现
+					}					
+				}
+			}
+		}
+
+	}
+
 	/*环节配置任务的通知*/
-	private List<EmailTask> informActivityConfigTask(ActivitiEntityEvent e) throws Exception{
+	private void informActivityConfigTask(ActivitiEntityEvent e) throws Exception{
 		
-		List<EmailTask> emailTasks = new ArrayList<EmailTask>();
 		TaskEntity entity = (TaskEntity) e.getEntity();
 		String taskId = entity.getId();
 		activityConfigService = ApplicationContextManager.getContext().getBean(ActivityConfigService.class);
-		ActivityConfig ac = activityConfigService.getActivityConfigById(entity.getTaskDefinitionKey());
-		if(ac!=null){
+		
+		String productNo = (String) taskService.getVariable(taskId, WorkFlowService.PRODUCTNOKEY);
+		ServiceProduct sp = productService.getServiceProductByNo(productNo);
+		ActivityConfig con = new ActivityConfig();
+		con.setModuleId(sp.getProductId());
+		con.setTaskDefId(entity.getTaskDefinitionKey());
+		ActivityConfig ac = activityConfigService.getActivityConfigOne(con);
+		if(ac!=null&&ac.getInformType()!=null){
 			taskService = ApplicationContextManager.getContext().getBean(TaskService.class);
 			List<IdentityLink> identity = taskService.getIdentityLinksForTask(taskId);
 //				taskService.
@@ -120,41 +171,41 @@ public class InformService {
 			contentMap.put(InformService.WORKSTATGEKEY, content);
 			contentMap.put(InformService.CATEGORY_KEY,"嗯 这里是什么意思？");
 			contentMap.put(InformService.STR_TEMPLATE_KEY, InformService.TASK_INFORM_EMAIL_TEMPLATE);
-			if(identity!=null&&identity.size()>0){
-				for(IdentityLink i:identity){
-					String type = i.getType();
-					switch(type){
-					case "candidate":
-						String userId = i.getUserId();
-						String groupId = i.getGroupId();								
-						if(userId!=null&&groupId==null){
-							if(ac.getInformType()!=null){
-								String[] types = ac.getInformType().split(",");
-								for(String type1:types){
-									switch(type1){
-									case InformService.INFORM_TYPE_EMAIL:
-										EmailTask task = new MEmailTask(false,userId,null,contentMap);
-										task.init();
-										if(!listTaskTodo.contains(task)){
-											emailTasks.add(task);
-											listTaskTodo.add(task);
-										}		
-										break;
-									case InformService.INFORM_TYPE_PHONE_MSG:
-										//短信通知实现
-									}
+			this.addAcTasks(ac, identity, contentMap);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void addAcTasks(ActivityConfig ac,List<IdentityLink> identity,Map contentMap){
+		if(identity!=null&&identity.size()>0){
+			for(IdentityLink i:identity){
+				String type = i.getType();
+				switch(type){
+				case "candidate":
+					String userId = i.getUserId();
+					String groupId = i.getGroupId();								
+					if(userId!=null&&groupId==null){
+						if(ac.getInformType()!=null){
+							String[] types = ac.getInformType().split(",");
+							for(String type1:types){
+								switch(type1){
+								case InformService.INFORM_TYPE_EMAIL:
+									InformTask task = new MEmailTask(userId,null,contentMap);
+									task.init();
+									if(!listTaskTodo.contains(task)){
+										listTaskTodo.add(task);
+									}		
+									break;
+								case InformService.INFORM_TYPE_PHONE_MSG:
+									//短信通知实现
+								}
 
-								}								
-							}
-						}					
-					}
+							}								
+						}
+					}					
 				}
 			}
-		}
-/*		for(EmailTask t:emailTasks){
-			t.run();
-		}*/
-		return emailTasks;
+		}		
 	}
 	/*用户关注任务的通知*/
 	public List<EmailTask> informUserConcernedConfigTask(ActivitiEntityEvent e) throws Exception{		
@@ -204,61 +255,7 @@ public class InformService {
 					contentMap.put(InformService.CATEGORY_KEY,"嗯 这里是什么意思？");
 					contentMap.put(InformService.STR_TEMPLATE_KEY, TASK_INFORM_EMAIL_TEMPLATE);
 					contentMap.put(WorkFlowService.WORKTITLEKEY, (String) variable.get(WorkFlowService.WORKTITLEKEY));
-					switch(ucc1.getCatogory()){
-					case "user":
-						String[] userIds = ucc1.getObserverId().split(",");
-						for(String userId:userIds){
-							if(userId!=null){
-								if(ucc1.getInformType()!=null){
-									String[] types = ucc1.getInformType().split(",");
-									for(String type1:types){
-										switch(type1){
-										case InformService.INFORM_TYPE_EMAIL:
-											EmailTask task = new MEmailTask(false,userId,null,contentMap);
-											task.init();
-											if(!listTaskTodo.contains(task)){
-												listTaskTodo.add(task);
-												emailTasks.add(task);
-											}
-											break;
-										case InformService.INFORM_TYPE_PHONE_MSG:
-											//短信通知实现
-										}
-
-									}									
-								}
-							}							
-						}
-						break;
-					case "group":
-						String[] groupIds = ucc1.getObserverId().split(",");
-						for(String groupId:groupIds){
-							if(groupId!=null){
-								if(ucc1.getInformType()!=null){
-									String[] types = ucc1.getInformType().split(",");
-									for(String type1:types){
-										switch(type1){
-										case InformService.INFORM_TYPE_EMAIL:
-											MEmailTask task = new MEmailTask(true,groupId,null,contentMap);
-											task.init();
-											//subtask 才是发给用户
-											List<MEmailTask> subtasks = task.getSubTasks();
-											for(MEmailTask t:subtasks){
-												if(!listTaskTodo.contains(t)){
-													listTaskTodo.add(t);
-													emailTasks.add(t);
-												}												
-											}
-											break;
-										case InformService.INFORM_TYPE_PHONE_MSG:
-											//短信通知实现
-										}
-
-									}									
-								}
-							}							
-						}
-					}
+					this.addUccTasks(ucc1, contentMap);
 				}
 			}
 		}
@@ -382,71 +379,14 @@ public class InformService {
 					if(p==null&&ucc1.getRemark1()==null){
 						uccsdel.add(ucc1);
 					}
-				}
-			
-				String comment = entity.getMessage();
-				
+				}		
+				String comment = entity.getMessage();			
 				contentMap.put(InformService.COMMENT_KEY, comment);
 				contentMap.put(WORKSTATGEKEY, stage);
 				contentMap.put(CATEGORY_KEY,"嗯 这里是什么意思？");
 				contentMap.put(STR_TEMPLATE_KEY, COMMENT_INFORM_EMAIL_TEMPLATE);
 				contentMap.put(COMMENT_USERID_KEY, entity.getUserId());
-				switch(ucc1.getCatogory()){
-				case "user":
-
-					String[] userIds = ucc1.getObserverId().split(",");
-					for(String userId:userIds){
-						if(userId!=null){
-							String[] types = ucc1.getInformType().split(",");
-							for(String type1:types){
-								switch(type1){
-								case InformService.INFORM_TYPE_EMAIL:
-									EmailTask task1 = new MEmailTask(false,userId,null,contentMap);
-									task1.init();
-									if(!listTaskTodo.contains(task1)){
-										listTaskTodo.add(task1);
-										emailTasks.add(task1);
-									}	
-									break;
-								case InformService.INFORM_TYPE_PHONE_MSG:
-									//短信通知实现
-								}
-
-							}
-						}							
-					}
-					break;
-				case "group":
-					String[] groupIds = ucc1.getObserverId().split(",");
-					for(String groupId:groupIds){
-						if(groupId!=null){
-							if(ucc1.getInformType()!=null){
-								String[] types = ucc1.getInformType().split(",");
-								for(String type1:types){
-									switch(type1){
-									case InformService.INFORM_TYPE_EMAIL:
-										MEmailTask task1 = new MEmailTask(true,groupId,null,contentMap);
-										task1.init();
-										//subtask 才是发给用户
-										List<MEmailTask> subtasks = task1.getSubTasks();
-										for(MEmailTask t:subtasks){
-											if(!listTaskTodo.contains(t)){
-												listTaskTodo.add(t);
-												emailTasks.add(t);
-											}												
-										}
-										break;
-									case InformService.INFORM_TYPE_PHONE_MSG:
-										//短信通知实现
-									}
-
-								}									
-							}
-						}							
-					}
-					break;
-				}
-				
+				addUccTasks(ucc1,contentMap);
 			}
 		}
 /*		for(EmailTask t:emailTasks){
@@ -455,6 +395,70 @@ public class InformService {
 		daoucc.deleteBatch(uccsdel);
 		return emailTasks;
 	}
+	
+	@Autowired
+	UserJobService userJobService;
+	/**
+	 * 
+	 * @param ucc1
+	 * @param content
+	 */
+	private void addUccTasks(UserConcernedConfig ucc1,Map content){
+		List<InformTask> emailTasks = new ArrayList<InformTask>();
+		switch(ucc1.getCatogory()){
+		case "user":
+			String[] userIds = ucc1.getObserverId().split(",");
+			for(String userId:userIds){
+				if(userId!=null){
+					String[] types = ucc1.getInformType().split(",");
+					for(String type1:types){
+						switch(type1){
+						case InformService.INFORM_TYPE_EMAIL:
+							InformTask task1 = new MEmailTask(userId,null,content);
+							task1.init();
+							if(!listTaskTodo.contains(task1)){
+								listTaskTodo.add(task1);
+								emailTasks.add(task1);
+							}	
+							break;
+						case InformService.INFORM_TYPE_PHONE_MSG:
+							//短信通知实现
+						}
+
+					}
+				}							
+			}
+			break;
+		case "group":
+			String[] groupIds = ucc1.getObserverId().split(",");
+			for(String groupId:groupIds){
+				if(groupId!=null){
+					if(ucc1.getInformType()!=null){
+						String[] types = ucc1.getInformType().split(",");
+						for(String type1:types){
+							switch(type1){
+							case InformService.INFORM_TYPE_EMAIL:
+								List<UserDTO> us = userJobService.getAllUserJob(groupId);		
+								for(UserDTO user:us){
+									MEmailTask task = new MEmailTask(user,null,content);
+									task.init();
+									if(!listTaskTodo.contains(task)){
+										listTaskTodo.add(task);
+									}
+								}								
+								break;
+							case InformService.INFORM_TYPE_PHONE_MSG:
+								//短信通知实现
+							}
+
+						}									
+					}
+				}							
+			}
+			break;
+		}		
+	}
+	
 	public synchronized void informSb(String email,String content){
 		System.out.println("");
 	}
@@ -473,5 +477,13 @@ public class InformService {
 	
 	public synchronized void delCommentEvents(ActivitiEntityEvent e){
 		commentEvents.remove(e);
+	}
+
+	public String getCcInformsInfo() {
+		return ccInformJsonStr;
+	}
+
+	public synchronized void setCcInformsInfo(String ccInformJsonStr) {
+		this.ccInformJsonStr = ccInformJsonStr;
 	}
 }

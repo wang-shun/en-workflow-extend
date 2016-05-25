@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.asp.comp.sys.advanced.role.service.RoleService;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
@@ -829,6 +830,7 @@ public class WorkProcess {
 				WfOperator.class);
 		Map<String, Object> variables = JSONObject.parseObject(variablesStr,
 				Map.class);
+		String ccInformJsonStr = (String) paramsMap.get("ccInform");
 		// happentimel 用来计算sla。
 		variables.put(WorkFlowService.HAPPENEDTIMEL,
 				String.valueOf(System.currentTimeMillis()));
@@ -907,6 +909,7 @@ public class WorkProcess {
 			/* 通知处理 */
 			informService = ApplicationContextManager.getContext().getBean(
 					InformService.class);
+			informService.setCcInformsInfo(ccInformJsonStr);
 			informService.informDo();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block

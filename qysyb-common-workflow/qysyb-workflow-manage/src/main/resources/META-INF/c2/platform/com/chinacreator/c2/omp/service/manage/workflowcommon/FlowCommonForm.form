@@ -784,7 +784,7 @@ commit:function($event){
 					$model.assigneeid = data.assignee==&quot;&quot;?undefined:data.assignee;
 					$model.nexthandlegroupid = data.candidateGroups==&quot;&quot;?undefined:data.candidateGroups;
 					$model.nexthandleid = data.candidateUsers==&quot;&quot;?undefined:data.candidateUsers;
-					
+					$model.ccInform = data.ccInform;
 					$model.transition = data.transition;
 					$model.dest = $model.transition.dest;
 					$model.nexttask = $model.transition.id;
@@ -823,6 +823,7 @@ newField5_click:function($event){
 	}
 	$http.post(&quot;flow/goanywhere&quot;,
 		{
+			ccInform:$model.ccInform,
 			transition:$model.transition,
 			transitionId:transitionId,
 			formId:$model.formId,
@@ -1197,7 +1198,7 @@ start_flow:function($event){
 					$model.assigneeid = data.assignee==&quot;&quot;?undefined:data.assignee;
 					$model.nexthandlegroupid = data.candidateGroups==&quot;&quot;?undefined:data.candidateGroups;
 					$model.nexthandleid = data.candidateUsers==&quot;&quot;?undefined:data.candidateUsers;
-					
+					$model.ccInform = data.ccInform;
 					$model.transition = data.transition;
 					$model.dest = $model.transition.dest;
 					$model.nexttask = $model.transition.id;
@@ -1232,6 +1233,7 @@ submitflow_click:function($event){
 	$model.formId = $location.search().formId;
 	$http.post(&quot;flow/startflow&quot;,
 			{
+						ccInform:$model.ccInform,
 						transition:$model.transition,
 						moduleId:moduleId,
 						formId:$model.formId,

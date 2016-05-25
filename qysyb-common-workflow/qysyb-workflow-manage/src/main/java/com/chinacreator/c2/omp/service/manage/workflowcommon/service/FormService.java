@@ -186,7 +186,8 @@ public class FormService {
 
 			form=this.getFormById(formId);
 			if(form!=null&&form.isIsTableStorage()!=null&&form.isIsTableStorage()){  //外部表单存储业务数据时获取历史数据
-				Map busMap = this.getFormDataWithExternalTable(businessKey,hisins.getId(), null, form);
+				//TODO hisins==null?businessKey:hisins.getId() 这里应当为空了 
+				Map busMap = this.getFormDataWithExternalTable(businessKey,hisins==null?null:hisins.getId(), null, form);
 				if(busMap!=null)
 					map.putAll(busMap);
 				return map;
