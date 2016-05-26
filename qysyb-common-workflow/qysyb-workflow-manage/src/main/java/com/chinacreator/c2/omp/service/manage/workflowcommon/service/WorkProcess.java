@@ -83,7 +83,7 @@ public class WorkProcess {
 
 	public final static String HANDLE_TYPE_KEY = "handleKey";
 	public final static String HANDLE_VALUE_KEY = "handleValue";
-
+	public final static Boolean AUTORUN_FIRST_ACT = true;
 	/**
 	 * 流程启动
 	 * 
@@ -802,10 +802,11 @@ public class WorkProcess {
 	 * 
 	 * @param paramsMap
 	 * @return
+	 * @throws Exception 
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Object startWorkFlow(Map<String, Object> paramsMap) {
+	public Object startWorkFlow(Map<String, Object> paramsMap) throws Exception {
 		WfResult wf = null;
 		String entity = (String) paramsMap.get("entity");
 		// String isStart = paramsMap.get("isStart").toString();
@@ -899,7 +900,14 @@ public class WorkProcess {
 						wf.getProcessInstanceId(), entity,
 						wfTransition.getSrc(), form, wfOperator.getUserId());
 			}
-
+			if(AUTORUN_FIRST_ACT){
+				taskService.claim(wf.getNextTaskId(), wfOperator.getUserId());
+				informService.clearEvents();
+				wf = this.goAnyWhereTakeTransition(wfOperator, false, businessKey, 
+						processDefinitionId, wf.getNextTaskId(), 
+						wfTransition.id, wfTransition.getDest().id, false, variables);
+			}
+//			taskService.complete(wf.getNextTaskId());
 			String nextTaskId = wf.getNextTaskId();
 			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
 					businessKey, wf.getProcessInstanceId(), moduleId,
@@ -907,8 +915,6 @@ public class WorkProcess {
 
 			setTaskHandler(valuemap, variables, nextTaskId);
 			/* 通知处理 */
-			informService = ApplicationContextManager.getContext().getBean(
-					InformService.class);
 			informService.setCcInformsInfo(ccInformJsonStr);
 			informService.informDo();
 		} catch (SecurityException e) {

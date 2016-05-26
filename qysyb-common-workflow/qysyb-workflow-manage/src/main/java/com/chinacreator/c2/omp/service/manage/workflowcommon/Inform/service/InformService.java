@@ -486,4 +486,9 @@ public class InformService {
 	public synchronized void setCcInformsInfo(String ccInformJsonStr) {
 		this.ccInformJsonStr = ccInformJsonStr;
 	}
+	
+	public synchronized void clearEvents() {
+		taskEvents.clear();
+		commentEvents.clear();
+	}
 }

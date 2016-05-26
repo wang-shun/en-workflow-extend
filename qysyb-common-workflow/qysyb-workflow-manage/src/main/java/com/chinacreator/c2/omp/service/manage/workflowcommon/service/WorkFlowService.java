@@ -235,6 +235,16 @@ public class WorkFlowService {
 			}
 			String id = activityImpl.getId();
 			if (activitiId.equals(id)) {
+				//是否自动流转第一个环节
+				if(WorkProcess.AUTORUN_FIRST_ACT){
+					//判断是不是start节点
+					if(activityImpl.getProperty("type")!=null&&activityImpl.getProperty("type").equals("startEvent")){
+						List<PvmTransition> outTransitions = activityImpl.getOutgoingTransitions();
+						if(outTransitions!=null&&outTransitions.size()==1){
+							activityImpl = (ActivityImpl)outTransitions.get(0).getDestination();
+						}
+					}
+				}
 				// System.out.println("当前任务ﺿ+activityImpl.getProperty("name"));
 				// //输出某个节点的某种属徿
 				List<PvmTransition> outTransitions = activityImpl
