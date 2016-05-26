@@ -1122,7 +1122,7 @@ dateconvert:function(a){
 
 page_beforeDataSourceLoad:function($params){
 	//console.log('sp',$location.$$search);
-	//console.log('params',$params);
+	console.log('params',$params);
 	$params.params.att_type = &quot;view_edit&quot;;  // 附件查看类型
 	
 },
