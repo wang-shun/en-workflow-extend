@@ -18,10 +18,6 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
-        <dync:render/>
-        <dync:children/>
-      </dync:attribute>
       <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
         <dync:render/>
         <dync:children/>
@@ -135,6 +131,7 @@
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="center" group="基本设置" id="position" name="按钮位置" value="pull-left">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>

@@ -61,7 +61,7 @@
         </dync:attribute>
       </form:attributes>
     </form:control>
-    <form:child xsi:type="form:Field" binding="$model.act" id="newField" name="审核操作" customize="true">
+    <form:child xsi:type="form:Field" binding="$model.act" id="newField" name="常用意见" customize="true">
       <form:control type="widget/select_simple_dict">
         <form:attributes source="widget/select_simple_dict">
           <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="工作流_审核操作">
@@ -122,7 +122,7 @@
 newField_change:function(){
 	var actName = $view.newField.getOptionObj($model.act);
 	var con = $model.content==undefined?&quot;&quot;:$model.content;
-	$model.content = actName.dictdataValue+&quot; &quot;+con;
+	$model.content = actName.dictdataValue;
 },
 //确定
 newField2_click:function($event){
@@ -145,16 +145,18 @@ newField2_click:function($event){
 
 page_afterDataSourceLoad:function(){
 //	console.log(&quot;params&quot;,$params);
-},
-
-page_onload:function(){
-//默认赋值
-	//console.log(&quot;content&quot;, $params.params.content);
 	//alert($params.params.content);
 	var actName = $view.newField.getOptionObj($model.act);
 	var con = $model.content==undefined?&quot;&quot;:$model.content;
 	//$model.content = actName.dictdataValue+&quot; &quot;+con;	
-	$model.content = $params.params.content; 
+	if(&quot;undefined&quot;!= $params.params.content){
+		$model.content = $params.params.content; 
+	}
+},
+
+page_onload:function(){
+//默认赋值
+	console.log(&quot;content&quot;, $params.params.content);
 	
 },
 //取消

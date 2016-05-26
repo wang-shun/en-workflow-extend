@@ -960,7 +960,7 @@ page_afterDataSourceLoad:function(){
 //		console.log(&quot;recmsg&quot;,msg);
 		$model.selectfuncs.push(msg);
 	});
-//	console.log(&quot;params&quot;,$params);
+	console.log(&quot;params&quot;,$params);
 	$model.isAssigneeApplicant = false;
 	$scope.$on('entity',function(event,msg){
 		$model.entity = msg.entity;
