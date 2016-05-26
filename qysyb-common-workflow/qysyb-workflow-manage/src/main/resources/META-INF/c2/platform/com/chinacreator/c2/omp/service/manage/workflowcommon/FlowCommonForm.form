@@ -943,7 +943,7 @@ newField2_clickEvent:function(value,checked,checkboxObj){
 },
 
 page_afterDataSourceLoad:function(){
-	console.log(&quot;sp&quot;,$model.serviceproduct.result);
+	//console.log(&quot;sp&quot;,$model.serviceproduct.result);
 	if(&quot;undefined&quot; != typeof WORKFLOW_CONS){
 		var personality = WORKFLOW_CONS.PERSONALITY;
 		if(personality!=undefined&amp;&amp;!angular.isUndefined(personality[$model.serviceproduct.result.productNo])){
