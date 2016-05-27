@@ -179,8 +179,12 @@
     ${limitBefore}
     select distinct RES.* ${limitBetween}
     <!-- 把任务处理人名字选出来 -->
-	,(SELECT GG.NAME_ FROM ACT_ID_GROUP GG WHERE GG.ID_ = I.GROUP_ID_) AS GROUP_NAME
-	,(SELECT UU.LAST_ FROM ACT_ID_USER UU WHERE UU.ID_ = I.USER_ID_) AS USER_NAME
+    <!-- involved work 去重了 就不能把名字选出来了 -->
+	<if test="involvedUser == null">
+		,(SELECT GG.NAME_ FROM ACT_ID_GROUP GG WHERE GG.ID_ = I.GROUP_ID_) AS GROUP_NAME
+		,(SELECT UU.LAST_ FROM ACT_ID_USER UU WHERE UU.ID_ = I.USER_ID_) AS USER_NAME	
+	</if>
+
 <!--     外部的表加入结果集 -->
     <foreach collection="forms" index="index" item="var">
          , T${index}.* 
@@ -274,7 +278,32 @@
   
   
     <sql id="selectETCustomTaskByQueryCriteriaSql">  
-    from ${prefix}ACT_RU_TASK RES
+    <choose>
+    	<when test="involvedUser != null">
+    		from ${prefix}(
+						SELECT
+							*
+						FROM
+							(
+								SELECT
+									ROW_NUMBER () OVER (
+										PARTITION BY PROC_INST_ID_
+										ORDER BY
+											TASK_DEF_KEY_
+									) AS ROW_NUMBER,
+									T .*
+								FROM
+									ACT_RU_TASK T
+							)
+						WHERE
+							ROW_NUMBER = 1
+					) RES
+    	</when>
+    	<otherwise>
+    		from ${prefix}ACT_RU_TASK RES
+    	</otherwise>
+    </choose>
+    
     <include refid="commonselectETCustomTaskByQueryCriteriaSql"/>
   </sql>
   
@@ -335,9 +364,10 @@
         inner join ${prefix}ACT_RU_EXECUTION E on RES.PROC_INST_ID_ = E.ID_
     </if>
 <!--     把任务处理人名字选出来 -->
-	<if test="involvedUser != null">
+<!-- 		involved work 去重 注释掉下面 -->
+<!-- 	<if test="involvedUser != null">
 	INNER JOIN ACT_RU_IDENTITYLINK I ON RES.ID_ = I.TASK_ID_
-	</if>
+	</if> -->
     <where> 
       <if test="taskId != null">
         RES.ID_ = #{taskId}

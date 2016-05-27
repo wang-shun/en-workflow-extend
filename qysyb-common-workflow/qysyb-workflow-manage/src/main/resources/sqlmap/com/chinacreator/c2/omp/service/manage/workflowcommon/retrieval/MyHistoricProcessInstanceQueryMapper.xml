@@ -77,7 +77,6 @@
 
   <select id="selectCustomHistoricProcessInstancesByQueryCriteria" parameterType="org.activiti.engine.impl.HistoricProcessInstanceQueryImpl" resultType="map">
   	${limitBefore}
-  	<!-- DISTINCT 如果一个流程实例在act_ru_task 中有多个任务，只能选到一个出来 SAD -->
     select DISTINCT RES.* ${limitBetween}
 
 <!--     外部的表加入结果集 -->
@@ -224,7 +223,17 @@
     	</if>     
     </foreach> 
 <!--     如果流程实例没有结束还有任务 查出来 -->
-  	LEFT JOIN ACT_RU_TASK R0 on RES.PROC_INST_ID_ = R0.PROC_INST_ID_
+	LEFT JOIN (
+		SELECT
+			PROC_INST_ID_,
+			MAX (TASK_DEF_KEY_) AS task_def_key_,
+			MAX (ID_) AS ID_,
+			MAX (NAME_) AS NAME_
+		FROM
+			ACT_RU_TASK
+		GROUP BY
+			PROC_INST_ID_
+	) R0 ON RES.PROC_INST_ID_ = R0.PROC_INST_ID_
     <where>
       <if test="processInstanceId != null">
         RES.PROC_INST_ID_ = #{processInstanceId}

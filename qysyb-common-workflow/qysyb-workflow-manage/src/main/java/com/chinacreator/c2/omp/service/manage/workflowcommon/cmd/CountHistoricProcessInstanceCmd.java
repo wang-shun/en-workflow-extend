@@ -28,16 +28,16 @@ public class CountHistoricProcessInstanceCmd implements org.activiti.engine.impl
 	@Override
 	public Integer execute(CommandContext commandContext) {
 		// TODO Auto-generated method stub
-    	SqlSessionFactory f = commandContext.getDbSqlSession().getDbSqlSessionFactory().getSqlSessionFactory();
-    	Configuration configuration = f.getConfiguration();
-    	InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sqlmap/com/chinacreator/c2/omp/service/manage/workflowcommon/retrieval/MyHistoricProcessInstanceQueryMapper.xml");
-		try {
-			new XMLMapperBuilder(inputStream, configuration,
-					"sqlmap/com/chinacreator/c2/omp/service/manage/workflowcommon/retrieval/MyHistoricProcessInstanceQueryMapper.xml",
-					configuration.getSqlFragments()).parse();
-		} catch (Throwable e) {
-
-		}	
+//    	SqlSessionFactory f = commandContext.getDbSqlSession().getDbSqlSessionFactory().getSqlSessionFactory();
+//    	Configuration configuration = f.getConfiguration();
+//    	InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sqlmap/com/chinacreator/c2/omp/service/manage/workflowcommon/retrieval/MyHistoricProcessInstanceQueryMapper.xml");
+//		try {
+//			new XMLMapperBuilder(inputStream, configuration,
+//					"sqlmap/com/chinacreator/c2/omp/service/manage/workflowcommon/retrieval/MyHistoricProcessInstanceQueryMapper.xml",
+//					configuration.getSqlFragments()).parse();
+//		} catch (Throwable e) {
+//
+//		}	
     	List<QueryVariableValue> queryVariableValues1 = queryIns.getQueryVariableValues();
 		VariableTypes types1 = Context.getProcessEngineConfiguration().getVariableTypes();
 	    for (QueryVariableValue var : queryVariableValues1) {

@@ -6,7 +6,6 @@ import java.util.Map;
 import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.WorkService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.service.HistoricProcInstanceQueryService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
@@ -14,7 +13,7 @@ import com.chinacreator.c2.web.ds.ArrayContext;
 
 public class WorkInsArrayContentProvider implements ArrayContentProvider {
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public Page<Map> getElements(ArrayContext context) {
 		// TODO Auto-generated method stub
