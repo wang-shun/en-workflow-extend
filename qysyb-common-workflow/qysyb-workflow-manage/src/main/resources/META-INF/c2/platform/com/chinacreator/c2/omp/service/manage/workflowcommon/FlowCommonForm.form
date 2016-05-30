@@ -688,7 +688,7 @@ newField_change:function(){
 	}
 	
 	if($params.nextname == &quot;反馈申请人&quot;){
-		$model.nexthandleid = $model.entity.applicantId;
+		$model.nexthandleid = $scope.formentity.applicantId;
 		$model.isAssigneeApplicant = true;
 	}else{
 		$model.nexthandleid = null;
@@ -732,7 +732,7 @@ newField3_customEven:function(){
 },
 //提交
 commit:function($event){
-
+	console.log(&quot;$scope.formentity&quot;,$scope.formentity);
 	//func 为业务表单提交前验证函数
 	if(!angular.isUndefined($model.func)){
 		var a = $model.func();
@@ -773,7 +773,7 @@ commit:function($event){
 				url,
 				{
 					actions:$model.actions,
-					formentity:$model.entity,
+					formentity:$scope.formentity,
 					params:$params.params,
 					transitions:$model.getOutTransition.result,
 					curUserId:$scope.subject.id
@@ -803,9 +803,9 @@ newField5_click:function($event){
 	console.log(&quot;1111&quot;,$model.ccInform);
 	//return;
 	$model.formId = $model.serviceproduct.result.formId;
-//	console.log(&quot;entitybeforsubmit&quot;,$model.entity);
+//	console.log(&quot;entitybeforsubmit&quot;,$scope.formentity);
 	if($model.isAssigneeApplicant){
-		$model.nexthandleid = $model.entity.applicantId;
+		$model.nexthandleid = $scope.formentity.applicantId;
 	}
 	if(!angular.isUndefined($scope.func)){
 		var a = $scope.func();	
@@ -843,7 +843,7 @@ newField5_click:function($event){
 			destTaskDefinitionKey:$model.dest.id,
 			useHisAssignee:false,
 			variables:variables,
-			entity:$model.entity,
+			entity:$scope.formentity,
 			proInsId:$params.params.processInstanceId,
 			taskDefKey:$params.params.taskDefKey,
 			opinion:$model.opinion
@@ -912,7 +912,7 @@ newField_click:function($event){
 			destTaskDefinitionKey:$model.actions.return.returnTo,
 			useHisAssignee:true,
 			variables:variables,
-			entity:$model.entity,
+			entity:$scope.formentity,
 			proInsId:$params.params.processInstanceId,
 			taskDefKey:$params.params.taskDefKey,
 			opinion:$model.opinion		
@@ -964,10 +964,10 @@ page_afterDataSourceLoad:function(){
 	});
 	console.log(&quot;params&quot;,$params);
 	$model.isAssigneeApplicant = false;
-	$scope.$on('entity',function(event,msg){
+/*	$scope.$on('entity',function(event,msg){
 		$model.entity = msg.entity;
 		$scope.entity = msg.entity;
-	});	
+	});	*/
 	//字段页面验证函数
 	$scope.$on('func',function(event,msg){
 		$model.func = msg;
@@ -1034,6 +1034,7 @@ page_afterDataSourceLoad:function(){
 		}else{
 			$model.in = $params.businessForm;
 		}
+		$scope.formentity = $model.formentity.result;
 	});
 
 
@@ -1192,7 +1193,7 @@ start_flow:function($event){
 				url,
 				{
 					actions:$model.actions,
-					formentity:$model.entity,
+					formentity:$scope.formentity,
 					params:$params.params,
 					transitions:$model.getOutTransition.result,
 					curUserId:$scope.subject.id
@@ -1219,7 +1220,7 @@ submitflow_click:function($event){
 	var moduleId =  $params.params.moduleId;
 	var taskDefKey =  $params.params.taskDefKey;
 	var userId = $model.getUser.result.id;
-	var applyBranchId = $model.entity.applyBranchId;
+	var applyBranchId = $scope.formentity.applyBranchId;
 	variablesJson = {
 			assignee:$model.assigneeid,
 			assigneeList:$model.assigneeList,
@@ -1228,12 +1229,12 @@ submitflow_click:function($event){
 			&quot;productNo&quot;:$location.search().productNo,
 			&quot;applyBranchId&quot;:applyBranchId,
 			&quot;formId&quot;:$model.serviceproduct.result.formId,
-			&quot;priId&quot;:$model.entity.priId,
+			&quot;priId&quot;:$scope.formentity.priId,
 			&quot;serviceTypeId&quot;:$model.serviceproduct.result.serviceTypeId
 			};
 
-	$model.entity.businessKey = $model.businessKey;
-	$model.entity.moduleId = moduleId;
+	$scope.formentity.businessKey = $model.businessKey;
+	$scope.formentity.moduleId = moduleId;
 //	console.log(&quot;formId&quot;,$model.formId);
 	$model.formId = $location.search().formId;
 	$http.post(&quot;flow/startflow&quot;,
@@ -1245,7 +1246,7 @@ submitflow_click:function($event){
 						businessKey:$model.businessKey,
 						processDefinitionId:processDefinitionId,
 						variables:variablesJson,
-						entity:$model.entity,
+						entity:$scope.formentity,
 						wfOperator:{
 							userId:userId,
 							businessData:{
@@ -1312,16 +1313,16 @@ newField4_click:function($event){
 //	地址栏没有 则是新工单
 	if(angular.isUndefined($model.formBusinessKey)){
 		businessKey = $model.businessKey;
-		$model.entity.businessKey = $model.businessKey;
+		$scope.formentity.businessKey = $model.businessKey;
 	}else{
 	//地址栏中已经有businessKey 说明是草稿的第二次保存 businessKey 用原来的
-		$model.entity.businessKey = $model.formBusinessKey;
+		$scope.formentity.businessKey = $model.formBusinessKey;
 		businessKey = $model.formBusinessKey;
 	}
-	$model.entity.status = &quot;draft&quot;;
+	$scope.formentity.status = &quot;draft&quot;;
 	var form = {};
 	form.formId = $model.formId;
-	$http.post(&quot;ws/updateFormDataWithExternalTable&quot;,{&quot;businessKey&quot;:businessKey,&quot;entityjson&quot;:$model.entity,&quot;form&quot;:form}).success(function(){
+	$http.post(&quot;ws/updateFormDataWithExternalTable&quot;,{&quot;businessKey&quot;:businessKey,&quot;entityjson&quot;:$scope.formentity,&quot;form&quot;:form}).success(function(){
 		TabOperator.closeTab(TabOperator.getCurrentTab());
 		Messenger.post({
 								'message': &quot;保存成功!&quot;,

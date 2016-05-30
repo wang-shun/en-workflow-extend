@@ -102,7 +102,7 @@
 
 page_afterDataSourceLoad:function(){
 	$model.categories = $model.allcategory.result;
-	$scope.formentity = $params.pModel.formentity.result;
+//	$scope.formentity = $params.pModel.formentity.result;
 //	$scope.permissionData = $model.permissiondata.result;
 //	console.log(&quot;youmeiyou permissiondata?&quot;,$scope.permissionData);
 	$scope.$emit('entity',{entity:$scope.formentity});
