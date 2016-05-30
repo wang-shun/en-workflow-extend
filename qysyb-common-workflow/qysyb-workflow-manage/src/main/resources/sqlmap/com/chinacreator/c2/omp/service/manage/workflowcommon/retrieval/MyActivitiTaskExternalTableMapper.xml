@@ -177,7 +177,7 @@
   
   <select id="selectETCustomTaskList" parameterType="org.activiti.engine.impl.TaskQueryImpl" resultType="java.util.HashMap">
     ${limitBefore}
-    select distinct RES.* ${limitBetween}
+    select RES.* ${limitBetween}
     <!-- 把任务处理人名字选出来 -->
     <!-- involved work 去重了 就不能把名字选出来了 -->
 	<if test="involvedUser == null">
