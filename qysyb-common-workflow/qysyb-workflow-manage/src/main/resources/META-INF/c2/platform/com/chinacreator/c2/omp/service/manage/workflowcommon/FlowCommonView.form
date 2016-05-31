@@ -891,10 +891,10 @@ page_afterDataSourceLoad:function(){
 	});
 //	console.log(&quot;params&quot;,$params);
 	$model.isAssigneeApplicant = false;
-	$scope.$on('entity',function(event,msg){
+/*	$scope.$on('entity',function(event,msg){
 		$model.entity = msg.entity;
 		$scope.entity = msg.entity;
-	});	
+	});	*/
 	//字段页面验证函数
 	$scope.$on('func',function(event,msg){
 		$model.func = msg;
@@ -959,6 +959,7 @@ page_afterDataSourceLoad:function(){
 		}else{
 			$model.in = 'f/wfbusinessformgenerate';
 		}
+		$scope.formentity = $model.formentity.result;
 	});
 
 
