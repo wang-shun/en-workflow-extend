@@ -28,6 +28,8 @@ import com.chinacreator.c2.omp.service.manage.serviceproductmanage.service.Servi
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.ActivityConfig;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.UserConcernedConfig;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.impl.MEmailTask;
+import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.impl.MphoneTask;
+import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.impl.MwebInnerTask;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.inf.EmailTask;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.inf.InformTask;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.service.UserJobService;
@@ -52,6 +54,7 @@ public class InformService {
 	
 	public final static String INFORM_TYPE_EMAIL = "email";
 	public final static String INFORM_TYPE_PHONE_MSG = "phone_msg";
+	public final static String INFORM_TYPE_INNER_MSG = "sys_inner_msg";
 	
 	public final static String EVENT_TYPE_COMMENT = "commentEvent";
 	public final static String EVENT_TYPE_TASK = "taskEvent";
@@ -131,7 +134,8 @@ public class InformService {
 			for(int i=0;i<ccTypes.size();i++){
 				String type = ccTypes.getString(i);
 				for(int j=0;j<ccUserIds.size();j++){
-					String userId = ccUserIds.getJSONObject(i).getString("id");
+					String userId = ccUserIds.getJSONObject(j).getString("id");
+					System.out.println("userId :" +userId);
 					switch(type){
 					case InformService.INFORM_TYPE_EMAIL:
 						InformTask task = new MEmailTask(userId,null,contentMap);
@@ -140,8 +144,22 @@ public class InformService {
 							listTaskTodo.add(task);
 						}		
 						break;
-					case InformService.INFORM_TYPE_PHONE_MSG:
 						//短信通知实现
+					case InformService.INFORM_TYPE_PHONE_MSG:
+						InformTask task1 = new MphoneTask(userId,null,contentMap);
+						task1.init();
+						//if(!listTaskTodo.contains(task1)){
+							listTaskTodo.add(task1);
+						//}	
+						//站内消息实现
+						break;
+					case  InformService.INFORM_TYPE_INNER_MSG:
+						InformTask task2 = new MwebInnerTask(userId,null,contentMap);
+						task2.init();
+						//if(!listTaskTodo.contains(task2)){
+							listTaskTodo.add(task2);
+						//}	
+						break;
 					}					
 				}
 			}
@@ -421,8 +439,9 @@ public class InformService {
 								emailTasks.add(task1);
 							}	
 							break;
-						case InformService.INFORM_TYPE_PHONE_MSG:
 							//短信通知实现
+						case InformService.INFORM_TYPE_PHONE_MSG:
+						
 						}
 
 					}

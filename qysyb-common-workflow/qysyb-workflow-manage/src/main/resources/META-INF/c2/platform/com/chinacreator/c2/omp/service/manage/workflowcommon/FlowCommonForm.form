@@ -788,6 +788,7 @@ commit:function($event){
 					$model.transition = data.transition;
 					$model.dest = $model.transition.dest;
 					$model.nexttask = $model.transition.id;
+					
 					functions.newField5_click($event);
 				
 			});
@@ -799,8 +800,8 @@ commit:function($event){
 newField5_click:function($event){
 	//1117test
 	var transitionId = $model.nexttask;
-//	console.log(&quot;transitionId&quot;,transitionId);
-
+	console.log(&quot;1111&quot;,$model.ccInform);
+	//return;
 	$model.formId = $model.serviceproduct.result.formId;
 //	console.log(&quot;entitybeforsubmit&quot;,$model.entity);
 	if($model.isAssigneeApplicant){
@@ -854,6 +855,7 @@ newField5_click:function($event){
 				 'type': 'success',
 				 'hideAfter':5
 			 });
+			 
 			 TabOperator.closeTab(TabOperator.getCurrentTab());
 		}else{
 			 Messenger.post({
@@ -1123,6 +1125,7 @@ dateconvert:function(a){
 page_beforeDataSourceLoad:function($params){
 	//console.log('sp',$location.$$search);
 	console.log('params',$params);
+	console.log('model',$model);
 	$params.params.att_type = &quot;view_edit&quot;;  // 附件查看类型
 	
 },
@@ -1184,6 +1187,7 @@ start_flow:function($event){
 	}
 	if($model.actions.freechoose!=undefined){
 		var url = $model.actions.freechoose.openUrl;
+		console.log('$model.getOutTransition.result ',$model.getOutTransition.result);
 		Modal.open(
 				url,
 				{
@@ -1240,8 +1244,7 @@ submitflow_click:function($event){
 						formId:$model.formId,
 						businessKey:$model.businessKey,
 						processDefinitionId:processDefinitionId,
-						variables:
-							variablesJson,
+						variables:variablesJson,
 						entity:$model.entity,
 						wfOperator:{
 							userId:userId,

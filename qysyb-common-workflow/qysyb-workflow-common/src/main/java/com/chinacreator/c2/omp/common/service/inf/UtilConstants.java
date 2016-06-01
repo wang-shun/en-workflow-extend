@@ -10,6 +10,9 @@ public interface UtilConstants {
 	public final static String INSPECTION_ID = "XJZJMB"; //巡检章节模板标识
 	public final static String ITEMS_ADD = "ITEMS_ADD_"; //新增巡检项
 	public final static String SYSTEM_SERVICE_CODE_MAIL = "邮件"; //分布式系统编码，用于服务管理
+	public final static String SYSTEM_SERVICE_CODE_INNNER = "WEB_INNER"; //分布式系统编码，用于服务管理
+	public final static String SYSTEM_SERVICE_CODE_PHONE = "PHONE_MSG"; //分布式系统编码，用于服务管理
+	
 	
 	
 }

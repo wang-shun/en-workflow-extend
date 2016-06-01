@@ -670,6 +670,7 @@ public class WorkProcess {
 		String moduleId = (String) paramsMap.get("moduleId");
 		String transitionId = (String) paramsMap.get("transitionId");
 		String transitionStr = (String) paramsMap.get("transition");
+		String ccInformJsonStr = (String) paramsMap.get("ccInform");
 		WorkFlowTransition wfTransition = JSONObject.parseObject(transitionStr,
 				WorkFlowTransition.class);
 
@@ -759,6 +760,7 @@ public class WorkProcess {
 				setTaskHandler(valuemap, variables, nextTaskId);
 			}
 			/* 通知处理 */
+			informService.setCcInformsInfo(ccInformJsonStr);
 			informService.informDo();
 			return new ResponseFactory().createResponseBodyJSONObject(JSON
 					.toJSONString(wfresult));
@@ -792,6 +794,7 @@ public class WorkProcess {
 		/* 通知处理 */
 		informService = ApplicationContextManager.getContext().getBean(
 				InformService.class);
+		informService.setCcInformsInfo(ccInformJsonStr);
 		informService.informDo();
 
 		return new ResponseFactory().createResponseBodyJSONObject(JSON

@@ -113,6 +113,13 @@ public class MessageService implements UtilConstants{
 				url=url+"/sendMail";
 				result=jerseyService.execute(url, JSONObject.toJSONString(paramExtMap));
 			}*/
+		}else if(channel.indexOf(SYSTEM_SERVICE_CODE_INNNER)>-1) { // 站内短信
+			// todo 
+			System.out.println("ssssss");
+			result = true;
+		}else if(channel.indexOf(SYSTEM_SERVICE_CODE_PHONE)>-1) {// 手机短信
+			System.out.println("zzzzz");
+			result = true;
 		}
 		return result;
 	}
