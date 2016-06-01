@@ -51,7 +51,7 @@
           <dync:render/>
           <dync:children/>
         </dync:attribute>
-        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="4">
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="{{$params.span}}">
           <dync:render/>
           <dync:children/>
         </dync:attribute>
@@ -93,18 +93,23 @@
       <form:control type="widget/date_time_picker">
         <form:attributes source="widget/date_time_picker">
           <dync:attribute default="6" group="基本设置" id="span" name="控件宽度" value="12">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="YYYY-MM-DD HH:mm:ss" group="时间设置" id="format" name="时间格式" value="YYYY-MM-DD HH:mm">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="true" group="时间设置" id="useSeconds" name="秒选择" value="false">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="false" group="时间设置" id="readonly" name="控件禁用" value="!permissionData[$params.fieldNo].writePermission">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="false" group="时间设置" id="ngRequired" name="必填" value="permissionData[$params.fieldNo].fillnecessary">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>

@@ -51,7 +51,7 @@
           <dync:render/>
           <dync:children/>
         </dync:attribute>
-        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="4">
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="{{$params.span}}">
           <dync:render/>
           <dync:children/>
         </dync:attribute>
