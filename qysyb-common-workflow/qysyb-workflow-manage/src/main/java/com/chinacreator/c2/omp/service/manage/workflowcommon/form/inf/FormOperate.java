@@ -107,6 +107,7 @@ public abstract class FormOperate implements IFormOperate {
 		} 
 		return 0;
 	}
+<<<<<<< Upstream, based on choose_remote_name/master
 	/**
 	 * save entity 要使用这个方法如下方法必须要有  getOid getBusinessKey setBusinessKey setStatus
 	 * @param clazz
@@ -194,6 +195,9 @@ public abstract class FormOperate implements IFormOperate {
 		} 
 		return 0;		
 	} 
+=======
+	
+>>>>>>> 1d75e46 审核意见数据以数组方式，提供审核意见更新工具方法 提供业务数据更新 获取工具方法
 	@SuppressWarnings("unchecked")
 	protected <T> Map<String,Object> getEntity(Class<T> clazz,String businessKey,
 			String proInsId){
