@@ -24,8 +24,9 @@ public interface IFormOperate{
 	 * @param curActivity 当前任务实体
 	 * @param curUserId
 	 * @return
+	 * @throws Exception 
 	 */
-	public int addOrUpdateEntity(String json,String businessKey,String proInsId,String moduleId,WorkFlowActivity curActivity,String curUserId);
+	public int addOrUpdateEntity(String json,String businessKey,String proInsId,String moduleId,WorkFlowActivity curActivity,String curUserId) throws Exception;
 	/**
 	 * 
 	 * @param json

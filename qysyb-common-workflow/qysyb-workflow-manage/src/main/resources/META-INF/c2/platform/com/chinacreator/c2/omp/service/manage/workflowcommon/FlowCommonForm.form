@@ -881,15 +881,26 @@ page_onload:function(){
 },
 //回退
 newField_click:function($event){
+	//退回 需不需要必填项验证？
+	if(!angular.isUndefined($model.func)){
+		var a = $model.func();
+		if(a==false){
+			Messenger.post({
+				'message': &quot;必填项为空！&quot;,
+	            'type': 'error',
+	            'hideAfter':5
+	        });	
+			return;
+		}	
+	}
+	//提交前函数 各字段可以在这里把自己的数据放入业务js对象
+	$model.funcsbeforsubmit();	
+	
 	var userId =  $model.getUser.result.id;
 	var processDefinitionId = $params.params.processDefinitionId;
 	var moduleId =  $params.params.moduleId;
 	var taskDefKey =  $params.params.taskDefKey;
 	variables = {
-//		assignee:&quot;68C01B1AA07E4390A7CF8997E1DF83DC&quot;,
-//		candidateGroups:$model.candidateGroup,
-//		candidateUsers:$model.candidateUsersStr,
-//		wfComment:$model.opinion
 	}
 	$http.post(&quot;flow/reject&quot;,
 		{

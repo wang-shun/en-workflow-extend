@@ -1,10 +1,12 @@
 package com.chinacreator.c2.omp.service.manage.workflowcommon.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.asp.comp.sys.advanced.user.service.UserService;
 import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
@@ -49,13 +51,59 @@ public class ArchhandleServiceImpl  {
 		archhandle.setProcInsId(businessKey);
 		return this.addArchhandle(archhandle);
 	}
+	/**
+	 * 存入审核意见 list 
+	 * @param jsonArray
+	 * @param businessKey
+	 * @param businessKey2
+	 * @return
+	 */
+	public int saveArchhandles(JSONArray jsonArray,String proInsId,String activityId,String businessKey){
+		List<Archhandle> archhandleDel = new ArrayList<Archhandle>();
+		List<Archhandle> archhandleAdd = new ArrayList<Archhandle>();
+		// 审核意见 can not be update
+//		List archhandleUpdate = new ArrayList<Archhandle>();
+		for(int i=0;i<jsonArray.size();i++){
+			JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+			//这里表示是新增的
+			boolean isLocal = jsonObject.get("local")==null?false:(boolean) jsonObject.get("local");
+			if(isLocal){
+				jsonObject.put("auditTime", null);
+				Archhandle archhandle = JSONObject.toJavaObject(jsonObject, Archhandle.class);
+				archhandle.setActivityId(activityId);
+				archhandle.setBusinessKey(businessKey);
+				archhandle.setProcInsId(proInsId);
+				archhandleAdd.add(archhandle);				
+			}else{
+				//TODO 要不要更新 删除
+			}
+
+		}
+		int r = 0;
+		for(Archhandle arc:archhandleAdd){
+			r = r + addArchhandle(arc);
+		}
+		return r;
+	}
 	public int deleteArchhandleById(String id) {
 		Dao<Archhandle> dao = DaoFactory.create(Archhandle.class);
 		Archhandle archhandle = new Archhandle();
 		archhandle.setOid(id);
 		return dao.delete(archhandle);
 	}
-
+	/**
+	 * 获取 审核意见list
+	 * @param businessKey
+	 * @param proInsId
+	 * @return
+	 */
+	public List<Archhandle> getArchhandle(String businessKey,String proInsId,String fieldNo) {
+		String businessK = proInsId==null?businessKey:proInsId;
+		Archhandle con = new Archhandle();
+		con.setProcInsId(businessK);
+		con.setBusinessKey(fieldNo);
+		return getArchhandle(con);
+	}
 
 	public List<Archhandle> getArchhandle(Archhandle archhandle) {
 		Dao<Archhandle> dao = DaoFactory.create(Archhandle.class);

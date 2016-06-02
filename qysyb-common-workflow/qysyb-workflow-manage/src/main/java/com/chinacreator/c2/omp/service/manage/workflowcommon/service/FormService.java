@@ -528,9 +528,10 @@ public class FormService {
 	 * @param procInsId 这里是流程实例id 业务表吧流程实例id作为业务key
 	 * @param entityjson
 	 * @param form
+	 * @throws Exception 
 	 */
 	@SuppressWarnings("rawtypes")
-	public void updateFormDataWithExternalTable(String businessKey,String procInsId,String entityjson,WorkFlowActivity curActivity,Form form,String curUserId){
+	public void updateFormDataWithExternalTable(String businessKey,String procInsId,String entityjson,WorkFlowActivity curActivity,Form form,String curUserId) throws Exception{
 		//表示需要查数据库
 		if(form.getFormNo()==null){
 			form = this.getFormById((form.getFormId()));
