@@ -133,8 +133,10 @@ page_afterDataSourceLoad:function(){
 	if(angular.isUndefined($scope.formentity[$params.fieldNo])||id==&quot;&quot;){	
 		if(!angular.isUndefined($model.getCurOrg.result)){
 			$scope.formentity[$params.fieldNo] = $model.getCurOrg.result.orgId;
-			//需要整合到控件之间的级联操作中
-			$scope.formentity.applyBranchName = $model.getCurOrg.result.orgShowName;
+			//猜测name属性并赋值 猜测规则为 userId 则猜测 userName
+			if($params.fieldNo.length>=2){
+				$scope.formentity[$params.fieldNo.substring(0,$params.fieldNo.length-2)+'Name'] = $model.getCurOrg.result.orgShowName;;
+			}			
 		}	
 	}
 },
@@ -155,8 +157,10 @@ orgchoose_change:function(newValue,oldValue){
 	var selectedNodes = $view.orgchoose_treeWapper.getZtree().getSelectedNodes();
 	console.log(selectedNodes);
 	if(!angular.isUndefined(selectedNodes[0])){
-	//得整合到控件之间的级联操作中
-		$scope.formentity.applyBranchName = selectedNodes[0].name;;
+		//猜测name属性并赋值 猜测规则为 userId 则猜测 userName
+		if($params.fieldNo.length>=2){
+			$scope.formentity[$params.fieldNo.substring(0,$params.fieldNo.length-2)+'Name'] = selectedNodes[0].name;
+		}	
 	}	
 }</form:scripts>
 </form:Form>

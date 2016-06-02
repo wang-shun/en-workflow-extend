@@ -123,7 +123,6 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="getCurUser" name="当前登录用户" logic="rule:com.chinacreator.c2.sysmgr.security.getSubject" sn="getSubject"/>
   </form:datasources>
   <form:scripts>
 
@@ -132,14 +131,12 @@ page_afterDataSourceLoad:function(){
 	if(!angular.isUndefined($scope.formentity[$params.fieldNo])&amp;&amp;id!=&quot;&quot;){
 		$model.bind = &quot;user:&quot;+id;
 	}else{
-		$model.bind = &quot;user:&quot;+$model.getCurUser.result.id;
-		$scope.formentity[$params.fieldNo] = $model.getCurUser.result.id;	
-		$scope.formentity.applicantName = $model.getCurUser.result.userDTO.userRealname;
-/*		var selectedNodes = $view.userchoose_treeWapper.getZtree().getSelectedNodes();
-		if(!angular.isUndefined(selectedNodes[0])){
-		//得整合到控件之间的级联操作中
-			$scope.formentity.applicantName = selectedNodes[0].name;
-		}*/
+		$model.bind = &quot;user:&quot;+$scope.subject.id;
+		$scope.formentity[$params.fieldNo] = $scope.subject.id;
+		//猜测name属性并赋值 猜测规则为 userId 则猜测 userName
+		if($params.fieldNo.length>=2){
+			$scope.formentity[$params.fieldNo.substring(0,$params.fieldNo.length-2)+'Name'] = $scope.subject.name;
+		}
 	}
 	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
 },
@@ -156,8 +153,10 @@ userchoose_change:function(newValue,oldValue){
 	$scope.formentity[$params.fieldNo] = $model.bind.substr(5);
 	var selectedNodes = $view.userchoose_treeWapper.getZtree().getSelectedNodes();
 	if(!angular.isUndefined(selectedNodes[0])){
-	//得整合到控件之间的级联操作中
-		$scope.formentity.applicantName = selectedNodes[0].name;
+		//猜测name属性并赋值 猜测规则为 userId 则猜测 userName
+		if($params.fieldNo.length>=2){
+			$scope.formentity[$params.fieldNo.substring(0,$params.fieldNo.length-2)+'Name'] = selectedNodes[0].name;
+		}
 	}
 },
 
