@@ -2,7 +2,9 @@ package com.chinacreator.c2.omp.service.manage.workflowcommon.impl;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -113,5 +115,42 @@ public class ArchhandleServiceImpl  {
 	public List<Archhandle> getArchhandle(Archhandle archhandle,String businessKey) {
 		archhandle.setBusinessKey(businessKey);
 		return this.getArchhandle(archhandle);
+	}
+	/**
+	 * 存入jsonObject里面的审核意见
+	 * @param jsonObject
+	 * @param keys
+	 * @param proInsId
+	 * @param activityId
+	 * @return
+	 */
+	public int saveArchhandles(JSONObject jsonObject,String[] keys,String proInsId,String activityId){
+		int i = 0;
+		for(String key:keys){
+			if (jsonObject.get(key) instanceof JSONArray) {
+				JSONArray auditList = (JSONArray)jsonObject.get(key);
+				if(auditList!=null&&auditList.size()>0){
+					i = i + saveArchhandles(auditList,proInsId,activityId,key);
+				}
+			}			
+		}
+		return i;
+	}
+	/**
+	 * 获取审核意见by keys
+	 * @param keys
+	 * @param businessKey
+	 * @param proInsId
+	 * @param activityId
+	 * @param fieldNo
+	 * @return
+	 */
+	public Map<String,Object> getArchhandle(String[] keys,String businessKey,String proInsId,String activityId){
+		Map<String,Object> result = new HashMap<String,Object>();
+		for(String key:keys){
+			List<Archhandle> listA = getArchhandle(businessKey,proInsId,key);
+			result.put(key, listA);
+		}
+		return result;
 	}
 }
