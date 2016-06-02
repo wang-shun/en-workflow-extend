@@ -249,14 +249,16 @@ public class WorkProcess {
 		String recoverToActivityId = (String) paramsMap.get("recoverToActivityId");
 		String variablesStr = (String) paramsMap.get("variables");
 		String userId = (String) paramsMap.get("userId");
+		String ccInformJsonStr = (String) paramsMap.get("ccInform");
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
 		RecoverTaskCmd recoverTaskCmd = new RecoverTaskCmd(processInstanceId,
 				recoverReason, recoverToActivityId, variables,userId);
 		WfResult wfresult = managementService.executeCommand(recoverTaskCmd);
 		/* 通知处理 */
-		informService = ApplicationContextManager.getContext().getBean(
-				InformService.class);
-		informService.informDo();
+		//informService = ApplicationContextManager.getContext().getBean(
+		//		InformService.class);
+		//informService.setCcInformsInfo(ccInformJsonStr);
+		//informService.informDo();
 		return new ResponseFactory().createResponseBodyJSONObject(JSON
 				.toJSONString(wfresult));
 	}

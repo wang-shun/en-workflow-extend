@@ -11,6 +11,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
+import com.chinacreator.c2.message.MessageRequest;
+import com.chinacreator.c2.message.MessageRequestBuilder;
+import com.chinacreator.c2.message.MessageSender;
 //import com.chinacreator.c2.message.MessageRequest;
 //import com.chinacreator.c2.message.MessageRequestBuilder;
 //import com.chinacreator.c2.message.MessageSender;
@@ -115,9 +118,22 @@ public class MessageService implements UtilConstants{
 			}*/
 		}else if(channel.indexOf(SYSTEM_SERVICE_CODE_INNNER)>-1) { // 站内短信
 			// todo 
+			try{
+				String channel1="web";          //消息渠道名，目前系统内置web、email【自己也可以扩展】
+				String category="notify";      //首页通知菜单业务类别，如果消息要显示在通知菜单上，请一定要用此字符串
+				String fromUser="admin";       //消息发送人用户名
+				String toUser="hu.tan";        //消息接收人用户名
+				boolean isSave=true;           //非持久化的消息不会在消息菜单中显示
+				MessageRequest messageRequest=new MessageRequestBuilder().channel(channel1).from(fromUser).to(toUser).category(category).content("Hello World!").persistent(isSave).build();
+				MessageSender.getInstance().send(messageRequest); //发送消息
+			}catch(Exception e){
+				e.getLocalizedMessage();
+			}
 			System.out.println("ssssss");
 			result = true;
 		}else if(channel.indexOf(SYSTEM_SERVICE_CODE_PHONE)>-1) {// 手机短信
+		
+			
 			System.out.println("zzzzz");
 			result = true;
 		}
