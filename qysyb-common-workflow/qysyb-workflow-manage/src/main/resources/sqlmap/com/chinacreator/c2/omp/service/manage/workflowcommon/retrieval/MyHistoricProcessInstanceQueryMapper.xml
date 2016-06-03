@@ -77,7 +77,7 @@
 
   <select id="selectCustomHistoricProcessInstancesByQueryCriteria" parameterType="org.activiti.engine.impl.HistoricProcessInstanceQueryImpl" resultType="map">
   	${limitBefore}
-    select DISTINCT RES.* ${limitBetween}
+    select RES.* ${limitBetween}
 
 <!--     外部的表加入结果集 -->
     <foreach collection="forms" index="index" item="var">
