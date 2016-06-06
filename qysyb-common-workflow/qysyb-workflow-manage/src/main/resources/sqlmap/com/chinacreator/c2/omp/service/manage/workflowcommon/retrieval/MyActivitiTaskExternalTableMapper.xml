@@ -637,7 +637,7 @@
       </foreach>
 <!--       外部表单 -->
       <foreach item="var" collection="queriableFields" index="index">
-         <if test="var.tableName != null &amp;&amp; var.tableCol != null">
+         <if test="var.tableCol != null">
           and B${index}.${var.tableCol} 
           <choose>
               <when test="var.operator.equals('LIKE')">LIKE</when>

@@ -38,7 +38,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -138,17 +138,52 @@
     <form:datasource xsi:type="form:LogicDataSource" id="retrieveItems" name="检索器项" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.retrieval.getRetrieveItems" sn="getretrieveitems">
       <form:param id="retrieveKey" name="新输入参数" value="$params.retrieveKey"/>
     </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="categories" name="前段控件类型" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Form.getAllWebDisplayCategoryMap" sn="getAllWebDisplayCategoryMap"/>
   </form:datasources>
   <form:scripts>
 
 page_afterDataSourceLoad:function(){
+	//重置函数 如用户树控件 它并不与$scope.formentity中的属性直接绑定 改变$scope.formentity的值并不影响树展示
+	//所以需要一个重置函数 把其真正绑定的值制空
+	$model.resetfuncs = new Array();
+	$scope.$on('resetfunc',function(event,msg){console.log(&quot;msg&quot;,msg);
+		$model.resetfuncs[msg.name] = {};
+		$model.resetfuncs[msg.name].fieldname = msg.name;
+		$model.resetfuncs[msg.name].func = msg.func;
+	});		
+	//用的是默认控件的话 控件会把值绑定到此属性上面
+	$scope.formentity = {};
+	//用的是默认控件的话 得让其可写
+	$scope.permissionData = {};
+	$model.retrieveItems.result.forEach(function(e,i){
+		$scope.permissionData[e.fieldId.fieldNo] = {};
+		$scope.permissionData[e.fieldId.fieldNo].writePermission = true;
+	});
+	
 },
-
+doresetfunc:function(){
+	var a = $model.resetfuncs;
+	console.log('$model.resetfuncs',$model.resetfuncs);
+	var result = true;
+	for(var aa in a){
+		if(a[aa].func()==false){
+			console.log(a[aa]);
+			result = false;
+		}
+	}
+	return result;
+},
 newField_click:function($event){
+	for(var a in $scope.formentity){
+		$scope.search[a] = $scope.formentity[a];
+	}
 	$scope.query();
 },
 
 newField1_click:function($event){
+	//
+	$scope.formentity = {};
+	functions.doresetfunc();
 	$scope.reset();
 },
 
@@ -158,7 +193,7 @@ newField2_click:function($event){
 	}
 	,function(){
 	});
-}</form:scripts>
+},</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
 &lt;div ng-repeat=&quot;a in $model.retrieveItems.result&quot;>
@@ -185,7 +220,7 @@ newField2_click:function($event){
 			&lt;div ng-include=&quot;'f/formtextphone'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
 		&lt;/div>
 		&lt;div ng-switch-default>
-			&lt;div ng-include=&quot;'f/retrievetextfield'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
+			&lt;div ng-include=$model.categories.result[a.fieldId.webDisplayTypeId].url ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
 		&lt;/div>
 	&lt;/div>
 &lt;/div>

@@ -38,7 +38,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -51,7 +51,7 @@
           <dync:render/>
           <dync:children/>
         </dync:attribute>
-        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="{{$params.span}}">
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="{{$params.span==undefined?4:$params.span}}">
           <dync:render/>
           <dync:children/>
         </dync:attribute>
@@ -139,8 +139,15 @@ page_afterDataSourceLoad:function(){
 		}
 	}
 	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
+	
 },
-
+reset:function(){
+	$model.bind = undefined;
+	$scope.formentity[$params.fieldNo] = undefined;
+	if($params.fieldNo.length>=2){
+		$scope.formentity[$params.fieldNo.substring(0,$params.fieldNo.length-2)+'Name'] = undefined;
+	}
+},
 my_nodeClick:function(event,treeId,treeNode,clickFlag){
 
 },
@@ -173,6 +180,10 @@ page_beforeDataSourceLoad:function($params){
 	$(&quot;#userchoose_tree&quot;).attr('id','userchoose_tree'+r);
 	$(&quot;span[ng-show='!$stats.userchoose.text']&quot;).attr('ng-show','!$stats.userchoose'+r+'.text');
 	$(&quot;span[ng-show='$stats.userchoose.text']&quot;).attr('ng-show','$stats.userchoose'+r+'.text');*/
+},
+
+page_onload:function(){
+	$scope.$emit(&quot;resetfunc&quot;,{name:$params.fieldNo,func:this.reset});
 }</form:scripts>
   <form:htmls>&lt;style>&#xD;
 #userchoosediv {&#xD;

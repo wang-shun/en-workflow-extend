@@ -393,7 +393,7 @@
       
 <!--       外部表单条件查询 -->
       <foreach item="queryVariableValue" collection="queriableFields" index="index">
-         <if test="queryVariableValue.tableName != null &amp;&amp; queryVariableValue.tableCol != null">
+         <if test="queryVariableValue.tableCol != null">
           and B${index}.${queryVariableValue.tableCol} 
           <choose>
               <when test="queryVariableValue.operator.equals('LIKE')">LIKE</when>
