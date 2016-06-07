@@ -155,4 +155,44 @@ public class ArchhandleServiceImpl  {
 		}
 		return result;
 	}
+	/**
+	 * 获取jsonObject里面的Archhandle
+	 * @param jsonO
+	 * @param key
+	 * @param local 是否需要前台标记为local的意见 表示是这一步新添加的意见而不是历史数据
+	 * @return
+	 */
+	public List<Archhandle> getArchhandlesFromJSONObject(JSONObject jsonO,String key,boolean local){
+		List<Archhandle> archhandles = new ArrayList<Archhandle>();
+		if (jsonO.get(key) instanceof JSONArray) {
+			JSONArray jsonArray = (JSONArray)jsonO.get(key);
+			if(jsonArray!=null&&jsonArray.size()>0){
+				for(int i=0;i<jsonArray.size();i++){
+					JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+					//这里表示是新增的
+					boolean isLocal = jsonObject.get("local")==null?false:(boolean) jsonObject.get("local");
+					if(!local){
+						archhandles.add(JSONObject.toJavaObject(jsonObject, Archhandle.class));							
+					}else if(local&&isLocal){
+						archhandles.add(JSONObject.toJavaObject(jsonObject, Archhandle.class));	
+					}
+				}
+			}
+		}	
+		return archhandles;
+	}
+	/**
+	 * 获取一条审核意见 从jsonObject中
+	 * @param jsonO
+	 * @param key
+	 * @param local
+	 * @return
+	 */
+	public Archhandle getOneArchhandleFromJSONObject(JSONObject jsonO,String key,boolean local){
+		List<Archhandle> archhandles = getArchhandlesFromJSONObject(jsonO,key,local);
+		if(archhandles!=null&&archhandles.size()==1){
+			return archhandles.get(0);
+		}
+		return null;
+	}
 }

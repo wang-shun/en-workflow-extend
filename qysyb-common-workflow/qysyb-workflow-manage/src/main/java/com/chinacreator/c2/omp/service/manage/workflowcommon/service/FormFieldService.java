@@ -41,4 +41,19 @@ public class FormFieldService {
 		}*/
 		return true;
 	}
+	/**
+	 * 字段是否存在流程变量中
+	 * @param ff
+	 * @return
+	 */
+	public boolean isFieldStorageProcessVariable(FormField ff){
+		if(ff==null){
+			return false;
+		}
+		//如果不是存入流程变量 则就是在外部作业务数据存储
+		if(ff.isRemark9()!=null&&ff.isRemark9()){
+			return true;
+		}
+		return false;
+	}
 }

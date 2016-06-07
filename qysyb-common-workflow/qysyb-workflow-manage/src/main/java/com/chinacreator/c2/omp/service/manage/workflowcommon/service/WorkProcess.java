@@ -706,13 +706,23 @@ public class WorkProcess {
 							wfOperator.getUserId());
 			List<FormField> list = formService.getFormField(formId);
 			for (FormField ff : list) {
-				if (ffs.isFieldStorageEXT(ff)) { // 字段是否存外部表
-					entitymap.remove(ff.getFieldNo());
+				if (ffs.isFieldStorageProcessVariable(ff)) { // 字段是否存在流程变量中
+					String fieldNo = ff.getFieldNo();
+					Object value= entitymap.get(fieldNo);
+					if(value!=null){
+						//空字符串不存 也意味着不能把流程变量更新为空字符串！！
+						if((value instanceof String&&!value.equals(""))){
+							variables.put(fieldNo,value);
+						}else{
+							//对象存入流程变量了
+							variables.put(fieldNo,value);
+						}
+					}
 				}
 			}
-			variables.putAll(entitymap); // 一些并没有在表单中的数据 或许在流程变量中更新
+//			variables.putAll(entitymap); // 一些并没有在表单中的数据 或许在流程变量中更新
 		} else {
-			/* 业务数据作为流程变量保存 */
+			/* 业务数据作为流程变量保存  不再使用这种方法 */
 			variables.putAll(entitymap);
 		}
 
@@ -777,7 +787,6 @@ public class WorkProcess {
 				isStart.equals("true") ? true : false, bussinessKey,
 				processDefinitionId, currenTaskId, transitionId,
 				destTaskDefinitionKey, false, variables);
-		/* TODO 考虑动态分派到人 这样的话就不用流程图有candidateusers变量了 */
 
 		Object multiInstancePor = wfTransition.getDest().getPorperties()
 				.get("multiInstance");
@@ -860,13 +869,30 @@ public class WorkProcess {
 			ServiceProduct sp = sps.getServiceProductById(moduleId);
 			List<ServiceAgreement> listsla = sps.getSLABySP(sp);
 
-			/* 如果业务数据实体有值没在form中 存入流程变量 */
-			for (String s : mapentity.keySet()) {
-				FormField ff = ffs.getFormFieldByFieldNo(s);
-				if (ff != null && !ffs.isFieldStorageEXT(ff)) {
-					variables.put(s, mapentity.get(s));
+			List<FormField> list = formService.getFormField(formId);
+			for (FormField ff : list) {
+				if (ffs.isFieldStorageProcessVariable(ff)) { // 字段是否存在流程变量中
+					String fieldNo = ff.getFieldNo();
+					Object value= mapentity.get(fieldNo);
+					if(value!=null){
+						//空字符串不存 也意味着不能把流程变量更新为空字符串！！
+						if((value instanceof String&&!value.equals(""))){
+							variables.put(fieldNo,value);
+						}else{
+							//对象存入流程变量了
+							variables.put(fieldNo,value);
+						}
+					}
 				}
-			}
+			}			
+			
+//			/* 如果业务数据实体有值没在form中 存入流程变量 */
+//			for (String s : mapentity.keySet()) {
+//				FormField ff = ffs.getFormFieldByFieldNo(s);
+//				if (ff != null && !ffs.isFieldStorageEXT(ff)) {
+//					variables.put(s, mapentity.get(s));
+//				}
+//			}
 			/* 为了能够按产品名称排序，等。传入流程变量 */
 			variables.put(WorkFlowService.PRODUCTNAMEKEY, sp.getProductName());
 			variables.put(WorkFlowService.MODULE_ID_KEY, moduleId);

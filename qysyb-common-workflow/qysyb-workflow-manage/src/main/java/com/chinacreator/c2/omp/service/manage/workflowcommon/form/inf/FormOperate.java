@@ -42,13 +42,11 @@ public abstract class FormOperate implements IFormOperate {
 			//有主键就update操作
 			if(uId!=null&&!uId.equals("")&&businessId!=null&&!businessId.equals("")){
 				//如果这两个id不相等，以入参proInsId为准。因为实体里面的businessKey有可能是草稿造成的
-				if(!businessId.equals(proInsId)){
-					methodsetBusinessKey.invoke(ob,proInsId);
-					//TODO 更新业务数据状态 
-					if(proInsId!=null&&!proInsId.equals("")){
-						//保存草稿时不更新状态，提交才更新
-						methodsetStatus.invoke(ob,"submited");
-					}
+				if(proInsId!=null&&!businessId.equals(proInsId)){
+					methodsetBusinessKey.invoke(ob,proInsId); 
+					//保存草稿时不更新状态，提交才更新
+					methodsetStatus.invoke(ob,"处理中");
+
 				}
 				return dao.update(ob);
 			//没有主键 但是有流程实例值 那就是先看有没有这里businessKey的记录 没有就把流程实例id放到businesskey里面新增了
@@ -60,6 +58,7 @@ public abstract class FormOperate implements IFormOperate {
 				if(condition==null){
 					methodsetBusinessKey.invoke(ob, proInsId);
 	//				officeNotice.setBusinessKey(proInsId);
+					methodsetStatus.invoke(ob,"处理中");
 					return dao.insert(ob);
 				}else{
 					//TODO 已经有businessKey的情况 目前没有遇到这里情形。。
@@ -74,6 +73,7 @@ public abstract class FormOperate implements IFormOperate {
 				if(condition==null){
 					methodsetBusinessKey.invoke(ob, businessKey);
 	//				officeNotice.setBusinessKey(businessKey);
+					methodsetStatus.invoke(ob,"draft");
 					return dao.insert(ob);
 				}else{
 					//TODO 已经有businessKey的情况 目前没有遇到这里情形。。
@@ -131,13 +131,10 @@ public abstract class FormOperate implements IFormOperate {
 			//有主键就update操作
 			if(uId!=null&&!uId.equals("")&&businessId!=null&&!businessId.equals("")){
 				//如果这两个id不相等，以入参proInsId为准。因为实体里面的businessKey有可能是草稿造成的
-				if(!businessId.equals(proInsId)){
+				if(proInsId!=null&&!businessId.equals(proInsId)){
 					methodsetBusinessKey.invoke(ob,proInsId);
-					//TODO 更新业务数据状态 
-					if(proInsId!=null&&!proInsId.equals("")){
-						//保存草稿时不更新状态，提交才更新
-						methodsetStatus.invoke(ob,"submited");
-					}
+					// 更新业务数据状态 由草稿变为提交状态了 
+					methodsetStatus.invoke(ob,"CLZ");
 				}
 				return dao.update(ob);
 			//没有主键 但是有流程实例值 那就是先看有没有这里businessKey的记录 没有就把流程实例id放到businesskey里面新增了
@@ -148,6 +145,7 @@ public abstract class FormOperate implements IFormOperate {
 				//判断businesskey是否存在,如果存在不新增
 				if(condition==null){
 					methodsetBusinessKey.invoke(ob, proInsId);
+					methodsetStatus.invoke(ob,"CLZ");
 	//				officeNotice.setBusinessKey(proInsId);
 					return dao.insert(ob);
 				}else{
@@ -162,6 +160,7 @@ public abstract class FormOperate implements IFormOperate {
 				//判断businesskey是否存在,如果存在不新增
 				if(condition==null){
 					methodsetBusinessKey.invoke(ob, businessKey);
+					methodsetStatus.invoke(ob,"draft");
 	//				officeNotice.setBusinessKey(businessKey);
 					return dao.insert(ob);
 				}else{

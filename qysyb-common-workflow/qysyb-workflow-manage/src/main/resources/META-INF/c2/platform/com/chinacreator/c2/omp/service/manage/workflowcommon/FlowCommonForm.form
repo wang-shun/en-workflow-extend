@@ -1039,7 +1039,10 @@ page_afterDataSourceLoad:function(){
 //		console.log($model.formentity.result);
 		//取得地址栏中的参数 赋值地址栏参数到实体
 		for(var a in locationparams){
-			$model.formentity.result[a] = locationparams[a];
+			//businessKey属性不要放入formentity 会覆盖了原来的同名属性
+			if(a!=&quot;businessKey&quot;){
+				$model.formentity.result[a] = locationparams[a];
+			}	
 		}		
 		console.log(&quot;formentity&quot;,$model.formentity.result);
 		//工单编号的自动赋值 ugly TODO
