@@ -19,7 +19,7 @@ public abstract class InformTask extends Thread {
 	protected Map contentMap;
 	UserService userService = ApplicationContextManager.getContext().getBean(UserService.class); 
 	public abstract void init();
-	public abstract void doInform();
+	public abstract void doInform() throws Exception;
 	public InformTask(String userIdTo,String userIdFrom,Map content){
 		this.userIdTo = userIdTo;
 		this.userIdFrom = userIdFrom;
@@ -33,7 +33,12 @@ public abstract class InformTask extends Thread {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		doInform();
+		try {
+			doInform();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}	
 
 	@Override

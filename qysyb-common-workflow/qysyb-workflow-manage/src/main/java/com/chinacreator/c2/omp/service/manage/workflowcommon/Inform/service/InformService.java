@@ -46,6 +46,8 @@ public class InformService {
 	public final static String COMMENT_KEY = "comment";
 	public final static String CATEGORY_KEY = "category";
 	public final static String COMMENT_USERID_KEY = "commentUserId";
+	public final static String COMMENT_MODULE_KEY = "workModule";
+	public final static String COMMENT_TITLE_KEY = "workTitle";
 	public final static String CHANNEL_KEY = "channel";
 	
 	public final static String TEMPLATE_TASK_INFORM_NO = "templateTaskInform"; 
@@ -72,6 +74,7 @@ public class InformService {
 			+"%s\n如果您的email程序不支持链接点击，请将上面的地址拷贝至您的浏览器的地址栏进入。\n  "
 			+"如果不希望接收到这封邮件，可以进入系统后进行取消通知的操作（如果有权限的话）。\n如有疑问，请联系管理员。"
 			+ "谢谢！\n"+"-----------------------  \n(这是一封自动产生的email，请勿回复。)  ";
+	public final static String COMMENT_INFORM_INNER_TEMPLATE = "您有一条未读通知提醒!";
 	//监听器注册进来的事件
 	private List<ActivitiEntityEvent> taskEvents = new ArrayList<ActivitiEntityEvent>();
 	private List<ActivitiEntityEvent> commentEvents = new ArrayList<ActivitiEntityEvent>();
@@ -96,12 +99,12 @@ public class InformService {
 		try{
 			for(ActivitiEntityEvent e:taskEvents){
 				informCcInformsTask(e);
-				informActivityConfigTask(e);
-				informUserConcernedConfigTask(e);
+				//informActivityConfigTask(e);
+				//informUserConcernedConfigTask(e);
 			}	
 			for(ActivitiEntityEvent e:commentEvents){
-				informActivityConfigComment(e);
-				informUserConcernedConfigComment(e);
+				//informActivityConfigComment(e);
+				//informUserConcernedConfigComment(e);
 			}
 		}catch(Exception e){
 			System.out.println("执行流程通知异常");
@@ -116,21 +119,39 @@ public class InformService {
 		listTaskTodo.clear();
 		taskEvents.clear();
 		commentEvents.clear();
+		// 全局实例化后无法销毁，暂时设置为空
+		this.setCcInformsInfo("{}");
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void informCcInformsTask(ActivitiEntityEvent e) {
 		Map ccInformsInfo = JSONObject.parseObject(ccInformJsonStr, Map.class);
 		if(ccInformsInfo!=null&&ccInformsInfo.get(CC_INFORM_TYPES)!=null&&ccInformsInfo.get(CC_INFORM_USERIDS)!=null){
-			JSONArray ccTypes = (JSONArray) ccInformsInfo.get(CC_INFORM_TYPES);
-			JSONArray ccUserIds = (JSONArray) ccInformsInfo.get(CC_INFORM_USERIDS);
-			TaskEntity entity = (TaskEntity) e.getEntity();
+			JSONArray ccTypes=null;
+			JSONArray ccUserIds = null;
+			Map<String,String> contentMap = null;
+			try{
+		    ccTypes = (JSONArray) ccInformsInfo.get(CC_INFORM_TYPES);
+			
+			ccUserIds = (JSONArray) ccInformsInfo.get(CC_INFORM_USERIDS);
+			//TaskEntity entity = (TaskEntity) e.getEntity();
 
-			String content = entity.getName();
-			Map<String,String> contentMap = new HashMap<String,String>();
-			contentMap.put(InformService.WORKSTATGEKEY, content);
-			contentMap.put(InformService.CATEGORY_KEY,"嗯 这里是什么意思？");
-			contentMap.put(InformService.STR_TEMPLATE_KEY, InformService.TASK_INFORM_EMAIL_TEMPLATE);
+			//String content = entity.getName();
+			JSONArray curUsers =  (JSONArray)  ccInformsInfo.get("curUser");
+			String moduleName = ccInformsInfo.get("moduleName").toString();
+			String title = ccInformsInfo.get("title").toString();
+			contentMap = new HashMap<String,String>();
+			//contentMap.put(InformService.WORKSTATGEKEY, content);
+			contentMap.put(InformService.COMMENT_USERID_KEY, curUsers.get(0).toString());
+			contentMap.put(InformService.COMMENT_MODULE_KEY, moduleName);
+			contentMap.put(InformService.COMMENT_TITLE_KEY, title);
+			
+			//contentMap.put(InformService.CATEGORY_KEY,"嗯 这里是什么意思？");
+			contentMap.put(InformService.STR_TEMPLATE_KEY, InformService.COMMENT_INFORM_INNER_TEMPLATE);
+			}catch(Exception e1){
+				e1.getStackTrace();
+			}
+	
 			for(int i=0;i<ccTypes.size();i++){
 				String type = ccTypes.getString(i);
 				for(int j=0;j<ccUserIds.size();j++){

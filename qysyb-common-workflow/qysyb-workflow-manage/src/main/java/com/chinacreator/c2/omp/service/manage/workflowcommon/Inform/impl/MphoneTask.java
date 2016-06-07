@@ -5,11 +5,13 @@ import java.util.Map;
 
 import com.chinacreator.asp.comp.sys.advanced.user.service.UserService;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
+import com.chinacreator.c2.dao.Dao;
+import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.omp.common.service.message.MessageService;
+import com.chinacreator.c2.omp.service.manage.unitymessage.PhoneMessage;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.inf.InformTask;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.InformService;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService;
 
 public class MphoneTask extends InformTask {
 
@@ -19,6 +21,7 @@ public class MphoneTask extends InformTask {
 	private String emailTo;
 	private String commentUserName;
 	private String category;
+	private String mobileTo;
 //	private List<MEmailTask> subTasks = new ArrayList<MEmailTask>();
 	public MphoneTask(String toId, String fromUserId,Map<String,String> contentMap){
 		super(toId,fromUserId,contentMap);
@@ -36,39 +39,48 @@ public class MphoneTask extends InformTask {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void doInform() {
-		// TODO Auto-generated method stub
-
-		messageService = ApplicationContextManager.getContext().getBean(
+	public void doInform() throws Exception {
+		/**
+			messageService = ApplicationContextManager.getContext().getBean(
 				MessageService.class);
-		boolean valid = this.checkBeforSend();
-		if (valid) {
 			Map map = new HashMap();
 			map.put("category", category);
 			map.put("title",
-					"工单【" + contentMap.get(WorkFlowService.WORKTITLEKEY)
-							+ "】有新动向了");
+					"【" + contentMap.get(WorkFlowService.WORKTITLEKEY)
+							+ "】有一条待办信息");
 			messageService.sendMessage(MphoneTask.CHANEL,
 					userTo.getUserName(), content, map);
-			System.out.println("phone sended to" + userTo.getUserRealname()
-					+ "\ncontent:\n" + content);
-		}
-
+			**/
+		
+			if(checkBeforMobile()){
+				Dao<PhoneMessage> dao=DaoFactory.create(PhoneMessage.class);
+			
+				//String ss = dao.getSession().selectOne("selectMessageSeq","1");
+				PhoneMessage phonemessage=new PhoneMessage();
+				phonemessage.setMobileNum(mobileTo);
+				phonemessage.setMessageContent(content);
+				phonemessage.setSendState(0);
+				///phonemessage.setOid(112223);
+				dao.insert(phonemessage);
+				System.out.println("phone sended to" + userTo.getUserRealname()
+						+ "\ncontent:\n" + content);
+			}else {
+				throw new Exception(userTo.getUserName()+" ：手机号码为空!");
+			}
 	}
 	
-	private boolean checkBeforSend(){
+	private boolean checkBeforMobile(){
 		// TODO Auto-generated method stub
-		if(category==null){
-			System.out.println("category 为空");
+		if(mobileTo == null){
 			return false;
 		}			
 		return true;
 	}
 	
 	public void setOtherContent(){
-		if(contentMap.get("category")!=null){
-			category = (String) contentMap.get(InformService.CATEGORY_KEY);
-		}
+//		if(contentMap.get("category")!=null){
+//			category = (String) contentMap.get(InformService.CATEGORY_KEY);
+//		}
 		if(contentMap.get(InformService.COMMENT_USERID_KEY)!=null){
 			String userId = (String) contentMap.get(InformService.COMMENT_USERID_KEY);
 			UserService userService = ApplicationContextManager.getContext().getBean(UserService.class); 
@@ -79,8 +91,12 @@ public class MphoneTask extends InformTask {
 	
 	public void setWebTextContent(){
 		if(contentMap.get(InformService.STR_TEMPLATE_KEY)!=null){
-			String template = (String) contentMap.get(InformService.STR_TEMPLATE_KEY);
-			content = "测试测试!";
+			content = "您有一条标题为 《"+contentMap.get(InformService.COMMENT_TITLE_KEY)+"》的"+contentMap.get(InformService.COMMENT_MODULE_KEY)+"待办事项需要处理!";
+			if(userTo.getUserMobiletel1() ==null & userTo.getUserMobiletel2()!=null){
+				mobileTo = userTo.getUserMobiletel2();
+			}else  {
+				mobileTo = userTo.getUserMobiletel1();
+			}
 			/**
 			if(template.equals(InformService.TASK_INFORM_EMAIL_TEMPLATE)){
 				content= String.format(template, userTo.getUserRealname(),contentMap.get(InformService.WORKSTATGEKEY),null,null);
@@ -90,7 +106,6 @@ public class MphoneTask extends InformTask {
 			**/
 			
 		}
-		
 /*		template.
 		return VelocityEngineUtils.mergeTemplateIntoString(this.getVelocityEngine(), this.getTemplateName(), "UTF-8",model);*/
 	}
