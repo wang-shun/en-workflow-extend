@@ -1257,10 +1257,6 @@ submitflow_click:function($event){
 			&quot;serviceTypeId&quot;:$model.serviceproduct.result.serviceTypeId
 			};
 
-
-	$model.entity.businessKey = $model.businessKey;
-	$model.entity.moduleId = moduleId;
-	console.log(&quot;entity11223&quot;,$model.entity);
 	$scope.formentity.businessKey = $model.businessKey;
 	$scope.formentity.moduleId = moduleId;
 //	console.log(&quot;formId&quot;,$model.formId);
