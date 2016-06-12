@@ -1,7 +1,6 @@
 package com.chinacreator.c2.omp.service.manage.workflowcommon.web.controller;
 
 import java.io.BufferedReader;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -16,14 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chinacreator.c2.dao.Dao;
-import com.chinacreator.c2.dao.DaoFactory;
-import com.chinacreator.c2.flow.WfApiFactory;
-import com.chinacreator.c2.flow.detail.WfOperator;
-import com.chinacreator.c2.flow.detail.WfResult;
-import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkProcess;
+import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
+import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkProcess;
 import com.chinacreator.c2.web.controller.ResponseFactory;
 
 /**

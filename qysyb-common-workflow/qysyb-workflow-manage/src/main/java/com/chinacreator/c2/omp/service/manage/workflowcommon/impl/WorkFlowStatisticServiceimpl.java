@@ -3,7 +3,6 @@ package com.chinacreator.c2.omp.service.manage.workflowcommon.impl;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,18 +11,13 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import com.chinacreator.c2.dao.Dao;
-import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 //import com.chinacreator.c2.monitor.basic.entity.MonitorObject;
 //import com.chinacreator.c2.monitor.basic.service.impl.MonitorObjectServiceImpl;
 import com.chinacreator.c2.omp.common.DictDataInfo;
 import com.chinacreator.c2.omp.common.service.CustomDictDataService;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.WorkAssetRel;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowStatisticService;
-import com.chinacreator.c2.sysmgr.dict.DictData;
-import com.chinacreator.c2.sysmgr.dict.DictService;
+import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
 @Service
 public class WorkFlowStatisticServiceimpl implements WorkFlowStatisticService {
 	WorkFlowService wfs;

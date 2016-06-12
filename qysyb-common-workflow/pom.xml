@@ -23,7 +23,22 @@
 		<module>qysyb-workflow-manage</module>
 		<module>qysyb-workflow-resource</module>
 		<module>qysyb-workflow-console</module>
+		<module>qysyb-workflow-dao-oracle</module>
+		<module>qysyb-workflow-daoapi</module>
+		<module>qysyb-workflow-serviceapi</module>		
 	</modules>
+	<dependencies>
+			<dependency>
+				<groupId>com.chinacreator.c2</groupId>
+				<artifactId>c2-runtime</artifactId>
+				<version>4.2.1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>com.chinacreator.c2</groupId>
+				<artifactId>c2-ui-components</artifactId>
+				<version>4.2.8.1</version>
+			</dependency>		
+	</dependencies>
 	<distributionManagement>
 		<repository>
 			<id>business-releases</id>

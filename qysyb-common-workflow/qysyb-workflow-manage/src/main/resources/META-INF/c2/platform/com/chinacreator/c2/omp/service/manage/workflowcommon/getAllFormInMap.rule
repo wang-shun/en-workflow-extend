@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getallforminmap" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.FormService" method="getAllFormMap">
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getallforminmap" log="false" className="com.chinacreator.c2.qyb.workflow.form.impl.FormService" method="getAllFormMap">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
   <name>map形式获取表单</name>
   <desc>map形式返回所有的form</desc>
   <inputs/>

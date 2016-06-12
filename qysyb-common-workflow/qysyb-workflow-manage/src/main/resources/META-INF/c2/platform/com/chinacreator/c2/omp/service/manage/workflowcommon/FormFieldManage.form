@@ -97,6 +97,7 @@
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="表格设置" id="searchDIV" name="搜索DIV" value="fieldsearchdiv">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -216,6 +217,7 @@
         <form:control type="widget/text">
           <form:attributes source="widget/text">
             <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="4">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -226,6 +228,7 @@
         <form:control type="widget/text">
           <form:attributes source="widget/text">
             <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="4">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -236,6 +239,7 @@
         <form:control type="widget/button">
           <form:attributes source="widget/button">
             <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField2_click($event)">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -252,7 +256,7 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
-    <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField" pageSize="10"/>
+    <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.qyb.workflow.form.entity.FormField" pageSize="10"/>
   </form:datasources>
   <form:scripts>
 

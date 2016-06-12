@@ -1,29 +1,13 @@
 package com.chinacreator.c2.omp.service.manage.workflowcommon.impl;
 
-import java.util.List;
-
-import org.activiti.engine.IdentityService;
-import org.activiti.engine.ManagementService;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.ActivitiEventType;
-import org.activiti.engine.impl.persistence.entity.CommentEntity;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntity;
-import org.activiti.engine.impl.persistence.entity.TaskEntity;
-import org.activiti.engine.runtime.Execution;
-import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.IdentityLink;
-import org.activiti.engine.task.Task;
 
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.ActivityConfig;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.ActivityConfigService;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.InformService;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.UserConcernedConfigService;
+import com.chinacreator.c2.qyb.workflow.inform.impl.InformService;
 
 public class MyActivitiEventListener implements ActivitiEventListener {
 //	InformService informService = new InformService();

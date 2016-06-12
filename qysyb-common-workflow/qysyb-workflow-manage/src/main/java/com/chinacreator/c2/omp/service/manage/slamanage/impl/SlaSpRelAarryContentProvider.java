@@ -7,11 +7,10 @@ import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
-import com.chinacreator.c2.dao.mybatis.enhance.Conditions;
 import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
-import com.chinacreator.c2.omp.service.manage.slamanage.ServiceAgreement;
-import com.chinacreator.c2.omp.service.manage.slamanage.SlaServiceRroductRel;
+import com.chinacreator.c2.qyb.workflow.sla.entity.ServiceAgreement;
+import com.chinacreator.c2.qyb.workflow.sla.entity.SlaServiceRroductRel;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
 

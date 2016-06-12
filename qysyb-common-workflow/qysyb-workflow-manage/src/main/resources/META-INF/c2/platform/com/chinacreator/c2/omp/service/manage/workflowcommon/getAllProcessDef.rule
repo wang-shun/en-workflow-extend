@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getallprocessdef" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService" method="getAllProcessDef">
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getallprocessdef" log="false" className="com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService" method="getAllProcessDef">
   <instanceCreator>
     <params/>
   </instanceCreator>

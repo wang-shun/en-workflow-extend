@@ -1,7 +1,6 @@
 package com.chinacreator.c2.omp.service.manage.workflowcommon.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.WorkRel;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.WorkService;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService;
+import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
 

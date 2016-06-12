@@ -7,9 +7,8 @@ import java.util.Map;
 import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-//import com.chinacreator.c2.monitor.basic.entity.MonitorObject;
-import com.chinacreator.c2.omp.service.manage.slamanage.ServiceAgreement;
-import com.chinacreator.c2.omp.service.manage.slamanage.ServiceProductUCRel;
+import com.chinacreator.c2.qyb.workflow.sla.entity.ServiceProductUCRel;
+import com.chinacreator.c2.qyb.workflow.sla.impl.ServiceAgreementService;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
 

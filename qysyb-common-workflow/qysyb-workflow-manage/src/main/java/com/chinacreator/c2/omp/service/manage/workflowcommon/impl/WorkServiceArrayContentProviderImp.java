@@ -8,7 +8,7 @@ import com.chinacreator.asp.comp.sys.core.security.service.AccessControlServiceI
 import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService;
+import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
 import com.chinacreator.c2.sysmgr.AuthenticationProvider;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;

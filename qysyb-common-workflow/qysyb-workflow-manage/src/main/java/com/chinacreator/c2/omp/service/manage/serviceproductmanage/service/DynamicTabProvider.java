@@ -4,18 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.restlet.Application;
-
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.omp.common.RelToTab;
 import com.chinacreator.c2.omp.common.Tab;
 import com.chinacreator.c2.omp.common.bean.TabDescriptionWithTabId;
-import com.chinacreator.c2.omp.service.manage.serviceproductmanage.ServiceProduct;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.ActivityConfig;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.service.WorkFlowService;
-import com.chinacreator.c2.ui.beans.TabDescription;
+import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
+import com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig;
+import com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct;
 /**
  * 
  * @author l

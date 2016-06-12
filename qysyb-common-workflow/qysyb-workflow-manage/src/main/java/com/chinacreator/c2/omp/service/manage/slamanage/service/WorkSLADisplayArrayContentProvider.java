@@ -10,10 +10,9 @@ import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.omp.service.manage.serviceproductmanage.ServiceProduct;
-import com.chinacreator.c2.omp.service.manage.serviceproductmanage.service.ServiceProductService;
-import com.chinacreator.c2.omp.service.manage.slamanage.ServiceAgreement;
-import com.chinacreator.c2.omp.service.manage.slamanage.Sla_kpi_rel;
+import com.chinacreator.c2.qyb.workflow.sla.entity.ServiceAgreement;
+import com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi_rel;
+import com.chinacreator.c2.qyb.workflow.sla.impl.ServiceAgreementService;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
 

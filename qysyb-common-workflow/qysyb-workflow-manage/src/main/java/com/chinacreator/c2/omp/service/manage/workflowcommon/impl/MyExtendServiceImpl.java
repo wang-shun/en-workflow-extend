@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.chinacreator.c2.flow.detail.WfModuleBean;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.omp.service.manage.serviceproductmanage.ServiceProduct;
-import com.chinacreator.c2.omp.service.manage.serviceproductmanage.service.ServiceProductService;
+import com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct;
+import com.chinacreator.c2.qyb.workflow.module.impl.ServiceProductService;
 import com.chinacreator.c2.workflow.api.WfExtendService;
 
 public class MyExtendServiceImpl implements WfExtendService {

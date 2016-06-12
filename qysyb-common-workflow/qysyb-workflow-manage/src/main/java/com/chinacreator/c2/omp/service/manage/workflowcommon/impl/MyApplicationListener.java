@@ -7,7 +7,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.InformService;
 
 public class MyApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
 
