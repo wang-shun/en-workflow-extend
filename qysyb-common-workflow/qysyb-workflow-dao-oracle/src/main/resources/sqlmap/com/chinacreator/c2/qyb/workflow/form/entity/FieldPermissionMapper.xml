@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.form.entity.FieldPermissionMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  WORKFLOW_FORM_FIELD_PERMISSON.id ,
+		  WORKFLOW_FORM_FIELD_PERMISSON.module_id ,
+		  WORKFLOW_FORM_FIELD_PERMISSON.business_key ,
+		  WORKFLOW_FORM_FIELD_PERMISSON.business_key2 ,
+		  WORKFLOW_FORM_FIELD_PERMISSON.read_permission ,
+		  WORKFLOW_FORM_FIELD_PERMISSON.write_permission ,
+		  WORKFLOW_FORM_FIELD_PERMISSON.fill_necessary ,
+		  WORKFLOW_FORM_FIELD_PERMISSON.visible ,
+		  WORKFLOW_FORM_FIELD_T1.field_id T1_field_id ,
+		  WORKFLOW_FORM_FIELD_T1.field_no T1_field_no ,
+		  WORKFLOW_FORM_FIELD_T1.field_name T1_field_name ,
+		  WORKFLOW_FORM_FIELD_T1.field_type T1_field_type ,
+		  WORKFLOW_FORM_FIELD_T1.is_object T1_is_object ,
+		  WORKFLOW_FORM_FIELD_T1.object_class T1_object_class ,
+		  WORKFLOW_FORM_FIELD_T1.field_describe T1_field_describe ,
+		  WORKFLOW_FORM_FIELD_T1.category_id T1_category_id ,
+		  WORKFLOW_FORM_FIELD_T1.web_display_type_id T1_web_display_type_id ,
+		  WORKFLOW_FORM_FIELD_T1.forder T1_forder ,
+		  WORKFLOW_FORM_FIELD_T1.remark1 T1_remark1 ,
+		  WORKFLOW_FORM_FIELD_T1.remark2 T1_remark2 ,
+		  WORKFLOW_FORM_FIELD_T1.remark3 T1_remark3 ,
+		  WORKFLOW_FORM_FIELD_T1.remark4 T1_remark4 ,
+		  WORKFLOW_FORM_FIELD_T1.remark5 T1_remark5 ,
+		  WORKFLOW_FORM_FIELD_T1.remark6 T1_remark6 ,
+		  WORKFLOW_FORM_FIELD_T1.ramark7 T1_ramark7 ,
+		  WORKFLOW_FORM_FIELD_T1.remark8 T1_remark8 ,
+		  WORKFLOW_FORM_FIELD_T1.remark9 T1_remark9 ,
+		  WORKFLOW_FORM_FIELD_T1.remark10 T1_remark10 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="id != null">and WORKFLOW_FORM_FIELD_PERMISSON.id = #{id}</if>
+	    <if test="moduleId != null">and WORKFLOW_FORM_FIELD_PERMISSON.module_id = #{moduleId}</if>
+	    <if test="businessKey != null">and WORKFLOW_FORM_FIELD_PERMISSON.business_key = #{businessKey}</if>
+	    <if test="businessKey2 != null">and WORKFLOW_FORM_FIELD_PERMISSON.business_key2 = #{businessKey2}</if>
+	    <if test="readPermission != null">and WORKFLOW_FORM_FIELD_PERMISSON.read_permission = #{readPermission}</if>
+	    <if test="writePermission != null">and WORKFLOW_FORM_FIELD_PERMISSON.write_permission = #{writePermission}</if>
+	    <if test="fillNecessary != null">and WORKFLOW_FORM_FIELD_PERMISSON.fill_necessary = #{fillNecessary}</if>
+	    <if test="visible != null">and WORKFLOW_FORM_FIELD_PERMISSON.visible = #{visible}</if>
+		<if test="fieldId != null and fieldId.fieldId !=null">and WORKFLOW_FORM_FIELD_PERMISSON.field_id = #{fieldId.fieldId}</if>
+</sql>
+
+
+<!-- ElementID:FieldPermissionResult,Generated=true -->
+<resultMap id="FieldPermissionResult" type="com.chinacreator.c2.qyb.workflow.form.entity.FieldPermission">
+	<id property="id" column="id"/>
+	<result property="moduleId" column="module_id"/>
+	<result property="businessKey" column="business_key"/>
+	<result property="businessKey2" column="business_key2"/>
+	<result property="readPermission" column="read_permission"/>
+	<result property="writePermission" column="write_permission"/>
+	<result property="fillNecessary" column="fill_necessary"/>
+	<result property="visible" column="visible"/>
+	<association property="fieldId" column="T1_field_id" javaType="com.chinacreator.c2.qyb.workflow.form.entity.FormField" resultMap="FormFieldResult" columnPrefix="T1_"/>	
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FieldPermission">
+	insert into WORKFLOW_FORM_FIELD_PERMISSON(
+	         <if test="id != null">id</if>
+	         <if test="moduleId != null">,module_id</if>
+	         <if test="businessKey != null">,business_key</if>
+	         <if test="businessKey2 != null">,business_key2</if>
+	         <if test="readPermission != null">,read_permission</if>
+	         <if test="writePermission != null">,write_permission</if>
+	         <if test="fillNecessary != null">,fill_necessary</if>
+	         <if test="visible != null">,visible</if>
+	 	 	 <if test="fieldId != null and fieldId.fieldId !=null">,field_id</if>
+	 	 )
+	 values (
+	         <if test="id != null">#{id,jdbcType=VARCHAR}</if>
+	         <if test="moduleId != null">,#{moduleId,jdbcType=VARCHAR}</if>
+	         <if test="businessKey != null">,#{businessKey,jdbcType=VARCHAR}</if>
+	         <if test="businessKey2 != null">,#{businessKey2,jdbcType=VARCHAR}</if>
+	         <if test="readPermission != null">,#{readPermission,jdbcType=CHAR}</if>
+	         <if test="writePermission != null">,#{writePermission,jdbcType=CHAR}</if>
+	         <if test="fillNecessary != null">,#{fillNecessary,jdbcType=CHAR}</if>
+	         <if test="visible != null">,#{visible,jdbcType=CHAR}</if>
+	 	 	 <if test="fieldId != null and fieldId.fieldId !=null">,#{fieldId.fieldId,jdbcType=VARCHAR}</if>
+	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FieldPermission" resultType="int">
+	select count(*) from WORKFLOW_FORM_FIELD_PERMISSON 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FieldPermission">
+	update WORKFLOW_FORM_FIELD_PERMISSON
+<set>
+	<if test="moduleId != null">module_id=#{moduleId,jdbcType=VARCHAR},</if>
+	<if test="businessKey != null">business_key=#{businessKey,jdbcType=VARCHAR},</if>
+	<if test="businessKey2 != null">business_key2=#{businessKey2,jdbcType=VARCHAR},</if>
+	<if test="readPermission != null">read_permission=#{readPermission,jdbcType=CHAR},</if>
+	<if test="writePermission != null">write_permission=#{writePermission,jdbcType=CHAR},</if>
+	<if test="fillNecessary != null">fill_necessary=#{fillNecessary,jdbcType=CHAR},</if>
+	<if test="visible != null">visible=#{visible,jdbcType=CHAR},</if>
+	<if test="fieldId != null and fieldId.fieldId !=null">field_id=#{fieldId.fieldId,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="id != null">and id = #{id}</when>
+        <otherwise>and id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update WORKFLOW_FORM_FIELD_PERMISSON
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="moduleId==null">module_id = null,</if>
+		    <if test="businessKey==null">business_key = null,</if>
+		    <if test="businessKey2==null">business_key2 = null,</if>
+		    <if test="readPermission==null">read_permission = null,</if>
+		    <if test="writePermission==null">write_permission = null,</if>
+		    <if test="fillNecessary==null">fill_necessary = null,</if>
+		    <if test="visible==null">visible = null,</if>
+		    <if test="fieldId==null">field_id = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="id != null">and id = #{id}</when>
+			<otherwise>and id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FieldPermission">
+    delete from WORKFLOW_FORM_FIELD_PERMISSON where 1=1 and id = #{id}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FieldPermission" resultMap="FieldPermissionResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_FORM_FIELD_PERMISSON 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into WORKFLOW_FORM_FIELD_PERMISSON (id,module_id,business_key,business_key2,read_permission,write_permission,fill_necessary,visible,field_id) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.id,jdbcType = VARCHAR},
+				#{entity.moduleId,jdbcType = VARCHAR},
+				#{entity.businessKey,jdbcType = VARCHAR},
+				#{entity.businessKey2,jdbcType = VARCHAR},
+				#{entity.readPermission,jdbcType = CHAR},
+				#{entity.writePermission,jdbcType = CHAR},
+				#{entity.fillNecessary,jdbcType = CHAR},
+				#{entity.visible,jdbcType = CHAR},
+						 #{entity.fieldId.fieldId,jdbcType=VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from WORKFLOW_FORM_FIELD_PERMISSON where id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.id}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="FieldPermissionResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_FORM_FIELD_PERMISSON 
+		<include refid="one2one_sql"/>
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="FieldPermissionResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_FORM_FIELD_PERMISSON 
+		<include refid="one2one_sql"/>
+		 where WORKFLOW_FORM_FIELD_PERMISSON.id = #{id,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FieldPermission" resultMap="FieldPermissionResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_FORM_FIELD_PERMISSON 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="FieldPermissionResult">
+select 
+	<include refid="column_sql"/> 
+	from WORKFLOW_FORM_FIELD_PERMISSON 
+	<include refid="one2one_sql"/>
+	where WORKFLOW_FORM_FIELD_PERMISSON.id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		WORKFLOW_FORM_FIELD_PERMISSON.id
+	    from WORKFLOW_FORM_FIELD_PERMISSON 
+		 <where>
+	        <if test="entity.id != null">and WORKFLOW_FORM_FIELD_PERMISSON.id = #{entity.id}</if>
+	        <if test="entity.moduleId != null">and WORKFLOW_FORM_FIELD_PERMISSON.module_id = #{entity.moduleId}</if>
+	        <if test="entity.businessKey != null">and WORKFLOW_FORM_FIELD_PERMISSON.business_key = #{entity.businessKey}</if>
+	        <if test="entity.businessKey2 != null">and WORKFLOW_FORM_FIELD_PERMISSON.business_key2 = #{entity.businessKey2}</if>
+	        <if test="entity.readPermission != null">and WORKFLOW_FORM_FIELD_PERMISSON.read_permission = #{entity.readPermission}</if>
+	        <if test="entity.writePermission != null">and WORKFLOW_FORM_FIELD_PERMISSON.write_permission = #{entity.writePermission}</if>
+	        <if test="entity.fillNecessary != null">and WORKFLOW_FORM_FIELD_PERMISSON.fill_necessary = #{entity.fillNecessary}</if>
+	        <if test="entity.visible != null">and WORKFLOW_FORM_FIELD_PERMISSON.visible = #{entity.visible}</if>
+		</where>
+</foreach>
+)
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update WORKFLOW_FORM_FIELD_PERMISSON
+	<set>
+	<if test="entity.moduleId != null">module_id= #{entity.moduleId,jdbcType=VARCHAR},</if>
+	<if test="entity.businessKey != null">business_key= #{entity.businessKey,jdbcType=VARCHAR},</if>
+	<if test="entity.businessKey2 != null">business_key2= #{entity.businessKey2,jdbcType=VARCHAR},</if>
+	<if test="entity.readPermission != null">read_permission= #{entity.readPermission,jdbcType=CHAR},</if>
+	<if test="entity.writePermission != null">write_permission= #{entity.writePermission,jdbcType=CHAR},</if>
+	<if test="entity.fillNecessary != null">fill_necessary= #{entity.fillNecessary,jdbcType=CHAR},</if>
+	<if test="entity.visible != null">visible= #{entity.visible,jdbcType=CHAR},</if>
+	<if test="entity.fieldId != null and entity.fieldId.fieldId !=null">field_id= #{entity.fieldId.fieldId,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.id != null">and id = #{entity.id}</when>
+				<otherwise>and id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+<!--Generated=true-->
+<sql id="one2one_sql">
+	     left outer join WORKFLOW_FORM_FIELD WORKFLOW_FORM_FIELD_T1 on WORKFLOW_FORM_FIELD_PERMISSON.field_id=WORKFLOW_FORM_FIELD_T1.field_id
+</sql>
+
+
+
+
+<!--Generated=true-->
+<resultMap id="FormFieldResult" type="com.chinacreator.c2.qyb.workflow.form.entity.FormField">
+	<id property="fieldId" column="field_id"/>
+	<result property="fieldNo" column="field_no"/>
+	<result property="fieldName" column="field_name"/>
+	<result property="fieldType" column="field_type"/>
+	<result property="isObject" column="is_object"/>
+	<result property="objectClass" column="object_class"/>
+	<result property="fieldDescribe" column="field_describe"/>
+	<result property="categoryId" column="category_id"/>
+	<result property="webDisplayTypeId" column="web_display_type_id"/>
+	<result property="forder" column="forder"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+	<result property="remark3" column="remark3"/>
+	<result property="remark4" column="remark4"/>
+	<result property="remark5" column="remark5"/>
+	<result property="remark6" column="remark6"/>
+	<result property="ramark7" column="ramark7"/>
+	<result property="remark8" column="remark8"/>
+	<result property="remark9" column="remark9"/>
+	<result property="remark10" column="remark10"/>
+</resultMap>
+</mapper>

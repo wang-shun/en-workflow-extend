@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi_relMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  SERVICE_SLA_KPI_REL.rel_id ,
+		  SERVICE_SLA_KPI_REL.service_agreement_id ,
+		  SERVICE_SLA_KPI_REL.vlaue ,
+		  SERVICE_SLA_KPI_T1.kpi_id T1_kpi_id ,
+		  SERVICE_SLA_KPI_T1.kpi_no T1_kpi_no ,
+		  SERVICE_SLA_KPI_T1.kpi_name T1_kpi_name ,
+		  SERVICE_SLA_KPI_T1.remark T1_remark ,
+		  SERVICE_SLA_KPI_T1.default_value T1_default_value 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="relId != null">and SERVICE_SLA_KPI_REL.rel_id = #{relId}</if>
+	    <if test="serviceAgreementId != null">and SERVICE_SLA_KPI_REL.service_agreement_id = #{serviceAgreementId}</if>
+	    <if test="vlaue != null">and SERVICE_SLA_KPI_REL.vlaue = #{vlaue}</if>
+		<if test="kpiId != null and kpiId.kpiId !=null">and SERVICE_SLA_KPI_REL.kpi_id = #{kpiId.kpiId}</if>
+</sql>
+
+
+
+
+
+
+
+
+<!-- ElementID:Sla_kpi_relResult,Generated=true -->
+<resultMap id="Sla_kpi_relResult" type="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi_rel">
+	<id property="relId" column="rel_id"/>
+	<result property="serviceAgreementId" column="service_agreement_id"/>
+	<result property="vlaue" column="vlaue"/>
+	<association property="kpiId" column="T1_kpi_id" javaType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi" resultMap="Sla_kpiResult" columnPrefix="T1_"/>	
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi_rel">
+	insert into SERVICE_SLA_KPI_REL(
+	         <if test="relId != null">rel_id</if>
+	         <if test="serviceAgreementId != null">,service_agreement_id</if>
+	         <if test="vlaue != null">,vlaue</if>
+	 	 	 <if test="kpiId != null and kpiId.kpiId !=null">,kpi_id</if>
+	 	 )
+	 values (
+	         <if test="relId != null">#{relId,jdbcType=VARCHAR}</if>
+	         <if test="serviceAgreementId != null">,#{serviceAgreementId,jdbcType=VARCHAR}</if>
+	         <if test="vlaue != null">,#{vlaue,jdbcType=VARCHAR}</if>
+	 	 	 <if test="kpiId != null and kpiId.kpiId !=null">,#{kpiId.kpiId,jdbcType=VARCHAR}</if>
+	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi_rel" resultType="int">
+	select count(*) from SERVICE_SLA_KPI_REL 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi_rel">
+	update SERVICE_SLA_KPI_REL
+<set>
+	<if test="serviceAgreementId != null">service_agreement_id=#{serviceAgreementId,jdbcType=VARCHAR},</if>
+	<if test="vlaue != null">vlaue=#{vlaue,jdbcType=VARCHAR},</if>
+	<if test="kpiId != null and kpiId.kpiId !=null">kpi_id=#{kpiId.kpiId,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="relId != null">and rel_id = #{relId}</when>
+        <otherwise>and rel_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update SERVICE_SLA_KPI_REL
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="serviceAgreementId==null">service_agreement_id = null,</if>
+		    <if test="vlaue==null">vlaue = null,</if>
+		    <if test="kpiId==null">kpi_id = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="relId != null">and rel_id = #{relId}</when>
+			<otherwise>and rel_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi_rel">
+    delete from SERVICE_SLA_KPI_REL where 1=1 and rel_id = #{relId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi_rel" resultMap="Sla_kpi_relResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_KPI_REL 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into SERVICE_SLA_KPI_REL (rel_id,service_agreement_id,vlaue,kpi_id) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.relId,jdbcType = VARCHAR},
+				#{entity.serviceAgreementId,jdbcType = VARCHAR},
+				#{entity.vlaue,jdbcType = VARCHAR},
+						 #{entity.kpiId.kpiId,jdbcType=VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from SERVICE_SLA_KPI_REL where rel_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.relId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="Sla_kpi_relResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_KPI_REL 
+		<include refid="one2one_sql"/>
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="Sla_kpi_relResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_KPI_REL 
+		<include refid="one2one_sql"/>
+		 where SERVICE_SLA_KPI_REL.rel_id = #{relId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi_rel" resultMap="Sla_kpi_relResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_KPI_REL 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="Sla_kpi_relResult">
+select 
+	<include refid="column_sql"/> 
+	from SERVICE_SLA_KPI_REL 
+	<include refid="one2one_sql"/>
+	where SERVICE_SLA_KPI_REL.rel_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		SERVICE_SLA_KPI_REL.rel_id
+	    from SERVICE_SLA_KPI_REL 
+		 <where>
+	        <if test="entity.relId != null">and SERVICE_SLA_KPI_REL.rel_id = #{entity.relId}</if>
+	        <if test="entity.serviceAgreementId != null">and SERVICE_SLA_KPI_REL.service_agreement_id = #{entity.serviceAgreementId}</if>
+	        <if test="entity.vlaue != null">and SERVICE_SLA_KPI_REL.vlaue = #{entity.vlaue}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update SERVICE_SLA_KPI_REL
+	<set>
+	<if test="entity.serviceAgreementId != null">service_agreement_id= #{entity.serviceAgreementId,jdbcType=VARCHAR},</if>
+	<if test="entity.vlaue != null">vlaue= #{entity.vlaue,jdbcType=VARCHAR},</if>
+	<if test="entity.kpiId != null and entity.kpiId.kpiId !=null">kpi_id= #{entity.kpiId.kpiId,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.relId != null">and rel_id = #{entity.relId}</when>
+				<otherwise>and rel_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+<!--Generated=true-->
+<sql id="one2one_sql">
+	     left outer join SERVICE_SLA_KPI SERVICE_SLA_KPI_T1 on SERVICE_SLA_KPI_REL.kpi_id=SERVICE_SLA_KPI_T1.kpi_id
+</sql>
+
+
+<!--Generated=true-->
+<resultMap id="Sla_kpiResult" type="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi">
+	<id property="kpiId" column="kpi_id"/>
+	<result property="kpiNo" column="kpi_no"/>
+	<result property="kpiName" column="kpi_name"/>
+	<result property="remark" column="remark"/>
+	<result property="defaultValue" column="default_value"/>
+</resultMap>
+</mapper>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpiMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  SERVICE_SLA_KPI.kpi_id ,
+		  SERVICE_SLA_KPI.kpi_no ,
+		  SERVICE_SLA_KPI.kpi_name ,
+		  SERVICE_SLA_KPI.remark ,
+		  SERVICE_SLA_KPI.default_value 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="kpiId != null">and SERVICE_SLA_KPI.kpi_id = #{kpiId}</if>
+	    <if test="kpiNo != null">and SERVICE_SLA_KPI.kpi_no = #{kpiNo}</if>
+	    <if test="kpiName != null">and SERVICE_SLA_KPI.kpi_name = #{kpiName}</if>
+	    <if test="remark != null">and SERVICE_SLA_KPI.remark = #{remark}</if>
+	    <if test="defaultValue != null">and SERVICE_SLA_KPI.default_value = #{defaultValue}</if>
+</sql>
+
+
+<!-- ElementID:Sla_kpiResult,Generated=true -->
+<resultMap id="Sla_kpiResult" type="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi">
+	<id property="kpiId" column="kpi_id"/>
+	<result property="kpiNo" column="kpi_no"/>
+	<result property="kpiName" column="kpi_name"/>
+	<result property="remark" column="remark"/>
+	<result property="defaultValue" column="default_value"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi">
+	insert into SERVICE_SLA_KPI(
+	         <if test="kpiId != null">kpi_id</if>
+	         <if test="kpiNo != null">,kpi_no</if>
+	         <if test="kpiName != null">,kpi_name</if>
+	         <if test="remark != null">,remark</if>
+	         <if test="defaultValue != null">,default_value</if>
+	 	 	 )
+	 values (
+	         <if test="kpiId != null">#{kpiId,jdbcType=VARCHAR}</if>
+	         <if test="kpiNo != null">,#{kpiNo,jdbcType=VARCHAR}</if>
+	         <if test="kpiName != null">,#{kpiName,jdbcType=VARCHAR}</if>
+	         <if test="remark != null">,#{remark,jdbcType=VARCHAR}</if>
+	         <if test="defaultValue != null">,#{defaultValue,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi" resultType="int">
+	select count(*) from SERVICE_SLA_KPI 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi">
+	update SERVICE_SLA_KPI
+<set>
+	<if test="kpiNo != null">kpi_no=#{kpiNo,jdbcType=VARCHAR},</if>
+	<if test="kpiName != null">kpi_name=#{kpiName,jdbcType=VARCHAR},</if>
+	<if test="remark != null">remark=#{remark,jdbcType=VARCHAR},</if>
+	<if test="defaultValue != null">default_value=#{defaultValue,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="kpiId != null">and kpi_id = #{kpiId}</when>
+        <otherwise>and kpi_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update SERVICE_SLA_KPI
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="kpiNo==null">kpi_no = null,</if>
+		    <if test="kpiName==null">kpi_name = null,</if>
+		    <if test="remark==null">remark = null,</if>
+		    <if test="defaultValue==null">default_value = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="kpiId != null">and kpi_id = #{kpiId}</when>
+			<otherwise>and kpi_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi">
+    delete from SERVICE_SLA_KPI where 1=1 and kpi_id = #{kpiId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi" resultMap="Sla_kpiResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_KPI 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into SERVICE_SLA_KPI (kpi_id,kpi_no,kpi_name,remark,default_value) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.kpiId,jdbcType = VARCHAR},
+				#{entity.kpiNo,jdbcType = VARCHAR},
+				#{entity.kpiName,jdbcType = VARCHAR},
+				#{entity.remark,jdbcType = VARCHAR},
+				#{entity.defaultValue,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from SERVICE_SLA_KPI where kpi_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.kpiId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="Sla_kpiResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_KPI 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="Sla_kpiResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_KPI 
+		 where SERVICE_SLA_KPI.kpi_id = #{kpiId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi" resultMap="Sla_kpiResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SLA_KPI 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="Sla_kpiResult">
+select 
+	<include refid="column_sql"/> 
+	from SERVICE_SLA_KPI 
+	where SERVICE_SLA_KPI.kpi_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		SERVICE_SLA_KPI.kpi_id
+	    from SERVICE_SLA_KPI 
+		 <where>
+	        <if test="entity.kpiId != null">and SERVICE_SLA_KPI.kpi_id = #{entity.kpiId}</if>
+	        <if test="entity.kpiNo != null">and SERVICE_SLA_KPI.kpi_no = #{entity.kpiNo}</if>
+	        <if test="entity.kpiName != null">and SERVICE_SLA_KPI.kpi_name = #{entity.kpiName}</if>
+	        <if test="entity.remark != null">and SERVICE_SLA_KPI.remark = #{entity.remark}</if>
+	        <if test="entity.defaultValue != null">and SERVICE_SLA_KPI.default_value = #{entity.defaultValue}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update SERVICE_SLA_KPI
+	<set>
+	<if test="entity.kpiNo != null">kpi_no= #{entity.kpiNo,jdbcType=VARCHAR},</if>
+	<if test="entity.kpiName != null">kpi_name= #{entity.kpiName,jdbcType=VARCHAR},</if>
+	<if test="entity.remark != null">remark= #{entity.remark,jdbcType=VARCHAR},</if>
+	<if test="entity.defaultValue != null">default_value= #{entity.defaultValue,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.kpiId != null">and kpi_id = #{entity.kpiId}</when>
+				<otherwise>and kpi_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

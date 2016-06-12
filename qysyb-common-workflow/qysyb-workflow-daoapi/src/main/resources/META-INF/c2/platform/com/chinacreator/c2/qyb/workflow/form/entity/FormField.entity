@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.chinacreator.com/platform/mvc/rule" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" xmlns:form="http://www.chinacreator.com/platform/mvc/form" xmlns:template="http://www.chinacreator.com/c2/ui/template" sn="servicemanageformfield">
+  <docket:name>表单字段</docket:name>
+  <docket:createType>来自数据库</docket:createType>
+  <docket:primaryKey>
+    <docket:pkAttribute attribute="field_id" type="UUID"/>
+  </docket:primaryKey>
+  <docket:attributes>
+    <docket:attribute code="field_id" nullable="false" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="field_no" name="字段编码" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="field_name" name="字段名称" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="field_type" name="持久数据类型" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="is_object" length="1" name="是否为内嵌表单" nullable="true" type="boolean" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="object_class" name="内嵌表单ID" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="field_describe" name="描述" nullable="true" type="string1024" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="category_id" name="分类Id 基本信息 事件信息等" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="web_display_type_id" name="前端控件类型" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="forder" nullable="true" type="mediumdouble" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark1" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark2" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark3" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark4" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark5" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark6" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="ramark7" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark8" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark9" length="1" name="" nullable="true" type="boolean" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark10" nullable="true" type="mediumdouble" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+  </docket:attributes>
+  <docket:subDokcets/>
+  <docket:events>
+    <docket:event id="add" name="新增">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="insert" name="单记录插入" ruleId="rule:c2.dao.insert">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui name="新增">
+        <form:control type="page/modal">
+          <form:attributes source="page/modal">
+            <dync:attribute id="title" value="新增表单字段">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Group" id="main" name="表单字段">
+          <form:control type="container/div">
+            <form:attributes source="container/div"/>
+          </form:control>
+          <form:child xsi:type="form:Field" binding="$model.entity.fieldNo" id="fieldNo" name="字段编码" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.fieldName" id="fieldName" name="字段名称" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.fieldType" id="fieldType" name="字段类型">
+            <form:control type="widget/select_simple">
+              <form:attributes source="widget/select_simple">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;STR&quot;:&quot;文本&quot;,&quot;INT&quot;:&quot;数字&quot;,&quot;TIME&quot;:&quot;时间&quot;}">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.webDisplayTypeId" id="webDisplayTypeId" name="控件类型">
+            <form:control type="widget/select_simple">
+              <form:attributes source="widget/select_simple">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.allwebcategorylist.result">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="categoryNo">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="categoryName">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark1" id="newField" name="字典名" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark2" id="newField1" name="list数据源" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark3" id="newField2" name="名属性" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark4" id="newField3" name="值属性" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark5" id="newField4" name="数据库字段名" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark9" id="remark9" name="存入流程变量">
+            <form:control type="widget/checkbox">
+              <form:attributes source="widget/checkbox">
+                <dync:attribute default="75" group="HTML设置" id="lableWidth" name="文字宽度" value="100">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="2" group="HTML设置" id="span" name="控件宽度" value="6">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark10" id="remark10" name="占位数">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.fieldDescribe" id="fieldDescribe" name="描述" customize="true">
+            <form:control type="widget/textarea">
+              <form:attributes source="widget/textarea"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+        </form:child>
+        <form:child xsi:type="form:Group" id="toolbar" name="主按钮组">
+          <form:control type="container/toolbar_modal_footer">
+            <form:attributes source="container/toolbar_modal_footer"/>
+          </form:control>
+          <form:child xsi:type="form:Field" id="btn_add" name="新增">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_add_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="btn-primary" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-success">
+                  <dync:render colSpan="1" height="0" multi="false" name="select">
+                    <dync:item name="默认" value="btn-default"/>
+                    <dync:item name="主要" value="btn-primary"/>
+                    <dync:item name="成功" value="btn-success"/>
+                    <dync:item name="信息" value="btn-info"/>
+                    <dync:item name="警告" value="btn-warning"/>
+                    <dync:item name="危险" value="btn-danger"/>
+                    <dync:item name="链接" value="btn-link"/>
+                    <dync:item name="通用" value="btn-white no-border"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" id="btn_edit" name="取消">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-times">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_edit_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+        </form:child>
+        <form:datasources>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField"/>
+          <form:datasource xsi:type="form:LogicDataSource" id="allwebcategorylist" name="控件类型" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Form.getAllWebDisplayCategoryList" sn="getAllWebDisplayCategoryList"/>
+        </form:datasources>
+        <form:scripts>btn_add_click:function($event){
+    $model.entity.$save(function(){
+        Modal.instance.close();
+        Messenger.post({type:'success',message:'新增成功'});
+    });
+},
+btn_edit_click:function($event){
+   Modal.instance.close();
+}
+</form:scripts>
+        <form:htmls></form:htmls>
+      </docket:ui>
+    </docket:event>
+    <docket:event id="delete" name="删除">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="delete" name="单记录删除" ruleId="rule:c2.dao.delete">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui type="none"/>
+    </docket:event>
+    <docket:event id="edit" name="修改">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="modify" name="更新" ruleId="rule:c2.dao.update">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui name="修改">
+        <form:control type="page/modal">
+          <form:attributes source="page/modal">
+            <dync:attribute id="title" value="修改表单字段">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Group" id="main" name="表单字段">
+          <form:control type="container/div">
+            <form:attributes source="container/div"/>
+          </form:control>
+          <form:child xsi:type="form:Field" binding="$model.entity.fieldNo" id="fieldNo" name="字段编码" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.fieldName" id="fieldName" name="字段名称" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.fieldType" id="fieldType1" name="字段类型">
+            <form:control type="widget/select_simple">
+              <form:attributes source="widget/select_simple">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;STR&quot;:&quot;文本&quot;,&quot;INT&quot;:&quot;数字&quot;,&quot;TIME&quot;:&quot;时间&quot;}">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.webDisplayTypeId" id="webDisplayTypeId" name="控件类型">
+            <form:control type="widget/select_simple">
+              <form:attributes source="widget/select_simple">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.allcategorylist.result">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="categoryNo">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="categoryName">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark1" id="newField4" name="字典名" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark2" id="newField5" name="list数据源" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark3" id="newField6" name="名属性" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark4" id="newField7" name="值属性" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark5" id="newField" name="数据库字段名" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark9" id="remark11" name="存入流程变量">
+            <form:control type="widget/checkbox">
+              <form:attributes source="widget/checkbox">
+                <dync:attribute default="75" group="HTML设置" id="lableWidth" name="文字宽度" value="100">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="2" group="HTML设置" id="span" name="控件宽度" value="6">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark10" id="remark10" name="占位数">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.fieldDescribe" id="fieldDescribe" name="描述" customize="true">
+            <form:control type="widget/textarea">
+              <form:attributes source="widget/textarea"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+        </form:child>
+        <form:child xsi:type="form:Group" id="toolbar" name="主按钮组">
+          <form:control type="container/toolbar_modal_footer">
+            <form:attributes source="container/toolbar_modal_footer"/>
+          </form:control>
+          <form:child xsi:type="form:Field" id="btn_add" name="新增">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_add_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="btn-primary" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-success">
+                  <dync:render colSpan="1" height="0" multi="false" name="select">
+                    <dync:item name="默认" value="btn-default"/>
+                    <dync:item name="主要" value="btn-primary"/>
+                    <dync:item name="成功" value="btn-success"/>
+                    <dync:item name="信息" value="btn-info"/>
+                    <dync:item name="警告" value="btn-warning"/>
+                    <dync:item name="危险" value="btn-danger"/>
+                    <dync:item name="链接" value="btn-link"/>
+                    <dync:item name="通用" value="btn-white no-border"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" id="btn_edit" name="取消">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-times">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_edit_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+        </form:child>
+        <form:datasources>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.form.entity.FormField"/>
+        </form:datasources>
+        <form:scripts>btn_add_click:function($event){
+    $model.entity.$save(function(){
+        Modal.instance.close();
+        Messenger.post({type:'success',message:'新增成功'});
+    });
+},
+btn_edit_click:function($event){
+   Modal.instance.close();
+}
+</form:scripts>
+        <form:htmls></form:htmls>
+      </docket:ui>
+    </docket:event>
+    <docket:event id="get" name="单记录查询">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="get" name="单记录查询" ruleId="rule:c2.dao.selectOne">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui type="none"/>
+    </docket:event>
+    <docket:event desc="" id="list" name="列表for自定义查询器">
+      <docket:logic/>
+      <docket:ui name="列表for自定义查询器" sn="servicemangerfieldlist" type="inner">
+        <form:control type="page/modal">
+          <form:attributes source="page/modal">
+            <dync:attribute default="" group="HTML" id="title" name="标题" value="自定义查询器">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="800px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Group" id="FormField" name="表单字段">
+          <form:control type="container/div">
+            <form:attributes source="container/div">
+              <dync:attribute default="false" desc="无任何属性和样式的div" group="HTML配置" hidden="false" id="pure" name="简单div" required="true" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+                <dync:onChange>
+                  <template:case value="true">
+                    <template:hide param="span" value="true"/>
+                    <template:hide param="offset" value="true"/>
+                    <template:hide param="collapse" value="true"/>
+                    <template:hide param="defaultCollapse" value="true"/>
+                    <template:hide param="autoHeight" value="true"/>
+                    <template:hide param="nopadding" value="true"/>
+                  </template:case>
+                  <template:case value="false">
+                    <template:hide param="span" value="false"/>
+                    <template:hide param="offset" value="false"/>
+                    <template:hide param="collapse" value="false"/>
+                    <template:hide param="defaultCollapse" value="false"/>
+                    <template:hide param="autoHeight" value="false"/>
+                    <template:hide param="nopadding" value="false"/>
+                  </template:case>
+                </dync:onChange>
+              </dync:attribute>
+              <dync:attribute default="12" desc="网格布局中占位数" group="HTML配置" hidden="false" id="span" name="占位数" required="true" value="12">
+                <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="0" desc="网格布局中的偏移数" group="HTML配置" hidden="false" id="offset" name="偏移" required="false" value="0">
+                <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="填写变量或者表达式，控制控件是否隐藏。变量和表达式的值必须为布尔类型。如果变量没有赋值，则默认为【隐藏默认值】。&#xA;                @attention 变量可以从数据源中直接拿，或者在页面的*载入事件*中进行初始化。" group="HTML配置" hidden="false" id="collapse" name="隐藏" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" desc="容器在页面初始化完成时是否隐藏。当你不需要通过变量来控制控件隐藏的话，只需要使用这个属性就够了。可以通过控件方法`show();hide();toggle()`控制容器的隐藏状态。&#xA;                `false`表示展开控件（默认）。&#xA;                `true`表示隐藏控件。" group="HTML配置" hidden="false" id="defaultCollapse" name="隐藏默认值" required="false" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" desc="该容器的高度自动适应当前页面的page-content高度" group="HTML配置" hidden="false" id="autoHeight" name="自动高度" required="false" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" desc="内部是否有边距(添加&quot;no-padding&quot;样式)" group="HTML配置" hidden="false" id="nopadding" name="无内边距" required="false" value="false">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="在容器内部直接嵌入自定义的HTML。当控件满足不了页面需求时，可以通过这个去嵌入一段自定义的HTML代码。&#xA;                点击属性框右边按钮，会自动跳转到*HTML片段*的页签，并在页签内生成一段包裹脚本。需要自定义的HTML代码写在脚本内。如果还需要脚本控制元素，也可在模版内部写自己的脚本。  &#xA;                @attention 如果定义了该属性，那么在容器中放置任何其他控件都会被忽略。&#xA;                @attention 自定义HTML其实是一个Angular的模版，模版内部的作用域（$scope)继承了Form表单的作用域。所以可以在js页面中通过$scope定义变量，然后在模版中获取。&#xA;                @attention 模版还能够支持Angular原生的指令，也能支持控件指令和自定义的指令。&#xA;                @code&#xA;                &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>&#xA;&#x9;&#x9;&#x9;&#x9;我的地盘我做主！  &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;在表单$scope中定义的变量，都可以在这里通过双打括号{{}}获取。比如在页面js中定义了$scope.someThing = &quot;这里风景独好！&quot;;&#xA;&#x9;&#x9;&#x9;&#x9;{{someThing}} //这里显示&quot;这里风景独好！&quot;。  &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;如果需要调用页面JS中的函数myClickFn，可以通过functions.myClickFn()调用：&#xA;&#x9;&#x9;&#x9;&#x9;&lt;button ng-click=&quot;functions.myClickFn()&quot;>按我！要温柔~&lt;/button>&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;//注意:页面JS定义的函数只能通过ng-click调用的，如果只习惯通过onClick调用，可以把函数单独写到新的&lt;script>标签里面，然后上面就能够onClick直接调用了：&#xA;&#x9;&#x9;&#x9;&#x9;&lt;script>&#xA;&#x9;&#x9;&#x9;&#x9;function myClickFn(){&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;XXOOXX&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;如果需要循环输出数组，可以这样：&#xA;&#x9;&#x9;&#x9;&#x9;&lt;ul>&#xA;&#x9;&#x9;&#x9;&#x9;&lt;li ng-repeat=&quot;one in some&quot;>{{one}}，欢迎来到Angular的世界！&lt;/li>&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/ul>&#xA;                @code" group="高级自定义" hidden="false" id="html" name="自定义HTML" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="html"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="可以添加任意class，多个class样式用空格分开" group="高级自定义" hidden="false" id="cssClass" name="自定义class" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="可以添加任意style样式,必须遵循style样式格式：&quot;color:red;backgroud-color:blue;&quot;。" group="高级自定义" hidden="false" id="style" name="自定义style" required="false" value="">
+                <dync:render colSpan="2" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:child xsi:type="form:Group" binding="$model.list" id="list" name="列表型数据源">
+            <form:control type="container/table_jqgrid">
+              <form:attributes source="container/table_jqgrid">
+                <dync:attribute default="12" group="基本配置" id="span" name="占位数" value="5">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" group="基本配置" id="caption" name="表头" value="所有字段">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:child xsi:type="form:Group" id="toolbar_table" name="toolbar_table">
+              <form:control type="container/toolbar_table">
+                <form:attributes source="container/toolbar_table"/>
+              </form:control>
+              <form:child xsi:type="form:Field" id="buttonSearch" name="查找">
+                <form:control type="widget/button_a_table">
+                  <form:attributes source="widget/button_a_table">
+                    <dync:attribute id="clickType" value="expend">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute id="icon" value="fa-search">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute id="iconColor" value="light-blue">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+              </form:child>
+              <form:child xsi:type="form:Field" id="buttonRefresh" name="刷新">
+                <form:control type="widget/button_a_table">
+                  <form:attributes source="widget/button_a_table">
+                    <dync:attribute id="clickType" value="refrash">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute id="icon" value="fa-refresh">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute id="iconColor" value="green">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+              </form:child>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="fieldId" id="fieldId" name="fieldId">
+              <form:control type="widget/col_jqgrid">
+                <form:attributes source="widget/col_jqgrid">
+                  <dync:attribute id="key" value="true">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute id="hidden" value="true">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="fieldNo" id="fieldNo" name="字段编码">
+              <form:control type="widget/col_jqgrid">
+                <form:attributes source="widget/col_jqgrid"/>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="fieldName" id="fieldName" name="字段名称">
+              <form:control type="widget/col_jqgrid">
+                <form:attributes source="widget/col_jqgrid"/>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="isLike" id="newField2" name="模糊查询" customize="true">
+              <form:control type="widget/col_jqgrid">
+                <form:attributes source="widget/col_jqgrid">
+                  <dync:attribute default="" group="格式设置" id="formatter" name="预定格式" value="checkbox">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="" group="格式设置" id="formatoptions" name="预定格式设置" value="{disabled:&quot;&quot;}">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
+            </form:child>
+          </form:child>
+          <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+            <form:control type="container/div">
+              <form:attributes source="container/div">
+                <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="1">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:child xsi:type="form:Field" id="newField4" name="添加" customize="true">
+              <form:control type="widget/button">
+                <form:attributes source="widget/button">
+                  <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-xs">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField4_click($event)">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
+            </form:child>
+          </form:child>
+          <form:child xsi:type="form:Group" binding="$model.list1" id="list1" name="列表型数据源">
+            <form:control type="container/table_jqgrid">
+              <form:attributes source="container/table_jqgrid">
+                <dync:attribute default="12" group="基本配置" id="span" name="占位数" value="5">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" group="表格设置" id="paramData" name="初始化参数" value="{retrieveKey:$params.retrieveKey}">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" group="基本配置" id="caption" name="表头" value="查询字段">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:child xsi:type="form:Group" id="toolbar_table" name="toolbar_table">
+              <form:control type="container/toolbar_table">
+                <form:attributes source="container/toolbar_table"/>
+              </form:control>
+              <form:child xsi:type="form:Field" id="buttonDel" name="删除">
+                <form:control type="widget/button_a_table">
+                  <form:attributes source="widget/button_a_table">
+                    <dync:attribute id="clickType" value="delete">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute id="icon" value="fa-trash-o">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute id="iconColor" value="red">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+              </form:child>
+              <form:child xsi:type="form:Field" id="buttonRefresh" name="刷新">
+                <form:control type="widget/button_a_table">
+                  <form:attributes source="widget/button_a_table">
+                    <dync:attribute id="clickType" value="refrash">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute id="icon" value="fa-refresh">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute id="iconColor" value="green">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+              </form:child>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="itemId" id="itemId" name="itemId">
+              <form:control type="widget/col_jqgrid">
+                <form:attributes source="widget/col_jqgrid">
+                  <dync:attribute id="key" value="true">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute id="hidden" value="true">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="fieldId.fieldNo" id="field_id" name="字段编码">
+              <form:control type="widget/col_jqgrid">
+                <form:attributes source="widget/col_jqgrid"/>
+              </form:control>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="fieldId.fieldName" id="newField3" name="字段名称" customize="true">
+              <form:control type="widget/col_jqgrid">
+                <form:attributes source="widget/col_jqgrid"/>
+              </form:control>
+              <form:validation/>
+            </form:child>
+            <form:child xsi:type="form:Field" binding="isLike" id="isLike" name="模糊检索">
+              <form:control type="widget/col_jqgrid">
+                <form:attributes source="widget/col_jqgrid">
+                  <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+            </form:child>
+          </form:child>
+        </form:child>
+        <form:child xsi:type="form:Group" id="newGroup" name="对话框工具条">
+          <form:control type="container/toolbar_modal_footer">
+            <form:attributes source="container/toolbar_modal_footer"/>
+          </form:control>
+          <form:child xsi:type="form:Field" id="newField" name="确定" customize="true">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField_click($event)">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+        </form:child>
+        <form:datasources>
+          <form:datasource xsi:type="form:Inputs">
+            <form:input id="id" name="实体数据id"/>
+          </form:datasource>
+          <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField" pageSize="10"/>
+          <form:datasource xsi:type="form:PagingDataSource" id="list1" name="列表型数据源" elementType="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.retrieval.RetrieveItem" pageSize="10"/>
+        </form:datasources>
+        <form:scripts>
+
+newField_click:function($event){
+	var kpis = $view.list.getSelectDatas();
+	Modal.instance.close({fields:kpis});	
+},
+
+newField1_click:function($event){
+	Modal.instance.dismiss();
+},
+
+newField4_click:function($event){
+	var items = $view.list.getSelectDatas();
+	$http.post(&quot;ws/addretrieveitem&quot;,{retrieveKey:$params.retrieveKey,items:items}).success(function(){
+		$view.list1.refresh();
+	});
+}</form:scripts>
+        <form:htmls>
+</form:htmls>
+      </docket:ui>
+    </docket:event>
+  </docket:events>
+  <docket:table ds="oracDB" table="WORKFLOW_FORM_FIELD"/>
+  <entity:datas/>
+  <entity:views/>
+</entity:Entity>

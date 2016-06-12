@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" sn="servicemanagefieldpermission">
+  <docket:name>字段权限</docket:name>
+  <docket:createType>来自数据库</docket:createType>
+  <docket:primaryKey>
+    <docket:pkAttribute attribute="id" type="UUID"/>
+  </docket:primaryKey>
+  <docket:attributes>
+    <docket:attribute code="id" nullable="false" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="field_id" length="" name="字段ID" nullable="true" precision="" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.FormField.field_id" id="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField"/>
+    </docket:attribute>
+    <docket:attribute code="module_id" name="事项ID" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="business_key" name="业务key" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="business_key2" nullable="true" type="string512" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="read_permission" length="1" name="读权限" nullable="true" type="boolean" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="write_permission" length="1" name="写权限" nullable="true" type="boolean" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="fill_necessary" length="1" name="是否必填项" nullable="true" type="boolean" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="visible" length="1" name="是否可见" nullable="true" type="boolean" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+  </docket:attributes>
+  <docket:subDokcets/>
+  <docket:events/>
+  <docket:table ds="oracDB" table="WORKFLOW_FORM_FIELD_PERMISSON"/>
+  <entity:datas/>
+  <entity:views/>
+</entity:Entity>

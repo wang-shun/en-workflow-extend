@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProductMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  SERVICE_SERVICEPRODUCT.product_id ,
+		  SERVICE_SERVICEPRODUCT.product_no ,
+		  SERVICE_SERVICEPRODUCT.product_name ,
+		  SERVICE_SERVICEPRODUCT.product_describe ,
+		  SERVICE_SERVICEPRODUCT.service_type_id ,
+		  SERVICE_SERVICEPRODUCT.group_id ,
+		  SERVICE_SERVICEPRODUCT.wf_processdefid ,
+		  SERVICE_SERVICEPRODUCT.wf_processstart_url ,
+		  SERVICE_SERVICEPRODUCT.form_id ,
+		  SERVICE_SERVICEPRODUCT.ico 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="productId != null">and SERVICE_SERVICEPRODUCT.product_id = #{productId}</if>
+	    <if test="productNo != null">and SERVICE_SERVICEPRODUCT.product_no = #{productNo}</if>
+	    <if test="productName != null">and SERVICE_SERVICEPRODUCT.product_name = #{productName}</if>
+	    <if test="productDescribe != null">and SERVICE_SERVICEPRODUCT.product_describe = #{productDescribe}</if>
+	    <if test="serviceTypeId != null">and SERVICE_SERVICEPRODUCT.service_type_id = #{serviceTypeId}</if>
+	    <if test="groupId != null">and SERVICE_SERVICEPRODUCT.group_id = #{groupId}</if>
+	    <if test="wfProcessdefid != null">and SERVICE_SERVICEPRODUCT.wf_processdefid = #{wfProcessdefid}</if>
+	    <if test="wfProcessstartUrl != null">and SERVICE_SERVICEPRODUCT.wf_processstart_url = #{wfProcessstartUrl}</if>
+	    <if test="formId != null">and SERVICE_SERVICEPRODUCT.form_id = #{formId}</if>
+	    <if test="ico != null">and SERVICE_SERVICEPRODUCT.ico = #{ico}</if>
+</sql>
+
+
+<!-- ElementID:ServiceProductResult,Generated=true -->
+<resultMap id="ServiceProductResult" type="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct">
+	<id property="productId" column="product_id"/>
+	<result property="productNo" column="product_no"/>
+	<result property="productName" column="product_name"/>
+	<result property="productDescribe" column="product_describe"/>
+	<result property="serviceTypeId" column="service_type_id"/>
+	<result property="groupId" column="group_id"/>
+	<result property="wfProcessdefid" column="wf_processdefid"/>
+	<result property="wfProcessstartUrl" column="wf_processstart_url"/>
+	<result property="formId" column="form_id"/>
+	<result property="ico" column="ico"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct">
+	insert into SERVICE_SERVICEPRODUCT(
+	         <if test="productId != null">product_id</if>
+	         <if test="productNo != null">,product_no</if>
+	         <if test="productName != null">,product_name</if>
+	         <if test="productDescribe != null">,product_describe</if>
+	         <if test="serviceTypeId != null">,service_type_id</if>
+	         <if test="groupId != null">,group_id</if>
+	         <if test="wfProcessdefid != null">,wf_processdefid</if>
+	         <if test="wfProcessstartUrl != null">,wf_processstart_url</if>
+	         <if test="formId != null">,form_id</if>
+	         <if test="ico != null">,ico</if>
+	 	 	 )
+	 values (
+	         <if test="productId != null">#{productId,jdbcType=VARCHAR}</if>
+	         <if test="productNo != null">,#{productNo,jdbcType=VARCHAR}</if>
+	         <if test="productName != null">,#{productName,jdbcType=VARCHAR}</if>
+	         <if test="productDescribe != null">,#{productDescribe,jdbcType=VARCHAR}</if>
+	         <if test="serviceTypeId != null">,#{serviceTypeId,jdbcType=VARCHAR}</if>
+	         <if test="groupId != null">,#{groupId,jdbcType=VARCHAR}</if>
+	         <if test="wfProcessdefid != null">,#{wfProcessdefid,jdbcType=VARCHAR}</if>
+	         <if test="wfProcessstartUrl != null">,#{wfProcessstartUrl,jdbcType=VARCHAR}</if>
+	         <if test="formId != null">,#{formId,jdbcType=VARCHAR}</if>
+	         <if test="ico != null">,#{ico,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct" resultType="int">
+	select count(*) from SERVICE_SERVICEPRODUCT 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct">
+	update SERVICE_SERVICEPRODUCT
+<set>
+	<if test="productNo != null">product_no=#{productNo,jdbcType=VARCHAR},</if>
+	<if test="productName != null">product_name=#{productName,jdbcType=VARCHAR},</if>
+	<if test="productDescribe != null">product_describe=#{productDescribe,jdbcType=VARCHAR},</if>
+	<if test="serviceTypeId != null">service_type_id=#{serviceTypeId,jdbcType=VARCHAR},</if>
+	<if test="groupId != null">group_id=#{groupId,jdbcType=VARCHAR},</if>
+	<if test="wfProcessdefid != null">wf_processdefid=#{wfProcessdefid,jdbcType=VARCHAR},</if>
+	<if test="wfProcessstartUrl != null">wf_processstart_url=#{wfProcessstartUrl,jdbcType=VARCHAR},</if>
+	<if test="formId != null">form_id=#{formId,jdbcType=VARCHAR},</if>
+	<if test="ico != null">ico=#{ico,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="productId != null">and product_id = #{productId}</when>
+        <otherwise>and product_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update SERVICE_SERVICEPRODUCT
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="productNo==null">product_no = null,</if>
+		    <if test="productName==null">product_name = null,</if>
+		    <if test="productDescribe==null">product_describe = null,</if>
+		    <if test="serviceTypeId==null">service_type_id = null,</if>
+		    <if test="groupId==null">group_id = null,</if>
+		    <if test="wfProcessdefid==null">wf_processdefid = null,</if>
+		    <if test="wfProcessstartUrl==null">wf_processstart_url = null,</if>
+		    <if test="formId==null">form_id = null,</if>
+		    <if test="ico==null">ico = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="productId != null">and product_id = #{productId}</when>
+			<otherwise>and product_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct">
+    delete from SERVICE_SERVICEPRODUCT where 1=1 and product_id = #{productId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct" resultMap="ServiceProductResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SERVICEPRODUCT 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into SERVICE_SERVICEPRODUCT (product_id,product_no,product_name,product_describe,service_type_id,group_id,wf_processdefid,wf_processstart_url,form_id,ico) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.productId,jdbcType = VARCHAR},
+				#{entity.productNo,jdbcType = VARCHAR},
+				#{entity.productName,jdbcType = VARCHAR},
+				#{entity.productDescribe,jdbcType = VARCHAR},
+				#{entity.serviceTypeId,jdbcType = VARCHAR},
+				#{entity.groupId,jdbcType = VARCHAR},
+				#{entity.wfProcessdefid,jdbcType = VARCHAR},
+				#{entity.wfProcessstartUrl,jdbcType = VARCHAR},
+				#{entity.formId,jdbcType = VARCHAR},
+				#{entity.ico,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from SERVICE_SERVICEPRODUCT where product_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.productId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="ServiceProductResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SERVICEPRODUCT 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="ServiceProductResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SERVICEPRODUCT 
+		 where SERVICE_SERVICEPRODUCT.product_id = #{productId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct" resultMap="ServiceProductResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SERVICEPRODUCT 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="ServiceProductResult">
+select 
+	<include refid="column_sql"/> 
+	from SERVICE_SERVICEPRODUCT 
+	where SERVICE_SERVICEPRODUCT.product_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		SERVICE_SERVICEPRODUCT.product_id
+	    from SERVICE_SERVICEPRODUCT 
+		 <where>
+	        <if test="entity.productId != null">and SERVICE_SERVICEPRODUCT.product_id = #{entity.productId}</if>
+	        <if test="entity.productNo != null">and SERVICE_SERVICEPRODUCT.product_no = #{entity.productNo}</if>
+	        <if test="entity.productName != null">and SERVICE_SERVICEPRODUCT.product_name = #{entity.productName}</if>
+	        <if test="entity.productDescribe != null">and SERVICE_SERVICEPRODUCT.product_describe = #{entity.productDescribe}</if>
+	        <if test="entity.serviceTypeId != null">and SERVICE_SERVICEPRODUCT.service_type_id = #{entity.serviceTypeId}</if>
+	        <if test="entity.groupId != null">and SERVICE_SERVICEPRODUCT.group_id = #{entity.groupId}</if>
+	        <if test="entity.wfProcessdefid != null">and SERVICE_SERVICEPRODUCT.wf_processdefid = #{entity.wfProcessdefid}</if>
+	        <if test="entity.wfProcessstartUrl != null">and SERVICE_SERVICEPRODUCT.wf_processstart_url = #{entity.wfProcessstartUrl}</if>
+	        <if test="entity.formId != null">and SERVICE_SERVICEPRODUCT.form_id = #{entity.formId}</if>
+	        <if test="entity.ico != null">and SERVICE_SERVICEPRODUCT.ico = #{entity.ico}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update SERVICE_SERVICEPRODUCT
+	<set>
+	<if test="entity.productNo != null">product_no= #{entity.productNo,jdbcType=VARCHAR},</if>
+	<if test="entity.productName != null">product_name= #{entity.productName,jdbcType=VARCHAR},</if>
+	<if test="entity.productDescribe != null">product_describe= #{entity.productDescribe,jdbcType=VARCHAR},</if>
+	<if test="entity.serviceTypeId != null">service_type_id= #{entity.serviceTypeId,jdbcType=VARCHAR},</if>
+	<if test="entity.groupId != null">group_id= #{entity.groupId,jdbcType=VARCHAR},</if>
+	<if test="entity.wfProcessdefid != null">wf_processdefid= #{entity.wfProcessdefid,jdbcType=VARCHAR},</if>
+	<if test="entity.wfProcessstartUrl != null">wf_processstart_url= #{entity.wfProcessstartUrl,jdbcType=VARCHAR},</if>
+	<if test="entity.formId != null">form_id= #{entity.formId,jdbcType=VARCHAR},</if>
+	<if test="entity.ico != null">ico= #{entity.ico,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.productId != null">and product_id = #{entity.productId}</when>
+				<otherwise>and product_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>
