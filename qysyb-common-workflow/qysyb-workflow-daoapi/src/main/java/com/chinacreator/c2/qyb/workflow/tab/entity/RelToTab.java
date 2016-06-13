@@ -1,4 +1,4 @@
-package com.chinacreator.c2.omp.common;
+package com.chinacreator.c2.qyb.workflow.tab.entity;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import com.chinacreator.c2.annotation.Entity;
  * @author 
  * @generated
  */
-@Entity(id = "entity:com.chinacreator.c2.omp.common.RelToTab", table = "REL_TAB", ds = "oracDB")
+@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.tab.entity.RelToTab", table = "REL_TAB", ds = "oracDB")
 public class RelToTab implements Serializable {
 	private static final long serialVersionUID = 1555819614208000L;
 	/**

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.common.TabMapper">	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.tab.entity.TabMapper">	
 
 <!-- ElementID:column_sql,Generated=true -->
 <sql id="column_sql">
@@ -23,7 +23,7 @@
 
 
 <!-- ElementID:TabResult,Generated=true -->
-<resultMap id="TabResult" type="com.chinacreator.c2.omp.common.Tab">
+<resultMap id="TabResult" type="com.chinacreator.c2.qyb.workflow.tab.entity.Tab">
 	<id property="tabId" column="tab_id"/>
 	<result property="title" column="title"/>
 	<result property="icon" column="icon"/>
@@ -37,7 +37,7 @@
 <cache/>
 
 <!-- ElementID:insert,Generated=true -->
-<insert id="insert" parameterType="com.chinacreator.c2.omp.common.Tab">
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab">
 	insert into SERVICE_TAB(
 	         <if test="title != null">title</if>
 	         <if test="tabId != null">,tab_id</if>
@@ -57,7 +57,7 @@
 </insert>
 
 <!-- ElementID:count,Generated=true -->
-<select id="count" parameterType="com.chinacreator.c2.omp.common.Tab" resultType="int">
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab" resultType="int">
 	select count(*) from SERVICE_TAB 
 		 <where>
 			<include refid="whereClause_sql"/>
@@ -65,7 +65,7 @@
 </select>
 
 <!-- ElementID:update,Generated=true -->
-<update id="update" parameterType="com.chinacreator.c2.omp.common.Tab">
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab">
 	update SERVICE_TAB
 <set>
 	<if test="title != null">title=#{title,jdbcType=VARCHAR},</if>
@@ -103,12 +103,12 @@
 </update>
 
 <!-- ElementID:delete,Generated=true -->
-<delete id="delete" parameterType="com.chinacreator.c2.omp.common.Tab">
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab">
     delete from SERVICE_TAB where 1=1 and tab_id = #{tabId}
 </delete>
 
 <!-- ElementID:select,Generated=true -->
-<select id="select" parameterType="com.chinacreator.c2.omp.common.Tab" resultMap="TabResult">
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab" resultMap="TabResult">
 	select 
 		<include refid="column_sql"/>
 	    from SERVICE_TAB 
@@ -201,7 +201,7 @@ select
 </select>
 
 <!-- ElementID:selectByPage,Generated=true -->
-<select id="selectByPage" parameterType="com.chinacreator.c2.omp.common.Tab" resultMap="TabResult">
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab" resultMap="TabResult">
 	select 
 		<include refid="column_sql"/>
 	    from SERVICE_TAB 

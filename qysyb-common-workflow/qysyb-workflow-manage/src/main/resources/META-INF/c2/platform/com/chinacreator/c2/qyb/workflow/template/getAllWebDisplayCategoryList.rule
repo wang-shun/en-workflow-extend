@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getAllWebDisplayCategoryList" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.FormService" method="getAllWebDisplayCategoryList">
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getAllWebDisplayCategoryList" log="false" className="com.chinacreator.c2.qyb.workflow.form.impl.FormService" method="getAllWebDisplayCategoryList">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
   <name>获取控件类型in list</name>
   <desc>RT</desc>
   <inputs/>

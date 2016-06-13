@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getserviceproductnames" log="false" className="com.chinacreator.c2.omp.service.manage.serviceproductmanage.service.ServiceProductService" method="getServiceProductIconNames">
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getserviceproductnames" log="false" className="com.chinacreator.c2.qyb.workflow.module.impl.ServiceProductService" method="getServiceProductIconNames">
   <instanceCreator>
     <params/>
   </instanceCreator>

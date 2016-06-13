@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html id="ng-app" ng-app="app">
+<head>
+<title>科创C2平台产品</title>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta charset="utf-8" />
+
+<meta name="description" content="overview &amp; stats" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+<link c2-css-injector-point="low" />
+
+<!--[if gt IE 9]><!-->
+<link rel="stylesheet" href="assets/css/c2-all.css" />
+<!-- <![endif]-->
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lte IE 9]>
+	<link rel="stylesheet" href="assets/compatible/dup/bootstrap.min.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/font-awesome/font-awesome.min.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/jquery-ui.min.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/ace.min.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/pace.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/messenger.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/messenger-theme-flat.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/site.css"/>
+    <link rel="stylesheet" href="assets/compatible/ace-part2.min.css"/>
+    <link rel="stylesheet" href="assets/compatible/ace-ie.min.css"/>
+<![endif]-->
+
+<link c2-css-injector-point="default" />
+
+<!--[if lte IE 9]>
+    <script src="assets/compatible/html5shiv.js"></script>
+    <script src="assets/compatible/respond.min.js"></script>
+<![endif]-->
+
+<link rel="stylesheet" href="css/custom.css" />
+      
+<!-- 进度条 -->
+<script data-pace-options='{ "target": "#progress"}'
+	src="assets/pace.min.js"></script>
+</head>
+
+<body ng-controller="AppController" class="no-skin">
+<div ng-view></div>
+	<div id="directives"></div>
+	<div class="navbar navbar-default navbar-fixed-top" id="navbar">
+		<div class="navbar-container" id="navbar-container">
+			<button type="button" class="navbar-toggle menu-toggler pull-left"
+				id="menu-toggler">
+				<span class="sr-only">Toggle sidebar</span> <span class="icon-bar"></span>
+
+				<span class="icon-bar"></span> <span class="icon-bar"></span>
+			</button>
+			<div class="navbar-header pull-left">
+				<a href="#" class="navbar-brand"> <small> <i
+						class="ace-icon fa fa-joomla"></i> 科创C2平台产品首页(请在index.html中自定义)
+				</small>
+				</a>
+				<!-- /.brand -->
+			</div>
+			<!-- /.navbar-header -->
+
+			<div class="navbar-buttons navbar-header pull-right">
+				<ul c2-navbar></ul>
+				<!-- /.ace-nav -->
+			</div>
+			<!-- /.navbar-header -->
+		</div>
+		<!-- /.container -->
+	</div>
+
+	<div class="main-container" id="main-container">
+		<div c2-sidebar class="sidebar sidebar-fixed compact responsive" id="sidebar"></div>
+
+		<div class="main-content clearfix">
+			<div class="page-content clearfix">
+				<div id="view">
+					<div id="progress"></div>
+					<div class="col-xs-12 tabbable no-padding">
+							<div c2tabset>
+								<div c2tab  select="select('/')" >
+									<div ng-include="homeUrl"></div>
+									<div c2tab-heading>
+										<i class="menu-icon fa fa-home"></i>
+										首页
+										<div id="c2-context-menu-index">
+									      	<ul class="dropdown-menu" role="menu">
+									      	   <li><a tabindex="-1" ng-click="refreshIndex();">刷新</a></li>
+									      	   <li ng-if="tabs.length>0" class="divider"></li>
+								               <li ng-if="tabs.length>0"><a tabindex="-1" ng-click="closeAllTab();" >关闭其它标签页</a></li>
+									      	</ul>
+								      	</div>
+									</div>
+								</div>
+								<div c2tab ng-repeat="tab in tabs | orderBy:'$pin':reverse" select="select(tab.page,tab)"  active="tab.active" class="tab-nav-item">
+								 	 <div c2tab-heading>
+								 	 	<!-- pin的功能：如果页签被pin了，该页签会被移动到导航条最左侧，且在打开tab过多时不会被自动关闭掉，这里的图标是在标签页被pin住之后显示 -->
+										<i ng-if="tab.$pin >= 0" class="fa fa-thumb-tack tab-action tab-action-pin" ng-class="{pinning :  tab.$pin >= 0}"></i>
+										<!-- 页签图标，即页面菜单图标 -->
+										<i class="menu-icon fa {{tab.icon}} tab-page-icon"></i>
+										<i class="fa fa-spinner" ng-if="tab.title==''"></i>
+								     	<span ng-bind="tab.title"></span>
+								     	<!-- 关闭页签的按钮 -->
+								     	<i class="fa fa-times tab-action tab-action-close" ng-click="closeTab(tab)" title="关闭页签"></i>
+								     	
+								     	<div id="c2-context-menu-{{$index}}">
+									      	<ul class="dropdown-menu" role="menu">
+									      	   <li><a ng-click="refreshTab(tab);">刷新</a></li>
+								               <li class="divider"></li>
+									           <li><a  ng-click="closeTab(tab);" >关闭标签页</a></li>
+									           <li><a  ng-click="closeOtherTab(tab);" >关闭其它标签页</a></li>
+									           <li><a  ng-click="closeAllTab();" >关闭所有标签页</a></li>
+									           <li class="divider"></li>
+									           <li><a ng-click="pinTab(tab)">{{tab.$pin >= 0 ? '解除锁定' : '锁定标签页'}}</a></li>
+									      	</ul>
+								      	</div>
+					   		 		</div>
+					   		 		<div ng-include="tab.includeUrl" ng-if="!tab.isIframe"></div>
+						   		 </div>
+						   		 <!-- 超过一行长度的Tab会被自动关闭，并将链接添加到这里折叠起来 -->
+						   		 <!-- 目的一是防止Tab导航换行后很难看，二是控制最大打开的Tab个数，避免tab太多导致页面性能变很差 -->
+						   		 <div class="tab-hidden-tigger pull-right" ng-if="hiddenTabs.length>0">
+						   		 	<a href="javascript:void(0)" data-toggle="dropdown" aria-expanded="true">
+							   		 	<i class="fa fa-ellipsis-v bigger-140"></i>
+							   		 	<span ng-bind="hiddenTabs.length"></span>
+						   		 	</a>
+						   		 	<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+									    <li ng-repeat="hiddenTab in hiddenTabs" role="presentation"><a role="menuitem" tabindex="-1" ng-click="showHiddenTab(hiddenTab)" ng-href="#/{{hiddenTab.page}}" ng-bind="hiddenTab.title"></a></li>
+									  </ul>
+						   		 </div>
+				  			 </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.main-content -->
+
+		<div class="footer" ng-include="'template/footer.html'" >
+		</div>
+	</div>
+	<!-- /.main-container -->
+
+	<!-- basic scripts -->
+	<script src="assets/jquery.min.js"></script>
+	<script type="text/javascript">
+		try {
+			ace.settings.check('navbar', 'fixed');
+			ace.settings.check('main-container', 'fixed');
+			ace.settings.check('breadcrumbs', 'fixed');
+		} catch (e) {
+		}
+		$.ajaxSetup({async : false});
+		//将ui组件指令模板加载到指令模板容器中
+		$("#directives").load("ui/dir/directives.html");
+		$.ajaxSetup({async : true,cache: true});
+		/*建议启用jquery缓存，可以很大的优化js等静态资源的加载性能，如果有业务请求确定不要缓存的，请在每次发送请求时单独关闭缓存*/
+	</script>
+	
+	<script src="assets/js/c2-all-tab.js"></script>
+	<script src="js/app-controllers-tab.js"></script>
+	<script src="ui/dir/directives.js"></script>
+	<!-- 国际化配置 -->
+	<script src="i18n/zh-cn.js"></script>
+</body>
+</html>

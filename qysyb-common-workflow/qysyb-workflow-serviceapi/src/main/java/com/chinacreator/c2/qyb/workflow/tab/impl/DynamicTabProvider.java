@@ -1,4 +1,4 @@
-package com.chinacreator.c2.omp.service.manage.serviceproductmanage.service;
+package com.chinacreator.c2.qyb.workflow.tab.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,12 +7,12 @@ import java.util.Map;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.omp.common.RelToTab;
-import com.chinacreator.c2.omp.common.Tab;
 import com.chinacreator.c2.omp.common.bean.TabDescriptionWithTabId;
 import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
 import com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig;
 import com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct;
+import com.chinacreator.c2.qyb.workflow.tab.entity.RelToTab;
+import com.chinacreator.c2.qyb.workflow.tab.entity.Tab;
 /**
  * 
  * @author l

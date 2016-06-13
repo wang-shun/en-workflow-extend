@@ -514,7 +514,7 @@
     <form:datasource xsi:type="form:LogicDataSource" id="servicetypes" name="服务分类字典数据" logic="rule:com.chinacreator.c2.omp.common.getDictDataByType" sn="getdictdatabytype">
       <form:param id="dictTypeName" name="新输入参数" value="[&quot;服务分类&quot;]"/>
     </form:datasource>
-    <form:datasource xsi:type="form:EntityDataSource" id="uccentity" name="单实体数据源" data="" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.UserConcernedConfig"/>
+    <form:datasource xsi:type="form:EntityDataSource" id="uccentity" name="单实体数据源" data="" entity="entity:com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
     <form:datasource xsi:type="form:LogicDataSource" id="getconcernconfig" name="用户关注工单配置" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.getUserconcernConfig" sn="getconcernconfig">
       <form:param id="ucc" name="新输入参数"/>
     </form:datasource>
@@ -593,7 +593,7 @@ newField12_click:function($event){
 	$scope.search.formId = $params.formId==null?&quot;flVDR-XpR3-rzTGuTuwNJQ&quot;:$params.formId;
 	$scope.search.isExternalStorage = true;
 	$scope.search.retrieveId = $params.workType==null?'commonext':$params.workType;
-	$scope.search.needInvolved = $params.needInvolved==null?false:$params.needInvolved;
+	$scope.search.needInvolved = false;
 	$scope.search.serviceTypeId = $params.workType==null?$scope.search.serviceTypeId:$params.workType;
 	$view.list.refresh($scope.search);
 },

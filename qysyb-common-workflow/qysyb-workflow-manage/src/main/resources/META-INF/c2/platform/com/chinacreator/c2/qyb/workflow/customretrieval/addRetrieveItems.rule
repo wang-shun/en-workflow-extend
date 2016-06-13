@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addretrieveitem" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.retrieval.service.RetrieveItemService" method="addRetrieveItemOnRetrieve">
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addretrieveitem" log="false" className="com.chinacreator.c2.qyb.workflow.customretrieval.impl.RetrieveItemService" method="addRetrieveItemOnRetrieve">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
   <name>增加检索器项</name>
   <inputs>
     <input collection="false" desc="" id="retrieveKey" required="true" type="String"/>

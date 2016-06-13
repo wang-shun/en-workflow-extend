@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="hasserviceproductwork" log="false" className="com.chinacreator.c2.omp.service.manage.serviceproductmanage.service.ServiceProductService" method="hasUnfinishedWorkByProduct">
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="hasserviceproductwork" log="false" className="com.chinacreator.c2.qyb.workflow.module.impl.ServiceProductService" method="hasUnfinishedWorkByProduct">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
   <name>查看此服务产品是否有未完成工单</name>
   <desc>看此产品是否有未完成工单</desc>
   <inputs>

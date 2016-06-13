@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getproducttabs" log="false" className="com.chinacreator.c2.omp.service.manage.serviceproductmanage.service.DynamicTabProvider" method="generateProductTab">
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getproducttabs" log="false" className="com.chinacreator.c2.qyb.workflow.tab.impl.DynamicTabProvider" method="generateProductTab">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
   <name>获取服务产品的Tab</name>
   <inputs>
     <input collection="false" desc="" id="productId" required="true" type="String"/>

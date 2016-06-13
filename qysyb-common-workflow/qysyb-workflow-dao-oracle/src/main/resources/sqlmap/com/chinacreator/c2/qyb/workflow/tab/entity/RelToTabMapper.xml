@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.omp.common.RelToTabMapper">	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.tab.entity.RelToTabMapper">	
 
 <!-- ElementID:column_sql,Generated=true -->
 <sql id="column_sql">
@@ -30,7 +30,7 @@
 </sql>
 
 <!-- ElementID:TabResult,Generated=true -->
-<resultMap id="TabResult" type="com.chinacreator.c2.omp.common.Tab">
+<resultMap id="TabResult" type="com.chinacreator.c2.qyb.workflow.tab.entity.Tab">
 	<id property="tabId" column="tab_id"/>
 	<result property="title" column="title"/>
 	<result property="icon" column="icon"/>
@@ -41,12 +41,12 @@
 
 
 <!-- ElementID:RelToTabResult,Generated=true -->
-<resultMap id="RelToTabResult" type="com.chinacreator.c2.omp.common.RelToTab">
+<resultMap id="RelToTabResult" type="com.chinacreator.c2.qyb.workflow.tab.entity.RelToTab">
 	<id property="relId" column="rel_id"/>
 	<result property="remark1" column="remark1"/>
 	<result property="remark2" column="remark2"/>
 	<result property="businessKey" column="business_key"/>
-	<association property="tab" column="T1_tab_id" javaType="com.chinacreator.c2.omp.common.Tab" resultMap="TabResult" columnPrefix="T1_"/>	
+	<association property="tab" column="T1_tab_id" javaType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab" resultMap="TabResult" columnPrefix="T1_"/>	
 </resultMap>
 
 
@@ -54,7 +54,7 @@
 <cache/>
 
 <!-- ElementID:insert,Generated=true -->
-<insert id="insert" parameterType="com.chinacreator.c2.omp.common.RelToTab">
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.RelToTab">
 	insert into REL_TAB(
 	         <if test="relId != null">rel_id</if>
 	         <if test="remark1 != null">,remark1</if>
@@ -72,7 +72,7 @@
 </insert>
 
 <!-- ElementID:count,Generated=true -->
-<select id="count" parameterType="com.chinacreator.c2.omp.common.RelToTab" resultType="int">
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.RelToTab" resultType="int">
 	select count(*) from REL_TAB 
 		 <where>
 			<include refid="whereClause_sql"/>
@@ -80,7 +80,7 @@
 </select>
 
 <!-- ElementID:update,Generated=true -->
-<update id="update" parameterType="com.chinacreator.c2.omp.common.RelToTab">
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.RelToTab">
 	update REL_TAB
 <set>
 	<if test="remark1 != null">remark1=#{remark1,jdbcType=VARCHAR},</if>
@@ -116,12 +116,12 @@
 </update>
 
 <!-- ElementID:delete,Generated=true -->
-<delete id="delete" parameterType="com.chinacreator.c2.omp.common.RelToTab">
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.RelToTab">
     delete from REL_TAB where 1=1 and rel_id = #{relId}
 </delete>
 
 <!-- ElementID:select,Generated=true -->
-<select id="select" parameterType="com.chinacreator.c2.omp.common.RelToTab" resultMap="RelToTabResult">
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.RelToTab" resultMap="RelToTabResult">
 	select 
 		<include refid="column_sql"/>
 	    from REL_TAB 
@@ -214,7 +214,7 @@ select
 </select>
 
 <!-- ElementID:selectByPage,Generated=true -->
-<select id="selectByPage" parameterType="com.chinacreator.c2.omp.common.RelToTab" resultMap="RelToTabResult">
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.RelToTab" resultMap="RelToTabResult">
 	select 
 		<include refid="column_sql"/>
 	    from REL_TAB 
