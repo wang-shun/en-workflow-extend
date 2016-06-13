@@ -122,7 +122,12 @@
 newField_change:function(){
 	var actName = $view.newField.getOptionObj($model.act);
 	var con = $model.content==undefined?&quot;&quot;:$model.content;
-	$model.content = actName.dictdataValue;
+	//console.log('actName :',actName);
+	if(&quot;请选择&quot; ==actName.dictdataValue){
+		$model.content = &quot;&quot;;
+	}else{
+		$model.content = actName.dictdataValue;
+	}
 },
 //确定
 newField2_click:function($event){
@@ -150,7 +155,7 @@ page_afterDataSourceLoad:function(){
 	var con = $model.content==undefined?&quot;&quot;:$model.content;
 	//$model.content = actName.dictdataValue+&quot; &quot;+con;	
 	if(&quot;undefined&quot;!= $params.params.content){
-		$model.content = $params.params.content; 
+		$model.content = $params.params.content.opinionContent; 
 	}
 },
 
