@@ -726,6 +726,12 @@ public class WorkFlowService {
 			AccessControlService acc = new AccessControlServiceImpl();
 			userId = acc.getUserID();
 		}
+		if(serviceType!=null&&serviceType.length==1&&serviceType[0].equals("all")){
+			con.remove(SERVICETYPEKEY);
+			map.put("all",
+					getTodoWorkTotalByST(null, con, userId));
+			return map;
+		}
 		if (serviceType == null) {
 			Dao<DictDataInfo> daod = DaoFactory.create(DictDataInfo.class);
 			Dao<DictTypeInfo> daot = DaoFactory.create(DictTypeInfo.class);
