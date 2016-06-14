@@ -128,13 +128,9 @@
             </form:attributes>
           </form:control>
         </form:child>
-        <form:child xsi:type="form:Field" id="buttonAdd" name="新增" res="KPi88RKpSiu4q4j8aIA_ug">
+        <form:child xsi:type="form:Field" id="buttonAdd" name="新增" res="">
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
-              <dync:attribute id="clickType" value="add">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
               <dync:attribute id="icon" value="fa-plus">
                 <dync:render/>
                 <dync:children/>
@@ -143,22 +139,30 @@
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="buttonAdd_click(rowId,rowData,tableData)">
+                <dync:render colSpan="1" height="0" multi="false" name="event">
+                  <dync:item name="params" value="rowId,rowData,tableData"/>
+                </dync:render>
+                <dync:children/>
+              </dync:attribute>
             </form:attributes>
           </form:control>
         </form:child>
         <form:child xsi:type="form:Field" id="buttonEdit" name="编辑" res="baYh4ol3S1SJ2DBi7sH2AQ">
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
-              <dync:attribute id="clickType" value="edit">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
               <dync:attribute id="icon" value="fa-pencil">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute id="iconColor" value="blue">
                 <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="buttonEdit_click(rowId,rowData,tableData)">
+                <dync:render colSpan="1" height="0" multi="false" name="event">
+                  <dync:item name="params" value="rowId,rowData,tableData"/>
+                </dync:render>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
@@ -514,5 +518,19 @@ newField3_click:function(rowId,rowData,tableData){
 list_onSelectRow:function(rowid,status,e){
 	$model.isProductSelected = true;
 	$view.tabsforproduct.setParams({businessKey:rowid});
+},
+
+buttonAdd_click:function(rowId,rowData,tableData){
+	Modal.open(&quot;f/moduleadd&quot;,{},
+		function(){
+			$view.list.refresh();
+		});
+},
+
+buttonEdit_click:function(rowId,rowData,tableData){
+	Modal.open(&quot;f/moduleedit&quot;,{id:rowId},
+		function(){
+			$view.list.refresh();
+		});
 }</form:scripts>
 </form:Form>

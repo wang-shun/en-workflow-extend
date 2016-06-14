@@ -13,7 +13,6 @@
     <resource id="P_dV8XPMSou7tTt080HMag" name="[实体:通知公告][操作:get]单记录查询" path="e/daily_notice/get" type="entity_op"/>
     <resource id="9FswEgpNQa-dfl8zUVr86w" name="[实体:通知公告][操作:check]查看" path="e/daily_notice/check" type="entity_op"/>
     <resource id="83OTrqaJSsm1BqJ7RO5sEw" name="[表单:服务产品管理][表格按钮]删除" path="f/serviceproductmanage/newGroupId/list/toolbar_table/buttonDel" type="dom"/>
-    <resource id="KPi88RKpSiu4q4j8aIA_ug" name="[表单:服务产品管理][表格按钮]新增" path="f/serviceproductmanage/newGroupId/list/toolbar_table/buttonAdd" type="dom"/>
     <resource id="baYh4ol3S1SJ2DBi7sH2AQ" name="[表单:服务产品管理][表格按钮]编辑" path="f/serviceproductmanage/newGroupId/list/toolbar_table/buttonEdit" type="dom"/>
     <resource id="fquVi0OzTPel4T6b6hZ-SA" name="[表单:服务产品管理][表格按钮]查看" path="f/serviceproductmanage/newGroupId/list/toolbar_table/buttonView" type="dom"/>
     <resource id="Lgm_pzH-Tk6UTobS14EzWA" name="[表单:服务产品管理][表格按钮]查找" path="f/serviceproductmanage/newGroupId/list/toolbar_table/buttonSearch" type="dom"/>

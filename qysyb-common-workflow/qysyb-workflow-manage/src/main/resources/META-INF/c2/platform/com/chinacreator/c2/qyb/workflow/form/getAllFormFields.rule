@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getallformfields" log="false" className="com.chinacreator.c2.omp.service.manage.workflowcommon.service.FormService" method="getFormField">
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getallformfields" log="false" className="com.chinacreator.c2.qyb.workflow.form.impl.FormService" method="getFormField">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
   <name>表单字段</name>
   <desc>获取表单字段</desc>
   <inputs>

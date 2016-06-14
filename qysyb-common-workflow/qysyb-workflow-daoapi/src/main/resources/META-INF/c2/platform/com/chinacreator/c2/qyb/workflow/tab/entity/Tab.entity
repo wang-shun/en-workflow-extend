@@ -147,7 +147,7 @@ btn_edit_click:function($event){
           </inputs>
         </node>
       </docket:logic>
-      <docket:ui id="delete" name="删除" type="none"/>
+      <docket:ui name="删除" type="none"/>
     </docket:event>
     <docket:event id="edit" name="修改">
       <docket:logic>
@@ -269,7 +269,7 @@ btn_edit_click:function($event){
           </inputs>
         </node>
       </docket:logic>
-      <docket:ui id="get" name="单记录查询" type="none">
+      <docket:ui name="单记录查询" type="none">
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){
         Modal.instance.close();
@@ -412,6 +412,7 @@ btn_edit_click:function($event){
               <form:control type="widget/col_jqgrid">
                 <form:attributes source="widget/col_jqgrid">
                   <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+                    <dync:render/>
                     <dync:children/>
                   </dync:attribute>
                 </form:attributes>
@@ -432,6 +433,7 @@ btn_edit_click:function($event){
             <form:control type="widget/button">
               <form:attributes source="widget/button">
                 <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField_click($event)">
+                  <dync:render/>
                   <dync:children/>
                 </dync:attribute>
               </form:attributes>
@@ -442,6 +444,7 @@ btn_edit_click:function($event){
             <form:control type="widget/button">
               <form:attributes source="widget/button">
                 <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField1_click($event)">
+                  <dync:render/>
                   <dync:children/>
                 </dync:attribute>
               </form:attributes>
@@ -453,7 +456,7 @@ btn_edit_click:function($event){
           <form:datasource xsi:type="form:Inputs">
             <form:input id="id" name="实体数据id"/>
           </form:datasource>
-          <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.omp.common.Tab" pageSize="10"/>
+          <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.qyb.workflow.tab.entity.Tab" pageSize="10"/>
         </form:datasources>
         <form:scripts>
 

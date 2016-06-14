@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="事项修改" sn="moduleedit" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal"/>
+  </form:control>
+  <form:child xsi:type="form:Group" id="main2" name="服务产品">
+    <form:control type="container/div">
+      <form:attributes source="container/div"/>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="$model.entity.productNo" id="productNo2" name="产品编码" customize="true">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text"/>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.entity.productName" id="productName2" name="产品名称" customize="true">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text"/>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.entity.serviceTypeId" id="serviceTypeId2" name="服务类型" customize="true">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.servicetype.result[&quot;服务分类&quot;]">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="dictdataName">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="dictdataValue">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.entity.groupId" id="groupId2" name="分组" customize="true">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;服务流程&quot;:&quot;服务流程&quot;,&quot;故障流程&quot;:&quot;故障流程&quot;}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup4" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Field" binding="$model.entity.formId" id="newField2" name="表单" customize="true">
+        <form:control type="widget/select_simple">
+          <form:attributes source="widget/select_simple">
+            <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.allForm.result">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="formId">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="formName">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="selectRequired" name="必填项" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.entity.ico" id="ico2" name="图标">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.allserviceproductIcons.result">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="下拉框设置" id="nullValue" name="空值选项名" value="请选择">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup2" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup_html">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.entity.wfProcessdefName" id="wfProcessdefid2" name="绑定流程" customize="true">
+      <form:control type="widget/span">
+        <form:attributes source="widget/span">
+          <dync:attribute default="false" group="基础属性" id="showLable" name="显示lable" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="基础属性" id="show" name="可见" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.entity.productDescribe" id="productDescribe2" name="描述" customize="true">
+      <form:control type="widget/textarea">
+        <form:attributes source="widget/textarea"/>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup13" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup12_html">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="toolbar1" name="主按钮组">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="btn_add1" name="保存">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_add_click($event)">
+            <dync:render colSpan="1" height="0" multi="false" name="event">
+              <dync:item name="params" value="$event"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-primary" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-success">
+            <dync:render colSpan="1" height="0" multi="false" name="select">
+              <dync:item name="默认" value="btn-default"/>
+              <dync:item name="主要" value="btn-primary"/>
+              <dync:item name="成功" value="btn-success"/>
+              <dync:item name="信息" value="btn-info"/>
+              <dync:item name="警告" value="btn-warning"/>
+              <dync:item name="危险" value="btn-danger"/>
+              <dync:item name="链接" value="btn-link"/>
+              <dync:item name="通用" value="btn-white no-border"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" id="btn_edit1" name="取消">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-times">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_edit_click($event)">
+            <dync:render colSpan="1" height="0" multi="false" name="event">
+              <dync:item name="params" value="$event"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:EntityDataSource" id="entity" name="单实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="servicetype" name="服务类型" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
+      <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;服务分类&quot;]"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="allForm" name="表单s" logic="rule:com.chinacreator.c2.qyb.workflow.form.getAllForm" sn="getallform"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="allProcessDef" name="流程定义" logic="rule:com.chinacreator.c2.qyb.workflow.module.allProcessDef" sn="getallprocess"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="allserviceproductIcons" name="图标" logic="rule:com.chinacreator.c2.qyb.workflow.module.getPIcons" sn="getserviceproductnames">
+      <form:param id="path" name="新输入参数"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>btn_add_click:function($event){&#xD;
+    $model.entity.$save(function(){&#xD;
+        Modal.instance.close();&#xD;
+        Messenger.post({type:'success',message:'修改成功'});&#xD;
+    });&#xD;
+},&#xD;
+btn_edit_click:function($event){&#xD;
+   Modal.instance.close();&#xD;
+}</form:scripts>
+  <form:htmls>&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>&#xD;
+&lt;span style=&quot;float:left;margin-left:5px;margin-bottom:10px&quot;>&#xD;
+&lt;img id=&quot;icon&quot; style=&quot;width: 32px; height: 32px;&quot; src={{$model.entity.ico}}>&#xD;
+&lt;/span>&#xD;
+&lt;/script>&#xD;
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup12_html&quot;>&#xD;
+	&lt;td colspan=&quot;3&quot; style=&quot;color: green;&quot;>&lt;img src=&quot;assets/images/messager_warning.gif &quot; width=&quot;12&quot; height=&quot;12&quot;>(如需要定义SLA，则到SLA管理中定义SLA并关联服务产品，如需绑定流程，请在产品列表页面操作。)&lt;/td>&#xD;
+&lt;/script></form:htmls>
+</form:Form>
