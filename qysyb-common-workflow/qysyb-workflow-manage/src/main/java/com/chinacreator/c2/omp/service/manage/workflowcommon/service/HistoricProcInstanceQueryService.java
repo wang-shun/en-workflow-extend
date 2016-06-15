@@ -1,7 +1,10 @@
 package com.chinacreator.c2.omp.service.manage.workflowcommon.service;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +60,14 @@ public class HistoricProcInstanceQueryService {
 		List<Map> list = manageService.executeCommand(new SelectHistoricProcessInstanceCmd(this.generateHistoricInstanceQuery(retrieveKey, con, starttime, endtime, offset, limit)));
 		for(Map map:list){
 			TIMESTAMP time = (TIMESTAMP) map.get("START_TIME_");
-			map.put("START_TIME_",time.stringValue());
+			try {
+				java.sql.Timestamp tt = (java.sql.Timestamp) time.toJdbc();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:dd");
+				map.put("START_TIME_",sdf.format(new Date(tt.getTime())));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //			String procDefId = (String) map.get("PROC_DEF_ID_");
 			String procInstId = (String) map.get("PROC_INST_ID_");
 			HistoricProcessInstance hisProcessIns = historyService.createHistoricProcessInstanceQuery().includeProcessVariables().processInstanceId(procInstId).singleResult();
