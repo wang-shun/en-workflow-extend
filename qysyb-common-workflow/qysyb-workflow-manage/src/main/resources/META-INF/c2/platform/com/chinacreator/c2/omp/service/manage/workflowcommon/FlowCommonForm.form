@@ -748,6 +748,15 @@ commit:function($event){
 			return;
 		}	
 	}
+	var checkresult = functions.dotabchecks();
+	if(checkresult.status==false){
+		Messenger.post({
+			'message': checkresult.msg,
+            'type': 'error',
+            'hideAfter':5
+        });		
+        return;	
+	}
 //	console.log(&quot;$model.funcsbeforsubmit&quot;,$model.funcsbeforsubmit);
 	//必填项等验证通过才执行 字段页面提交前函数
 	$model.funcsbeforsubmit();
@@ -997,7 +1006,7 @@ page_afterDataSourceLoad:function(){
 	//tab 页中的check函数
 	$model.tabcheckfuncs = new Array();
 	$scope.$on(&quot;tabcheck&quot;,function(event,msg){
-//		console.log(&quot;recmsg&quot;,msg);
+		console.log(&quot;recmsg&quot;,msg);
 		$model.tabcheckfuncs.push(msg);
 	});	
 	$model.activityName = $model.getOutTransition.result[0].src.name;
