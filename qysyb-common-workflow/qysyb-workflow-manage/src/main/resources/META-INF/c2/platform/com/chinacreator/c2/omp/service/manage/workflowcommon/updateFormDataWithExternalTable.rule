@@ -4,6 +4,7 @@
     <params/>
   </instanceCreator>
   <name>业务数据单独存表时更新业务数据</name>
+  <desc>业务数据有自己的表时业务数据的更新</desc>
   <inputs>
     <input collection="false" desc="" id="businessKey" required="true" type="String"/>
     <input collection="false" desc="" id="entityjson" required="true" type="String"/>
@@ -11,6 +12,8 @@
     <input collection="false" desc="这里是流程实例id 业务表吧流程实例id作为业务key" id="procInsId" required="false" type="String"/>
     <input collection="false" desc="@param" id="curActivity" required="false" type="com.chinacreator.c2.omp.service.manage.workflowcommon.bean.WorkFlowActivity"/>
     <input collection="false" desc="" id="curUserId" required="false" type="String"/>
+    <input collection="false" desc="" id="nextActivity" required="false" type="com.chinacreator.c2.omp.service.manage.workflowcommon.bean.WorkFlowActivity"/>
+    <input collection="false" desc="" id="map" required="false" type="java.util.Map"/>
   </inputs>
   <outputs/>
   <params>
@@ -20,6 +23,8 @@
     <param autoValue="Input.curActivity" name="curActivity" signature="QWorkFlowActivity;" type="com.chinacreator.c2.omp.service.manage.workflowcommon.bean.WorkFlowActivity"/>
     <param autoValue="Input.form" name="form" signature="QForm;" type="com.chinacreator.c2.omp.service.manage.workflowcommon.Form"/>
     <param autoValue="Input.curUserId" name="curUserId" signature="QString;" type="String"/>
+    <param autoValue="Input.nextActivity" name="nextActivity" signature="QWorkFlowActivity;" type="com.chinacreator.c2.omp.service.manage.workflowcommon.bean.WorkFlowActivity"/>
+    <param autoValue="Input.map" name="map" signature="QMap;" type="java.util.Map"/>
   </params>
   <return signature="V" type="void"/>
 </CustomRule>

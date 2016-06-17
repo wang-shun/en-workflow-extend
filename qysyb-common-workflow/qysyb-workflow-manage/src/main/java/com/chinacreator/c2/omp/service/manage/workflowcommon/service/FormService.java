@@ -119,6 +119,7 @@ public class FormService {
 	//从流程变量或外部表中取得业务数据
 	@SuppressWarnings("unchecked")
 	public Map<String,Object> getFormDataByFkFromProcessVariable(String formId,Boolean filter,String businessKey,String proInsId){
+		Map con = new HashMap();
 		Map map = new HashMap();
 		//此时表示需要一份空的数据
 		if(businessKey==null&&proInsId==null){
@@ -145,7 +146,7 @@ public class FormService {
 					map = proins.getProcessVariables();  //流程变量也给返回出去
 				}
 				
-				Map busMap = this.getFormDataWithExternalTable(businessKey,proInsId, null, form); //业务表中存流程实例
+				Map busMap = this.getFormDataWithExternalTable(businessKey,proInsId, null, form,con); //业务表中存流程实例
 				if(busMap!=null)
 					map.putAll(busMap);//业务数据
 				return map;
@@ -187,7 +188,7 @@ public class FormService {
 			form=this.getFormById(formId);
 			if(form!=null&&form.isIsTableStorage()!=null&&form.isIsTableStorage()){  //外部表单存储业务数据时获取历史数据
 				//TODO hisins==null?businessKey:hisins.getId() 这里应当为空了 
-				Map busMap = this.getFormDataWithExternalTable(businessKey,hisins==null?null:hisins.getId(), null, form);
+				Map busMap = this.getFormDataWithExternalTable(businessKey,hisins==null?null:hisins.getId(), null, form,con);
 				if(busMap!=null)
 					map.putAll(busMap);
 				return map;
@@ -531,7 +532,9 @@ public class FormService {
 	 * @throws Exception 
 	 */
 	@SuppressWarnings("rawtypes")
-	public void updateFormDataWithExternalTable(String businessKey,String procInsId,String entityjson,WorkFlowActivity curActivity,Form form,String curUserId) throws Exception{
+	public void updateFormDataWithExternalTable(String businessKey,String procInsId,String entityjson,
+			WorkFlowActivity curActivity,Form form,String curUserId,
+			WorkFlowActivity nextActivity, Map map) throws Exception{
 		//表示需要查数据库
 		if(form.getFormNo()==null){
 			form = this.getFormById((form.getFormId()));
@@ -539,7 +542,7 @@ public class FormService {
 		String beanName = form.getRemark2();
 		IFormOperate formOperate = (IFormOperate) ApplicationContextManager.getContext().getBean(beanName);
 		//TODO 把null值改掉
-		formOperate.addOrUpdateEntity(entityjson,businessKey,procInsId, null, curActivity, curUserId);
+		formOperate.addOrUpdateEntity(entityjson,businessKey,procInsId, null, curActivity, curUserId, nextActivity, map);
 	}
 	/**
 	 * 务数据有自己的表时业务数据的获取
@@ -549,12 +552,13 @@ public class FormService {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	public Map<String,Object> getFormDataWithExternalTable(String businessKey,String proInsId,String businessKey2,Form form){	
+	public Map<String,Object> getFormDataWithExternalTable(String businessKey,String proInsId,
+			String businessKey2,Form form,Map con){	
 		form = this.getFormById((form.getFormId()));
 		String beanName = form.getRemark2();
 		IFormOperate formOperate = (IFormOperate) ApplicationContextManager.getContext().getBean(beanName);
 		//TODO 把null值 改掉
-		Map map = formOperate.getEntityByBusinessKey(businessKey,proInsId,null, null, null);
+		Map map = formOperate.getEntityByBusinessKey(businessKey,proInsId,null, null, null, con);
 		return map;
 	}
 	/**

@@ -44,7 +44,7 @@ public abstract class FormOperate implements IFormOperate {
 				if(proInsId!=null&&!businessId.equals(proInsId)){
 					methodsetBusinessKey.invoke(ob,proInsId); 
 					//保存草稿时不更新状态，提交才更新
-					methodsetStatus.invoke(ob,"处理中");
+					methodsetStatus.invoke(ob,"WFB");
 
 				}
 				return dao.update(ob);
@@ -57,7 +57,7 @@ public abstract class FormOperate implements IFormOperate {
 				if(condition==null){
 					methodsetBusinessKey.invoke(ob, proInsId);
 	//				officeNotice.setBusinessKey(proInsId);
-					methodsetStatus.invoke(ob,"处理中");
+					methodsetStatus.invoke(ob,"WFB");
 					return dao.insert(ob);
 				}else{
 					//TODO 已经有businessKey的情况 目前没有遇到这里情形。。
@@ -131,7 +131,7 @@ public abstract class FormOperate implements IFormOperate {
 				if(proInsId!=null&&!businessId.equals(proInsId)){
 					methodsetBusinessKey.invoke(ob,proInsId);
 					// 更新业务数据状态 由草稿变为提交状态了 
-					methodsetStatus.invoke(ob,"CLZ");
+					methodsetStatus.invoke(ob,"WFB");
 				}
 				return dao.update(ob);
 			//没有主键 但是有流程实例值 那就是先看有没有这里businessKey的记录 没有就把流程实例id放到businesskey里面新增了
@@ -142,7 +142,7 @@ public abstract class FormOperate implements IFormOperate {
 				//判断businesskey是否存在,如果存在不新增
 				if(condition==null){
 					methodsetBusinessKey.invoke(ob, proInsId);
-					methodsetStatus.invoke(ob,"CLZ");
+					methodsetStatus.invoke(ob,"WFB");
 	//				officeNotice.setBusinessKey(proInsId);
 					return dao.insert(ob);
 				}else{
@@ -223,37 +223,5 @@ public abstract class FormOperate implements IFormOperate {
 		}
 		return null;
 	};
-	@Override
-	public abstract int addOrUpdateEntity(String json, String businessKey,
-			String proInsId, String moduleId, WorkFlowActivity curActivity,
-			String curUserId) throws Exception;
-
-	@Override
-	public abstract int addOrUpdateEntityAfterTaskExcu(String json, String businessKey,
-			String proInsId, String moduleId, WorkFlowActivity lastActivity,
-			String curUserId);
-
-	@Override
-	public abstract Map<String, Object> getEntityByBusinessKey(String businessKey,
-			String proInsId, String moduleId, WorkFlowActivity curActivity,
-			String curUserId);
-
-	@Override
-	public abstract List<String> getAssigneeList(String businessJson,
-			String businessKey, String proInsId, String moduleId,
-			WorkFlowActivity curActivity, WorkFlowActivity nextActivity,
-			WorkFlowTransition workFlowTransition, String curUserId);
-
-	@Override
-	public abstract Map<String, String> getTaskHandler(String businessJson,
-			String businessKey, String proInsId, String moduleId,
-			WorkFlowActivity curActivity, String curTaskId, String curUserId);
-
-	@Override
-	public abstract Map<String, Object> setProsVariableBeforeTaskExcu(
-			String businessJson, String businessKey, String proInsId,
-			String moduleId, Map variables, WorkFlowActivity curActivity,
-			WorkFlowActivity nextActivity,
-			WorkFlowTransition workFlowTransition, String curUserId) ;
 
 }

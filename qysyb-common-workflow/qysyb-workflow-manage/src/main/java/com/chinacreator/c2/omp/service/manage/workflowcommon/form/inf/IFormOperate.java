@@ -26,7 +26,8 @@ public interface IFormOperate{
 	 * @return
 	 * @throws Exception 
 	 */
-	public int addOrUpdateEntity(String json,String businessKey,String proInsId,String moduleId,WorkFlowActivity curActivity,String curUserId) throws Exception;
+	public int addOrUpdateEntity(String json,String businessKey,String proInsId,String moduleId,
+			WorkFlowActivity curActivity,String curUserId,WorkFlowActivity nextActivity,Map map) throws Exception;
 	/**
 	 * 
 	 * @param json
@@ -37,7 +38,8 @@ public interface IFormOperate{
 	 * @param curUserId
 	 * @return
 	 */
-	public int addOrUpdateEntityAfterTaskExcu(String json,String businessKey,String proInsId,String moduleId,WorkFlowActivity lastActivity,String curUserId);
+	public int addOrUpdateEntityAfterTaskExcu(String json,String businessKey,String proInsId,
+			String moduleId,WorkFlowActivity lastActivity,String curUserId,WorkFlowActivity nextActivity,Map map);
 	/**
 	 * 获取entity接口
 	 * @param json 业务字符串
@@ -48,7 +50,8 @@ public interface IFormOperate{
 	 * @param curUserId
 	 * @return
 	 */
-	public Map<String,Object> getEntityByBusinessKey(String businessKey,String proInsId,String moduleId,WorkFlowActivity curActivity,String curUserId);
+	public Map<String,Object> getEntityByBusinessKey(String businessKey,String proInsId,String moduleId,
+			WorkFlowActivity curActivity,String curUserId,Map map);
 	/**
 	 * 获取用户需要自定义的 多实例处理人， 一般是指会签 需要哪些人处理
 	 * @param businessJson  业务数据字符串
@@ -60,7 +63,9 @@ public interface IFormOperate{
 	 * @param workFlowTransition 走的路径
 	 * @return 
 	 */
-	public List<String> getAssigneeList(String businessJson,String businessKey,String proInsId,String moduleId,WorkFlowActivity curActivity,WorkFlowActivity nextActivity,WorkFlowTransition workFlowTransition,String curUserId);
+	public List<String> getAssigneeList(String businessJson,String businessKey,String proInsId,
+			String moduleId,WorkFlowActivity curActivity,WorkFlowActivity nextActivity
+			,WorkFlowTransition workFlowTransition,String curUserId,Map map);
 	/**
 	 * 
 	 * @param businessJson 业务数据字符串
@@ -71,7 +76,9 @@ public interface IFormOperate{
 	 * @param curTaskId 任务id
 	 * @return key值为 WorkFlowService。TYPE_*  分别代表分派人 候选人 候选组 多个以逗号分隔 
 	 */
-	public Map<String,String> getTaskHandler(String businessJson,String businessKey,String proInsId,String moduleId,WorkFlowActivity curActivity,String curTaskId,String curUserId);
+	public Map<String,String> getTaskHandler(String businessJson,String businessKey,String proInsId,
+			String moduleId,WorkFlowActivity lastActivity,WorkFlowActivity curActivity,
+			String curTaskId,String curUserId,Map map);
 	/**
 	 * 
 	 * @param businessJson  业务数据字符串
@@ -85,5 +92,8 @@ public interface IFormOperate{
 	 * @param curUserId
 	 * @return 返回设置的流程变量Map
 	 */
-	public Map<String,Object> setProsVariableBeforeTaskExcu(String businessJson,String businessKey,String proInsId,String moduleId,Map variables,WorkFlowActivity curActivity,WorkFlowActivity nextActivity,WorkFlowTransition workFlowTransition,String curUserId);
+	public Map<String,Object> setProsVariableBeforeTaskExcu(String businessJson,String businessKey,
+			String proInsId,String moduleId,Map variables,WorkFlowActivity curActivity,
+			WorkFlowActivity nextActivity,WorkFlowTransition workFlowTransition,
+			String curUserId,Map map);
 }

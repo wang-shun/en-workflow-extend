@@ -317,6 +317,9 @@ public class WorkProcess {
 		WfOperator wfOperator = JSONObject.parseObject(wfOperatorStr,
 				WfOperator.class);
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
+		
+		WorkFlowActivity nextActivity = new WorkFlowActivity();
+		nextActivity.setId(destTaskDefinitionKey);
 		// 处理人选择
 		chooseHandleTypeValue(variables);
 
@@ -336,7 +339,7 @@ public class WorkProcess {
 		if (form != null && form.isIsTableStorage() != null
 				&& form.isIsTableStorage()) {
 			formService.updateFormDataWithExternalTable(bussinessKey, proInsId,
-					entity, curActivity, form, wfOperator.getUserId());
+					entity, curActivity, form, wfOperator.getUserId(),nextActivity,paramsMap);
 			List<FormField> list = formService.getFormField(formId);
 			for (FormField ff : list) {
 				if (ffs.isFieldStorageProcessVariable(ff)) { // 字段是否存在流程变量中
@@ -366,7 +369,7 @@ public class WorkProcess {
 		
 		//设置last activity 信息
 		setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
-				, variables, wfTransition.getSrc());
+				, variables, curActivity);
 		
 		wfresult = this.goAnyWhere(wfOperator, false, bussinessKey,
 				processDefinitionId, currenTaskId, destTaskDefinitionKey, true,
@@ -699,6 +702,7 @@ public class WorkProcess {
 				WfOperator.class);
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
 		Map entitymap = JSONObject.parseObject(entity, Map.class);
+		
 		//任务处理人
 		chooseHandleTypeValue(variables);
 		
@@ -722,7 +726,7 @@ public class WorkProcess {
 			formService
 					.updateFormDataWithExternalTable(bussinessKey, proInsId,
 							entity, wfTransition.getSrc(), form,
-							wfOperator.getUserId());
+							wfOperator.getUserId(),wfTransition.getDest(),paramsMap);
 			List<FormField> list = formService.getFormField(formId);
 			for (FormField ff : list) {
 				if (ffs.isFieldStorageProcessVariable(ff)) { // 字段是否存在流程变量中
@@ -761,7 +765,7 @@ public class WorkProcess {
 		Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(
 				entity, bussinessKey, null, moduleId, variables,
 				wfTransition.getSrc(), wfTransition.getDest(), wfTransition,
-				wfOperator.getUserId());
+				wfOperator.getUserId(),paramsMap);
 		if (businessVariable != null && businessVariable.size() > 0) {
 			variables.putAll(businessVariable);
 		}
@@ -792,8 +796,8 @@ public class WorkProcess {
 						.getCurrentActiveTaskIds(proInsId);
 				Map<String, String> valuemap = formOperate.getTaskHandler(
 						entity, bussinessKey, wfresult.getProcessInstanceId(),
-						moduleId, wfTransition.getDest(), nextTaskId,
-						wfOperator.getUserId());
+						moduleId, wfTransition.getSrc(),wfTransition.getDest(), nextTaskId,
+						wfOperator.getUserId(),paramsMap);
 				setTaskHandler(valuemap, variables, nextTaskId);
 			}
 			/* 通知处理 */
@@ -827,7 +831,8 @@ public class WorkProcess {
 			String nextTaskId = wfresult.getNextTaskId();
 			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
 					bussinessKey, wfresult.getProcessInstanceId(), moduleId,
-					wfTransition.getDest(), nextTaskId, wfOperator.getUserId());
+					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, wfOperator.getUserId(),
+					paramsMap);
 			setTaskHandler(valuemap, variables, nextTaskId);
 		}
 
@@ -949,7 +954,7 @@ public class WorkProcess {
 			Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(
 					entity, businessKey, null, moduleId, variables,
 					wfTransition.getSrc(), wfTransition.getDest(),
-					wfTransition, wfOperator.getUserId());
+					wfTransition, wfOperator.getUserId(),paramsMap);
 			if (businessVariable != null && businessVariable.size() > 0) {
 				variables.putAll(businessVariable);
 			}
@@ -963,7 +968,8 @@ public class WorkProcess {
 			if (form.isIsTableStorage() != null && form.isIsTableStorage()) { // 业务数据存储到外部表
 				formService.updateFormDataWithExternalTable(businessKey,
 						wf.getProcessInstanceId(), entity,
-						wfTransition.getSrc(), form, wfOperator.getUserId());
+						wfTransition.getSrc(), form, wfOperator.getUserId(),
+						wfTransition.getDest(),paramsMap);
 			}
 			if(AUTORUN_FIRST_ACT){
 				taskService.claim(wf.getNextTaskId(), wfOperator.getUserId());
@@ -977,7 +983,8 @@ public class WorkProcess {
 			String nextTaskId = wf.getNextTaskId();
 			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
 					businessKey, wf.getProcessInstanceId(), moduleId,
-					wfTransition.getDest(), nextTaskId, wfOperator.getUserId());
+					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, 
+					wfOperator.getUserId(),paramsMap);
 
 			setTaskHandler(valuemap, variables, nextTaskId);
 			/* 通知处理 */
