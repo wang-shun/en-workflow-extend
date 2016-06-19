@@ -1,0 +1,1295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" xmlns:template="http://www.chinacreator.com/c2/ui/template" name="通用流程查看表单" res="" sn="flowcommonview" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad($params)">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="TabOperator">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="xunijiliuchengbd" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" id="newGroup17" name="常规信息">
+      <form:control type="container/tabs">
+        <form:attributes source="container/tabs">
+          <dync:attribute default="false" group="动态页签配置" id="retain" name="保留静态内容" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="动态页签配置" id="dynamic" name="启用动态页签" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="动态页签配置" id="dynamicSource" name="页签来源" value="$model.dynamictabs">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="动态标签事件" id="onDynamicSelected" name="选中事件" value="newGroup17_onDynamicSelected(tab)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Group" id="newGroup18" name="{{$model.baseinfo}}">
+        <form:control type="container/tab">
+          <form:attributes source="container/tab">
+            <dync:attribute default="false" group="HTML配置" id="active" name="选中" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="10px" group="HTML配置" id="padding" name="内边距" value="0px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Group" id="newGroup21" name="简单容器(DIV)">
+          <form:control type="container/toolbar">
+            <form:attributes source="container/toolbar">
+              <dync:attribute default="" group="样式设置" id="marginBottom" name="底部外边距" value="0">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="样式设置" id="marginTop" name="顶部外边距" value="10">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="center" group="基本设置" id="position" name="按钮位置" value="pull-left">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:child xsi:type="form:Field" id="newField11" name="流程监控" res="" customize="true">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField2_click($event)">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId!=null">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+        </form:child>
+        <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+          <form:control type="container/div">
+            <form:attributes source="container/div">
+              <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup_html">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+        </form:child>
+        <form:child xsi:type="form:Field" binding="$params.processDefinitionId" id="newField45" name="流程定义ID" customize="true">
+          <form:control type="widget/text">
+            <form:attributes source="widget/text">
+              <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
+                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" binding="$params.processInstanceId" id="newField64" name="流程实例ID" customize="true">
+          <form:control type="widget/text">
+            <form:attributes source="widget/text">
+              <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
+                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" binding="$params.moduleId" id="newField65" name="事项ID" customize="true">
+          <form:control type="widget/text">
+            <form:attributes source="widget/text">
+              <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
+                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" binding="$params.taskId" id="newField66" name="任务ID" customize="true">
+          <form:control type="widget/text">
+            <form:attributes source="widget/text">
+              <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
+                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" binding="$model.getUser.result.name" id="newField67" name="登录用户" customize="true">
+          <form:control type="widget/text">
+            <form:attributes source="widget/text">
+              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" binding="$params.taskDefKey" id="newField68" name="活动定义ID" customize="true">
+          <form:control type="widget/text">
+            <form:attributes source="widget/text">
+              <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
+                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" binding="$model.businessKey" id="newField69" name="业务ID" customize="true">
+          <form:control type="widget/text">
+            <form:attributes source="widget/text">
+              <dync:attribute default="false" desc="是否验证必填。只有当焦点离开文本框时才开始验证，验证失败会有验证失败的样式和提示。也有单独触发验证的方法：`check()`。" group="数据校验" hidden="false" id="required" name="必填项" required="true" value="true">
+                <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="custom" desc="验证的数据类型。" group="数据校验" hidden="false" id="valitype" name="数据类型" required="true" value="combiOne">
+                <dync:render colSpan="2" height="0" multi="false" name="select">
+                  <dync:item name="自定义" value="custom"/>
+                  <dync:item name="手机号" value="mobile"/>
+                  <dync:item name="电话号码" value="phone"/>
+                  <dync:item name="QQ" value="qq"/>
+                  <dync:item name="身份证" value="idCard"/>
+                  <dync:item name="邮件" value="email"/>
+                  <dync:item name="URL" value="url"/>
+                  <dync:item name="数字|字母|下划线" value="combiOne"/>
+                  <dync:item name="中文|数字|字母|下划线" value="combiTwo"/>
+                </dync:render>
+                <dync:children/>
+                <dync:onChange>
+                  <template:case value="custom">
+                    <template:set param="pattern" value=""/>
+                    <template:set param="patternError" value=""/>
+                    <template:hide param="pattern" value="false"/>
+                    <template:hide param="patternError" value="false"/>
+                  </template:case>
+                  <template:case value="mobile">
+                    <template:set param="pattern" value="/^1[3-8][0-9]\d{8}$/"/>
+                    <template:set param="patternError" value="手机号码格式不正确!"/>
+                    <template:hide param="pattern" value="false"/>
+                    <template:hide param="patternError" value="false"/>
+                  </template:case>
+                  <template:case value="phone">
+                    <template:set param="pattern" value="/((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/"/>
+                    <template:set param="patternError" value="电话号码格式不正确!"/>
+                    <template:hide param="pattern" value="false"/>
+                    <template:hide param="patternError" value="false"/>
+                  </template:case>
+                  <template:case value="qq">
+                    <template:set param="pattern" value="/^\d{5,10}$/"/>
+                    <template:set param="patternError" value="QQ号码格式不正确!"/>
+                    <template:hide param="pattern" value="false"/>
+                    <template:hide param="patternError" value="false"/>
+                  </template:case>
+                  <template:case value="idCard">
+                    <template:set param="pattern" value="/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/"/>
+                    <template:set param="patternError" value="身份证格式不正确!"/>
+                    <template:hide param="pattern" value="false"/>
+                    <template:hide param="patternError" value="false"/>
+                  </template:case>
+                  <template:case value="email">
+                    <template:set param="pattern" value="/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/"/>
+                    <template:set param="patternError" value="邮件格式不正确!"/>
+                    <template:hide param="pattern" value="false"/>
+                    <template:hide param="patternError" value="false"/>
+                  </template:case>
+                  <template:case value="url">
+                    <template:set param="pattern" value="/[a-zA-z]+://[^s]*/"/>
+                    <template:set param="patternError" value="url格式不正确!"/>
+                    <template:hide param="pattern" value="false"/>
+                    <template:hide param="patternError" value="false"/>
+                  </template:case>
+                  <template:case value="combiOne">
+                    <template:set param="pattern" value="/^[\w]+$/"/>
+                    <template:set param="patternError" value="只能输入数字、字母、下划线!"/>
+                    <template:hide param="pattern" value="false"/>
+                    <template:hide param="patternError" value="false"/>
+                  </template:case>
+                  <template:case value="combiTwo">
+                    <template:set param="pattern" value="/^[\w\u4e00-\u9fa5]+$/"/>
+                    <template:set param="patternError" value="只能输入中文、数字、字母、下划线!"/>
+                    <template:hide param="pattern" value="false"/>
+                    <template:hide param="patternError" value="false"/>
+                  </template:case>
+                </dync:onChange>
+              </dync:attribute>
+              <dync:attribute default="" desc="验证正则表达式，注意正则表达式必须包含在“//”内：“/^\\d+$/”" group="数据校验" hidden="false" id="pattern" name="正则验证" required="false" value="/^[\w]+$/">
+                <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" desc="验证正则表达式失败后的提示。" group="数据校验" hidden="false" id="patternError" name="正则验证失败提示" required="false" value="只能输入数字、字母、下划线!">
+                <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Group" id="workflowhandlediv" name="流程操作">
+      <form:control type="container/div">
+        <form:attributes source="container/div"/>
+      </form:control>
+      <form:child xsi:type="form:Group" id="newGroup2" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Field" binding="$model.handleway" id="radios" name="处理方式" customize="true">
+          <form:control type="widget/checkbox_group">
+            <form:attributes source="widget/checkbox_group">
+              <dync:attribute default="" group="单选按钮组设置" id="checkboxOptions" name="选项" value="{&quot;处理完成&quot;:&quot;处理完成&quot;}">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="clickEvent" name="选中事件" value="newField2_clickEvent(value,checked,checkboxObj)">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+      </form:child>
+      <form:child xsi:type="form:Group" id="nextdiv" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Field" binding="$model.nexttask" id="nexttaskview" name="下一步骤" customize="true">
+          <form:control type="widget/select_simple">
+            <form:attributes source="widget/select_simple">
+              <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.getOutTransition.result">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="change" name="值变换事件" value="newField_change()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="3">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" group="下拉框设置" id="firstSelected" name="选中第一个" value="true">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Group" id="nextnodediv" name="简单容器(DIV)">
+          <form:control type="container/div">
+            <form:attributes source="container/div">
+              <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="3">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup4_html">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+        </form:child>
+      </form:child>
+      <form:child xsi:type="form:Group" id="chulirendiv" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Field" binding="$model.nexthandlegroupid" id="handlegroupdiv" name="处理组" customize="true">
+          <form:control type="widget/select_simple">
+            <form:attributes source="widget/select_simple">
+              <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.nextgroups">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="3">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="change" name="值变换事件" value="handlegroupdiv_change()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="基本设置" id="show" name="可见" value="!$model.isAssigneeApplicant">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" binding="$model.isassignee" id="newField1" name="指定处理人" customize="true">
+          <form:control type="widget/checkbox">
+            <form:attributes source="widget/checkbox">
+              <dync:attribute default="75" group="HTML设置" id="lableWidth" name="文字宽度" value="100">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="onChange" name="状态改变" value="newField1_onChange()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="!$model.isAssigneeApplicant">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" binding="$model.nexthandleid" id="newField3" name="处理人" customize="true">
+          <form:control type="widget/select_simple">
+            <form:attributes source="widget/select_simple">
+              <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="2">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" group="基本设置" id="selectDisabled" name="禁用" value="!$model.isassignee">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.handles">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="userId">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="userRealname">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="基本设置" id="show" name="可见" value="!$model.isAssigneeApplicant">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="change" name="值变换事件" value="newField3_change()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+          <form:control type="container/div">
+            <form:attributes source="container/div">
+              <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup1_html">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="3">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="padding-top:0px;padding-bottom:5px;">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+        </form:child>
+        <form:child xsi:type="form:Field" binding="$model." id="newField2" name="文本" customize="true">
+          <form:control type="widget/span">
+            <form:attributes source="widget/span">
+              <dync:attribute default="6" group="基础属性" id="span" name="占位数" value="1">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="基础属性" id="show" name="可见" value="false">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+      </form:child>
+      <form:child xsi:type="form:Group" id="newGroup3" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Field" binding="$model.opinion" id="newField16" name="处理意见*" customize="true">
+          <form:control type="widget/textarea">
+            <form:attributes source="widget/textarea">
+              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId!=null">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+      </form:child>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="servicetypes" name="服务类型" logic="rule:com.chinacreator.c2.omp.common.getDictDataByType" sn="getdictdatabytype">
+      <form:param id="dictTypeName" name="新输入参数" value="[&quot;服务分类&quot;]"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="serviceproduct" name="事项" logic="rule:com.chinacreator.c2.qyb.workflow.module.getServiceProductById" sn="getserviceproductbyid">
+      <form:param id="id" name="新输入参数" value="$params.moduleId"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>
+//选择路径事件
+newField_change:function(){
+	$params.nextname = $view.nexttaskview.getOptionObj($model.nexttask).dest.name;
+	if($params.nextname==undefined){
+		$model.transition = $view.nexttaskview.getOptionObj($model.nexttask);
+	//	console.log(&quot;transtion&quot;,$model.transition);
+		$model.dest = $model.transition.dest;
+		//如果最后一步是结束事件
+		if($model.dest.porperties.type==&quot;endEvent&quot;){ 
+			$params.nextname = &quot;结束&quot;;
+		}	
+		//如果下一步是会签事件
+		if($model.dest.porperties.multiInstance==&quot;parallel&quot;){
+			$model.isParallel = true;
+		}
+	}
+	
+	if($params.nextname == &quot;反馈申请人&quot;){
+		$model.nexthandleid = $model.entity.applicantId;
+		$model.isAssigneeApplicant = true;
+	}else{
+		$model.nexthandleid = null;
+		$model.isAssigneeApplicant = false;
+	}
+
+
+	$http.get(&quot;ws/getactivitycandidates&quot;,{
+		params:{
+			processDefinitionId:$params.params.processDefinitionId,
+			moduleId:$params.params.moduleId,
+			taskDefKey:$view.nexttaskview.getOptionObj($model.nexttask).dest.id,
+		}}).success(function(data){
+			$model.nextgroups = data.result;
+			//默认选中第一个处理组吧
+			$model.nexthandlegroupid = $model.nextgroups[0].id;
+			$http.get(&quot;ws/getuserjobbyid&quot;,{
+					params:{
+						jobid:$model.nexthandlegroupid,
+					}}).success(function(data){
+						$model.handles = data.result;
+					//	$model.handleid = $model.handles[0].userId;
+					});	
+
+		});	
+},
+//选择处理人
+newField3_customEven:function(){
+	Modal.open(&quot;f/chooespersonfromgroup&quot;,{groups:$model.nextgroups},
+			function(data){
+				console.log(data);
+				var candidateUsersStr = &quot;&quot;;
+				for(var i=0;i&lt;data.selected.length;i++){
+					candidateUsersStr=candidateUsersStr+data.selected[i].id+&quot;,&quot;;
+				}
+				$model.candidateUsersStr = candidateUsersStr;
+				},
+			function(data){
+				
+			});	
+},
+//提交
+commit:function($event){
+
+	//func 为业务表单提交前验证函数
+	if(!angular.isUndefined($model.func)){
+		var a = $model.func();
+		if(a==false){
+			Messenger.post({
+				'message': &quot;必填项为空！&quot;,
+	            'type': 'error',
+	            'hideAfter':5
+	        });	
+			return;
+		}	
+	}
+//	console.log(&quot;$model.funcsbeforsubmit&quot;,$model.funcsbeforsubmit);
+	//必填项等验证通过才执行 字段页面提交前函数
+	$model.funcsbeforsubmit();
+/*	if(angular.isUndefined($model.opinion)){
+		Messenger.post({
+		    'message': &quot;请填写处理意见！&quot;,
+		    'type': 'error',
+		});		
+		return;
+	}*/
+	
+	var destroad = $view.nexttaskview.getOptionObj($model.nexttask);
+	var dest = $view.nexttaskview.getOptionObj($model.nexttask).dest;
+//	console.log(&quot;dest&quot;,dest);
+	if(dest.porperties.type==&quot;endEvent&quot;){ //下一步是结束节点 不选人
+		functions.newField5_click($event);
+		return;
+	}
+	if($model.isCountersign){  //会签环节 不选人，下一步处理人用环节外围配置
+		functions.newField5_click($event);
+		return;		
+	}
+	if($model.actions.freechoose!=undefined){
+		var url = $model.actions.freechoose.openUrl;
+		Modal.open(url,{params:$params.params,transitions:$model.getOutTransition.result},function(data){
+			console.log(&quot;choosed&quot;,data);
+			$model.assigneeList = data.assigneeList==&quot;&quot;?undefined:data.assigneeList;//避免传空字符进去，影响判断;
+			$model.assigneeid = data.assignee==&quot;&quot;?undefined:data.assignee;
+			$model.nexthandlegroupid = data.candidateGroups==&quot;&quot;?undefined:data.candidateGroups;
+			$model.nexthandleid = data.candidateUsers==&quot;&quot;?undefined:data.candidateUsers;
+			
+			$model.transition = data.transition;
+			$model.dest = $model.transition.dest;
+			$model.nexttask = $model.transition.id;
+			functions.newField5_click($event);
+			
+		});
+		return;
+	}
+	functions.newField5_click($event);
+},
+//提交
+newField5_click:function($event){
+	//1117test
+	var transitionId = $model.nexttask;
+//	console.log(&quot;transitionId&quot;,transitionId);
+
+	$model.formId = $model.serviceproduct.result.formId;
+//	console.log(&quot;entitybeforsubmit&quot;,$model.entity);
+	if($model.isAssigneeApplicant){
+		$model.nexthandleid = $model.entity.applicantId;
+	}
+	if(!angular.isUndefined($scope.func)){
+		var a = $scope.func();	
+	}	
+	
+	var userId =  $model.getUser.result.id;
+	var processDefinitionId = $params.params.processDefinitionId;
+	var moduleId =  $params.params.moduleId;
+	var taskDefKey =  $params.params.taskDefKey;
+	variables = {
+		assignee:$model.assigneeid,
+		candidateGroups:$model.nexthandlegroupid,
+		candidateUsers:$model.nexthandleid,
+		assigneeList:$model.assigneeList,
+		wfComment:$model.opinion
+	}
+	if($model.handleway==&quot;处理完成&quot;){
+		$http.post(&quot;flow/goanywhere&quot;,
+			{
+				transition:$model.transition,
+				transitionId:transitionId,
+				formId:$model.formId,
+				wfOperator:{
+					userId:userId,
+					businessData:{
+						moduleId:moduleId,
+						businessKey:$params.businessKey
+					}
+			    },
+			    businessKey:$params.params.businessKey,
+				isStart:false,
+				processDefinitionId:$params.params.processDefinitionId,
+				moduleId:$params.params.moduleId,
+				currenTaskId:$params.params.taskId,
+				destTaskDefinitionKey:$model.dest.id,
+				useHisAssignee:false,
+				variables:variables,
+				entity:$model.entity,
+				proInsId:$params.params.processInstanceId,
+				taskDefKey:$params.params.taskDefKey,
+				opinion:$model.opinion
+			
+		}).success(function(data){
+			if(data.result == &quot;200&quot;){
+				 Messenger.post({
+					 'message': &quot;  操作成功！&quot;,
+					 'type': 'success',
+					 'hideAfter':5
+				 });
+				 TabOperator.closeTab(TabOperator.getCurrentTab());
+			}else{
+				 Messenger.post({
+					 'message': &quot;  something wrong！&quot;,
+					 'type': 'error',
+					 'hideAfter':5
+				 });			
+			}
+		});	
+	}else if($model.handleway==&quot;退回&quot;){
+		$http.get(&quot;flow/reject&quot;,
+		{params:{
+			clazz:$model.clazz,
+			wfOperator:{
+				userId:userId,
+				businessData:{
+					moduleId:moduleId,
+					businessKey:$params.params.businessKey
+				}
+		    },
+		    businessKey:$params.params.businessKey,
+			currenTaskId:$params.params.taskId,
+			processDefinitionId:$params.params.processDefinitionId,
+			taskDefKey:$params.params.taskDefKey,
+			variables:variables,
+			entity:$model.entity,
+			rejectMessage:&quot;reject&quot;,
+		}
+	}).success(function(data){
+			console.log(data);
+			 Messenger.post({
+			    'message': data.result.result,
+			    'type': 'error',
+			});
+		});		
+	}
+
+	
+},
+
+newField2_click:function($event){
+	var paramsjson = {
+		processInstanceId:$params.params.processInstanceId,
+		processDefinitionId:$params.params.processDefinitionId
+	}
+	Modal.open(&quot;f/monitorProcess&quot;,paramsjson);			
+},
+
+
+page_onload:function(){
+
+},
+//回退
+newField_click:function($event){
+	var userId =  $model.getUser.result.id;
+	var processDefinitionId = $params.params.processDefinitionId;
+	var moduleId =  $params.params.moduleId;
+	var taskDefKey =  $params.params.taskDefKey;
+	variables = {
+//		assignee:&quot;68C01B1AA07E4390A7CF8997E1DF83DC&quot;,
+//		candidateGroups:$model.candidateGroup,
+//		candidateUsers:$model.candidateUsersStr,
+//		wfComment:$model.opinion
+	}
+	$http.post(&quot;flow/reject&quot;,
+		{
+			rejectMessage:&quot;reject&quot;,
+			
+			formId:$model.formId,
+			wfOperator:{
+				userId:userId,
+				businessData:{
+					moduleId:moduleId,
+					businessKey:$model.businessKey
+				}
+		    },
+		    businessKey:$params.params.businessKey,
+			isStart:false,
+			processDefinitionId:$params.params.processDefinitionId,
+			moduleId:$params.params.moduleId,
+			currenTaskId:$params.params.taskId,
+			destTaskDefinitionKey:$model.actions.return.returnTo,
+			useHisAssignee:true,
+			variables:variables,
+			entity:$model.entity,
+			proInsId:$params.params.processInstanceId,
+			taskDefKey:$params.params.taskDefKey,
+			opinion:$model.opinion		
+	}).success(function(data){
+			 Messenger.post({
+			    'message': &quot;退回成功&quot;,
+			    'type': 'success',
+			    'hideAfter':5
+			 });
+			 TabOperator.closeTab(TabOperator.getCurrentTab());
+		});		
+},
+
+newField2_clickEvent:function(value,checked,checkboxObj){
+	var radioGroup = $view.radios.getOptions();  
+	if(value.value==&quot;处理完成&quot;){
+		$view.nextdiv.show();
+		$view.chulirendiv.show();
+	}
+	if(value.value==&quot;退回&quot;){
+		$view.nextdiv.hide();
+		$view.chulirendiv.hide();
+	}
+	angular.forEach(radioGroup,function(v){  
+		//如果选项值为2，添加该选项的点击事件  
+		if(v.value!=value.value){  
+			v.checked = false;  
+		}  
+	}); 
+},
+
+page_afterDataSourceLoad:function(){
+	console.log(&quot;sp&quot;,$model.serviceproduct.result);
+	if(&quot;undefined&quot; != typeof WORKFLOW_CONS){
+		var personality = WORKFLOW_CONS.PERSONALITY;
+		if(personality!=undefined&amp;&amp;!angular.isUndefined(personality[$model.serviceproduct.result.productNo])){
+			$model.baseinfo = personality[$model.serviceproduct.result.productNo].BASEINFO;
+		}	
+	}else{
+			$model.baseinfo = &quot;基本信息&quot;;
+	}
+
+//	$model.actions = $model.activityactions.result;
+	$model.selectfuncs = new Array();
+	//tab页选择事件
+	$scope.$on(&quot;tabselect&quot;,function(event,msg){
+//		console.log(&quot;recmsg&quot;,msg);
+		$model.selectfuncs.push(msg);
+	});
+//	console.log(&quot;params&quot;,$params);
+	$model.isAssigneeApplicant = false;
+/*	$scope.$on('entity',function(event,msg){
+		$model.entity = msg.entity;
+		$scope.entity = msg.entity;
+	});	*/
+	//字段页面验证函数
+	$scope.$on('func',function(event,msg){
+		$model.func = msg;
+	});
+	//字段页面提交流程前执行函数
+	$scope.$on('funcsbeforsubmit',function(event,msg){
+		$model.funcsbeforsubmit = msg;
+	});
+
+//	$model.activityName = $model.getOutTransition.result[0].src.name;
+
+	$model.formId = $model.serviceproduct.result.formId;
+	$http.post(&quot;ws/getformfiledpermissiondataforview&quot;,{&quot;serviceProduct&quot;:$model.serviceproduct.result,&quot;businessKey&quot;:$params.params.taskDefKey}).success(function(data){
+//		$scope.$apply(function(){$scope.permissionData = data.result;});	
+//		console.log(&quot;permidata&quot;,data.result);
+		$scope.permissionData = data.result;
+	});
+/*//  businessKey processInstanceId不为null，表明是处理任务而不是提交
+//  formBusinessKey 一定有业务数据与其对应 $model.businessKey则有可能是新生成的Key
+	if($params.params.businessKey&amp;&amp;$params.params.processInstanceId!=null){
+		$model.businessKey =  $params.params.businessKey;	
+		$model.formBusinessKey = $model.businessKey;
+	//如果地址栏有businessKey，则是业务数据已保存过，或许是草稿 或许是因为快捷生成工单。需要拿出之前的业务数据
+	}else if(angular.isUndefined($params.params.businessKey)&amp;&amp;!angular.isUndefined($location.$$search.businessKey)){
+		$model.businessKey =  $location.$$search.businessKey;
+		$model.formBusinessKey = $model.businessKey;
+	}else{
+		$model.businessKey =  $params.params.moduleId+&quot;_&quot;+this.timeGenerator();
+	}*/
+	
+	$model.formBusinessKey = $params.params.businessKey;
+	$params.params.formBusinessKey = $model.formBusinessKey;
+/*	if(angular.isUndefined($params.params.businessKey)){
+		$params.params.businessKey = $model.businessKey;
+	}*/
+	
+	$params.params.serviceproduct = $model.serviceproduct.result;
+	$params.params.servicetypes = $model.servicetypes.result;
+	$http.post(&quot;ws/getalltabsforview&quot;,{&quot;serviceProduct&quot;:$model.serviceproduct.result,params:$params.params,activityId:$params.params.activityId}).success(function(data){
+//		console.log(&quot;tabs&quot;,data);
+		$model.dynamictabs = data.result;
+	});
+	//取得地址栏中的参数
+	var locationparams = $location.$$search;
+
+	$http.post(&quot;ws/queryformdatafromprovariable&quot;,{&quot;formId&quot;:$model.serviceproduct.result.formId,&quot;filter&quot;:true,&quot;businessKey&quot;:$model.formBusinessKey,&quot;proInsId&quot;:$params.params.processInstanceId}).success(function(data){	
+		$model.formentity = {};
+		$model.formentity.result = data.result;
+//		console.log($model.formentity.result);
+		//取得地址栏中的参数 赋值地址栏参数到实体
+		for(var a in locationparams){
+			$model.formentity.result[a] = locationparams[a];
+		}		
+		console.log(&quot;formentity&quot;,$model.formentity.result);
+		//工单编号的自动赋值 ugly TODO
+		if(angular.isUndefined($model.formentity.result[WORKNOKEY])||$model.formentity.result[WORKNOKEY]==&quot;&quot;){
+			$http.post(&quot;ws/numberwithtimestamp&quot;,{prefix:$model.serviceproduct.result.productNo+&quot;_&quot;})
+				.success(function(a){
+					$model.formentity.result[WORKNOKEY] = a.result;
+					$model.in = 'f/wfbusinessformgenerate';
+				});
+		}else{
+			$model.in = 'f/wfbusinessformgenerate';
+		}
+		$scope.formentity = $model.formentity.result;
+	});
+
+
+/*	
+	$model.handleway = &quot;处理完成&quot;;
+	
+//默认选中第一个步骤并触发值变换事件
+//	$model.nexttask = $model.getOutTransition.result[0].id;	
+
+//当前环节属性
+//	var ac = $model.getOutTransition.result[0].src.porperties;
+
+	if(!angular.isUndefined(ac)&amp;&amp;ac.multiInstance == &quot;parallel&quot;){ //并行会签
+		var item = $model.getOutTransition.result[0];
+		item.name = &quot;多人处理&quot;;
+		$model.isCountersign = true;
+		$model.getOutTransition.result = new Array();
+		$model.getOutTransition.result[0] = item;
+	}
+	$model.transition = $model.getOutTransition.result[0];
+
+	$model.dest = $model.transition.dest;
+	//如果下一步是最后一步结束事件
+	if($model.dest.porperties.type==&quot;endEvent&quot;){ 
+		$params.nextname = &quot;结束&quot;;
+	}
+	//如果下一步是会签事件
+	if($model.dest.porperties.multiInstance==&quot;parallel&quot;){
+		$model.isParallel = true;
+	}
+
+
+	$http.get(&quot;ws/getactivitycandidates&quot;,{
+		params:{
+			processDefinitionId:$params.params.processDefinitionId,
+			moduleId:$params.params.moduleId,
+			taskDefKey:$model.getOutTransition.result[0].dest.id,
+		}}).success(function(data){
+			$model.nextgroups = data.result;
+			//默认选中第一个处理组吧
+//			console.log(&quot;11111111&quot;,data);
+			$model.nexthandlegroupid = $model.nextgroups[0].id;
+			$http.get(&quot;ws/getuserjobbyid&quot;,{
+					params:{
+						jobid:$model.nexthandlegroupid,
+					}}).success(function(data){
+						$model.handles = data.result;
+					//	$model.handleid = $model.handles[0].userId;
+					});	
+			$params.nextname = $view.nexttaskview.getOptionObj($model.nexttask).dest.name;
+			if($params.nextname == &quot;反馈申请人&quot;){
+				$model.isAssigneeApplicant = true;
+			}
+		});	
+*/
+},
+//选择组事件
+handlegroupdiv_change:function(){
+	$http.get(&quot;ws/getuserjobbyid&quot;,{
+		params:{
+			jobId:$model.nexthandlegroupid,
+		}}).success(function(data){
+//			console.log(data);
+			$model.handles = data.result;
+		});	
+},
+
+newField1_onChange:function(){
+//	console.log($model.isassignee);
+	if($model.isassignee!=true){
+		$model.nexthandleid = null;
+	}
+//	console.log($model.nexthandleid);
+},
+dateconvert:function(a){
+	var date = new Date(a);
+	return date.Format(&quot;MM/dd hh:mm&quot;);;
+},
+
+page_beforeDataSourceLoad:function($params){
+//	console.log($params);
+	console.log(&quot;params&quot;,$params);
+	var locationparams = $location.$$search;
+	console.log(&quot;locationparams&quot;,locationparams);
+	$params.params = {};
+	$params.params.moduleId = locationparams.moduleId;
+	$params.params.activityId = locationparams.activityId;
+	$params.params.taskDefKey = locationparams.activityId;
+	$params.params.businessKey = locationparams.businessKey;
+	$params.params.processInstanceId = locationparams.proInsId;
+	$params.params.processDefinitionId =  locationparams.processDefinitionId;
+	//不止为何 数据源中的参数不能再￥params.params中取
+	$params.moduleId = locationparams.moduleId;
+},
+//选中处理人
+newField3_change:function(){
+	
+},
+//生成时间戳
+timeGenerator:function(){
+	 var day=new Date();
+	   var Year=0;
+	   var Month=0;
+	   var Day=0;
+	   var Hour = 0;
+	   var Minute = 0;
+	   var Second = 0;
+	   var CurrentDate=&quot;&quot;;
+	   //初始化时间
+	   Year       = day.getYear();
+	   Month      = day.getMonth()+1;
+	   Day        = day.getDate()
+	   Hour       = day.getHours();
+	   Minute     = day.getMinutes();
+	   Second     = day.getSeconds();
+	   CurrentDate = (Year+&quot;&quot;)+(&quot;&quot;+Month)+(Day+&quot;&quot;)+(&quot;&quot;+Hour)+(&quot;&quot;+Minute)+(Second+&quot;&quot;);
+	   return CurrentDate;
+		
+},
+start_flow:function($event){
+//func 为业务表单提交前验证函数
+//	console.log(&quot;transition to take&quot;,$model.transition);
+	if(!angular.isUndefined($model.func)){
+		var a = $model.func();
+		if(a==false){
+			Messenger.post({
+				'message': &quot;必填项为空或格式不正确！&quot;,
+	            'type': 'error',
+	            'hideAfter':5
+	        });	
+			return;
+		}	
+	}
+	if($model.isCommit){
+		Messenger.post({
+			'message': &quot;流程已提交，请勿重复提交！&quot;,
+            'type': 'error',
+            'hideAfter':5
+        });	
+        return;
+	}
+//	console.log(&quot;$model.funcsbeforsubmit&quot;,$model.funcsbeforsubmit);
+	//必填项等验证通过才执行 字段页面提交前函数
+	$model.funcsbeforsubmit();
+	
+	if($model.actions.freechoose!=undefined){
+		var url = $model.actions.freechoose.openUrl;
+		Modal.open(url,{params:$params.params,transitions:$model.getOutTransition.result},function(data){
+			console.log(&quot;choosed&quot;,data);
+			$model.assigneeList = data.assigneeList==&quot;&quot;?undefined:data.assigneeList;//避免传空字符进去，影响判断;
+			$model.assigneeid = data.assignee==&quot;&quot;?undefined:data.assignee;
+			$model.nexthandlegroupid = data.candidateGroups==&quot;&quot;?undefined:data.candidateGroups;
+			$model.nexthandleid = data.candidateUsers==&quot;&quot;?undefined:data.candidateUsers;
+			
+			$model.transition = data.transition;
+			$model.dest = $model.transition.dest;
+			$model.nexttask = $model.transition.id;
+			functions.submitflow_click($event);
+			
+		});
+		return;
+	}
+	functions.submitflow_click($event);
+},
+//提交流程
+submitflow_click:function($event){
+
+
+	
+	var processDefinitionId = $params.params.processDefinitionId;
+	var moduleId =  $params.params.moduleId;
+	var taskDefKey =  $params.params.taskDefKey;
+	var userId = $model.getUser.result.id;
+	var applyBranchId = $model.entity.applyBranchId;
+	variablesJson = {
+			assignee:$model.assigneeid,
+			assigneeList:$model.assigneeList,
+			candidateGroups:$model.nexthandlegroupid,
+			candidateUsers:$model.nexthandleid,
+			&quot;productNo&quot;:$location.search().productNo,
+			&quot;applyBranchId&quot;:applyBranchId,
+			&quot;formId&quot;:$model.serviceproduct.result.formId,
+			&quot;priId&quot;:$model.entity.priId,
+			&quot;serviceTypeId&quot;:$model.serviceproduct.result.serviceTypeId
+			};
+
+	$model.entity.businessKey = $model.businessKey;
+	$model.entity.moduleId = moduleId;
+//	console.log(&quot;formId&quot;,$model.formId);
+	$model.formId = $location.search().formId;
+	$http.post(&quot;flow/startflow&quot;,
+			{
+						transition:$model.transition,
+						moduleId:moduleId,
+						formId:$model.formId,
+						businessKey:$model.businessKey,
+						processDefinitionId:processDefinitionId,
+						variables:
+							variablesJson,
+						entity:$model.entity,
+						wfOperator:{
+							userId:userId,
+							businessData:{
+								moduleId:moduleId,
+								businessKey:$model.businessKey
+							}
+						}
+					 
+			}
+			).success(function(data){
+					if(data.result=='200'){
+							$model.isCommit = true;
+							Messenger.post({
+								'message': &quot;操作成功!&quot;,
+				                'type': 'success',
+				                'hideAfter':5
+				            });
+							TabOperator.closeTab(TabOperator.getCurrentTab());
+					}else{
+							Messenger.post({
+								'message': &quot;流程提交失败，请关闭本页面后重试&quot;,
+				                'type': 'error',
+				                'hideAfter':5
+				            });				
+					}
+		  });	
+},
+
+newGroup7_onSelect:function(){
+//	console.log(&quot;workId&quot;,$model.businessKey);
+	$view.listwork.setParams({&quot;formId&quot;:$model.serviceproduct.result.formId,&quot;workId&quot;:$model.businessKey});
+},
+
+assetId_customFormatter:function(cellvalue,options,rowObject){
+//	console.log(cellvalue.name);
+	return cellvalue.name;
+},
+
+close_tab:function(){
+//	TabOperator.closeTab(TabOperator.getCurrentTab());
+},
+//tab选择
+newGroup17_onDynamicSelected:function(tab){
+	var funcs = $model.selectfuncs;
+	console.log(&quot;$model.selectfuncs&quot;,$model.selectfuncs);
+	for(var i=0;i&lt;funcs.length;i++){
+		funcs[i].func(tab);
+	}
+},
+// save draft
+newField4_click:function($event){
+	if(!angular.isUndefined($model.func)){
+		var a = $model.func();
+		if(a==false){
+			Messenger.post({
+				'message': &quot;必填项为空或格式不正确！&quot;,
+	            'type': 'error',
+	            'hideAfter':5
+	        });	
+			return;
+		}	
+	}	
+	var businessKey;
+//	地址栏没有 则是新工单
+	if(angular.isUndefined($model.formBusinessKey)){
+		businessKey = $model.businessKey;
+		$model.entity.businessKey = $model.businessKey;
+	}else{
+	//地址栏中已经有businessKey 说明是草稿的第二次保存 businessKey 用原来的
+		$model.entity.businessKey = $model.formBusinessKey;
+		businessKey = $model.formBusinessKey;
+	}
+	$model.entity.status = &quot;draft&quot;;
+	var form = {};
+	form.formId = $model.formId;
+	$http.post(&quot;ws/updateFormDataWithExternalTable&quot;,{&quot;businessKey&quot;:businessKey,&quot;entityjson&quot;:$model.entity,&quot;form&quot;:form}).success(function(){
+		TabOperator.closeTab(TabOperator.getCurrentTab());
+		Messenger.post({
+								'message': &quot;保存成功!&quot;,
+				                'type': 'success',
+				                'hideAfter':5
+				            });
+	});
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>
+	&lt;div ng-include=$model.in  ng-init=&quot;$params={'pModel':$model,'params':$params.params,'isAccordian':false}&quot;>&lt;/div>
+&lt;/script>
+&lt;style>
+#workflowhandlediv .form-group{/*输入框*/
+    padding: 0px;
+ }
+#workflowhandlediv .col-sm-12{
+    padding-top: 3px;
+    padding-right: 5px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+ }
+
+#nextnodediv {
+	padding-top:7px;
+}
+
+.pull-left{
+	margin-left:143px;
+}
+&lt;/style>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup4_html&quot;>
+	&lt;div id=&quot;nextnodeWrapper&quot; ng-show=&quot;true&quot;>
+   		&lt;label  style=&quot;max-width:200px; width:100px;float:left;padding-left:28px;&quot;>下一节点&amp;nbsp&amp;nbsp:&lt;/label>
+   			&lt;div style=&quot;margin-left:100px;width:85px;&quot;>	    	
+    			&lt;span id=&quot;nextnode&quot; class=&quot;c2Span ng-binding&quot; ng-model=&quot;$params.nextname&quot;>{{$params.nextname}}&lt;/span>					
+            &lt;/div>
+	&lt;/div>
+&lt;/script>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;rizhidiv_html&quot;>
+	&lt;tr ng-repeat=&quot;temp in $model.getallhiscomment.result&quot;>
+		&lt;td class=&quot;body&quot; >
+    		&lt;div style=&quot;margin-top: 12px;&quot;>环节:&amp;nbsp&amp;nbsp&lt;span style=&quot;font-size:14px;&quot; class=&quot;title&quot;>{{temp.taskName}}&lt;/span>   		
+    		&lt;/div>
+    		&lt;div style=&quot;margin-top: 3px; &quot; >时间:&amp;nbsp&amp;nbsp&lt;span style=&quot;font-style:italic&quot;>{{temp.message}}&lt;/span>   &lt;span style=&quot;float:right&quot;>&amp;nbsp&amp;nbsp&amp;nbsp&amp;nbsp{{functions.dateconvert(temp.date)}}&lt;/span>&lt;/div>
+    	 &lt;/td>
+	&lt;/tr>
+&lt;/script>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>
+	&lt;div id=&quot;nextnodeWrapper&quot; ng-show=&quot;$model.isAssigneeApplicant&quot;>
+   		&lt;label  style=&quot;max-width:100px; width:75px;float:left;font-size:12px&quot;>test&lt;/label>
+   		&lt;div style=&quot;margin-left:75px;width:85px;font-size:12px&quot;>	    	
+    			&lt;span id=&quot;nextnode&quot; class=&quot;c2Span ng-binding&quot; bind-html-unsafe=&quot;$model.entity.applicantName&quot;>申请人&lt;/span>					
+            &lt;/div>
+	&lt;/div>
+&lt;/script></form:htmls>
+</form:Form>

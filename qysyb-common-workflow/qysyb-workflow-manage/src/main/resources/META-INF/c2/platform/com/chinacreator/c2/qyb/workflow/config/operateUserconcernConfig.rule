@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="operateuserconcernwork" log="false" className="com.chinacreator.c2.qyb.workflow.config.impl.UserConcernedConfigService" method="operateUserconcernConfig">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>操作用户关注配置</name>
+  <desc>做用户关注工单的添加和删除</desc>
+  <inputs>
+    <input collection="false" desc="" id="userId" required="false" type="String"/>
+    <input collection="false" desc="" id="concernStatus" required="false" type="String"/>
+    <input collection="false" desc="" id="action" required="false" type="String"/>
+    <input collection="false" desc="" id="ucc" required="true" type="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.ucc" name="ucc" signature="QUserConcernedConfig;" type="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
+    <param autoValue="Input.userId" name="userId" signature="QString;" type="String"/>
+    <param autoValue="Input.concernStatus" name="concernStatus" signature="QString;" type="String"/>
+    <param autoValue="Input.action" name="action" signature="QString;" type="String"/>
+  </params>
+  <return signature="QUserConcernedConfig;" type="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
+</CustomRule>

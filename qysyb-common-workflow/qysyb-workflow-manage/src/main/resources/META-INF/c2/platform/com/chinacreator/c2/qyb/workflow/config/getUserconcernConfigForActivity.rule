@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getuserconcernconfigforactivity" log="false" className="com.chinacreator.c2.qyb.workflow.config.impl.UserConcernedConfigService" method="getUserconcernInfoForActivity">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>节点用户关注信息获取</name>
+  <inputs>
+    <input collection="false" desc="" id="u" required="true" type="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.u" name="u" signature="QUserConcernedConfig;" type="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
+  </params>
+  <return signature="QUserConcernedConfig;" type="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
+</CustomRule>

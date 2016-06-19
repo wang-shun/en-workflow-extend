@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="gethandlerformcandidatewithfilter" log="false" className="com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService" method="getHandlerFormCandidateWithFilter">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取节点处理人有过滤器</name>
+  <inputs>
+    <input collection="false" desc="" id="processDefinitionId" required="true" type="String"/>
+    <input collection="false" desc="" id="moduleId" required="true" type="String"/>
+    <input collection="false" desc="" id="taskDefKey" required="true" type="String"/>
+    <input collection="false" desc="" id="filterType" required="false" type="String"/>
+    <input collection="false" desc="" id="curUserId" required="true" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.List"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.processDefinitionId" name="processDefinitionId" signature="QString;" type="String"/>
+    <param autoValue="Input.moduleId" name="moduleId" signature="QString;" type="String"/>
+    <param autoValue="Input.taskDefKey" name="taskDefKey" signature="QString;" type="String"/>
+    <param autoValue="Input.filterType" name="filterType" signature="QString;" type="String"/>
+    <param autoValue="Input.curUserId" name="curUserId" signature="QString;" type="String"/>
+  </params>
+  <return signature="QList&lt;QMap;>;" type="java.util.List"/>
+</CustomRule>

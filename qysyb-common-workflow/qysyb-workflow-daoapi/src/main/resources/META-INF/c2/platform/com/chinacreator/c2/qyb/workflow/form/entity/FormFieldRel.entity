@@ -154,8 +154,8 @@
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormFieldRel"/>
-          <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField" pageSize="10"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.form.entity.FormFieldRel"/>
+          <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.qyb.workflow.form.entity.FormField" pageSize="10"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
 	var ids = $view.list.getSelectRowIds();
@@ -302,7 +302,7 @@ btn_edit_click:function($event){
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormFieldRel"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.form.entity.FormFieldRel"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){

@@ -26,7 +26,7 @@
   <docket:events>
     <docket:event desc="" id="list" name="新操作">
       <docket:logic/>
-      <docket:ui name="新操作" type="inner">
+      <docket:ui id="list" name="新操作" type="inner">
         <form:control type="page/modal">
           <form:attributes source="page/modal"/>
         </form:control>
@@ -187,7 +187,7 @@
           <form:datasource xsi:type="form:Inputs">
             <form:input id="id" name="实体数据id"/>
           </form:datasource>
-          <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.omp.service.manage.slamanage.Sla_kpi" pageSize="10"/>
+          <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi" pageSize="10"/>
         </form:datasources>
         <form:scripts>
 
@@ -310,7 +310,7 @@ newField1_click:function($event){
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.slamanage.Sla_kpi"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){
@@ -342,7 +342,7 @@ btn_edit_click:function($event){
           </inputs>
         </node>
       </docket:logic>
-      <docket:ui>
+      <docket:ui name="修改">
         <form:control type="page/modal">
           <form:attributes source="page/modal">
             <dync:attribute id="title" value="修改Slakpi项">
@@ -442,7 +442,7 @@ btn_edit_click:function($event){
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.slamanage.Sla_kpi"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.sla.entity.Sla_kpi"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){
@@ -454,6 +454,7 @@ btn_edit_click:function($event){
    Modal.instance.close();
 }
 </form:scripts>
+        <form:htmls></form:htmls>
       </docket:ui>
     </docket:event>
     <docket:event id="get" name="单记录查询">

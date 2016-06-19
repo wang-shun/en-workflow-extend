@@ -10,7 +10,7 @@
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="tab" length="" name="动态tab 页签ID" nullable="true" precision="" type="string128" default="">
-      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.Tab.tab_id" id="entity:com.chinacreator.c2.omp.common.Tab"/>
+      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.Tab.tab_id" id="entity:com.chinacreator.c2.qyb.workflow.tab.entity.Tab"/>
     </docket:attribute>
     <docket:attribute code="remark1" nullable="true" type="string64" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>

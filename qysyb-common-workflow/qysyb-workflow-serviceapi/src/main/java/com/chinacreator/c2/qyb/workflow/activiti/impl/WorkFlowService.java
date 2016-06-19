@@ -421,7 +421,7 @@ public class WorkFlowService {
 		SqlSession sqlsession = dao.getSession();
 		list = sqlsession
 				.selectList(
-						"com.chinacreator.c2.omp.workflowcommon.WorkFlowMapper.getActivityCandidates",
+						"com.chinacreator.c2.qyb.workflow.usergroup.WorkFlowMapper.getActivityCandidates",
 						map);
 		for (Map map1 : list) {
 			String performer = (String) map1.get("PERFORMER");
@@ -435,7 +435,7 @@ public class WorkFlowService {
 					map1.put("performer", s);
 					List<Map> list1 = sqlsession
 							.selectList(
-									"com.chinacreator.c2.omp.workflowcommon.WorkFlowMapper.getUserInfoById",
+									"com.chinacreator.c2.qyb.workflow.usergroup.WorkFlowMapper.getUserInfoById",
 									map1);
 //					ddlo.setName((String) list1.get(0).get("LAST_"));
 					ddlo.put("name", (String) list1.get(0).get("LAST_"));
@@ -454,7 +454,7 @@ public class WorkFlowService {
 					map1.put("group_performer", s);
 					List<Map> list1 = sqlsession
 							.selectList(
-									"com.chinacreator.c2.omp.workflowcommon.WorkFlowMapper.getGroupInfoById",
+									"com.chinacreator.c2.qyb.workflow.usergroup.WorkFlowMapper.getGroupInfoById",
 									map1);
 //					ddlo.setName((String) list1.get(0).get("NAME_"));
 					ddlo.put("name", (String) list1.get(0).get("NAME_"));
@@ -712,6 +712,12 @@ public class WorkFlowService {
 			AccessControlService acc = new AccessControlServiceImpl();
 			userId = acc.getUserID();
 		}
+ 		if(serviceType!=null&&serviceType.length==1&&serviceType[0].equals("all")){
+ 			con.remove(SERVICETYPEKEY);
+ 			map.put("all",
+ 					getTodoWorkTotalByST(null, con, userId));
+ 			return map;
+ 		}
 		if (serviceType == null) {
 			Dao<DictDataInfo> daod = DaoFactory.create(DictDataInfo.class);
 			Dao<DictTypeInfo> daot = DaoFactory.create(DictTypeInfo.class);

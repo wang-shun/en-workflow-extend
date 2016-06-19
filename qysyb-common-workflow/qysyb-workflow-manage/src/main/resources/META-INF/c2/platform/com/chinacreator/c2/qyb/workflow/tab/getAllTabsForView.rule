@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getalltabsforview" log="false" className="com.chinacreator.c2.qyb.workflow.tab.impl.DynamicTabProvider" method="generateProductTabForView">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取产品查看页面的tabs</name>
+  <desc>获取查看页面的tab标签页</desc>
+  <inputs>
+    <input collection="false" desc="" id="params" required="true" type="java.util.Map"/>
+    <input collection="false" desc="" id="activityId" required="false" type="String"/>
+    <input collection="false" desc="@param" id="serviceProduct" required="true" type="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.List"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.serviceProduct" name="serviceProduct" signature="QServiceProduct;" type="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct"/>
+    <param autoValue="Input.params" name="params" signature="QMap;" type="java.util.Map"/>
+    <param autoValue="Input.activityId" name="activityId" signature="QString;" type="String"/>
+  </params>
+  <return signature="QList&lt;QTabDescriptionWithTabId;>;" type="java.util.List"/>
+</CustomRule>

@@ -147,7 +147,7 @@
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.Form"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.form.entity.Form"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){
@@ -292,7 +292,7 @@ btn_edit_click:function($event){
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.Form"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.form.entity.Form"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){

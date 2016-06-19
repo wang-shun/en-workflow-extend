@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="用户多选输入" sn="multipleuserinput" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="multipleuserinput_html">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+  </form:datasources>
+  <form:scripts>
+
+page_afterDataSourceLoad:function(){
+	if($scope.formentity[$params.fieldNo]==undefined||$scope.formentity[$params.fieldNo]==&quot;&quot;){
+		$scope.formentity[$params.fieldNo] = new Array();
+	}	
+	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
+},
+check:function(){
+	var result = true;
+	var c = $scope.formentity[$params.fieldNo];
+	if(c==undefined||c.length==0){
+		result = false;
+	}
+	return result;
+},
+addContent:function(){
+	Modal.open(&quot;f/multipleuserchoose&quot;,{},function(data){
+//		console.log(&quot;returned data&quot;,data);
+		$scope.formentity[$params.fieldNo] = data.users;
+	});
+},
+removechoosed:function(choosed){
+	var a = $scope.formentity[$params.fieldNo];
+	var index;
+	for(var i=0;i&lt;a.length;i++){
+		if(a[i].id == choosed.id){
+			index = i;
+			break;
+		}
+	}
+	$scope.formentity[$params.fieldNo].splice(index,1);
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;multipleuserinput_html&quot;>
+&lt;div class=&quot;form-group col-sm-12&quot; >
+	&lt;label class=&quot;control-label al-control-label  ng-binding&quot; style=&quot;width:75px;&quot; ng-class=&quot;{'required-label':permissionData[$params.fieldNo].fillnecessary}&quot;>{{$params.fieldName}}&lt;/label>
+	&lt;div id=&quot;auditOrgInput{{$params.fieldNo}}&quot; style=&quot;border-left: 2px solid #c5c5c5;margin-left:85px;qx;&quot;>
+	&lt;div class=&quot;itemdiv commentdiv&quot; style=&quot;padding-top:10px;padding-left:10px;&quot; >
+			&lt;button ng-click=&quot;functions.removechoosed(temp)&quot; class=&quot;btn btn-xs btn-white btn-warning btn-bold&quot; style=&quot;margin-right:5px;margin-bottom:5px;&quot;ng-repeat=&quot;temp in formentity[$params.fieldNo]&quot;>
+				{{temp.category}} {{temp.name}}
+				&lt;i class=&quot;ace-icon fa fa-trash-o bigger-120 orange&quot;>&lt;/i>
+			&lt;/button>			
+		&lt;div ng-if=&quot;permissionData[$params.fieldNo].writePermission&quot; class=&quot;left&quot; style=&quot;padding-left: 10px;padding-bottom: 5px;padding-top: 5px;min-height:72px&quot; ng-click=&quot;functions.addContent()&quot;>
+			&lt;span style=&quot;color:#bbb;&quot;>点击添加&lt;/span>
+		&lt;/div>	
+	&lt;/div>
+	&lt;/div>
+&lt;/div>
+&lt;/script></form:htmls>
+</form:Form>

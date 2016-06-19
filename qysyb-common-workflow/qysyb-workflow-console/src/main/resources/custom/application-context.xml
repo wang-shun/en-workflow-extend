@@ -17,7 +17,7 @@
  	<context:annotation-config />
 
 	
-	<context:component-scan base-package="com.chinacreator.c2.util,com.chinacreator.c2.omp,com.chinacreator.c2.jp">
+	<context:component-scan base-package="com.chinacreator.c2.qyb">
 	
 	</context:component-scan>
 <!-- <bean id="StatisticalStatementService" class="com.chinacreator.c2.util.impl.StatisticalStatementServiceImpl" />
@@ -25,14 +25,14 @@
 				p:nameGenerator-ref="nameGenerator" p:basePackage="com.chinacreator.c2.*">
 				<property name="SqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	  </bean> -->
-	<bean id="attachmentsUploadProcess" class="com.chinacreator.c2.omp.common.AttachmentsUploadProcess">
+<!-- 	<bean id="attachmentsUploadProcess" class="com.chinacreator.c2.omp.common.AttachmentsUploadProcess">
 	      		<constructor-arg index="0" value="mydir"/>
 	</bean>
 
-	<!-- 工作流事件监听器 -->
-	<bean class="com.chinacreator.c2.omp.service.manage.workflowcommon.impl.MyApplicationListener"></bean> 
+	工作流事件监听器
+	<bean class="com.chinacreator.c2.omp.service.manage.workflowcommon.impl.MyApplicationListener"></bean>  -->
 		
 <!-- 	<bean name="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 	</bean> -->
-       
+    <bean id="officeNoticeService" class="com.test.TestBusinessServiceImpl"></bean>   
  </beans>      

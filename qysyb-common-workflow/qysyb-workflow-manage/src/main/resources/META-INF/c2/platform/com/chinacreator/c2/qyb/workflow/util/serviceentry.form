@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="服务登记" res="" sn="serviceentrypage" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroupId_html">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="padding-top:30px;padding:30px;">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="allserviceproduct" name="绑定了流程的事项" logic="rule:com.chinacreator.c2.qyb.workflow.module.getAllServiceProductWithModule" sn="getAllServiceProductWithModule">
+      <form:param id="consp" name="新输入参数"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>
+
+page_afterDataSourceLoad:function(){
+	var sp = {};
+	var serviceTypeId = $location.$$search.serviceTypeId;
+	if(angular.isUndefined(serviceTypeId)){
+		serviceTypeId = $params.serviceTypeId;
+	}
+	sp.serviceTypeId = $location.$$search.serviceTypeId;
+	$model.allserviceproduct.$load({consp:sp}).then(function(){
+		var r = $model.allserviceproduct.result;
+		var size = $model.allserviceproduct.result.length;
+		var a=new Array();
+		var col = 3;
+		for(var i=0;i&lt;size;i=i+3){
+			var b = new Array();
+			var j = i;
+			var m = col;
+			while(j&lt;size&amp;&amp;m>0){
+				b.push(r[j]);
+				j++;
+				m--;
+			}
+			a.push(b);
+		}
+		$model.a = a;	
+	});
+
+},
+createWorkOrder:function(tmp){
+	var resourceIds = $location.$$search.resourceId==null?null:$location.$$search.resourceId.split(&quot;,&quot;);
+	var workIds = $location.$$search.workIds==null?null:$location.$$search.workIds.split(&quot;,&quot;);
+	var knowledgeIds = $location.$$search.knowledgeIds==null?null:$location.$$search.knowledgeIds.split(&quot;,&quot;);
+	var contentmap = $location.$$search;
+	contentmap.workTitle = contentmap.title;
+	contentmap.workDescribe = contentmap.describe;
+	if(angular.isUndefined(contentmap.title)){
+		window.location.href = '#/wf/taskHandle?menuCode='+tmp.productId+'&amp;productNo='+tmp.productNo+'&amp;formId='+tmp.formId;
+	}else{
+		$http.post(&quot;ws/createworkbusinessdata&quot;,{sp:tmp,map:$location.$$search,resourseIds:resourceIds,workIds:workIds,knowledgesIds:knowledgeIds})
+			.success(function(data){
+//				console.log(data);
+				window.location.href = '#/wf/taskHandle?menuCode='+tmp.productId+'&amp;productNo='+tmp.productNo+'&amp;formId='+tmp.formId+'&amp;businessKey='+data.result;
+			});	
+	}
+
+//	window.location.href = '#/wf/taskHandle?menuCode='+tmp.productId+'&amp;productNo='+tmp.productNo+'&amp;formId='+tmp.formId+'&amp;businessKey='+businessKey;
+
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
+&lt;table id=&quot;productentry&quot; width=&quot;100%&quot; border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;>&lt;tbody>
+&lt;tr ng-repeat=&quot;a in $model.a&quot; style=&quot;padding-bottom:30px&quot;>
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot; width=&quot;33%&quot; style=&quot;line-height:110px;&quot; ng-repeat=&quot;tmp in a&quot;>
+	&lt;table width=&quot;95%&quot; border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;tab_chanpin&quot;>
+		&lt;tbody>
+			&lt;tr id=&quot;servic_icon&quot;>
+				&lt;td width=&quot;21%&quot; rowspan=&quot;2&quot; style=&quot;text-align:right;padding-right:10px&quot;>
+                    &lt;a href=&quot;javascript:&quot; ng-click=&quot;functions.createWorkOrder(tmp)&quot;>
+					&lt;img src={{tmp.ico}} width=&quot;64&quot; height=&quot;64&quot;>&lt;/a>&lt;/td>
+					&lt;th width=&quot;79%&quot; class=&quot;chapin_name&quot;>{{tmp.productName}}&lt;/th>
+			&lt;/tr>
+			&lt;tr>
+				&lt;td title=&quot;&quot;>&lt;p>&lt;/p>&lt;/td>
+			&lt;/tr>
+	&lt;/tbody>
+
+	&lt;/table>
+	&lt;/td>
+&lt;/tr>
+&lt;/table>
+&lt;/script></form:htmls>
+</form:Form>

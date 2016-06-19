@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="多用户选择" sn="multipleuserchoose" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="用户选择">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="680px">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="height:500px">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="6">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Field" binding="$model.orgusertree" id="orgusertree" name="树" customize="true">
+        <form:control type="widget/tree">
+          <form:attributes source="widget/tree">
+            <dync:attribute default="6" group="显示设置" id="span" name="占位数" value="12">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="nodeClick" name="单击" value="newField_nodeClick(event,treeId,treeNode,clickFlag)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="0" group="显示设置" id="expendLevel" name="默认展开级数" value="1">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="勾选设置" id="checkEnable" name="勾选框" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="nodeCheck" name="勾选" value="orgusertree_nodeCheck(event,treeId,treeNode)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="beforeInit" name="初始化树控件之前" value="orgusertree_beforeInit(zTreeOptions)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="{ &quot;Y&quot;: &quot;ps&quot;, &quot;N&quot;: &quot;ps&quot; }" group="勾选设置" id="chkboxType" name="父子节点关联" value="{ &quot;Y&quot;: &quot;s&quot;, &quot;N&quot;: &quot;s&quot; }">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="auto" group="显示设置" id="height" name="高度" value="480">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="6">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup_html">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup2" name="对话框工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField1" name="确定" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField1_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField2" name="取消" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField2_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:TreeDataSource" id="orgusertree" name="树型数据源" impl="com.chinacreator.c2.sys.ui.ds.selecttree.OrgUserTreeContentProvider" type="custom"/>
+  </form:datasources>
+  <form:scripts>//判断是否是机构节点
+isOrgNode:function(node){
+	var id = node.id;
+	var reg = /^user:/;
+	var regresult = reg.exec(id);
+	return regresult==undefined?true:false;
+},
+disselectParent:function(node){
+	var parent = node.getParentNode();
+	if(parent!=null){
+		this.checkNode(parent,false);
+	}
+},
+//节点点击响应。父节点 测试展开收缩操作 叶节点 测改变选中状态
+newField_nodeClick:function(event,treeId,treeNode,clickFlag){
+	var tree = $view.orgusertree.getZtree();
+	var selectednodes = tree.getSelectedNodes();
+	var selectednode = selectednodes[0];
+	var isOrg = functions.isOrgNode(selectednode);
+	if(isOrg){
+		var isexpand = selectednode.open;
+		functions.expandNode(selectednode,!isexpand,false,true);
+/*		if(angular.isUndefined($scope.orgUsers[selectednode.id])){//没有缓存
+			$http.post(&quot;ws/getorgusers&quot;,{arg0:selectednode.id})
+				.success(function(data){
+					var users = data.result;
+					$scope.orgUsers[selectednode.id] = users;  //缓存起来
+//					console.log(&quot;returned users&quot;,data);
+				});
+		}else{
+			console.log(&quot;cached!&quot;);
+			var users = $scope.orgUsers[selectednode.id];
+		}
+*/	
+	}else{
+		var checked = selectednode.checked;	
+		this.disselectParent(selectednode);
+		functions.checkNode(selectednode,!checked);
+	}
+	
+},
+doaddchoosed:function(node){
+	var choosed = functions.isuserchoosed(node);
+	if(!choosed){
+		var candidate = {};
+		candidate.name = node.name;
+		candidate.id = node.id;	
+		var parentNode = functions.findNode(&quot;id&quot;,node.pid);
+		candidate.category = parentNode[0].name;	
+		$model.choosed.push(candidate);	
+	}
+},
+//判断用户是否选择了
+isuserchoosed:function(node){
+	var ischoosed = false;
+	var a = $model.choosed;
+	for(var i=0;i&lt;a.length;i++){
+		if(a[i].id == node.id){
+			ischoosed = true;
+			console.log(&quot;hey ischoosed!&quot;);
+			break;
+		}
+	}
+	return ischoosed;
+},
+removechoosed:function(choosed){
+	var id = choosed.id;
+	var node = functions.findNode(&quot;id&quot;,id);
+			//去勾选则把父节点也去勾选		
+	this.disselectParent(node[0]);
+	functions.checkNode(node[0],false);
+},
+doremovechoosed:function(choosed){
+	var a = $model.choosed;
+	var index = undefined;
+	for(var i=0;i&lt;a.length;i++){
+		if(a[i].id == choosed.id){
+			index = i;
+			break;
+		}
+	}
+	if(index!=undefined){
+//		$scope.$apply(function(){$model.choosed.splice(index,1);});
+		$model.choosed.splice(index,1);
+	}
+	
+},
+docheckNode:function(treeNode, checked, checkTypeFlag, callbackFlag){
+	var tree = functions.getTree();
+	tree.checkNode(treeNode, checked, checkTypeFlag, callbackFlag);	
+},
+//一个很关键的函数  改变check状态并在选中列表中删除关联的信息。checked 为你需要此节点变为的状态
+checkNode:function(treeNode, checked, checkTypeFlag, callbackFlag){
+//	console.log(&quot; node&quot;,treeNode);
+	var candidate = {};
+	candidate.name = treeNode.name;
+	candidate.id = treeNode.id;	
+	var parentNode = functions.findNode(&quot;id&quot;,treeNode.pid);
+	candidate.category = parentNode[0].name;
+//	var checked = treeNode.checked;
+	if(!checked){
+		functions.doremovechoosed(treeNode);
+	}else{
+		$scope.$apply(function(){functions.doaddchoosed(treeNode);});		
+	}	
+//	console.log(&quot;choosed&quot;,$model.choosed);
+	functions.docheckNode(treeNode, checked, checkTypeFlag, false);
+},
+expandNode:function(treeNode,expandFlag,sonSign,focus,callbackFlag){
+	var tree = functions.getTree();
+	return tree.expandNode(treeNode, expandFlag, sonSign, focus, callbackFlag);
+},
+findNode:function(key,value,parentNode){
+	var tree = functions.getTree();
+	var node = tree.getNodesByParam(key,value,parentNode);
+	return node;
+},
+getTree:function(){
+	var tree = $view.orgusertree.getZtree();
+	return tree;
+},
+//确定
+newField1_click:function($event){
+	Modal.instance.close({users:$model.choosed});
+},
+isOpened:function(node){
+//	debugger;
+	var tree = functions.getTree();
+	var parent = node.getParentNode();
+	if(parent==null){
+		return true;
+	}
+	var isOpen = parent.open;
+	if(isOpen==true){
+		return functions.isOpened(parent);
+	}else if(isOpen==false){
+		return false;
+	}else{
+		return true;
+	}
+},
+//勾选
+orgusertree_nodeCheck:function(event,treeId,treeNode){
+	var selectednode = treeNode;
+	var checked = treeNode.checked;	
+	var isOrg = functions.isOrgNode(treeNode);
+	if(isOrg){	//d0 nothing
+			var isexpand = selectednode.open;
+			if(isexpand==false){ 	//如果还没有展开 
+/*				functions.expandNode(selectednode,!isexpand,false,true,true);
+
+				//expande 后还未有子节点就绪但是需要 对未就绪子节点操作的一种方法
+				$model.selectednodecheckstatus = checked;
+				$model.selectednode = selectednode;
+				$model.needeval = &quot;var children =  functions.findNode(\&quot;pid\&quot;,$model.selectednode.id,$model.selectednode);&quot;
+				+&quot;console.log(\&quot;children\&quot;,children);\n&quot;
+				+&quot;for(var i=0;i&lt;children.length;i++){&quot;
+				+&quot;	var node = children[i];&quot;
+				+&quot; &quot;
+				+&quot;	var childchecked = node.checked;&quot;
+				+&quot;	var isOrg = functions.isOrgNode(node);&quot;	
+				+&quot;	if(isOrg){&quot;	
+				+&quot;console.log('node',node);//	functions.orgusertree_nodeCheck(event,treeId,node);	\n&quot;	//不要展开org节点 just ignore it
+				+&quot;	}else{&quot;
+				+&quot;console.log(\&quot; gona checknode\&quot;,node);\n	console.log(\&quot;node\&quot;,$model.selectednodecheckstatus);\n	functions.checkNode(node,$model.selectednodecheckstatus);	&quot;	//用户子节点 just check it
+				+&quot;	}&quot;	
+				+&quot;}&quot;
+*/								
+			}else if(isexpand==true){
+/*				var children =  selectednode.children;
+				for(var i=0;i&lt;children.length;i++){
+					var node = children[i];
+					var isOrg = functions.isOrgNode(node);
+					if(isOrg){
+					//	functions.orgusertree_nodeCheck(event,treeId,node);		//不要展开org节点 just ignore it
+					}else{					
+						functions.checkNode(node,checked);		//用户子节点 just check it
+					}					
+				}	
+*/		
+			}	
+	}else{
+//		console.log(&quot;discheck p node&quot;,treeNode);
+		if(functions.isOpened(treeNode)==true){  //可见的
+			this.checkNode(treeNode,checked);	//用户子节点 just check it
+			if(checked==false){ //去勾选则把父节点也去勾选
+				var parent = treeNode.getParentNode();
+				if(parent!=null){
+					this.checkNode(parent,false);
+				}		
+			}
+		}else{
+			this.checkNode(treeNode,false);
+		}
+	}	
+},
+
+page_afterDataSourceLoad:function(){
+	$model.choosed = [];
+	$scope.orgUsers = [];
+},
+orgusertree_beforeInit:function(zTreeOptions){
+	zTreeOptions.check.autoCheckTrigger = true;
+	zTreeOptions.callback.onExpand = function(event, treeId, treeNode){
+		console.log(&quot;eval&quot;,$model.needeval);
+		eval($model.needeval);
+		$model.needeval = null;
+	};
+},
+
+newField2_click:function($event){
+	Modal.instance.dismiss();
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>
+	&lt;div class=&quot;well well-sm&quot; style=&quot;height:480px;overflow:scroll;&quot;>
+		&lt;button ng-click=&quot;functions.removechoosed(temp)&quot; class=&quot;btn btn-xs btn-white btn-warning btn-bold&quot; style=&quot;margin-right:5px;margin-bottom:5px;&quot;ng-repeat=&quot;temp in $model.choosed&quot;>
+			{{temp.category}} {{temp.name}}
+			&lt;i class=&quot;ace-icon fa fa-trash-o bigger-120 orange&quot;>&lt;/i>
+		&lt;/button>	
+	&lt;/div>
+&lt;/script></form:htmls>
+</form:Form>

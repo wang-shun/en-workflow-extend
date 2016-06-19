@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getalltabforproduct" log="false" className="com.chinacreator.c2.qyb.workflow.tab.impl.DynamicTabProvider" method="getProductTab">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取产品的所有关联的tab</name>
+  <inputs>
+    <input collection="false" desc="" id="productId" required="true" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.List"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.productId" name="productId" signature="QString;" type="String"/>
+  </params>
+  <return signature="QList&lt;QTab;>;" type="java.util.List"/>
+</CustomRule>

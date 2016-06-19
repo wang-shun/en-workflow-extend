@@ -195,8 +195,7 @@
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.slamanage.SlaServiceRroductRel"/>
-          <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.omp.service.manage.serviceproductmanage.ServiceProduct" pageSize="10"/>
+          <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct" pageSize="10"/>
           <form:datasource xsi:type="form:LogicDataSource" id="dictdatalist" name="字典list" logic="rule:com.chinacreator.c2.omp.common.getDictDataByType" sn="getdictdatabytype">
             <form:param id="dictTypeName" name="新输入参数" value="[&quot;服务分类&quot;]"/>
           </form:datasource>
@@ -350,7 +349,7 @@ serviceTypeId_customFormatter:function(cellvalue,options,rowObject){
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.slamanage.SlaServiceRroductRel"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.sla.entity.SlaServiceRroductRel"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){

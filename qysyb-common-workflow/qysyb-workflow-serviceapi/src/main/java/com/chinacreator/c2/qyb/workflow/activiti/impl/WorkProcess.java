@@ -2,6 +2,7 @@ package com.chinacreator.c2.qyb.workflow.activiti.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.ManagementService;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.bpmn.behavior.ParallelMultiInstanceBehavior;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.asp.comp.sys.advanced.role.service.RoleService;
+import com.chinacreator.asp.comp.sys.advanced.user.service.UserService;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.flow.WfApiFactory;
 import com.chinacreator.c2.flow.api.WfRuntimeService;
@@ -75,6 +78,8 @@ public class WorkProcess {
 	private ManagementService managementService;
 	@Autowired
 	private TaskService taskService;
+	@Autowired
+	private RuntimeService runtimeService;
 	@Autowired
 	private WfRuntimeService wfRuntimeService;
 	@Autowired
@@ -315,6 +320,9 @@ public class WorkProcess {
 		WfOperator wfOperator = JSONObject.parseObject(wfOperatorStr,
 				WfOperator.class);
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
+		
+		WorkFlowActivity nextActivity = new WorkFlowActivity();
+		nextActivity.setId(destTaskDefinitionKey);
 		// 处理人选择
 		chooseHandleTypeValue(variables);
 
@@ -334,14 +342,23 @@ public class WorkProcess {
 		if (form != null && form.isIsTableStorage() != null
 				&& form.isIsTableStorage()) {
 			formService.updateFormDataWithExternalTable(bussinessKey, proInsId,
-					entity, curActivity, form, wfOperator.getUserId());
+					entity, curActivity, form, wfOperator.getUserId(),nextActivity,paramsMap);
 			List<FormField> list = formService.getFormField(formId);
 			for (FormField ff : list) {
-				if (ffs.isFieldStorageEXT(ff)) { // 字段是否存外部表
-					entitymap.remove(ff.getFieldNo());
-				}
+				if (ffs.isFieldStorageProcessVariable(ff)) { // 字段是否存在流程变量中
+					String fieldNo = ff.getFieldNo();
+					Object value= entitymap.get(fieldNo);
+					if(value!=null){
+						//空字符串不存 也意味着不能把流程变量更新为空字符串！！
+						if((value instanceof String&&!value.equals(""))){
+							variables.put(fieldNo,value);
+						}else{
+							//对象存入流程变量了
+							variables.put(fieldNo,value);
+						}
+					}
+				}				
 			}
-			variables.putAll(entitymap); // 一些并没有在表单中的数据 或许在流程变量中更新
 		} else {
 			/* 业务数据作为流程变量保存 */
 			variables.putAll(entitymap);
@@ -352,6 +369,11 @@ public class WorkProcess {
 			taskService.addComment(currenTaskId, proInsId, opinion);
 		}
 		variables.put("userId", wfOperator.getUserId());
+		
+		//设置last activity 信息
+		setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
+				, variables, curActivity);
+		
 		wfresult = this.goAnyWhere(wfOperator, false, bussinessKey,
 				processDefinitionId, currenTaskId, destTaskDefinitionKey, true,
 				variables);
@@ -683,9 +705,10 @@ public class WorkProcess {
 				WfOperator.class);
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
 		Map entitymap = JSONObject.parseObject(entity, Map.class);
-
+		
+		//任务处理人
 		chooseHandleTypeValue(variables);
-		/* 业务数据持久化 */
+		
 		FormService formService = ApplicationContextManager.getContext()
 				.getBean(FormService.class);
 		Form form = formService.getFormById(formId);
@@ -700,13 +723,13 @@ public class WorkProcess {
 		entitymap.remove(WorkFlowService.TYPE_ASSIGNEELIST);
 		entitymap.remove(HANDLE_TYPE_KEY);
 		entitymap.remove(HANDLE_VALUE_KEY);
-
+		/* 业务数据持久化 */
 		if (form != null && form.isIsTableStorage() != null
 				&& form.isIsTableStorage()) {
 			formService
 					.updateFormDataWithExternalTable(bussinessKey, proInsId,
 							entity, wfTransition.getSrc(), form,
-							wfOperator.getUserId());
+							wfOperator.getUserId(),wfTransition.getDest(),paramsMap);
 			List<FormField> list = formService.getFormField(formId);
 			for (FormField ff : list) {
 				if (ffs.isFieldStorageProcessVariable(ff)) { // 字段是否存在流程变量中
@@ -745,7 +768,7 @@ public class WorkProcess {
 		Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(
 				entity, bussinessKey, null, moduleId, variables,
 				wfTransition.getSrc(), wfTransition.getDest(), wfTransition,
-				wfOperator.getUserId());
+				wfOperator.getUserId(),paramsMap);
 		if (businessVariable != null && businessVariable.size() > 0) {
 			variables.putAll(businessVariable);
 		}
@@ -765,13 +788,19 @@ public class WorkProcess {
 			int nrOfInstances = (int) taskEntity.getVariables().get(
 					"nrOfInstances");
 			// 表示会签完成
-			if (nrOfCompletedInstances == nrOfInstances - 1) {
+			if (nrOfCompletedInstances == nrOfInstances - 1) {			
+				//设置last activity 信息
+				Map wfVariable = new HashMap();
+				setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
+						, wfVariable, wfTransition.getSrc());
+				runtimeService.setVariables(taskEntity.getProcessInstanceId(), wfVariable);
+				
 				String nextTaskId = wfRuntimeService
 						.getCurrentActiveTaskIds(proInsId);
 				Map<String, String> valuemap = formOperate.getTaskHandler(
 						entity, bussinessKey, wfresult.getProcessInstanceId(),
-						moduleId, wfTransition.getDest(), nextTaskId,
-						wfOperator.getUserId());
+						moduleId, wfTransition.getSrc(),wfTransition.getDest(), nextTaskId,
+						wfOperator.getUserId(),paramsMap);
 				setTaskHandler(valuemap, variables, nextTaskId);
 			}
 			/* 通知处理 */
@@ -785,12 +814,16 @@ public class WorkProcess {
 		// 声明后 assignee便有了值。
 		taskService.claim(currenTaskId, wfOperator.getUserId());
 
+		//设置last activity 信息
+		setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
+				, variables, wfTransition.getSrc());
+		
 		// JumpActivityByTakeTransitionCmd 自由流
 		wfresult = this.goAnyWhereTakeTransition(wfOperator,
 				isStart.equals("true") ? true : false, bussinessKey,
 				processDefinitionId, currenTaskId, transitionId,
 				destTaskDefinitionKey, false, variables);
-
+		
 		Object multiInstancePor = wfTransition.getDest().getPorperties()
 				.get("multiInstance");
 		if (multiInstancePor != null
@@ -801,7 +834,8 @@ public class WorkProcess {
 			String nextTaskId = wfresult.getNextTaskId();
 			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
 					bussinessKey, wfresult.getProcessInstanceId(), moduleId,
-					wfTransition.getDest(), nextTaskId, wfOperator.getUserId());
+					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, wfOperator.getUserId(),
+					paramsMap);
 			setTaskHandler(valuemap, variables, nextTaskId);
 		}
 
@@ -923,16 +957,22 @@ public class WorkProcess {
 			Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(
 					entity, businessKey, null, moduleId, variables,
 					wfTransition.getSrc(), wfTransition.getDest(),
-					wfTransition, wfOperator.getUserId());
+					wfTransition, wfOperator.getUserId(),paramsMap);
 			if (businessVariable != null && businessVariable.size() > 0) {
 				variables.putAll(businessVariable);
 			}
+			
+			//设置last activity 信息
+			setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
+					, variables, wfTransition.getSrc());
+			
 			wf = this.startFlow(wfOperator, businessKey, processDefinitionId,
 					variables);
 			if (form.isIsTableStorage() != null && form.isIsTableStorage()) { // 业务数据存储到外部表
 				formService.updateFormDataWithExternalTable(businessKey,
 						wf.getProcessInstanceId(), entity,
-						wfTransition.getSrc(), form, wfOperator.getUserId());
+						wfTransition.getSrc(), form, wfOperator.getUserId(),
+						wfTransition.getDest(),paramsMap);
 			}
 			if(AUTORUN_FIRST_ACT){
 				taskService.claim(wf.getNextTaskId(), wfOperator.getUserId());
@@ -941,11 +981,13 @@ public class WorkProcess {
 						processDefinitionId, wf.getNextTaskId(), 
 						wfTransition.id, wfTransition.getDest().id, false, variables);
 			}
+
 //			taskService.complete(wf.getNextTaskId());
 			String nextTaskId = wf.getNextTaskId();
 			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
 					businessKey, wf.getProcessInstanceId(), moduleId,
-					wfTransition.getDest(), nextTaskId, wfOperator.getUserId());
+					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, 
+					wfOperator.getUserId(),paramsMap);
 
 			setTaskHandler(valuemap, variables, nextTaskId);
 			/* 通知处理 */
@@ -1094,6 +1136,33 @@ public class WorkProcess {
 			variables.put("assigneeList", Arrays.asList(assignees));
 		}
 		return variables;
+	}
+	/**
+	 * 设置最后处理人信息
+	 */
+	public static final String LAST_HANDLER_USER_ID_KEY = "lhUserId";
+	public static final String LAST_HANDLER_USER_NAME_KEY = "lhUserName";
+	public static final String LAST_HANDLER_TIME_M_KEY = "lhTimel";
+	public static final String LAST_HANDLER_ACT_ID_KEY = "lhActId";
+	public static final String LAST_HANDLER_ACT_NAME_KEY = "lhActName";
+	@SuppressWarnings("unchecked")
+	public void setLastHandlerInfo(String userId,String userName,Map variables,WorkFlowActivity ac){
+		if(userId==null||variables==null){
+			return ;
+		}
+		if(userName == null){
+			UserService userService = ApplicationContextManager.getContext().getBean(UserService.class);
+			UserDTO user = userService.queryByPK(userId);
+			userName = user!=null?user.getUserRealname():null;
+		}
+		variables.put(LAST_HANDLER_USER_ID_KEY, userId);
+		variables.put(LAST_HANDLER_USER_NAME_KEY, userName);
+		variables.put(LAST_HANDLER_TIME_M_KEY, Calendar.getInstance().getTimeInMillis());
+		if(ac!=null){
+			variables.put(LAST_HANDLER_ACT_ID_KEY, ac.getId());
+			variables.put(LAST_HANDLER_ACT_NAME_KEY, ac.getName());
+		}
+		return ;
 	}
 	/*
 	 * public void removeNullValueInMap(Map<String,Object> map){ List set = new

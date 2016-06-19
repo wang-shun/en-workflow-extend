@@ -46,7 +46,7 @@ public class UserConcernedConfigService {
 		Map<String,String> resultmap = new HashMap<String,String>();
 		map.put("processDefId", proDefId);
 		map.put("userId", userId);
-		List<UserConcernedConfig> list = dao.getSession().selectList("com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.UserConcernedConfigMapper.selectForStatus", map);
+		List<UserConcernedConfig> list = dao.getSession().selectList("com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfigMapper.selectForStatus", map);
 		for(UserConcernedConfig u:list){
 			if(u.getProcessInsId()==null){
 				resultmap.put("ConcernStatus", UserConcernedConfigService.CONCERNTHISSP);

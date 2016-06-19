@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getactiviticonfigone" log="false" className="com.chinacreator.c2.qyb.workflow.config.impl.ActivityConfigService" method="getActivityConfigOne">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取环节配置信息</name>
+  <desc>按条件获取一个节点配置</desc>
+  <inputs>
+    <input collection="false" desc="@return" id="o" required="true" type="com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.con" name="con" signature="QActivityConfig;" type="com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig"/>
+  </params>
+  <return signature="QActivityConfig;" type="com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig"/>
+</CustomRule>

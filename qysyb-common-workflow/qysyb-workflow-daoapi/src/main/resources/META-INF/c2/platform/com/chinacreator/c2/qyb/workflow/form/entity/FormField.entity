@@ -237,8 +237,7 @@
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField"/>
-          <form:datasource xsi:type="form:LogicDataSource" id="allwebcategorylist" name="控件类型" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Form.getAllWebDisplayCategoryList" sn="getAllWebDisplayCategoryList"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.form.entity.FormField"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){

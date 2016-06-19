@@ -515,7 +515,7 @@
       <form:param id="dictTypeName" name="新输入参数" value="[&quot;服务分类&quot;]"/>
     </form:datasource>
     <form:datasource xsi:type="form:EntityDataSource" id="uccentity" name="单实体数据源" data="" entity="entity:com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="getconcernconfig" name="用户关注工单配置" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.getUserconcernConfig" sn="getconcernconfig">
+    <form:datasource xsi:type="form:LogicDataSource" id="getconcernconfig" name="用户关注" logic="rule:com.chinacreator.c2.qyb.workflow.config.getUserconcernConfig" sn="getconcernconfig">
       <form:param id="ucc" name="新输入参数"/>
     </form:datasource>
   </form:datasources>
@@ -640,20 +640,22 @@ page_onload:function(){
 	if(TabOperator!=null){
 	/*先保存之前的监听事件*/
 		var onSelectBefore = TabOperator.config().events.onSelect;
-		if(!TabOperator.config().events.isEventFlowListenAdded){
+		if(!TabOperator.config().events.iscommontodoListenAdded){
 			TabOperator.config().events.onSelect=function(url,currTab){
-				  onSelectBefore(url,currTab);
-				  var scope=$('[c2tabset]>.tab-content>.tab-pane.active>div').scope();
-				  if(scope){
-					  scope.$broadcast('tabActived');
-				  }
-				  if(url==&quot;f/problemworktodo&quot;||url==&quot;f/eventworktodo&quot;||url==&quot;f/releaseworktodo&quot;||url==&quot;f/changeworktodo&quot;||url==&quot;f/configworkflowtodo&quot;){
-					  	/*加入自己的flag，标记自己的监听已经添加完毕*/
-					    TabOperator.config().events.isEventFlowListenAdded = true;
-			    	  	$params.search = {};
-			    	  	$params.search.serviceTypeId = $params.workType;
-			    	  	$view.list.refresh($params.search);
-			      }
+				if(onSelectBefore!=undefined){
+					onSelectBefore(url,currTab);
+				}
+  /*			var scope=$('[c2tabset]>.tab-content>.tab-pane.active>div').scope();
+			  	if(scope){
+				  	scope.$broadcast('tabActived');
+			  	}*/
+				if(url==&quot;f/problemworktodo&quot;||url==&quot;f/eventworktodo&quot;||url==&quot;f/releaseworktodo&quot;||url==&quot;f/changeworktodo&quot;||url==&quot;f/configworkflowtodo&quot;){
+				  	/*加入自己的flag，标记自己的监听已经添加完毕*/
+				    TabOperator.config().events.iscommontodoListenAdded = true;
+/*				  	$params.search = {};
+				  	$params.search.serviceTypeId = $params.workType;*/
+				  	$view.list.refresh();
+			  }
 			
 			}		
 		}	

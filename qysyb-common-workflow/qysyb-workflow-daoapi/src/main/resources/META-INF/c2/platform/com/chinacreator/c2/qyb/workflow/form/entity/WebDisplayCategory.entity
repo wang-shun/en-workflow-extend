@@ -73,6 +73,7 @@
             <form:control type="widget/text">
               <form:attributes source="widget/text">
                 <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
+                  <dync:render/>
                   <dync:children/>
                 </dync:attribute>
               </form:attributes>
@@ -131,7 +132,7 @@
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.WebDisplayCategory"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.form.entity.WebDisplayCategory"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){
@@ -154,7 +155,7 @@ btn_edit_click:function($event){
           </inputs>
         </node>
       </docket:logic>
-      <docket:ui id="delete" name="删除" type="none"/>
+      <docket:ui name="删除" type="none"/>
     </docket:event>
     <docket:event id="edit" name="修改">
       <docket:logic>
@@ -199,6 +200,7 @@ btn_edit_click:function($event){
             <form:control type="widget/text">
               <form:attributes source="widget/text">
                 <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
+                  <dync:render/>
                   <dync:children/>
                 </dync:attribute>
               </form:attributes>
@@ -257,7 +259,7 @@ btn_edit_click:function($event){
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.WebDisplayCategory"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.form.entity.WebDisplayCategory"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){

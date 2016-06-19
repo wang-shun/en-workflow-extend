@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="saveserviceproductucrel" log="false" className="com.chinacreator.c2.qyb.workflow.sla.impl.ServiceAgreementService" method="addServiceProductUCRel">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>保存服务产品UC关联</name>
+  <inputs>
+    <input collection="false" desc="" id="ucId" required="true" type="String"/>
+    <input collection="false" desc="" id="spIds" required="true" type="[LString;"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="int"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.ucId" name="ucId" signature="QString;" type="String"/>
+    <param autoValue="Input.spIds" name="spIds" signature="[QString;" type="[LString;"/>
+  </params>
+  <return signature="I" type="int"/>
+</CustomRule>

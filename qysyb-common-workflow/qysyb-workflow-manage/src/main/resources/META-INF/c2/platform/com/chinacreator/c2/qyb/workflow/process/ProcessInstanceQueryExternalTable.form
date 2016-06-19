@@ -190,6 +190,7 @@
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="workTitle1_customFormatter(cellvalue,options,rowObject)">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -372,10 +373,13 @@ workStage1_customFormatter:function(cellvalue,options,rowObject){
 },
 
 workTitle1_customFormatter:function(cellvalue,options,rowObject){
-	return '&lt;a href=&quot;javascript:void(0)&quot; ng-click=functions.worktitleclick(&quot;'+rowObject.moduleId+'&quot;,&quot;'+rowObject.BUSINESS_KEY_+'&quot;,&quot;'+rowObject.PROC_INST_ID_+'&quot;,&quot;'+rowObject.TASK_DEF_KEY+'&quot;,&quot;'+rowObject.PROC_DEF_ID_+'&quot;)>'+cellvalue+'&lt;/a>'
+	return '&lt;a href=&quot;javascript:void(0)&quot; ng-click=functions.worktitleclick(&quot;'+rowObject.moduleId+'&quot;,&quot;'
+		+rowObject.BUSINESS_KEY_+'&quot;,&quot;'+rowObject.PROC_INST_ID_+'&quot;,&quot;'
+		+rowObject.TASK_DEF_KEY+'&quot;,&quot;'+rowObject.PROC_DEF_ID_+'&quot;)>'
+		+cellvalue+'&lt;/a>'
 },
-worktitleclick:function(moduleId,businessKey,proInsId,activityId,taskDefKey){
-	var params = &quot;moduleId=&quot;+moduleId+&quot;&amp;businessKey=&quot;+businessKey+&quot;&amp;proInsId=&quot;+proInsId+&quot;&amp;activityId=&quot;+taskDefKey+&quot;&amp;processDefinitionId=&quot;+proDefKey;
+worktitleclick:function(moduleId,businessKey,proInsId,activityId,proDefKey){
+	var params = &quot;moduleId=&quot;+moduleId+&quot;&amp;businessKey=&quot;+businessKey+&quot;&amp;proInsId=&quot;+proInsId+&quot;&amp;activityId=&quot;+activityId+&quot;&amp;processDefinitionId=&quot;+proDefKey;
 	location.href = &quot;#/f/flowcommonview?&quot;+params;
 }</form:scripts>
   <form:htmls>

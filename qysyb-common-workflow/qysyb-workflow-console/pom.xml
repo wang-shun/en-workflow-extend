@@ -36,7 +36,7 @@
 			<artifactId>qysyb-workflow-manage</artifactId>		
 		</dependency>
 		
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-flow-ui</artifactId>
 			<version>4.1.5.2</version>
@@ -51,7 +51,7 @@
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-flow-api</artifactId>
 			<version>4.1.5.2</version>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
@@ -86,8 +86,11 @@
 			<version>2.5</version>
 			 <scope>provided</scope> 
 		</dependency>
-
-
+		<dependency>
+  			<groupId>com.chinacreator.c2</groupId>
+  			<artifactId>c2-module-ueditor</artifactId>
+  			<version>1.1.4</version>
+		</dependency>	
 	</dependencies>
 	
 	

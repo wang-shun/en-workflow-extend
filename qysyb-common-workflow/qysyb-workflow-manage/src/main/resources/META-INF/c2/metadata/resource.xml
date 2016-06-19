@@ -43,7 +43,6 @@
     <resource id="ChmuS3XtTdyXYjMw0L9u9A" name="通知公告管理" path="f/noticemanage" type="form"/>
     <resource id="iq5qRnEDRpGbO0zz76wrYw" name="服务查询" path="f/servicedeskquery" type="form"/>
     <resource id="eFbyDBd4QYC_QzM4GVnHyw" name="服务产品管理" path="f/serviceproductmanage" type="form"/>
-    <resource id="e1S6w6FLS6Kn2AL7_WZgeQ" name="UC管理" path="f/servicemanageunderpincontractmanage" type="form"/>
     <resource id="uLWIudFLSv27fe2X9vVfXQ" name="[表单:检索器页面展示][普通按钮]自定义查询器" path="f/retrievedisplay/newGroup/newField2" type="dom"/>
     <resource id="yS-ZC0PbQBqhrRG-qXlvvA" name="通用工单待办表单" path="f/commonworktodonotab" type="form"/>
   </resources>

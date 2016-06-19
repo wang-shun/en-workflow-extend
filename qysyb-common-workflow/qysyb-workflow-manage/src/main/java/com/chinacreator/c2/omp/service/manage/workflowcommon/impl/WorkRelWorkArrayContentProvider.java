@@ -9,9 +9,9 @@ import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.WorkRel;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.WorkService;
 import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
+import com.chinacreator.c2.qyb.workflow.workrel.entity.WorkRel;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
 

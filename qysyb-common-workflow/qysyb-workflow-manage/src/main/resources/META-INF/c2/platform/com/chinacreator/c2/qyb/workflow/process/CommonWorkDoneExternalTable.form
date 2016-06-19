@@ -537,8 +537,8 @@
     <form:datasource xsi:type="form:LogicDataSource" id="servicetypes" name="服务分类字典数据" logic="rule:com.chinacreator.c2.omp.common.getDictDataByType" sn="getdictdatabytype">
       <form:param id="dictTypeName" name="新输入参数" value="[&quot;服务分类&quot;]"/>
     </form:datasource>
-    <form:datasource xsi:type="form:EntityDataSource" id="uccentity" name="单实体数据源" data="" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.UserConcernedConfig"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="getconcernconfig" name="用户关注工单配置" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.getUserconcernConfig" sn="getconcernconfig">
+    <form:datasource xsi:type="form:EntityDataSource" id="uccentity" name="单实体数据源" data="" entity="entity:com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="getconcernconfig" name="用户关注配置" logic="rule:com.chinacreator.c2.qyb.workflow.config.getUserconcernConfig" sn="getconcernconfig">
       <form:param id="ucc" name="新输入参数"/>
     </form:datasource>
   </form:datasources>
@@ -664,20 +664,20 @@ page_onload:function(){
 	if(TabOperator!=null){
 	/*先保存之前的监听事件*/
 		var onSelectBefore = TabOperator.config().events.onSelect;
-		if(!TabOperator.config().events.isEventFlowListenAdded){
+		if(!TabOperator.config().events.iscommondoneListenAdded){
 			TabOperator.config().events.onSelect=function(url,currTab){
-				  onSelectBefore(url,currTab);
-				  var scope=$('[c2tabset]>.tab-content>.tab-pane.active>div').scope();
-				  if(scope){
-					  scope.$broadcast('tabActived');
-				  }
-				  if(url==&quot;f/problemworktodo&quot;||url==&quot;f/eventworktodo&quot;||url==&quot;f/releaseworktodo&quot;||url==&quot;f/changeworktodo&quot;||url==&quot;f/configworkflowtodo&quot;){
-					  	/*加入自己的flag，标记自己的监听已经添加完毕*/
-					    TabOperator.config().events.isEventFlowListenAdded = true;
-			    	  	$params.search = {};
-			    	  	$params.search.serviceTypeId = $params.workType;
-			    	  	$view.list.refresh($params.search);
-			      }
+				if(onSelectBefore!=undefined){
+					onSelectBefore(url,currTab);
+				}
+/*				var scope=$('[c2tabset]>.tab-content>.tab-pane.active>div').scope();
+				if(scope){
+					scope.$broadcast('tabActived');
+				}*/
+				if(url==&quot;f/problemworktodo&quot;||url==&quot;f/eventworktodo&quot;||url==&quot;f/releaseworktodo&quot;||url==&quot;f/changeworktodo&quot;||url==&quot;f/configworkflowtodo&quot;){
+					/*加入自己的flag，标记自己的监听已经添加完毕*/
+					TabOperator.config().events.iscommondoneListenAdded = true;
+					$view.list.refresh();
+				}
 			
 			}		
 		}	
@@ -723,8 +723,9 @@ newField8_customFormatter:function(cellvalue,options,rowObject){
 },
 
 title_customFormatter:function(cellvalue,options,rowObject){
-	return '&lt;a href=&quot;javascript:void(0)&quot; ng-click=functions.workclick(&quot;'+rowObject.taskId+'&quot;,&quot;'+rowObject.moduleId+'&quot;,&quot;'+rowObject.businessKey+'&quot;)>'+cellvalue+'&lt;/a>'
-},
+	return '&lt;a href=&quot;javascript:void(0)&quot; ng-click=functions.worktitleclick(&quot;'+rowObject.moduleId+'&quot;,&quot;'
+		+rowObject.businessKey+'&quot;,&quot;'+rowObject.PROC_INST_ID_+'&quot;,&quot;'
+		+rowObject.TASK_DEF_KEY_+'&quot;,&quot;'+rowObject.PROC_DEF_ID_+'&quot;)>'+cellvalue+'&lt;/a>'},
 workclick:function(a,b,c){
 	var params = &quot;taskId=&quot;+a+&quot;&amp;moduleId=&quot;+b+&quot;&amp;businessKey=&quot;+c+&quot;&amp;taskType=todo&quot;
 	location.href = &quot;#/wf/taskHandle?&quot;+params;
@@ -866,6 +867,10 @@ newField9_customFormatter:function(cellvalue,options,rowObject){
 	if(groupName!=undefined&amp;&amp;groupName!=&quot;&quot;){
 		return &quot;组【&quot;+groupName+&quot;】&quot;;
 	}
+},
+worktitleclick:function(moduleId,businessKey,proInsId,taskDefKey,proDefKey){
+	var params = &quot;moduleId=&quot;+moduleId+&quot;&amp;businessKey=&quot;+businessKey+&quot;&amp;proInsId=&quot;+proInsId+&quot;&amp;activityId=&quot;+taskDefKey+&quot;&amp;processDefinitionId=&quot;+proDefKey;
+	location.href = &quot;#/f/flowcommonview?&quot;+params;
 },
 //追回
 recoverwork_click:function(rowId,rowData,tableData){

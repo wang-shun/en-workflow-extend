@@ -124,7 +124,7 @@
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.common.Tab"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.tab.entity.Tab"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){
@@ -246,7 +246,7 @@ btn_edit_click:function($event){
           </form:child>
         </form:child>
         <form:datasources>
-          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.omp.common.Tab"/>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.tab.entity.Tab"/>
         </form:datasources>
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){
@@ -285,7 +285,7 @@ btn_edit_click:function($event){
     </docket:event>
     <docket:event desc="" id="list" name="列表">
       <docket:logic/>
-      <docket:ui id="list" name="列表" sn="tabs" type="inner">
+      <docket:ui name="列表" sn="tabs" type="inner">
         <form:control type="page/modal">
           <form:attributes source="page/modal"/>
         </form:control>
