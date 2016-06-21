@@ -2,14 +2,11 @@ package com.chinacreator.c2.omp.service.manage.workflowcommon.form.inf;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.bean.WorkFlowActivity;
-import com.chinacreator.c2.omp.service.manage.workflowcommon.bean.WorkFlowTransition;
 
 /** 
  * @author qiao.li 
@@ -224,4 +221,8 @@ public abstract class FormOperate implements IFormOperate {
 		return null;
 	};
 
+	protected <T> T parseObjectFromJson(Class<T> clazz,String jsonStr){
+		T t = JSONObject.parseObject(jsonStr, clazz);
+		return t;
+	}
 }
