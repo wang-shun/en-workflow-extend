@@ -1,6 +1,7 @@
 package com.chinacreator.c2.omp.common.service;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,5 +103,24 @@ public class UserInfoService {
 			orgService = ApplicationContextManager.getContext().getBean(OrgService.class);
 		}
 		return orgService;
+	}
+	/**
+	 * 获取一些用户信息
+	 * @param userIds
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Map> queryUserInfoByIds(String[] userIds){
+		@SuppressWarnings("rawtypes")
+		List list = new ArrayList();
+		UserService userService = ApplicationContextManager.getContext().getBean(UserService.class);
+		for(String userId:userIds){
+			UserDTO userDTO = userService.queryByPK(userId);
+			Map<String,String> userMap = new HashMap<String,String>();
+			userMap.put("userRealname", userDTO.getUserRealname());
+			userMap.put("userId", userDTO.getUserId());
+			list.add(userMap);
+		}	
+		return list;
 	}
 }
