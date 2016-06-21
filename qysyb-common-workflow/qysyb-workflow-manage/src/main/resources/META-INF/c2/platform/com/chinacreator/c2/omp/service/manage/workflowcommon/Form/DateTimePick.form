@@ -129,14 +129,6 @@ check:function(){
 	return $view.mainForm.check();
 }</form:scripts>
   <form:htmls>&lt;style>&#xD;
-.input-group-addon {&#xD;
-    padding: 5px 12px;&#xD;
-    font-size: 14px;&#xD;
-    line-height: 1;&#xD;
-    color: #fff;&#xD;
-    text-align: center;&#xD;
-    background-color: #2273CE;&#xD;
-    border: 1px solid #7CCBFF;&#xD;
-}&#xD;
+&#xD;
 &lt;/style></form:htmls>
 </form:Form>
