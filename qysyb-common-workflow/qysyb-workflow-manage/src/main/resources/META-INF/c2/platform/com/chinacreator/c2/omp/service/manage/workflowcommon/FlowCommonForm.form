@@ -1097,7 +1097,7 @@ page_afterDataSourceLoad:function(){
 	}
 
 
-	$http.get(&quot;ws/getactivitycandidates&quot;,{
+/*	$http.get(&quot;ws/getactivitycandidates&quot;,{
 		params:{
 			processDefinitionId:$params.params.processDefinitionId,
 			moduleId:$params.params.moduleId,
@@ -1115,7 +1115,7 @@ page_afterDataSourceLoad:function(){
 					//	$model.handleid = $model.handles[0].userId;
 					});	
 			$params.nextname = $view.nexttaskview.getOptionObj($model.nexttask).dest.name;
-		});	
+		});	*/
 },
 //tab页的验证函数
 dotabchecks:function(){

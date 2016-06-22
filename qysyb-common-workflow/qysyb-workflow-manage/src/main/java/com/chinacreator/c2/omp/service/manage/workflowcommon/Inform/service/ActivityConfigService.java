@@ -113,6 +113,28 @@ public class ActivityConfigService {
 		return action;
 	}
 	/**
+	 * 获取特定的
+	 * @param moduleId
+	 * @param taskDefKey
+	 * @param acntionKey
+	 * @return
+	 */
+	public String getActivityAction(String moduleId,String taskDefKey,String acntionKey){
+		Map actions = getActivityActions(moduleId, taskDefKey);
+		if(actions.containsKey(acntionKey)){
+			if(actions.get(acntionKey) instanceof List){
+				List action = (List) actions.get(acntionKey);
+				if(action.size()==1){
+					return (String) action.get(0);
+				}			
+			}else{//TODO
+				
+			}
+
+		}	
+		return null;
+	}
+	/**
 	 * RT
 	 * @param activityId
 	 * @return

@@ -157,6 +157,7 @@
                     <dync:children/>
                   </dync:attribute>
                   <dync:attribute default="false" group="基本设置" id="selectDisabled" name="禁用" value="!$model.allowReject">
+                    <dync:render/>
                     <dync:children/>
                   </dync:attribute>
                 </form:attributes>
@@ -220,31 +221,34 @@
                 </form:control>
                 <form:validation/>
               </form:child>
-              <form:child xsi:type="form:Field" binding="$model.filtertype" id="filtertypediv" name="组内过滤" customize="true">
-                <form:control type="widget/radio_group">
-                  <form:attributes source="widget/radio_group">
-                    <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;falsefilter&quot;:&quot;无过滤&quot;,&quot;orgfilter&quot;:&quot;按部门过滤&quot;,&quot;orgbossfilter&quot;:&quot;按部门&amp;领导过滤&quot;}">
-                      <dync:render/>
-                      <dync:children/>
-                    </dync:attribute>
-                    <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
-                      <dync:render/>
-                      <dync:children/>
-                    </dync:attribute>
-                    <dync:attribute default="" group="单选按钮组设置" id="defaultValue" name="默认值" value="falsefilter">
-                      <dync:render/>
-                      <dync:children/>
-                    </dync:attribute>
-                    <dync:attribute default="" group="事件设置" id="clickEvent" name="选中事件" value="filtertypediv_clickEvent(value)">
-                      <dync:render/>
-                      <dync:children/>
-                    </dync:attribute>
-                  </form:attributes>
-                </form:control>
-                <form:validation/>
-              </form:child>
             </form:child>
           </form:child>
+        </form:child>
+        <form:child xsi:type="form:Field" binding="$model.filtertype" id="filtertypediv" name="处理人策略" customize="true">
+          <form:control type="widget/radio_group">
+            <form:attributes source="widget/radio_group">
+              <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;falsefilter&quot;:&quot;无过滤&quot;,&quot;orgfilter&quot;:&quot;按部门过滤&quot;,&quot;orgbossfilter&quot;:&quot;按部门&amp;领导过滤&quot;,&quot;starter&quot;:&quot;分派申请人&quot;}">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="单选按钮组设置" id="defaultValue" name="默认值" value="falsefilter">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="clickEvent" name="选中事件" value="filtertypediv_clickEvent(value)">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="75" group="基本设置" id="lableWidth" name="lable宽度" value="150">
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
         </form:child>
       </form:child>
       <form:child xsi:type="form:Group" id="newTab2" name="通知">

@@ -45,6 +45,7 @@ import com.chinacreator.c2.omp.service.manage.slamanage.ServiceAgreement;
 import com.chinacreator.c2.omp.service.manage.slamanage.service.ServiceAgreementService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Form;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.FormField;
+import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.ActivityConfigService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.service.InformService;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.bean.WorkFlowActivity;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.bean.WorkFlowTransition;
@@ -688,7 +689,7 @@ public class WorkProcess {
 		// String taskDefKey = paramsMap.get("taskDefKey");
 		String processDefinitionId = (String) paramsMap
 				.get("processDefinitionId");
-		String variablesStr = (String) paramsMap.get("variables");
+		String handlerVariablesStr = (String) paramsMap.get("variables");
 		String opinion = (String) paramsMap.get("opinion");
 		String proInsId = (String) paramsMap.get("proInsId");
 		String moduleId = (String) paramsMap.get("moduleId");
@@ -700,12 +701,16 @@ public class WorkProcess {
 
 		WfOperator wfOperator = JSONObject.parseObject(wfOperatorStr,
 				WfOperator.class);
-		Map variables = JSONObject.parseObject(variablesStr, Map.class);
+		Map handlerVariables = JSONObject.parseObject(handlerVariablesStr, Map.class);
 		Map entitymap = JSONObject.parseObject(entity, Map.class);
 		
 		//任务处理人
-		chooseHandleTypeValue(variables);
-		
+		chooseHandleTypeValue(handlerVariables);
+		//流程变量
+		Map variables = new HashMap();
+		//会签人信息得先于流程流转设置进去
+		variables.put(WorkFlowService.TYPE_ASSIGNEELIST, 
+				handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST));
 		FormService formService = ApplicationContextManager.getContext()
 				.getBean(FormService.class);
 		Form form = formService.getFormById(formId);
@@ -756,8 +761,8 @@ public class WorkProcess {
 		}
 		variables.put("userId", wfOperator.getUserId());
 
-		// sla用到了 此时variables应该要有全部的流程变量
-		if (variables.get(WorkFlowService.ACCEPTTIMEL) == null) {
+		// sla用到了 此时entitymap应该要有全部的流程变量
+		if (entitymap.get(WorkFlowService.ACCEPTTIMEL) == null) {
 			variables.put(WorkFlowService.ACCEPTTIMEL,
 					String.valueOf(System.currentTimeMillis()));
 		}
@@ -798,7 +803,8 @@ public class WorkProcess {
 						entity, bussinessKey, wfresult.getProcessInstanceId(),
 						moduleId, wfTransition.getSrc(),wfTransition.getDest(), nextTaskId,
 						wfOperator.getUserId(),paramsMap);
-				setTaskHandler(valuemap, variables, nextTaskId);
+				setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
+						processDefinitionId, wfTransition.getDest().getId(), moduleId, entitymap);
 			}
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
@@ -833,7 +839,8 @@ public class WorkProcess {
 					bussinessKey, wfresult.getProcessInstanceId(), moduleId,
 					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, wfOperator.getUserId(),
 					paramsMap);
-			setTaskHandler(valuemap, variables, nextTaskId);
+			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
+					processDefinitionId, wfTransition.getDest().getId(), moduleId, entitymap);
 		}
 
 		/* 通知处理 */
@@ -867,7 +874,7 @@ public class WorkProcess {
 		// String taskDefKey = paramsMap.get("taskDefKey");
 		String processDefinitionId = (String) paramsMap
 				.get("processDefinitionId");
-		String variablesStr = (String) paramsMap.get("variables");
+		String handlervariablesStr = (String) paramsMap.get("variables");
 		// String opinion = (String) paramsMap.get("opinion");
 		// String proInsId = (String) paramsMap.get("proInsId");
 		// String transitionId = (String) paramsMap.get("transitionId");
@@ -877,15 +884,19 @@ public class WorkProcess {
 				WorkFlowTransition.class);
 		WfOperator wfOperator = JSONObject.parseObject(wfOperatorStr,
 				WfOperator.class);
-		Map<String, Object> variables = JSONObject.parseObject(variablesStr,
+		Map<String, Object> handlerVariables = JSONObject.parseObject(handlervariablesStr,
 				Map.class);
 		String ccInformJsonStr = (String) paramsMap.get("ccInform");
+
+
+		//任务处理人
+		chooseHandleTypeValue(handlerVariables);
+		//流程变量
+		Map variables = new HashMap();
 		// happentimel 用来计算sla。
 		variables.put(WorkFlowService.HAPPENEDTIMEL,
-				String.valueOf(System.currentTimeMillis()));
-
-		// 任务处理人
-		chooseHandleTypeValue(variables);
+				String.valueOf(System.currentTimeMillis()));	
+		variables.put(WorkFlowService.STARTER, wfOperator.getUserId());
 		try {
 			Map<String, Object> mapentity = JSONObject.parseObject(entity,
 					Map.class);
@@ -986,7 +997,8 @@ public class WorkProcess {
 					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, 
 					wfOperator.getUserId(),paramsMap);
 
-			setTaskHandler(valuemap, variables, nextTaskId);
+			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(),
+					processDefinitionId,wfTransition.getDest().getId(),moduleId,variables);
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
 			informService.informDo();
@@ -1004,18 +1016,29 @@ public class WorkProcess {
 				.toJSONString(wf));
 
 	}
-
+	@Autowired
+	ActivityConfigService activityConfigService;
+	@Autowired
+	WorkFlowService workflowservice;
+	
 	/**
-	 * 设置ren'wu处理人
-	 * 
-	 * @param valuemap
-	 * @param taskId
+	 * 设置任务处理人 如果valuemap中没指定人 则执行处理人策略
+	 * @param valuemap 业务逻辑中来的处理人信息
+	 * @param variables 前段处理人信息
+	 * @param taskId 任务id
+	 * @param curUserId 
+	 * @param processDefinitionId 流程定义
+	 * @param taskDefKey 任务定义
+	 * @param moduleId
+	 * @param processVariables
 	 */
-	public void setTaskHandler(Map<String, String> valuemap, Map variables,
-			String taskId) {
+	private void setTaskHandler(Map<String, String> valuemap, Map variables,
+			String taskId,String curUserId,String processDefinitionId,
+			String taskDefKey,String moduleId,Map processVariables) {
 		if (taskId == null) {
 			return;
-		}
+		}		
+		//业务模块并没有制定处理人过来 则看前端是否有制定处理人过来
 		if (valuemap == null || valuemap.size() == 0) {
 			valuemap = new HashMap<String, String>();
 			if (variables.get(HANDLE_TYPE_KEY) != null
@@ -1023,6 +1046,30 @@ public class WorkProcess {
 				valuemap.put((String) variables.get(HANDLE_TYPE_KEY),
 						(String) variables.get(HANDLE_VALUE_KEY));
 			}
+		}
+		//并没有指定处理人或组 执行处理人策略
+		if(valuemap != null && valuemap.size() == 0){
+			// 先把之前的候选给去掉 有可能是平台赋的值
+			managementService.executeCommand(new DelTaskCandidatesCmd(taskId));
+			//查看选择处理人策略
+			String filterType = activityConfigService.getActivityAction(moduleId,
+					taskDefKey, ActivityConfigService.ACTION_FILTERTYPE);
+			if(filterType!=null&&filterType.equals("starter")){
+				//分派流程开始人策略
+				taskService.addCandidateUser(taskId,(String) processVariables.get(WorkFlowService.STARTER));				
+			}else{
+				//获取平台处理人配置
+				List<Map> confCandidate = workflowservice.getActivityCandidates(processDefinitionId, moduleId, taskDefKey);
+				for(Map map:confCandidate){
+					String category = (String) map.get("category");
+					if(category.equals("group")){
+						//执行组相关策略
+						doGroupFilter(filterType,taskId,(String) map.get("id"),curUserId);
+					}else if(category.equals("user")){
+						taskService.addCandidateUser(taskId, (String) map.get("id"));
+					}
+				}					
+			}				
 		}
 		if (valuemap != null && valuemap.size() == 1) {
 			// 先把之前的候选给去掉 有可能是平台赋的值
@@ -1042,14 +1089,30 @@ public class WorkProcess {
 					}
 					break;
 				case WorkFlowService.TYPE_CANDIDATEGROUPS:
-					taskService.addCandidateGroup(taskId, valuemap.get(key));
+					String value2 = valuemap.get(key);
+					taskService.addCandidateGroup(taskId,value2);
 					break;
 				}
 			}
 		}
 
 	}
-
+	private void doGroupFilter(String filterType,String taskId,String groupId,String curUserId){
+		UserJobService userJobService = ApplicationContextManager.getContext()
+				.getBean(UserJobService.class);					
+		if(filterType==null){
+			taskService.addCandidateGroup(taskId,groupId);
+		}else if(filterType.equals("orgfilter")){
+			List<UserDTO> userList = userJobService
+					.getAllUserFromJobWithSameOrg(groupId, curUserId);	
+			for(UserDTO user:userList){
+				taskService.addCandidateUser(taskId, user.getUserId());
+			}		
+		//TODO
+		}else if(filterType.equals("orgbossfilter")){
+			
+		}		
+	}
 	/**
 	 * 任务处理人
 	 * 
@@ -1057,7 +1120,7 @@ public class WorkProcess {
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Map chooseHandleTypeValue(Map variables) {
+	private Map chooseHandleTypeValue(Map variables) {
 		RoleService roleService = ApplicationContextManager.getContext()
 				.getBean(RoleService.class);
 		UserJobService userJobService = ApplicationContextManager.getContext()
@@ -1143,7 +1206,7 @@ public class WorkProcess {
 	public static final String LAST_HANDLER_ACT_ID_KEY = "lhActId";
 	public static final String LAST_HANDLER_ACT_NAME_KEY = "lhActName";
 	@SuppressWarnings("unchecked")
-	public void setLastHandlerInfo(String userId,String userName,Map variables,WorkFlowActivity ac){
+	private void setLastHandlerInfo(String userId,String userName,Map variables,WorkFlowActivity ac){
 		if(userId==null||variables==null){
 			return ;
 		}

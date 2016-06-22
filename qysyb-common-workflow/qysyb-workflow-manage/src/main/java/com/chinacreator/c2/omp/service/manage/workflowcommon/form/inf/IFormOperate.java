@@ -72,7 +72,8 @@ public interface IFormOperate{
 	 * @param businessKey
 	 * @param proInsId 流程实例id
 	 * @param moduleId moduleId即服务产品id
-	 * @param curActivity 当前任务
+	 * @param lastActivity 上次环节
+	 * @param curActivity 当前环节
 	 * @param curTaskId 任务id
 	 * @return key值为 WorkFlowService。TYPE_*  分别代表分派人 候选人 候选组 多个以逗号分隔 
 	 */
