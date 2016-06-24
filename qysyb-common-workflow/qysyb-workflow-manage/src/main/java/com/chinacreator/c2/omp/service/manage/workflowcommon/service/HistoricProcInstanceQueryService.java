@@ -28,6 +28,7 @@ import com.chinacreator.c2.omp.service.manage.workflowcommon.cmd.CountHistoricPr
 import com.chinacreator.c2.omp.service.manage.workflowcommon.cmd.SelectHistoricProcessInstanceCmd;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.retrieval.RetrieveItem;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.retrieval.impl.MHistoricProcessInstanceQueryImpl;
+import com.chinacreator.c2.omp.service.manage.workflowcommon.retrieval.impl.MTaskQueryImpl;
 import com.chinacreator.c2.omp.service.manage.workflowcommon.retrieval.service.RetrieveItemService;
 
 /** 
@@ -104,6 +105,16 @@ public class HistoricProcInstanceQueryService {
 			form = fs.getFormById(formId);
 			historicInstanceQuery.addForm(form);
 		}
+		/*服务产品过滤*/
+		String productNo = null;
+		if(con!=null&&con.get(WorkFlowService.PRODUCTNO)!=null){
+			productNo = (String) con.get(WorkFlowService.PRODUCTNO);
+		}
+		/*服务类型过滤*/
+		String serviceType = null;
+		if(con!=null&&con.get(WorkFlowService.SERVICETYPEKEY)!=null){
+			serviceType = (String) con.get(WorkFlowService.SERVICETYPEKEY);
+		}
 		Boolean needFinished = null;
 		if(con!=null&&con.get(WorkFlowService.NEEDFINISHED)!=null){
 			needFinished = (Boolean) con.get(WorkFlowService.NEEDFINISHED);
@@ -119,6 +130,17 @@ public class HistoricProcInstanceQueryService {
 		String userId = null;
 		if(con!=null&&con.get(WorkFlowService.USERIDKEY)!=null){
 			userId = (String) con.get(WorkFlowService.USERIDKEY);
+		}
+		
+		/*服务产品过滤*/
+		if(con!=null&&con.get(WorkFlowService.PRODUCTNO)!=null){
+			productNo = (String) con.get(WorkFlowService.PRODUCTNO);
+			historicInstanceQuery.variableValueEquals(WorkFlowService.PRODUCTNO,productNo);
+		}
+		/*服务类型过滤*/
+		if(con!=null&&con.get(WorkFlowService.SERVICETYPEKEY)!=null){
+			serviceType = (String) con.get(WorkFlowService.SERVICETYPEKEY);
+			historicInstanceQuery.variableValueEquals(WorkFlowService.SERVICETYPEKEY, serviceType);
 		}
 		if(con!=null&&con.get("sortable")!=null){
 			Sortable sortable = (Sortable) con.get("sortable");

@@ -180,6 +180,7 @@
     select RES.* ${limitBetween}
     <!-- 把任务处理人名字选出来 -->
     <!-- involved work 去重了 就不能把名字选出来了 -->
+    <!-- FIXME 涉及到自身的正在处理中的工单 从任务表中去查询是不是思路有点不对 应该要去查流程实例表  条件为 未完成 涉及到我 -->
 	<if test="involvedUser == null">
 		,(SELECT GG.NAME_ FROM ACT_ID_GROUP GG WHERE GG.ID_ = I.GROUP_ID_) AS GROUP_NAME
 		,(SELECT UU.LAST_ FROM ACT_ID_USER UU WHERE UU.ID_ = I.USER_ID_) AS USER_NAME	
@@ -281,6 +282,7 @@
     <choose>
     	<when test="involvedUser != null">
     		from ${prefix}(
+    		<!-- 正在处理的涉及到自身的工单去重 -->
 						SELECT
 							*
 						FROM
@@ -516,6 +518,7 @@
 				WHERE
 					G .USER_ID_ = #{involvedUser}
 			) -->
+			<!-- 去除待办中有的项 -->
 			AND NOT EXISTS (
 				SELECT
 					LINK1 .USER_ID_
