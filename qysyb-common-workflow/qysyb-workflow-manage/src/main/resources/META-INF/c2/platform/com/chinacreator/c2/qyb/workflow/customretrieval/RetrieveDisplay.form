@@ -135,10 +135,10 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="retrieveItems" name="检索器项" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.retrieval.getRetrieveItems" sn="getretrieveitems">
+    <form:datasource xsi:type="form:LogicDataSource" id="retrieveItems" name="检索器项" logic="rule:com.chinacreator.c2.qyb.workflow.customretrieval.getRetrieveItems" sn="getretrieveitems">
       <form:param id="retrieveKey" name="新输入参数" value="$params.retrieveKey"/>
     </form:datasource>
-    <form:datasource xsi:type="form:LogicDataSource" id="categories" name="前段控件类型" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Form.getAllWebDisplayCategoryMap" sn="getAllWebDisplayCategoryMap"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="categories" name="模板类型" logic="rule:com.chinacreator.c2.qyb.workflow.template.getAllWebDisplayCategoryMap" sn="getAllWebDisplayCategoryMap"/>
   </form:datasources>
   <form:scripts>
 

@@ -201,7 +201,7 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="productNo" id="productNo" name="产品编码">
+      <form:child xsi:type="form:Field" binding="productNo" id="productNo" name="事项编码">
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
@@ -219,7 +219,7 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="productName" id="productName" name="产品名称">
+      <form:child xsi:type="form:Field" binding="productName" id="productName" name="事项名称">
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
@@ -255,7 +255,7 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="serviceTypeId" id="serviceTypeId" name="服务类型">
+      <form:child xsi:type="form:Field" binding="serviceTypeId" id="serviceTypeId" name="事项类型">
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="serviceTypeId_customFormatter(cellvalue,options,rowObject)">
@@ -430,21 +430,20 @@
     <form:datasource xsi:type="form:Inputs"/>
     <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct" pageSize="10"/>
     <form:datasource xsi:type="form:LogicDataSource" id="allservicetype" name="服务类型" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
-      <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;服务分类&quot;]"/>
+      <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;工作流_事项分类&quot;]"/>
     </form:datasource>
     <form:datasource xsi:type="form:PagingDataSource" id="tabslist" name="列表型数据源" elementType="entity:com.chinacreator.c2.qyb.workflow.tab.entity.RelToTab" pageSize="10"/>
     <form:datasource xsi:type="form:EntityDataSource" id="Reltotab" name="单实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.tab.entity.RelToTab"/>
     <form:datasource xsi:type="form:LogicDataSource" id="allwfprodefbinded" name="所有绑定事项的流程" logic="rule:com.chinacreator.c2.qyb.workflow.module.getWfProcessDefinitionByModuleIds" sn="getWfProcessDefinitionByModuleIds">
       <form:param id="moduleids" name="新输入参数"/>
     </form:datasource>
-    <form:datasource xsi:type="form:LogicDataSource" id="AllForm" name="表单" logic="rule:com.chinacreator.c2.qyb.workflow.form.getAllForm" sn="getallform"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="AllForm" name="表单" logic="rule:com.chinacreator.c2.qyb.workflow.form.getAllFormInMap" sn="getallforminmap"/>
   </form:datasources>
   <form:scripts>
 
 serviceTypeId_customFormatter:function(cellvalue,options,rowObject){
 	if(!angular.isUndefined($model.allservicetype.result)){
-		var ary = $model.allservicetype.result['服务分类'];
-		console.log(ary);
+		var ary = $model.allservicetype.result['工作流_事项分类'];
 		for(var i=0;i&lt;ary.length;i++){
 			if(ary[i].dictdataName==cellvalue){
 				return ary[i].dictdataValue;

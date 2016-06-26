@@ -21,8 +21,8 @@
     <poolAttribute key="logAbandoned" value="false" desc="记录弃用连接日志"/>
     <driverClassName>oracle.jdbc.OracleDriver</driverClassName>
     <url>jdbc:oracle:thin:@172.16.81.110:1521/orcl</url>
-    <username>jp_office</username>
-    <password>jp_office</password>
+    <username>QYB_WORKFLOW</username>
+    <password>QYB_WORKFLOW</password>
     <dataSourceFactory>com.chinacreator.c2.dao.datasource.impl.DBCPDataSourceFactory</dataSourceFactory>
   </datasource>
 </DataSources>

@@ -22,7 +22,7 @@
     <form:child xsi:type="form:Field" binding="$model.entity.serviceTypeId" id="serviceTypeId2" name="服务类型" customize="true">
       <form:control type="widget/select_simple">
         <form:attributes source="widget/select_simple">
-          <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.servicetype.result[&quot;服务分类&quot;]">
+          <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.servicetype.result[&quot;工作流_事项分类&quot;]">
             <dync:render/>
             <dync:children/>
           </dync:attribute>
@@ -196,7 +196,7 @@
     <form:datasource xsi:type="form:Inputs"/>
     <form:datasource xsi:type="form:EntityDataSource" id="entity" name="单实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct"/>
     <form:datasource xsi:type="form:LogicDataSource" id="servicetype" name="服务类型" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
-      <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;服务分类&quot;]"/>
+      <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;工作流_事项分类&quot;]"/>
     </form:datasource>
     <form:datasource xsi:type="form:LogicDataSource" id="allForm" name="表单s" logic="rule:com.chinacreator.c2.qyb.workflow.form.getAllForm" sn="getallform"/>
     <form:datasource xsi:type="form:LogicDataSource" id="allProcessDef" name="流程定义" logic="rule:com.chinacreator.c2.qyb.workflow.module.allProcessDef" sn="getallprocess"/>

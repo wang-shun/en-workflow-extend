@@ -28,11 +28,8 @@
 <!-- 	<bean id="attachmentsUploadProcess" class="com.chinacreator.c2.omp.common.AttachmentsUploadProcess">
 	      		<constructor-arg index="0" value="mydir"/>
 	</bean>
-
-	工作流事件监听器
-	<bean class="com.chinacreator.c2.omp.service.manage.workflowcommon.impl.MyApplicationListener"></bean>  -->
-		
-<!-- 	<bean name="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-	</bean> -->
-    <bean id="officeNoticeService" class="com.test.TestBusinessServiceImpl"></bean>   
+-->
+	<!-- 工作流事件监听器 -->
+	<bean class="com.chinacreator.c2.qyb.workflow.initial.MyApplicationListener"></bean>  
+		  
  </beans>      
