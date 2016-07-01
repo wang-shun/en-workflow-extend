@@ -134,8 +134,8 @@ page_afterDataSourceLoad:function(){
 		$model.bind = &quot;user:&quot;+$scope.subject.id;
 		$scope.formentity[$params.fieldNo] = $scope.subject.id;
 		//猜测name属性并赋值 猜测规则为 userId 则猜测 userName
-		if($params.fieldNo.length>=2){
-			$scope.formentity[$params.fieldNo.substring(0,$params.fieldNo.length-2)+'Name'] = $scope.subject.name;
+		if($params.fieldNo.length>=2){debugger;
+			$scope.formentity[$params.fieldNo.substring(0,$params.fieldNo.length-2)+'Name'] = $scope.subject.userDTO.userRealname;
 		}
 	}
 	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
@@ -159,7 +159,7 @@ check:function(){
 userchoose_change:function(newValue,oldValue){
 	$scope.formentity[$params.fieldNo] = $model.bind.substr(5);
 	var selectedNodes = $view.userchoose_treeWapper.getZtree().getSelectedNodes();
-	if(!angular.isUndefined(selectedNodes[0])){
+	if(!angular.isUndefined(selectedNodes[0])){debugger;
 		//猜测name属性并赋值 猜测规则为 userId 则猜测 userName
 		if($params.fieldNo.length>=2){
 			$scope.formentity[$params.fieldNo.substring(0,$params.fieldNo.length-2)+'Name'] = selectedNodes[0].name;
