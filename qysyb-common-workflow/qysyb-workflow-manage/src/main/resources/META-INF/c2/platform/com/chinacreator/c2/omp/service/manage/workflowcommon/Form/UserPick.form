@@ -134,7 +134,7 @@ page_afterDataSourceLoad:function(){
 		$model.bind = &quot;user:&quot;+$scope.subject.id;
 		$scope.formentity[$params.fieldNo] = $scope.subject.id;
 		//猜测name属性并赋值 猜测规则为 userId 则猜测 userName
-		if($params.fieldNo.length>=2){debugger;
+		if($params.fieldNo.length>=2){
 			$scope.formentity[$params.fieldNo.substring(0,$params.fieldNo.length-2)+'Name'] = $scope.subject.userDTO.userRealname;
 		}
 	}
