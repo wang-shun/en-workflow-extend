@@ -1,4 +1,4 @@
-package com.chinacreator.c2.qyb.workflow.inform.impl;
+package com.chinacreator.c2.qyb.workflow.activiti.impl;
 
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.ActivitiEvent;

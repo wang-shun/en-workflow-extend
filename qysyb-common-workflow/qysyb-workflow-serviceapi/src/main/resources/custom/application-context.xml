@@ -18,5 +18,7 @@
 	<context:component-scan base-package="com.chinacreator.c2.qyb.workflow">	
 	</context:component-scan>
 
+ 	<!-- 工作流事件监听器 -->
+	<bean class="com.chinacreator.c2.qyb.workflow.initial.MyApplicationListener"></bean>  
        
  </beans>      

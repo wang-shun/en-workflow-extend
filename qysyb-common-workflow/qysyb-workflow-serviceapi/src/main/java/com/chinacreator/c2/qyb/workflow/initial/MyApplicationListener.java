@@ -5,7 +5,7 @@ import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
-import com.chinacreator.c2.qyb.workflow.inform.impl.MyActivitiEventListener;
+import com.chinacreator.c2.qyb.workflow.activiti.impl.MyActivitiEventListener;
 
 public class MyApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
 
