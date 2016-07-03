@@ -93,6 +93,16 @@ public class HistoricProcInstanceQueryService {
 			form = fs.getFormById(formId);
 			historicInstanceQuery.addForm(form);
 		}
+ 		/*服务产品过滤*/	
+ 		String productNo = null;
+ 		if(con!=null&&con.get(WorkFlowService.PRODUCTNO)!=null){
+ 			productNo = (String) con.get(WorkFlowService.PRODUCTNO);
+ 		}
+ 		/*服务类型过滤*/
+ 		String serviceType = null;
+ 		if(con!=null&&con.get(WorkFlowService.SERVICETYPEKEY)!=null){
+ 			serviceType = (String) con.get(WorkFlowService.SERVICETYPEKEY);
+ 		}
 		Boolean needFinished = null;
 		if(con!=null&&con.get(WorkFlowService.NEEDFINISHED)!=null){
 			needFinished = (Boolean) con.get(WorkFlowService.NEEDFINISHED);
@@ -123,6 +133,16 @@ public class HistoricProcInstanceQueryService {
 		if(needInvolved==true&&userId!=null){
 			historicInstanceQuery.involvedUser(userId);
 		}
+ 		/*服务产品过滤*/
+ 		if(con!=null&&con.get(WorkFlowService.PRODUCTNO)!=null){
+ 			productNo = (String) con.get(WorkFlowService.PRODUCTNO);
+ 			historicInstanceQuery.variableValueEquals(WorkFlowService.PRODUCTNO,productNo);
+ 		}
+ 		/*服务类型过滤*/
+ 		if(con!=null&&con.get(WorkFlowService.SERVICETYPEKEY)!=null){
+ 			serviceType = (String) con.get(WorkFlowService.SERVICETYPEKEY);
+ 			historicInstanceQuery.variableValueEquals(WorkFlowService.SERVICETYPEKEY, serviceType);
+ 		}
 		//可以让其查出所有
 		if(offset<0||limit<0){
 //			historicInstanceQuery.setPage(0, 1000);

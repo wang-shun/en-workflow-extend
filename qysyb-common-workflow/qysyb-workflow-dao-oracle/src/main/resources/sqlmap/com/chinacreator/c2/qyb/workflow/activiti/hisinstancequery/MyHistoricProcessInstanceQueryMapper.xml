@@ -224,6 +224,7 @@
     </foreach> 
 <!--     如果流程实例没有结束还有任务 查出来 -->
 	LEFT JOIN (
+<!--     此处是去重操作 也就是说一个流程实例有两个任务 只选一条记录出来 -->	
 		SELECT
 			PROC_INST_ID_,
 			MAX (TASK_DEF_KEY_) AS task_def_key_,
