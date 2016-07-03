@@ -911,6 +911,10 @@ page_afterDataSourceLoad:function(){
 //		$scope.$apply(function(){$scope.permissionData = data.result;});	
 //		console.log(&quot;permidata&quot;,data.result);
 		$scope.permissionData = data.result;
+		$http.post(&quot;ws/getalltabsforview&quot;,{&quot;serviceProduct&quot;:$model.serviceproduct.result,params:$params.params,activityId:$params.params.activityId}).success(function(data){
+	//		console.log(&quot;tabs&quot;,data);
+			$model.dynamictabs = data.result;
+		});		
 	});
 /*//  businessKey processInstanceId不为null，表明是处理任务而不是提交
 //  formBusinessKey 一定有业务数据与其对应 $model.businessKey则有可能是新生成的Key
@@ -933,10 +937,7 @@ page_afterDataSourceLoad:function(){
 	
 	$params.params.serviceproduct = $model.serviceproduct.result;
 	$params.params.servicetypes = $model.servicetypes.result;
-	$http.post(&quot;ws/getalltabsforview&quot;,{&quot;serviceProduct&quot;:$model.serviceproduct.result,params:$params.params,activityId:$params.params.activityId}).success(function(data){
-//		console.log(&quot;tabs&quot;,data);
-		$model.dynamictabs = data.result;
-	});
+
 	//取得地址栏中的参数
 	var locationparams = $location.$$search;
 
