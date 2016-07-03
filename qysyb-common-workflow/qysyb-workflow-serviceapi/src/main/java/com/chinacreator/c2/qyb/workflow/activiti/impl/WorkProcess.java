@@ -895,11 +895,11 @@ public class WorkProcess {
 			FormService formService = ApplicationContextManager.getContext()
 					.getBean(FormService.class);
 			Form form = formService.getFormById(formId);
-			if ((form != null && form.isIsTableStorage() == null)
-					|| !form.isIsTableStorage()) {
-				// 业务数据作为流程变量保存
-				variables.putAll(mapentity);
-			}
+//			if ((form != null && form.isIsTableStorage() == null)
+//					|| !form.isIsTableStorage()) {
+//				// 业务数据作为流程变量保存
+//				variables.putAll(mapentity);
+//			}
 
 			ServiceProductService sps = ApplicationContextManager.getContext()
 					.getBean(ServiceProductService.class);

@@ -225,5 +225,8 @@ public abstract class FormOperate implements IFormOperate {
 		return null;
 	};
 
-
+ 	protected <T> T parseObjectFromJson(Class<T> clazz,String jsonStr){
+ 		T t = JSONObject.parseObject(jsonStr, clazz);
+ 		return t;
+ 	}
 }
