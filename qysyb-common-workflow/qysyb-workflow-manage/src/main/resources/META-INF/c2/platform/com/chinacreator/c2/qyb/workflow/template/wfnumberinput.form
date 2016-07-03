@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="电话号码" sn="formtextphone" type="form">
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="数字输入" sn="wfnumberinput" type="form">
   <form:control type="page/normal">
     <form:attributes source="page/normal">
       <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
@@ -31,10 +31,6 @@
         <dync:children/>
       </dync:attribute>
       <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
-        <dync:render/>
-        <dync:children/>
-      </dync:attribute>
-      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -89,22 +85,14 @@
         </dync:attribute>
       </form:attributes>
     </form:control>
-    <form:child xsi:type="form:Field" binding="formentity[$params.fieldNo]" id="textinputphone" name="{{$params.fieldName}}" customize="true">
+    <form:child xsi:type="form:Field" binding="formentity[$params.fieldNo]" id="wfnumber" name="{{$params.fieldName}}" customize="true">
       <form:control type="widget/text">
         <form:attributes source="widget/text">
-          <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
+          <dync:attribute default="text" group="文本框设置" id="inputType" name="数据类型" value="number">
             <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" group="事件设置" id="change" name="值变换" value="newField_change()">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="permissionData[$params.fieldNo].writePermisson">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="permissionData[$params.fieldNo].visible">
+          <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="!permissionData[$params.fieldNo].writePermission">
             <dync:render/>
             <dync:children/>
           </dync:attribute>
@@ -112,16 +100,11 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据验证" value="phone">
+          <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
             <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="pattern" name="正则表达式" value="/((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="电话号码格式不正确!">
-            <dync:render/>
+          <dync:attribute default="" group="文本框设置" id="value" name="默认值" value="undefined">
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -132,10 +115,10 @@
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
   </form:datasources>
-  <form:scripts>page_onload:function(){&#xD;
-	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});&#xD;
-},&#xD;
-check:function(){&#xD;
-	return $view.mainForm.check();&#xD;
+  <form:scripts>page_onload:function(){
+	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});		
+},
+check:function(){
+	return $view.mainForm.check();
 }</form:scripts>
 </form:Form>
