@@ -94,6 +94,7 @@ public class WorkFlowService {
 	public final static String WORKTITLEKEY = "workTitle";
 	public final static String SERVICETYPEKEY = "serviceTypeId";
 	public final static String APPLYBRANCHKEY = "applyBranchId";
+	public final static String STARTER = "starterId";
 	public final static String PRODUCTNOKEY = "productNo";
 	public final static String PRODUCTNAMEKEY = "productName";
 	public final static String USERIDKEY = "userId";
@@ -133,8 +134,7 @@ public class WorkFlowService {
 	private org.activiti.engine.FormService activitiFormService;
 
 	private WfHistoryService wfHistoryService;
-	@Autowired
-	private WorkProcess wp;
+
 	private WfRuntimeService wfRuntimeService;
 	@Autowired
 	private UserService userService;
