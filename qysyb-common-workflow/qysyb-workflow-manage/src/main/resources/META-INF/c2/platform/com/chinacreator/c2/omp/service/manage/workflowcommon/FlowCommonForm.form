@@ -1211,6 +1211,10 @@ start_flow:function($event){
         });	
         return;
 	}
+	
+	//提交前函数 各字段可以在这里把自己的数据放入业务js对象
+	$model.funcsbeforsubmit();
+	
 	var checkresult = functions.dotabchecks();
 	if(checkresult.status==false){
 		Messenger.post({
