@@ -116,6 +116,9 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
+          <dync:attribute default="auto" group="树显示设置" id="height" name="高度" value="400px">
+            <dync:children/>
+          </dync:attribute>
         </form:attributes>
       </form:control>
       <form:validation/>

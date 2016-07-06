@@ -143,6 +143,7 @@
   <form:scripts>
 
 page_afterDataSourceLoad:function(){
+	console.log(&quot;params&quot;,$params);
 	//重置函数 如用户树控件 它并不与$scope.formentity中的属性直接绑定 改变$scope.formentity的值并不影响树展示
 	//所以需要一个重置函数 把其真正绑定的值制空
 	$model.resetfuncs = new Array();

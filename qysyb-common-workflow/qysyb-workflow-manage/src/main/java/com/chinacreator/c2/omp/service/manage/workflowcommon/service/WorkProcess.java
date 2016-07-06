@@ -679,7 +679,7 @@ public class WorkProcess {
 		WfResult wfresult = null;
 		/* candidateUsers candidateGroup assignee */
 		String entity = (String) paramsMap.get("entity");
-		String isStart = paramsMap.get("isStart").toString();
+//		String isStart = paramsMap.get("isStart").toString();
 		String formId = (String) paramsMap.get("formId");
 		String wfOperatorStr = (String) paramsMap.get("wfOperator");
 		String bussinessKey = (String) paramsMap.get("businessKey");
@@ -789,8 +789,9 @@ public class WorkProcess {
 					"nrOfCompletedInstances");
 			int nrOfInstances = (int) taskEntity.getVariables().get(
 					"nrOfInstances");
-			// 表示会签完成
-			if (nrOfCompletedInstances == nrOfInstances - 1) {			
+			// 表示会签完成 设置下一步处理人等信息 不包括结束节点
+			if (nrOfCompletedInstances == nrOfInstances - 1 
+					&& !wfTransition.getDest().getPorperties().get("type").equals("endEvent")) {			
 				//设置last activity 信息
 				Map wfVariable = new HashMap();
 				setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
@@ -823,7 +824,7 @@ public class WorkProcess {
 		
 		// JumpActivityByTakeTransitionCmd 自由流
 		wfresult = this.goAnyWhereTakeTransition(wfOperator,
-				isStart.equals("true") ? true : false, bussinessKey,
+				false, bussinessKey,
 				processDefinitionId, currenTaskId, transitionId,
 				destTaskDefinitionKey, false, variables);
 		
