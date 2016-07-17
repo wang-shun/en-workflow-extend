@@ -53,6 +53,7 @@ import com.chinacreator.c2.flow.api.WfManagerService;
 import com.chinacreator.c2.flow.api.WfRuntimeService;
 import com.chinacreator.c2.flow.detail.WfOperator;
 import com.chinacreator.c2.flow.detail.WfProcessDefinition;
+import com.chinacreator.c2.flow.util.WfUtils;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.omp.common.DictDataInfo;
 import com.chinacreator.c2.omp.common.DictTypeInfo;
@@ -450,8 +451,8 @@ public class WorkFlowService {
 				for (String s : groups) {
 					Map ddlo = new HashMap();
 //					ddlo.setId(s);
-					ddlo.put("id", s);
-					map1.put("group_performer", s);
+					ddlo.put("id", WfUtils.parseToGroupId(s));
+					map1.put("group_performer", WfUtils.parseToGroupId(s));
 					List<Map> list1 = sqlsession
 							.selectList(
 									"com.chinacreator.c2.qyb.workflow.usergroup.WorkFlowMapper.getGroupInfoById",

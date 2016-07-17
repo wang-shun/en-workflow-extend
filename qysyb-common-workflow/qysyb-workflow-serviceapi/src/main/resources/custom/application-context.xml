@@ -20,5 +20,17 @@
 
  	<!-- 工作流事件监听器 -->
 	<bean class="com.chinacreator.c2.qyb.workflow.initial.MyApplicationListener"></bean>  
-       
+ 	
+ 	<bean id="wfConfig" class="com.chinacreator.c2.flow.util.WfConfig">
+ 		<property name="groupTypes">
+ 		    <list>
+ 		        <ref bean="jobGroupType"/>
+ <!-- 		        <ref bean="orgGroupType"/> -->
+ <!-- 		        <ref bean="roleGroupType"/> -->
+ 		    </list>
+ 		</property>
+ 		
+ 		<!--默认组类型为岗位，如果act_id_group视图关联的是角色请覆盖配置为roleGroupType-->
+ 		<property name="defaultGroupType" ref="jobGroupType"/>
+ 	</bean>       
  </beans>      
