@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.jp.car.manage.entity.DriverMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  TA_OFFICE_DRIVERINFO.oid ,
+		  TA_OFFICE_DRIVERINFO.driver_number ,
+		  TA_OFFICE_DRIVERINFO.driver_name ,
+		  TA_OFFICE_DRIVERINFO.driver_sex ,
+		  TA_OFFICE_DRIVERINFO.driver_idcard ,
+		  TA_OFFICE_DRIVERINFO.driver_mobiletel ,
+		  TA_OFFICE_DRIVERINFO.work_experience 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="oid != null">and TA_OFFICE_DRIVERINFO.oid = #{oid}</if>
+	    <if test="driverNumber != null">and TA_OFFICE_DRIVERINFO.driver_number = #{driverNumber}</if>
+	    <if test="driverName != null">and TA_OFFICE_DRIVERINFO.driver_name = #{driverName}</if>
+	    <if test="driverSex != null">and TA_OFFICE_DRIVERINFO.driver_sex = #{driverSex}</if>
+	    <if test="driverIdcard != null">and TA_OFFICE_DRIVERINFO.driver_idcard = #{driverIdcard}</if>
+	    <if test="driverMobiletel != null">and TA_OFFICE_DRIVERINFO.driver_mobiletel = #{driverMobiletel}</if>
+	    <if test="workExperience != null">and TA_OFFICE_DRIVERINFO.work_experience = #{workExperience}</if>
+</sql>
+
+
+<!-- ElementID:DriverResult,Generated=true -->
+<resultMap id="DriverResult" type="com.chinacreator.c2.jp.car.manage.entity.Driver">
+	<id property="oid" column="oid"/>
+	<result property="driverNumber" column="driver_number"/>
+	<result property="driverName" column="driver_name"/>
+	<result property="driverSex" column="driver_sex"/>
+	<result property="driverIdcard" column="driver_idcard"/>
+	<result property="driverMobiletel" column="driver_mobiletel"/>
+	<result property="workExperience" column="work_experience"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.jp.car.manage.entity.Driver">
+	insert into TA_OFFICE_DRIVERINFO(
+	         <if test="oid != null">oid</if>
+	         <if test="driverNumber != null">,driver_number</if>
+	         <if test="driverName != null">,driver_name</if>
+	         <if test="driverSex != null">,driver_sex</if>
+	         <if test="driverIdcard != null">,driver_idcard</if>
+	         <if test="driverMobiletel != null">,driver_mobiletel</if>
+	         <if test="workExperience != null">,work_experience</if>
+	 	 	 )
+	 values (
+	         <if test="oid != null">#{oid,jdbcType=VARCHAR}</if>
+	         <if test="driverNumber != null">,#{driverNumber,jdbcType=VARCHAR}</if>
+	         <if test="driverName != null">,#{driverName,jdbcType=VARCHAR}</if>
+	         <if test="driverSex != null">,#{driverSex,jdbcType=VARCHAR}</if>
+	         <if test="driverIdcard != null">,#{driverIdcard,jdbcType=VARCHAR}</if>
+	         <if test="driverMobiletel != null">,#{driverMobiletel,jdbcType=VARCHAR}</if>
+	         <if test="workExperience != null">,#{workExperience,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.jp.car.manage.entity.Driver" resultType="int">
+	select count(*) from TA_OFFICE_DRIVERINFO 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.jp.car.manage.entity.Driver">
+	update TA_OFFICE_DRIVERINFO
+<set>
+	<if test="driverNumber != null">driver_number=#{driverNumber,jdbcType=VARCHAR},</if>
+	<if test="driverName != null">driver_name=#{driverName,jdbcType=VARCHAR},</if>
+	<if test="driverSex != null">driver_sex=#{driverSex,jdbcType=VARCHAR},</if>
+	<if test="driverIdcard != null">driver_idcard=#{driverIdcard,jdbcType=VARCHAR},</if>
+	<if test="driverMobiletel != null">driver_mobiletel=#{driverMobiletel,jdbcType=VARCHAR},</if>
+	<if test="workExperience != null">work_experience=#{workExperience,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="oid != null">and oid = #{oid}</when>
+        <otherwise>and oid = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update TA_OFFICE_DRIVERINFO
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="driverNumber==null">driver_number = null,</if>
+		    <if test="driverName==null">driver_name = null,</if>
+		    <if test="driverSex==null">driver_sex = null,</if>
+		    <if test="driverIdcard==null">driver_idcard = null,</if>
+		    <if test="driverMobiletel==null">driver_mobiletel = null,</if>
+		    <if test="workExperience==null">work_experience = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="oid != null">and oid = #{oid}</when>
+			<otherwise>and oid = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.jp.car.manage.entity.Driver">
+    delete from TA_OFFICE_DRIVERINFO where 1=1 and oid = #{oid}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.jp.car.manage.entity.Driver" resultMap="DriverResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_DRIVERINFO 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into TA_OFFICE_DRIVERINFO (oid,driver_number,driver_name,driver_sex,driver_idcard,driver_mobiletel,work_experience) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.oid,jdbcType = VARCHAR},
+				#{entity.driverNumber,jdbcType = VARCHAR},
+				#{entity.driverName,jdbcType = VARCHAR},
+				#{entity.driverSex,jdbcType = VARCHAR},
+				#{entity.driverIdcard,jdbcType = VARCHAR},
+				#{entity.driverMobiletel,jdbcType = VARCHAR},
+				#{entity.workExperience,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from TA_OFFICE_DRIVERINFO where oid in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.oid}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update TA_OFFICE_DRIVERINFO
+	<set>
+	<if test="entity.driverNumber != null">driver_number= #{entity.driverNumber,jdbcType=VARCHAR},</if>
+	<if test="entity.driverName != null">driver_name= #{entity.driverName,jdbcType=VARCHAR},</if>
+	<if test="entity.driverSex != null">driver_sex= #{entity.driverSex,jdbcType=VARCHAR},</if>
+	<if test="entity.driverIdcard != null">driver_idcard= #{entity.driverIdcard,jdbcType=VARCHAR},</if>
+	<if test="entity.driverMobiletel != null">driver_mobiletel= #{entity.driverMobiletel,jdbcType=VARCHAR},</if>
+	<if test="entity.workExperience != null">work_experience= #{entity.workExperience,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.oid != null">and oid = #{entity.oid}</when>
+				<otherwise>and oid = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="DriverResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_DRIVERINFO 
+</select>
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="DriverResult">
+select 
+	<include refid="column_sql"/> 
+	from TA_OFFICE_DRIVERINFO 
+	where TA_OFFICE_DRIVERINFO.oid in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		TA_OFFICE_DRIVERINFO.oid
+	    from TA_OFFICE_DRIVERINFO 
+		 <where>
+	        <if test="entity.oid != null">and TA_OFFICE_DRIVERINFO.oid = #{entity.oid}</if>
+	        <if test="entity.driverNumber != null">and TA_OFFICE_DRIVERINFO.driver_number = #{entity.driverNumber}</if>
+	        <if test="entity.driverName != null">and TA_OFFICE_DRIVERINFO.driver_name = #{entity.driverName}</if>
+	        <if test="entity.driverSex != null">and TA_OFFICE_DRIVERINFO.driver_sex = #{entity.driverSex}</if>
+	        <if test="entity.driverIdcard != null">and TA_OFFICE_DRIVERINFO.driver_idcard = #{entity.driverIdcard}</if>
+	        <if test="entity.driverMobiletel != null">and TA_OFFICE_DRIVERINFO.driver_mobiletel = #{entity.driverMobiletel}</if>
+	        <if test="entity.workExperience != null">and TA_OFFICE_DRIVERINFO.work_experience = #{entity.workExperience}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="DriverResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_DRIVERINFO 
+		 where TA_OFFICE_DRIVERINFO.oid = #{oid,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.jp.car.manage.entity.Driver" resultMap="DriverResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_DRIVERINFO 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+</mapper>

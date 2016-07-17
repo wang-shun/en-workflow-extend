@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.jp.car.manage.entity.CarMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  TA_OFFICE_CARINFO.oid ,
+		  TA_OFFICE_CARINFO.car_number ,
+		  TA_OFFICE_CARINFO.car_name ,
+		  TA_OFFICE_CARINFO.car_type ,
+		  TA_OFFICE_CARINFO.buy_date ,
+		  TA_OFFICE_CARINFO.driver ,
+		  TA_OFFICE_CARINFO.drivername ,
+		  TA_OFFICE_CARINFO.status ,
+		  TA_OFFICE_CARINFO.create_date ,
+		  TA_OFFICE_CARINFO.create_user ,
+		  TA_OFFICE_CARINFO.remark 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="oid != null">and TA_OFFICE_CARINFO.oid = #{oid}</if>
+	    <if test="carNumber != null">and TA_OFFICE_CARINFO.car_number = #{carNumber}</if>
+	    <if test="carName != null">and TA_OFFICE_CARINFO.car_name = #{carName}</if>
+	    <if test="carType != null">and TA_OFFICE_CARINFO.car_type = #{carType}</if>
+	    <if test="buyDate != null">and TA_OFFICE_CARINFO.buy_date = #{buyDate}</if>
+	    <if test="driver != null">and TA_OFFICE_CARINFO.driver = #{driver}</if>
+	    <if test="drivername != null">and TA_OFFICE_CARINFO.drivername = #{drivername}</if>
+	    <if test="status != null">and TA_OFFICE_CARINFO.status = #{status}</if>
+	    <if test="createDate != null">and TA_OFFICE_CARINFO.create_date = #{createDate}</if>
+	    <if test="createUser != null">and TA_OFFICE_CARINFO.create_user = #{createUser}</if>
+	    <if test="remark != null">and TA_OFFICE_CARINFO.remark = #{remark}</if>
+</sql>
+
+
+<!-- ElementID:CarResult,Generated=true -->
+<resultMap id="CarResult" type="com.chinacreator.c2.jp.car.manage.entity.Car">
+	<id property="oid" column="oid"/>
+	<result property="carNumber" column="car_number"/>
+	<result property="carName" column="car_name"/>
+	<result property="carType" column="car_type"/>
+	<result property="buyDate" column="buy_date"/>
+	<result property="driver" column="driver"/>
+	<result property="drivername" column="drivername"/>
+	<result property="status" column="status"/>
+	<result property="createDate" column="create_date"/>
+	<result property="createUser" column="create_user"/>
+	<result property="remark" column="remark"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.jp.car.manage.entity.Car">
+	insert into TA_OFFICE_CARINFO(
+	         <if test="oid != null">oid</if>
+	         <if test="carNumber != null">,car_number</if>
+	         <if test="carName != null">,car_name</if>
+	         <if test="carType != null">,car_type</if>
+	         <if test="buyDate != null">,buy_date</if>
+	         <if test="driver != null">,driver</if>
+	         <if test="drivername != null">,drivername</if>
+	         <if test="status != null">,status</if>
+	         <if test="createDate != null">,create_date</if>
+	         <if test="createUser != null">,create_user</if>
+	         <if test="remark != null">,remark</if>
+	 	 	 )
+	 values (
+	         <if test="oid != null">#{oid,jdbcType=VARCHAR}</if>
+	         <if test="carNumber != null">,#{carNumber,jdbcType=VARCHAR}</if>
+	         <if test="carName != null">,#{carName,jdbcType=VARCHAR}</if>
+	         <if test="carType != null">,#{carType,jdbcType=VARCHAR}</if>
+	         <if test="buyDate != null">,#{buyDate,jdbcType=DATE}</if>
+	         <if test="driver != null">,#{driver,jdbcType=VARCHAR}</if>
+	         <if test="drivername != null">,#{drivername,jdbcType=VARCHAR}</if>
+	         <if test="status != null">,#{status,jdbcType=VARCHAR}</if>
+	         <if test="createDate != null">,#{createDate,jdbcType=DATE}</if>
+	         <if test="createUser != null">,#{createUser,jdbcType=VARCHAR}</if>
+	         <if test="remark != null">,#{remark,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.jp.car.manage.entity.Car" resultType="int">
+	select count(*) from TA_OFFICE_CARINFO 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.jp.car.manage.entity.Car">
+	update TA_OFFICE_CARINFO
+<set>
+	<if test="carNumber != null">car_number=#{carNumber,jdbcType=VARCHAR},</if>
+	<if test="carName != null">car_name=#{carName,jdbcType=VARCHAR},</if>
+	<if test="carType != null">car_type=#{carType,jdbcType=VARCHAR},</if>
+	<if test="buyDate != null">buy_date=#{buyDate,jdbcType=DATE},</if>
+	<if test="driver != null">driver=#{driver,jdbcType=VARCHAR},</if>
+	<if test="drivername != null">drivername=#{drivername,jdbcType=VARCHAR},</if>
+	<if test="status != null">status=#{status,jdbcType=VARCHAR},</if>
+	<if test="createDate != null">create_date=#{createDate,jdbcType=DATE},</if>
+	<if test="createUser != null">create_user=#{createUser,jdbcType=VARCHAR},</if>
+	<if test="remark != null">remark=#{remark,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="oid != null">and oid = #{oid}</when>
+        <otherwise>and oid = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update TA_OFFICE_CARINFO
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="carNumber==null">car_number = null,</if>
+		    <if test="carName==null">car_name = null,</if>
+		    <if test="carType==null">car_type = null,</if>
+		    <if test="buyDate==null">buy_date = null,</if>
+		    <if test="driver==null">driver = null,</if>
+		    <if test="drivername==null">drivername = null,</if>
+		    <if test="status==null">status = null,</if>
+		    <if test="createDate==null">create_date = null,</if>
+		    <if test="createUser==null">create_user = null,</if>
+		    <if test="remark==null">remark = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="oid != null">and oid = #{oid}</when>
+			<otherwise>and oid = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.jp.car.manage.entity.Car">
+    delete from TA_OFFICE_CARINFO where 1=1 and oid = #{oid}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.jp.car.manage.entity.Car" resultMap="CarResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_CARINFO 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into TA_OFFICE_CARINFO (oid,car_number,car_name,car_type,buy_date,driver,drivername,status,create_date,create_user,remark) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.oid,jdbcType = VARCHAR},
+				#{entity.carNumber,jdbcType = VARCHAR},
+				#{entity.carName,jdbcType = VARCHAR},
+				#{entity.carType,jdbcType = VARCHAR},
+				#{entity.buyDate,jdbcType = DATE},
+				#{entity.driver,jdbcType = VARCHAR},
+				#{entity.drivername,jdbcType = VARCHAR},
+				#{entity.status,jdbcType = VARCHAR},
+				#{entity.createDate,jdbcType = DATE},
+				#{entity.createUser,jdbcType = VARCHAR},
+				#{entity.remark,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from TA_OFFICE_CARINFO where oid in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.oid}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update TA_OFFICE_CARINFO
+	<set>
+	<if test="entity.carNumber != null">car_number= #{entity.carNumber,jdbcType=VARCHAR},</if>
+	<if test="entity.carName != null">car_name= #{entity.carName,jdbcType=VARCHAR},</if>
+	<if test="entity.carType != null">car_type= #{entity.carType,jdbcType=VARCHAR},</if>
+	<if test="entity.buyDate != null">buy_date= #{entity.buyDate,jdbcType=DATE},</if>
+	<if test="entity.driver != null">driver= #{entity.driver,jdbcType=VARCHAR},</if>
+	<if test="entity.drivername != null">drivername= #{entity.drivername,jdbcType=VARCHAR},</if>
+	<if test="entity.status != null">status= #{entity.status,jdbcType=VARCHAR},</if>
+	<if test="entity.createDate != null">create_date= #{entity.createDate,jdbcType=DATE},</if>
+	<if test="entity.createUser != null">create_user= #{entity.createUser,jdbcType=VARCHAR},</if>
+	<if test="entity.remark != null">remark= #{entity.remark,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.oid != null">and oid = #{entity.oid}</when>
+				<otherwise>and oid = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="CarResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_CARINFO 
+</select>
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="CarResult">
+select 
+	<include refid="column_sql"/> 
+	from TA_OFFICE_CARINFO 
+	where TA_OFFICE_CARINFO.oid in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		TA_OFFICE_CARINFO.oid
+	    from TA_OFFICE_CARINFO 
+		 <where>
+	        <if test="entity.oid != null">and TA_OFFICE_CARINFO.oid = #{entity.oid}</if>
+	        <if test="entity.carNumber != null">and TA_OFFICE_CARINFO.car_number = #{entity.carNumber}</if>
+	        <if test="entity.carName != null">and TA_OFFICE_CARINFO.car_name = #{entity.carName}</if>
+	        <if test="entity.carType != null">and TA_OFFICE_CARINFO.car_type = #{entity.carType}</if>
+	        <if test="entity.buyDate != null">and TA_OFFICE_CARINFO.buy_date = #{entity.buyDate}</if>
+	        <if test="entity.driver != null">and TA_OFFICE_CARINFO.driver = #{entity.driver}</if>
+	        <if test="entity.drivername != null">and TA_OFFICE_CARINFO.drivername = #{entity.drivername}</if>
+	        <if test="entity.status != null">and TA_OFFICE_CARINFO.status = #{entity.status}</if>
+	        <if test="entity.createDate != null">and TA_OFFICE_CARINFO.create_date = #{entity.createDate}</if>
+	        <if test="entity.createUser != null">and TA_OFFICE_CARINFO.create_user = #{entity.createUser}</if>
+	        <if test="entity.remark != null">and TA_OFFICE_CARINFO.remark = #{entity.remark}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="CarResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_CARINFO 
+		 where TA_OFFICE_CARINFO.oid = #{oid,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.jp.car.manage.entity.Car" resultMap="CarResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_CARINFO 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+</mapper>

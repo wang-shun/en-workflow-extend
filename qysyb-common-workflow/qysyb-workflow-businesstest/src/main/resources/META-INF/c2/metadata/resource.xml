@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PRSet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/perm">
+  <resources>
+    <resource id="oPEZcu1oSfCdyTB_x8FZEw" name="会议室管理" path="f/meetingroommanage" type="form"/>
+    <resource id="Y9GpBVvdQ4-MieamWxWI5w" name="[表单:会议室信息][表格按钮]新增" path="f/meetingroommanage/newGroupId/list/toolbar_table/buttonAdd" type="dom"/>
+    <resource id="J5jaN7K1QeqvZUbSfWxv_A" name="[表单:会议室信息][表格按钮]编辑" path="f/meetingroommanage/newGroupId/list/toolbar_table/buttonEdit" type="dom"/>
+    <resource id="Q4k14W8ATWShRCjKsigweg" name="[实体:会议室][操作:null]查询" path="e/meetingroom/null" type="entity_op"/>
+  </resources>
+</PRSet>

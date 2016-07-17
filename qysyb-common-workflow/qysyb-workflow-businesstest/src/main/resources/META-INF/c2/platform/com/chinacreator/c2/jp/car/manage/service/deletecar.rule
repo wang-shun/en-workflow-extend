@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="deletecar" log="false" className="com.chinacreator.c2.jp.car.apply.impl.ApplyCarService" method="deleteCar">
+  <name>删除车辆</name>
+  <inputs>
+    <input collection="false" desc="" id="ids" required="true" type="java.util.List"/>
+  </inputs>
+  <outputs/>
+  <params>
+    <param autoValue="Input.ids" name="ids" signature="QList&lt;QString;>;" type="java.util.List"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

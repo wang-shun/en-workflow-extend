@@ -18,8 +18,8 @@
 
 
 		 <dependency>
-			<groupId>com.chinacreator.c2.jp</groupId>
-			<artifactId>c2-jp-notice-manage</artifactId>
+			<groupId>com.chinacreator.c2.qyb</groupId>
+			<artifactId>qysyb-workflow-businesstest</artifactId>
 			<version>0.0.1-SNAPSHOT-</version>
 		</dependency>
 		<dependency>

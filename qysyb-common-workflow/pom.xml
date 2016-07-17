@@ -25,7 +25,8 @@
 		<module>qysyb-workflow-console</module>
 		<module>qysyb-workflow-dao-oracle</module>
 		<module>qysyb-workflow-daoapi</module>
-		<module>qysyb-workflow-serviceapi</module>		
+		<module>qysyb-workflow-serviceapi</module>	
+		<module>qysyb-workflow-businesstest</module>	
 	</modules>
 	<dependencies>
 

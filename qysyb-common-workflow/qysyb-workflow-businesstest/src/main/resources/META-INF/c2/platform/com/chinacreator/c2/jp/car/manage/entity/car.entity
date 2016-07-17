@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.chinacreator.com/platform/mvc/rule" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" xmlns:form="http://www.chinacreator.com/platform/mvc/form" sn="car_manage_entity">
+  <docket:name>车辆信息</docket:name>
+  <docket:createType>来自数据库</docket:createType>
+  <docket:primaryKey>
+    <docket:pkAttribute attribute="oid" type="UUID"/>
+  </docket:primaryKey>
+  <docket:attributes>
+    <docket:attribute code="oid" name="主键" nullable="false" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="car_number" name="车牌号" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="car_name" name="车辆品牌" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="car_type" name="车辆类型" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="buy_date" name="购买时间" nullable="true" type="date" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="driver" name="驾驶人id" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="drivername" name="驾驶人姓名" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="status" name="车辆状态" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="create_date" name="录入时间" nullable="true" type="date" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="create_user" name="录入人" nullable="true" type="string64" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark" name="备注" nullable="true" type="string5" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+  </docket:attributes>
+  <docket:subDokcets/>
+  <docket:events>
+    <docket:event id="add" name="新增">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="insert" name="单记录插入" ruleId="rule:c2.dao.insert">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui name="新增">
+        <form:control type="page/modal">
+          <form:attributes source="page/modal">
+            <dync:attribute id="title" value="新增车辆信息">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Group" id="main" name="车辆信息">
+          <form:control type="container/div">
+            <form:attributes source="container/div"/>
+          </form:control>
+          <form:child xsi:type="form:Field" binding="$model.entity.carNumber" id="carNumber" name="车牌号" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text">
+                <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.carName" id="carName" name="车辆品牌" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text">
+                <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.carType" id="carType" name="车辆类型" customize="true">
+            <form:control type="widget/select_simple_dict">
+              <form:attributes source="widget/select_simple_dict">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="车辆管理_车辆类型">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="false" group="基本设置" id="selectRequired" name="必填项" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.buyDate" id="buyDate" name="购买时间" customize="true">
+            <form:control type="widget/date_picker">
+              <form:attributes source="widget/date_picker"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.status" id="status" name="车辆状态" customize="true">
+            <form:control type="widget/select_simple_dict">
+              <form:attributes source="widget/select_simple_dict">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="车辆管理_车辆状态">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.createDate" id="createDate" name="录入时间" customize="true">
+            <form:control type="widget/date_picker">
+              <form:attributes source="widget/date_picker"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.createUserbind" id="createUser" name="录入人" customize="true">
+            <form:control type="widget/select_user_tree">
+              <form:attributes source="widget/select_user_tree">
+                <dync:attribute default="tree/sys_ds_orgs" group="树数据设置" id="treeSourceType" name="树数据源" value="tree/sys_ds_users">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="false" group="控件外观" id="disabled" name="禁用" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark" id="remark" name="备注" customize="true">
+            <form:control type="widget/textarea">
+              <form:attributes source="widget/textarea"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+        </form:child>
+        <form:child xsi:type="form:Group" id="toolbar" name="主按钮组">
+          <form:control type="container/toolbar_modal_footer">
+            <form:attributes source="container/toolbar_modal_footer"/>
+          </form:control>
+          <form:child xsi:type="form:Field" id="btn_add" name="新增">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_add_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="btn-primary" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-success">
+                  <dync:render colSpan="1" height="0" multi="false" name="select">
+                    <dync:item name="默认" value="btn-default"/>
+                    <dync:item name="主要" value="btn-primary"/>
+                    <dync:item name="成功" value="btn-success"/>
+                    <dync:item name="信息" value="btn-info"/>
+                    <dync:item name="警告" value="btn-warning"/>
+                    <dync:item name="危险" value="btn-danger"/>
+                    <dync:item name="链接" value="btn-link"/>
+                    <dync:item name="通用" value="btn-white no-border"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" id="btn_edit" name="取消">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-times">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_edit_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+        </form:child>
+        <form:datasources>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.jp.car.manage.entity.car"/>
+        </form:datasources>
+        <form:scripts>btn_add_click:function($event){
+	var r = $view.mainForm.check();
+	if(!r){
+		Messenger.error(&quot;必填项为空！&quot;);
+		return;
+	}
+	//functions.set_driverName();
+    $model.entity.$save(function(){
+        Modal.instance.close();
+        Messenger.post({type:'success',message:'新增成功'});
+    });
+},
+btn_edit_click:function($event){
+   Modal.instance.close();
+},
+set_driverName:function(){	
+	var selectedNodes = $view.driver_treeWapper.getZtree().getSelectedNodes();
+	console.log(&quot;selectedNodes&quot;,selectedNodes);
+	if(!angular.isUndefined(selectedNodes[0])){
+		$model.entity.driver = $model.driverbind.substr(5);
+		$model.entity.drivername = selectedNodes[0].name;
+	}
+},
+
+
+driver_nodeClick:function(event,treeId,treeNode,clickFlag){
+	functions.set_driverName();
+},
+
+page_onload:function(){
+	if(!angular.isUndefined($model.entity.driver)&amp;&amp;$model.entity.driver!=&quot;&quot;){
+		$model.driverbind = &quot;user:&quot;+$model.entity.driver;
+	}
+	if(angular.isUndefined($model.entity.createUser)||$model.entity.driver==&quot;&quot;){
+		$model.entity.createUser = $params.subject.id;
+		$model.createUserbind = &quot;user:&quot;+$model.entity.createUser;
+	}
+	if(angular.isUndefined($model.entity.createDate)||$model.entity.createDate==&quot;&quot;){
+		$model.entity.createDate = new Date();
+	}
+	 
+}</form:scripts>
+        <form:htmls></form:htmls>
+      </docket:ui>
+    </docket:event>
+    <docket:event id="delete" name="删除">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="delete" name="单记录删除" ruleId="rule:c2.dao.delete">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui type="none"/>
+    </docket:event>
+    <docket:event id="edit" name="修改">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="modify" name="更新" ruleId="rule:c2.dao.update">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui name="修改">
+        <form:control type="page/modal">
+          <form:attributes source="page/modal">
+            <dync:attribute id="title" value="修改车辆信息">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Group" id="main1" name="车辆信息">
+          <form:control type="container/div">
+            <form:attributes source="container/div"/>
+          </form:control>
+          <form:child xsi:type="form:Field" binding="$model.entity.carNumber" id="carNumber1" name="车牌号" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.carName" id="carName1" name="车辆品牌" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.carType" id="carType1" name="车辆类型" customize="true">
+            <form:control type="widget/select_simple_dict">
+              <form:attributes source="widget/select_simple_dict">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="车辆管理_车辆类型">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.buyDate" id="buyDate1" name="购买时间" customize="true">
+            <form:control type="widget/date_picker">
+              <form:attributes source="widget/date_picker"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.status" id="status1" name="车辆状态" customize="true">
+            <form:control type="widget/select_simple_dict">
+              <form:attributes source="widget/select_simple_dict">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="车辆管理_车辆状态">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.createDate" id="createDate1" name="录入时间" customize="true">
+            <form:control type="widget/date_picker">
+              <form:attributes source="widget/date_picker"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.createUserbind" id="createUser1" name="录入人" customize="true">
+            <form:control type="widget/select_user_tree">
+              <form:attributes source="widget/select_user_tree">
+                <dync:attribute default="tree/sys_ds_orgs" group="树数据设置" id="treeSourceType" name="树数据源" value="tree/sys_ds_users">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="false" group="控件外观" id="disabled" name="禁用" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark" id="remark1" name="备注" customize="true">
+            <form:control type="widget/textarea">
+              <form:attributes source="widget/textarea"/>
+            </form:control>
+            <form:validation/>
+          </form:child>
+        </form:child>
+        <form:child xsi:type="form:Group" id="toolbar1" name="主按钮组">
+          <form:control type="container/toolbar_modal_footer">
+            <form:attributes source="container/toolbar_modal_footer"/>
+          </form:control>
+          <form:child xsi:type="form:Field" id="btn_add1" name="新增">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_add_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="btn-primary" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-success">
+                  <dync:render colSpan="1" height="0" multi="false" name="select">
+                    <dync:item name="默认" value="btn-default"/>
+                    <dync:item name="主要" value="btn-primary"/>
+                    <dync:item name="成功" value="btn-success"/>
+                    <dync:item name="信息" value="btn-info"/>
+                    <dync:item name="警告" value="btn-warning"/>
+                    <dync:item name="危险" value="btn-danger"/>
+                    <dync:item name="链接" value="btn-link"/>
+                    <dync:item name="通用" value="btn-white no-border"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" id="btn_edit1" name="取消">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-times">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_edit_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+        </form:child>
+        <form:datasources>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据源" entity="entity:com.chinacreator.c2.jp.car.manage.entity.car"/>
+        </form:datasources>
+        <form:scripts>btn_add_click:function($event){
+    $model.entity.$save(function(){
+        Modal.instance.close();
+        Messenger.post({type:'success',message:'新增成功'});
+    });
+},
+btn_edit_click:function($event){
+   Modal.instance.close();
+},
+
+
+page_onload:function(){
+	if(!angular.isUndefined($model.entity.driver)&amp;&amp;$model.entity.driver!=&quot;&quot;){
+		$model.driverbind = &quot;user:&quot;+$model.entity.driver;
+	}
+	if(angular.isUndefined($model.entity.createUser)||$model.entity.createUser==&quot;&quot;){
+		$model.entity.createUser = $params.subject.id;
+		$model.createUserbind = &quot;user:&quot;+$model.entity.createUser;
+	}else{
+		$model.createUserbind = &quot;user:&quot;+$model.entity.createUser;
+	}
+	if(angular.isUndefined($model.entity.createDate)||$model.entity.createDate==&quot;&quot;){
+		$model.entity.createDate = new Date();
+	}
+	 	
+},
+
+driver1_nodeClick:function(event,treeId,treeNode,clickFlag){
+	//functions.set_driverName();
+},
+set_driverName:function(){	
+	var selectedNodes = $view.driver1_treeWapper.getZtree().getSelectedNodes();
+	if(!angular.isUndefined(selectedNodes[0])){
+		$model.entity.driver = $model.driverbind.substr(5);
+		$model.entity.drivername = selectedNodes[0].name;
+	}
+}</form:scripts>
+        <form:htmls></form:htmls>
+      </docket:ui>
+    </docket:event>
+    <docket:event id="get" name="单记录查询">
+      <docket:logic>
+        <node xsi:type="RuleRef" id="get" name="单记录查询" ruleId="rule:c2.dao.selectOne">
+          <inputs>
+            <input autoFrom="data" code="entity"/>
+          </inputs>
+        </node>
+      </docket:logic>
+      <docket:ui name="单记录查询" type="none">
+        <form:scripts>btn_add_click:function($event){
+	var r = $view.mainForm.check();
+	if(!r){
+		Messenger.error(&quot;必填项为空！&quot;);
+		return;
+	}
+	functions.set_driverName();
+    $model.entity.$save(function(){
+        Modal.instance.close();
+        Messenger.post({type:'success',message:'新增成功'});
+    });
+},
+btn_edit_click:function($event){
+   Modal.instance.close();
+},
+set_driverName:function(){	
+	var selectedNodes = $view.driver_treeWapper.getZtree().getSelectedNodes();
+	console.log(&quot;selectedNodes&quot;,selectedNodes);
+	if(!angular.isUndefined(selectedNodes[0])){
+		$model.entity.driver = $model.driverbind.substr(5);
+		$model.entity.drivername = selectedNodes[0].name;
+	}
+},
+
+
+driver_nodeClick:function(event,treeId,treeNode,clickFlag){
+	functions.set_driverName();
+},
+
+page_onload:function(){
+	if(!angular.isUndefined($model.entity.driver)&amp;&amp;$model.entity.driver!=&quot;&quot;){
+		$model.driverbind = &quot;user:&quot;+$model.entity.driver;
+	}
+	if(angular.isUndefined($model.entity.createUser)||$model.entity.driver==&quot;&quot;){
+		$model.entity.createUser = $params.subject.id;
+		$model.createUserbind = &quot;user:&quot;+$model.entity.createUser;
+	}
+	if(angular.isUndefined($model.entity.createDate)||$model.entity.createDate==&quot;&quot;){
+		$model.entity.createDate = new Date();
+	}
+	 
+}</form:scripts>
+        <form:htmls></form:htmls>
+      </docket:ui>
+    </docket:event>
+    <docket:event desc="" id="view" name="查看">
+      <docket:logic/>
+      <docket:ui id="view" name="查看" type="inner">
+        <form:control type="page/modal">
+          <form:attributes source="page/modal">
+            <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Group" id="main2" name="车辆信息">
+          <form:control type="container/div">
+            <form:attributes source="container/div"/>
+          </form:control>
+          <form:child xsi:type="form:Field" binding="$model.entity.carNumber" id="carNumber2" name="车牌号" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text">
+                <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="true">
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.carName" id="carName2" name="车辆品牌" customize="true">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text">
+                <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="true">
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.carType" id="carType2" name="车辆类型" customize="true">
+            <form:control type="widget/select_simple_dict">
+              <form:attributes source="widget/select_simple_dict">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="车辆管理_车辆类型">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="false" group="基本设置" id="selectDisabled" name="禁用" value="true">
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.buyDate" id="buyDate2" name="购买时间" customize="true">
+            <form:control type="widget/date_picker">
+              <form:attributes source="widget/date_picker">
+                <dync:attribute default="false" group="时间设置" id="readonly" name="控件禁用" value="true">
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.status" id="status2" name="车辆状态" customize="true">
+            <form:control type="widget/select_simple_dict">
+              <form:attributes source="widget/select_simple_dict">
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="车辆管理_车辆状态">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="false" group="基本设置" id="selectDisabled" name="禁用" value="true">
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.createDate" id="createDate2" name="录入时间" customize="true">
+            <form:control type="widget/date_picker">
+              <form:attributes source="widget/date_picker">
+                <dync:attribute default="false" group="时间设置" id="readonly" name="控件禁用" value="true">
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.createUserbind" id="createUser2" name="录入人" customize="true">
+            <form:control type="widget/select_user_tree">
+              <form:attributes source="widget/select_user_tree">
+                <dync:attribute default="tree/sys_ds_orgs" group="树数据设置" id="treeSourceType" name="树数据源" value="tree/sys_ds_users">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="false" group="控件外观" id="disabled" name="禁用" value="true">
+                  <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.remark" id="remark2" name="备注" customize="true">
+            <form:control type="widget/textarea">
+              <form:attributes source="widget/textarea">
+                <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="true">
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
+        </form:child>
+        <form:child xsi:type="form:Group" id="toolbar2" name="主按钮组">
+          <form:control type="container/toolbar_modal_footer">
+            <form:attributes source="container/toolbar_modal_footer"/>
+          </form:control>
+          <form:child xsi:type="form:Field" id="btn_edit2" name="取消">
+            <form:control type="widget/button">
+              <form:attributes source="widget/button">
+                <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-times">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_edit_click($event)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="$event"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+          </form:child>
+        </form:child>
+        <form:datasources>
+          <form:datasource xsi:type="form:Inputs">
+            <form:input id="id" name="实体数据id"/>
+          </form:datasource>
+          <form:datasource xsi:type="form:EntityDataSource" id="entity" name="实体数据" entity="entity:com.chinacreator.c2.jp.car.manage.entity.car"/>
+        </form:datasources>
+        <form:scripts>
+
+page_onload:function(){
+	if(!angular.isUndefined($model.entity.driver)&amp;&amp;$model.entity.driver!=&quot;&quot;){
+		$model.driverbind = &quot;user:&quot;+$model.entity.driver;
+	}
+	if(angular.isUndefined($model.entity.createUser)||$model.entity.createUser==&quot;&quot;){
+		$model.entity.createUser = $params.subject.id;
+		$model.createUserbind = &quot;user:&quot;+$model.entity.createUser;
+	}else{
+		$model.createUserbind = &quot;user:&quot;+$model.entity.createUser;
+	}
+	if(angular.isUndefined($model.entity.createDate)||$model.entity.createDate==&quot;&quot;){
+		$model.entity.createDate = new Date();
+	}	
+},
+
+btn_edit_click:function($event){
+	Modal.instance.close();
+}</form:scripts>
+        <form:htmls></form:htmls>
+      </docket:ui>
+    </docket:event>
+  </docket:events>
+  <docket:table ds="oracDB" table="TA_OFFICE_CARINFO"/>
+  <entity:datas/>
+  <entity:views/>
+</entity:Entity>

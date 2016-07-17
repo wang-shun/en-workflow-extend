@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.jp.car.apply.entity.CarapplyMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  TA_OFFICE_USECAR_APPLY.oid ,
+		  TA_OFFICE_USECAR_APPLY.apply_dept_id ,
+		  TA_OFFICE_USECAR_APPLY.apply_user_name ,
+		  TA_OFFICE_USECAR_APPLY.apply_date ,
+		  TA_OFFICE_USECAR_APPLY.start_place ,
+		  TA_OFFICE_USECAR_APPLY.arrived_place ,
+		  TA_OFFICE_USECAR_APPLY.start_date ,
+		  TA_OFFICE_USECAR_APPLY.passengers_name ,
+		  TA_OFFICE_USECAR_APPLY.passenger_number ,
+		  TA_OFFICE_USECAR_APPLY.contact_name ,
+		  TA_OFFICE_USECAR_APPLY.contact_phone ,
+		  TA_OFFICE_USECAR_APPLY.require_arrived_date ,
+		  TA_OFFICE_USECAR_APPLY.usecar_hours ,
+		  TA_OFFICE_USECAR_APPLY.apply_reason ,
+		  TA_OFFICE_USECAR_APPLY.car_id ,
+		  TA_OFFICE_USECAR_APPLY.driver_id ,
+		  TA_OFFICE_USECAR_APPLY.back_time ,
+		  TA_OFFICE_USECAR_APPLY.start_km ,
+		  TA_OFFICE_USECAR_APPLY.back_km ,
+		  TA_OFFICE_USECAR_APPLY.refuel_money ,
+		  TA_OFFICE_USECAR_APPLY.business_key ,
+		  TA_OFFICE_USECAR_APPLY.apply_dept_name ,
+		  TA_OFFICE_USECAR_APPLY.apply_user_id ,
+		  TA_OFFICE_USECAR_APPLY.status ,
+		  TA_OFFICE_USECAR_APPLY.driver_name ,
+		  TA_OFFICE_USECAR_APPLY.car_num 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="oid != null">and TA_OFFICE_USECAR_APPLY.oid = #{oid}</if>
+	    <if test="applyDeptId != null">and TA_OFFICE_USECAR_APPLY.apply_dept_id = #{applyDeptId}</if>
+	    <if test="applyUserName != null">and TA_OFFICE_USECAR_APPLY.apply_user_name = #{applyUserName}</if>
+	    <if test="applyDate != null">and TA_OFFICE_USECAR_APPLY.apply_date = #{applyDate}</if>
+	    <if test="startPlace != null">and TA_OFFICE_USECAR_APPLY.start_place = #{startPlace}</if>
+	    <if test="arrivedPlace != null">and TA_OFFICE_USECAR_APPLY.arrived_place = #{arrivedPlace}</if>
+	    <if test="startDate != null">and TA_OFFICE_USECAR_APPLY.start_date = #{startDate}</if>
+	    <if test="passengersName != null">and TA_OFFICE_USECAR_APPLY.passengers_name = #{passengersName}</if>
+	    <if test="passengerNumber != null">and TA_OFFICE_USECAR_APPLY.passenger_number = #{passengerNumber}</if>
+	    <if test="contactName != null">and TA_OFFICE_USECAR_APPLY.contact_name = #{contactName}</if>
+	    <if test="contactPhone != null">and TA_OFFICE_USECAR_APPLY.contact_phone = #{contactPhone}</if>
+	    <if test="requireArrivedDate != null">and TA_OFFICE_USECAR_APPLY.require_arrived_date = #{requireArrivedDate}</if>
+	    <if test="usecarHours != null">and TA_OFFICE_USECAR_APPLY.usecar_hours = #{usecarHours}</if>
+	    <if test="applyReason != null">and TA_OFFICE_USECAR_APPLY.apply_reason = #{applyReason}</if>
+	    <if test="carId != null">and TA_OFFICE_USECAR_APPLY.car_id = #{carId}</if>
+	    <if test="driverId != null">and TA_OFFICE_USECAR_APPLY.driver_id = #{driverId}</if>
+	    <if test="backTime != null">and TA_OFFICE_USECAR_APPLY.back_time = #{backTime}</if>
+	    <if test="startKm != null">and TA_OFFICE_USECAR_APPLY.start_km = #{startKm}</if>
+	    <if test="backKm != null">and TA_OFFICE_USECAR_APPLY.back_km = #{backKm}</if>
+	    <if test="refuelMoney != null">and TA_OFFICE_USECAR_APPLY.refuel_money = #{refuelMoney}</if>
+	    <if test="businessKey != null">and TA_OFFICE_USECAR_APPLY.business_key = #{businessKey}</if>
+	    <if test="applyDeptName != null">and TA_OFFICE_USECAR_APPLY.apply_dept_name = #{applyDeptName}</if>
+	    <if test="applyUserId != null">and TA_OFFICE_USECAR_APPLY.apply_user_id = #{applyUserId}</if>
+	    <if test="status != null">and TA_OFFICE_USECAR_APPLY.status = #{status}</if>
+	    <if test="driverName != null">and TA_OFFICE_USECAR_APPLY.driver_name = #{driverName}</if>
+	    <if test="carNum != null">and TA_OFFICE_USECAR_APPLY.car_num = #{carNum}</if>
+</sql>
+
+
+<!-- ElementID:CarapplyResult,Generated=true -->
+<resultMap id="CarapplyResult" type="com.chinacreator.c2.jp.car.apply.entity.Carapply">
+	<id property="oid" column="oid"/>
+	<result property="applyDeptId" column="apply_dept_id"/>
+	<result property="applyUserName" column="apply_user_name"/>
+	<result property="applyDate" column="apply_date"/>
+	<result property="startPlace" column="start_place"/>
+	<result property="arrivedPlace" column="arrived_place"/>
+	<result property="startDate" column="start_date"/>
+	<result property="passengersName" column="passengers_name"/>
+	<result property="passengerNumber" column="passenger_number"/>
+	<result property="contactName" column="contact_name"/>
+	<result property="contactPhone" column="contact_phone"/>
+	<result property="requireArrivedDate" column="require_arrived_date"/>
+	<result property="usecarHours" column="usecar_hours"/>
+	<result property="applyReason" column="apply_reason"/>
+	<result property="carId" column="car_id"/>
+	<result property="driverId" column="driver_id"/>
+	<result property="backTime" column="back_time"/>
+	<result property="startKm" column="start_km"/>
+	<result property="backKm" column="back_km"/>
+	<result property="refuelMoney" column="refuel_money"/>
+	<result property="businessKey" column="business_key"/>
+	<result property="applyDeptName" column="apply_dept_name"/>
+	<result property="applyUserId" column="apply_user_id"/>
+	<result property="status" column="status"/>
+	<result property="driverName" column="driver_name"/>
+	<result property="carNum" column="car_num"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.jp.car.apply.entity.Carapply">
+	insert into TA_OFFICE_USECAR_APPLY(
+	         <if test="oid != null">oid</if>
+	         <if test="applyDeptId != null">,apply_dept_id</if>
+	         <if test="applyUserName != null">,apply_user_name</if>
+	         <if test="applyDate != null">,apply_date</if>
+	         <if test="startPlace != null">,start_place</if>
+	         <if test="arrivedPlace != null">,arrived_place</if>
+	         <if test="startDate != null">,start_date</if>
+	         <if test="passengersName != null">,passengers_name</if>
+	         <if test="passengerNumber != null">,passenger_number</if>
+	         <if test="contactName != null">,contact_name</if>
+	         <if test="contactPhone != null">,contact_phone</if>
+	         <if test="requireArrivedDate != null">,require_arrived_date</if>
+	         <if test="usecarHours != null">,usecar_hours</if>
+	         <if test="applyReason != null">,apply_reason</if>
+	         <if test="carId != null">,car_id</if>
+	         <if test="driverId != null">,driver_id</if>
+	         <if test="backTime != null">,back_time</if>
+	         <if test="startKm != null">,start_km</if>
+	         <if test="backKm != null">,back_km</if>
+	         <if test="refuelMoney != null">,refuel_money</if>
+	         <if test="businessKey != null">,business_key</if>
+	         <if test="applyDeptName != null">,apply_dept_name</if>
+	         <if test="applyUserId != null">,apply_user_id</if>
+	         <if test="status != null">,status</if>
+	         <if test="driverName != null">,driver_name</if>
+	         <if test="carNum != null">,car_num</if>
+	 	 	 )
+	 values (
+	         <if test="oid != null">#{oid,jdbcType=VARCHAR}</if>
+	         <if test="applyDeptId != null">,#{applyDeptId,jdbcType=VARCHAR}</if>
+	         <if test="applyUserName != null">,#{applyUserName,jdbcType=VARCHAR}</if>
+	         <if test="applyDate != null">,#{applyDate,jdbcType=NUMERIC}</if>
+	         <if test="startPlace != null">,#{startPlace,jdbcType=VARCHAR}</if>
+	         <if test="arrivedPlace != null">,#{arrivedPlace,jdbcType=VARCHAR}</if>
+	         <if test="startDate != null">,#{startDate,jdbcType=NUMERIC}</if>
+	         <if test="passengersName != null">,#{passengersName,jdbcType=VARCHAR}</if>
+	         <if test="passengerNumber != null">,#{passengerNumber,jdbcType=NUMERIC}</if>
+	         <if test="contactName != null">,#{contactName,jdbcType=VARCHAR}</if>
+	         <if test="contactPhone != null">,#{contactPhone,jdbcType=VARCHAR}</if>
+	         <if test="requireArrivedDate != null">,#{requireArrivedDate,jdbcType=NUMERIC}</if>
+	         <if test="usecarHours != null">,#{usecarHours,jdbcType=VARCHAR}</if>
+	         <if test="applyReason != null">,#{applyReason,jdbcType=VARCHAR}</if>
+	         <if test="carId != null">,#{carId,jdbcType=VARCHAR}</if>
+	         <if test="driverId != null">,#{driverId,jdbcType=VARCHAR}</if>
+	         <if test="backTime != null">,#{backTime,jdbcType=NUMERIC}</if>
+	         <if test="startKm != null">,#{startKm,jdbcType=NUMERIC}</if>
+	         <if test="backKm != null">,#{backKm,jdbcType=NUMERIC}</if>
+	         <if test="refuelMoney != null">,#{refuelMoney,jdbcType=NUMERIC}</if>
+	         <if test="businessKey != null">,#{businessKey,jdbcType=VARCHAR}</if>
+	         <if test="applyDeptName != null">,#{applyDeptName,jdbcType=VARCHAR}</if>
+	         <if test="applyUserId != null">,#{applyUserId,jdbcType=VARCHAR}</if>
+	         <if test="status != null">,#{status,jdbcType=VARCHAR}</if>
+	         <if test="driverName != null">,#{driverName,jdbcType=VARCHAR}</if>
+	         <if test="carNum != null">,#{carNum,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.jp.car.apply.entity.Carapply" resultType="int">
+	select count(*) from TA_OFFICE_USECAR_APPLY 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.jp.car.apply.entity.Carapply">
+	update TA_OFFICE_USECAR_APPLY
+<set>
+	<if test="applyDeptId != null">apply_dept_id=#{applyDeptId,jdbcType=VARCHAR},</if>
+	<if test="applyUserName != null">apply_user_name=#{applyUserName,jdbcType=VARCHAR},</if>
+	<if test="applyDate != null">apply_date=#{applyDate,jdbcType=NUMERIC},</if>
+	<if test="startPlace != null">start_place=#{startPlace,jdbcType=VARCHAR},</if>
+	<if test="arrivedPlace != null">arrived_place=#{arrivedPlace,jdbcType=VARCHAR},</if>
+	<if test="startDate != null">start_date=#{startDate,jdbcType=NUMERIC},</if>
+	<if test="passengersName != null">passengers_name=#{passengersName,jdbcType=VARCHAR},</if>
+	<if test="passengerNumber != null">passenger_number=#{passengerNumber,jdbcType=NUMERIC},</if>
+	<if test="contactName != null">contact_name=#{contactName,jdbcType=VARCHAR},</if>
+	<if test="contactPhone != null">contact_phone=#{contactPhone,jdbcType=VARCHAR},</if>
+	<if test="requireArrivedDate != null">require_arrived_date=#{requireArrivedDate,jdbcType=NUMERIC},</if>
+	<if test="usecarHours != null">usecar_hours=#{usecarHours,jdbcType=VARCHAR},</if>
+	<if test="applyReason != null">apply_reason=#{applyReason,jdbcType=VARCHAR},</if>
+	<if test="carId != null">car_id=#{carId,jdbcType=VARCHAR},</if>
+	<if test="driverId != null">driver_id=#{driverId,jdbcType=VARCHAR},</if>
+	<if test="backTime != null">back_time=#{backTime,jdbcType=NUMERIC},</if>
+	<if test="startKm != null">start_km=#{startKm,jdbcType=NUMERIC},</if>
+	<if test="backKm != null">back_km=#{backKm,jdbcType=NUMERIC},</if>
+	<if test="refuelMoney != null">refuel_money=#{refuelMoney,jdbcType=NUMERIC},</if>
+	<if test="businessKey != null">business_key=#{businessKey,jdbcType=VARCHAR},</if>
+	<if test="applyDeptName != null">apply_dept_name=#{applyDeptName,jdbcType=VARCHAR},</if>
+	<if test="applyUserId != null">apply_user_id=#{applyUserId,jdbcType=VARCHAR},</if>
+	<if test="status != null">status=#{status,jdbcType=VARCHAR},</if>
+	<if test="driverName != null">driver_name=#{driverName,jdbcType=VARCHAR},</if>
+	<if test="carNum != null">car_num=#{carNum,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="oid != null">and oid = #{oid}</when>
+        <otherwise>and oid = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update TA_OFFICE_USECAR_APPLY
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="applyDeptId==null">apply_dept_id = null,</if>
+		    <if test="applyUserName==null">apply_user_name = null,</if>
+		    <if test="applyDate==null">apply_date = null,</if>
+		    <if test="startPlace==null">start_place = null,</if>
+		    <if test="arrivedPlace==null">arrived_place = null,</if>
+		    <if test="startDate==null">start_date = null,</if>
+		    <if test="passengersName==null">passengers_name = null,</if>
+		    <if test="passengerNumber==null">passenger_number = null,</if>
+		    <if test="contactName==null">contact_name = null,</if>
+		    <if test="contactPhone==null">contact_phone = null,</if>
+		    <if test="requireArrivedDate==null">require_arrived_date = null,</if>
+		    <if test="usecarHours==null">usecar_hours = null,</if>
+		    <if test="applyReason==null">apply_reason = null,</if>
+		    <if test="carId==null">car_id = null,</if>
+		    <if test="driverId==null">driver_id = null,</if>
+		    <if test="backTime==null">back_time = null,</if>
+		    <if test="startKm==null">start_km = null,</if>
+		    <if test="backKm==null">back_km = null,</if>
+		    <if test="refuelMoney==null">refuel_money = null,</if>
+		    <if test="businessKey==null">business_key = null,</if>
+		    <if test="applyDeptName==null">apply_dept_name = null,</if>
+		    <if test="applyUserId==null">apply_user_id = null,</if>
+		    <if test="status==null">status = null,</if>
+		    <if test="driverName==null">driver_name = null,</if>
+		    <if test="carNum==null">car_num = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="oid != null">and oid = #{oid}</when>
+			<otherwise>and oid = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.jp.car.apply.entity.Carapply">
+    delete from TA_OFFICE_USECAR_APPLY where 1=1 and oid = #{oid}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.jp.car.apply.entity.Carapply" resultMap="CarapplyResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_USECAR_APPLY 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into TA_OFFICE_USECAR_APPLY (oid,apply_dept_id,apply_user_name,apply_date,start_place,arrived_place,start_date,passengers_name,passenger_number,contact_name,contact_phone,require_arrived_date,usecar_hours,apply_reason,car_id,driver_id,back_time,start_km,back_km,refuel_money,business_key,apply_dept_name,apply_user_id,status,driver_name,car_num) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.oid,jdbcType = VARCHAR},
+				#{entity.applyDeptId,jdbcType = VARCHAR},
+				#{entity.applyUserName,jdbcType = VARCHAR},
+				#{entity.applyDate,jdbcType = NUMERIC},
+				#{entity.startPlace,jdbcType = VARCHAR},
+				#{entity.arrivedPlace,jdbcType = VARCHAR},
+				#{entity.startDate,jdbcType = NUMERIC},
+				#{entity.passengersName,jdbcType = VARCHAR},
+				#{entity.passengerNumber,jdbcType = NUMERIC},
+				#{entity.contactName,jdbcType = VARCHAR},
+				#{entity.contactPhone,jdbcType = VARCHAR},
+				#{entity.requireArrivedDate,jdbcType = NUMERIC},
+				#{entity.usecarHours,jdbcType = VARCHAR},
+				#{entity.applyReason,jdbcType = VARCHAR},
+				#{entity.carId,jdbcType = VARCHAR},
+				#{entity.driverId,jdbcType = VARCHAR},
+				#{entity.backTime,jdbcType = NUMERIC},
+				#{entity.startKm,jdbcType = NUMERIC},
+				#{entity.backKm,jdbcType = NUMERIC},
+				#{entity.refuelMoney,jdbcType = NUMERIC},
+				#{entity.businessKey,jdbcType = VARCHAR},
+				#{entity.applyDeptName,jdbcType = VARCHAR},
+				#{entity.applyUserId,jdbcType = VARCHAR},
+				#{entity.status,jdbcType = VARCHAR},
+				#{entity.driverName,jdbcType = VARCHAR},
+				#{entity.carNum,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from TA_OFFICE_USECAR_APPLY where oid in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.oid}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update TA_OFFICE_USECAR_APPLY
+	<set>
+	<if test="entity.applyDeptId != null">apply_dept_id= #{entity.applyDeptId,jdbcType=VARCHAR},</if>
+	<if test="entity.applyUserName != null">apply_user_name= #{entity.applyUserName,jdbcType=VARCHAR},</if>
+	<if test="entity.applyDate != null">apply_date= #{entity.applyDate,jdbcType=NUMERIC},</if>
+	<if test="entity.startPlace != null">start_place= #{entity.startPlace,jdbcType=VARCHAR},</if>
+	<if test="entity.arrivedPlace != null">arrived_place= #{entity.arrivedPlace,jdbcType=VARCHAR},</if>
+	<if test="entity.startDate != null">start_date= #{entity.startDate,jdbcType=NUMERIC},</if>
+	<if test="entity.passengersName != null">passengers_name= #{entity.passengersName,jdbcType=VARCHAR},</if>
+	<if test="entity.passengerNumber != null">passenger_number= #{entity.passengerNumber,jdbcType=NUMERIC},</if>
+	<if test="entity.contactName != null">contact_name= #{entity.contactName,jdbcType=VARCHAR},</if>
+	<if test="entity.contactPhone != null">contact_phone= #{entity.contactPhone,jdbcType=VARCHAR},</if>
+	<if test="entity.requireArrivedDate != null">require_arrived_date= #{entity.requireArrivedDate,jdbcType=NUMERIC},</if>
+	<if test="entity.usecarHours != null">usecar_hours= #{entity.usecarHours,jdbcType=VARCHAR},</if>
+	<if test="entity.applyReason != null">apply_reason= #{entity.applyReason,jdbcType=VARCHAR},</if>
+	<if test="entity.carId != null">car_id= #{entity.carId,jdbcType=VARCHAR},</if>
+	<if test="entity.driverId != null">driver_id= #{entity.driverId,jdbcType=VARCHAR},</if>
+	<if test="entity.backTime != null">back_time= #{entity.backTime,jdbcType=NUMERIC},</if>
+	<if test="entity.startKm != null">start_km= #{entity.startKm,jdbcType=NUMERIC},</if>
+	<if test="entity.backKm != null">back_km= #{entity.backKm,jdbcType=NUMERIC},</if>
+	<if test="entity.refuelMoney != null">refuel_money= #{entity.refuelMoney,jdbcType=NUMERIC},</if>
+	<if test="entity.businessKey != null">business_key= #{entity.businessKey,jdbcType=VARCHAR},</if>
+	<if test="entity.applyDeptName != null">apply_dept_name= #{entity.applyDeptName,jdbcType=VARCHAR},</if>
+	<if test="entity.applyUserId != null">apply_user_id= #{entity.applyUserId,jdbcType=VARCHAR},</if>
+	<if test="entity.status != null">status= #{entity.status,jdbcType=VARCHAR},</if>
+	<if test="entity.driverName != null">driver_name= #{entity.driverName,jdbcType=VARCHAR},</if>
+	<if test="entity.carNum != null">car_num= #{entity.carNum,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.oid != null">and oid = #{entity.oid}</when>
+				<otherwise>and oid = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="CarapplyResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_USECAR_APPLY 
+</select>
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="CarapplyResult">
+select 
+	<include refid="column_sql"/> 
+	from TA_OFFICE_USECAR_APPLY 
+	where TA_OFFICE_USECAR_APPLY.oid in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		TA_OFFICE_USECAR_APPLY.oid
+	    from TA_OFFICE_USECAR_APPLY 
+		 <where>
+	        <if test="entity.oid != null">and TA_OFFICE_USECAR_APPLY.oid = #{entity.oid}</if>
+	        <if test="entity.applyDeptId != null">and TA_OFFICE_USECAR_APPLY.apply_dept_id = #{entity.applyDeptId}</if>
+	        <if test="entity.applyUserName != null">and TA_OFFICE_USECAR_APPLY.apply_user_name = #{entity.applyUserName}</if>
+	        <if test="entity.applyDate != null">and TA_OFFICE_USECAR_APPLY.apply_date = #{entity.applyDate}</if>
+	        <if test="entity.startPlace != null">and TA_OFFICE_USECAR_APPLY.start_place = #{entity.startPlace}</if>
+	        <if test="entity.arrivedPlace != null">and TA_OFFICE_USECAR_APPLY.arrived_place = #{entity.arrivedPlace}</if>
+	        <if test="entity.startDate != null">and TA_OFFICE_USECAR_APPLY.start_date = #{entity.startDate}</if>
+	        <if test="entity.passengersName != null">and TA_OFFICE_USECAR_APPLY.passengers_name = #{entity.passengersName}</if>
+	        <if test="entity.passengerNumber != null">and TA_OFFICE_USECAR_APPLY.passenger_number = #{entity.passengerNumber}</if>
+	        <if test="entity.contactName != null">and TA_OFFICE_USECAR_APPLY.contact_name = #{entity.contactName}</if>
+	        <if test="entity.contactPhone != null">and TA_OFFICE_USECAR_APPLY.contact_phone = #{entity.contactPhone}</if>
+	        <if test="entity.requireArrivedDate != null">and TA_OFFICE_USECAR_APPLY.require_arrived_date = #{entity.requireArrivedDate}</if>
+	        <if test="entity.usecarHours != null">and TA_OFFICE_USECAR_APPLY.usecar_hours = #{entity.usecarHours}</if>
+	        <if test="entity.applyReason != null">and TA_OFFICE_USECAR_APPLY.apply_reason = #{entity.applyReason}</if>
+	        <if test="entity.carId != null">and TA_OFFICE_USECAR_APPLY.car_id = #{entity.carId}</if>
+	        <if test="entity.driverId != null">and TA_OFFICE_USECAR_APPLY.driver_id = #{entity.driverId}</if>
+	        <if test="entity.backTime != null">and TA_OFFICE_USECAR_APPLY.back_time = #{entity.backTime}</if>
+	        <if test="entity.startKm != null">and TA_OFFICE_USECAR_APPLY.start_km = #{entity.startKm}</if>
+	        <if test="entity.backKm != null">and TA_OFFICE_USECAR_APPLY.back_km = #{entity.backKm}</if>
+	        <if test="entity.refuelMoney != null">and TA_OFFICE_USECAR_APPLY.refuel_money = #{entity.refuelMoney}</if>
+	        <if test="entity.businessKey != null">and TA_OFFICE_USECAR_APPLY.business_key = #{entity.businessKey}</if>
+	        <if test="entity.applyDeptName != null">and TA_OFFICE_USECAR_APPLY.apply_dept_name = #{entity.applyDeptName}</if>
+	        <if test="entity.applyUserId != null">and TA_OFFICE_USECAR_APPLY.apply_user_id = #{entity.applyUserId}</if>
+	        <if test="entity.status != null">and TA_OFFICE_USECAR_APPLY.status = #{entity.status}</if>
+	        <if test="entity.driverName != null">and TA_OFFICE_USECAR_APPLY.driver_name = #{entity.driverName}</if>
+	        <if test="entity.carNum != null">and TA_OFFICE_USECAR_APPLY.car_num = #{entity.carNum}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="CarapplyResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_USECAR_APPLY 
+		 where TA_OFFICE_USECAR_APPLY.oid = #{oid,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.jp.car.apply.entity.Carapply" resultMap="CarapplyResult">
+	select 
+		<include refid="column_sql"/>
+	    from TA_OFFICE_USECAR_APPLY 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+</mapper>

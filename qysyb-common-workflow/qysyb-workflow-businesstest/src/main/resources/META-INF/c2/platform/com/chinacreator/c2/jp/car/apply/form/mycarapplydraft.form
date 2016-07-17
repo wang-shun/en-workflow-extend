@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="我的草稿" sn="mycarapplydraft" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="$timeout TabOperator">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad($params)">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" binding="$model.list" id="mrapplydraftlist" name="列表型数据源">
+      <form:control type="container/table_jqgrid">
+        <form:attributes source="container/table_jqgrid">
+          <dync:attribute default="" group="表格设置" id="paramData" name="初始化参数" value="{&quot;status&quot;:&quot;draft&quot;,applyUserId:$scope.subject.id}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Group" id="toolbar_table" name="toolbar_table">
+        <form:control type="container/toolbar_table">
+          <form:attributes source="container/toolbar_table"/>
+        </form:control>
+        <form:child xsi:type="form:Field" id="buttonDel" name="删除">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute id="clickType" value="delete">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute id="icon" value="fa-trash-o">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute id="iconColor" value="red">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+        </form:child>
+        <form:child xsi:type="form:Field" id="buttonEdit" name="编辑">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute id="icon" value="fa-pencil">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute id="iconColor" value="blue">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="buttonEdit_click(rowId,rowData,tableData)">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+        </form:child>
+        <form:child xsi:type="form:Field" id="buttonRefresh" name="刷新">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute id="clickType" value="refrash">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute id="icon" value="fa-refresh">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute id="iconColor" value="green">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+        </form:child>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="oid" id="oid" name="主键OID">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute id="key" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute id="hidden" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="businessKey" id="businessKey" name="业务id">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="applyReason" id="title" name="用车事由">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="title_customFormatter(cellvalue,options,rowObject,dictValueExpression)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="applyUserName" id="applicant_name1" name="申请人">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="resizable" name="列宽调节" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="applyDeptName" id="apply_branch_name1" name="申请单位">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="resizable" name="列宽调节" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="startPlace" id="newField15" name="出发地点" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid"/>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="arrivedPlace" id="newField16" name="目的地点" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="resizable" name="列宽调节" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="carNum" id="newField13" name="用车" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid"/>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="passengersName" id="newField17" name="乘客姓名" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid"/>
+        </form:control>
+        <form:validation/>
+      </form:child>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.jp.car.apply.entity.carapply" pageSize="10"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="dictdata" name="字典" logic="rule:com.chinacreator.c2.omp.common.getDictDataByType" sn="getdictdatabytype">
+      <form:param id="dictTypeName" name="新输入参数" value="[&quot;公文管理_密级&quot;,&quot;公文管理_紧急程度&quot;]"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>
+
+buttonAdd_click:function(rowId,rowData,tableData){
+//	Modal.open(&quot;f/choosedispatchtypemodal&quot;,{userId:$scope.subject.id});
+//	window.location.href = &quot;#/wf/taskHandle?menuCode=I9HScn2KTuix8jDlLK8aeg&amp;productNo=HYSQ&amp;formId=4B_QUPJ5TkK6u0l-qnB7vg&quot;;
+},
+
+buttonEdit_click:function(rowId,rowData,tableData){
+	var selectNodes = $view.mrapplydraftlist.getSelectDatas();
+	if(angular.isArray(selectNodes) &amp;&amp; selectNodes.length>0){
+		if(selectNodes.length>1){
+			Messenger.post({
+			    'message': &quot;一次只能编辑一条信息！&quot;,
+			    'type': 'error',
+			});
+			return;
+		}else{
+			var params = &quot;menuCode=NFcvaAWUShKRa3wTpUc0HQ&amp;productNo=HYSQ&amp;formId=4B_QUPJ5TkK6u0l-qnB7vg&quot;+&quot;&amp;businessKey=&quot;+rowData.businessKey;
+			window.location.href = &quot;#/wf/taskHandle?&quot;+params;
+		}
+	}else{
+		Messenger.post({
+		    'message': &quot;请选择需要编辑的信息！&quot;,
+		    'type': 'error',
+		});
+	}			
+},
+
+page_beforeDataSourceLoad:function($params){
+//	$scope.users = {};
+/*	$scope.$apply(function(){
+			functions.loadusers();
+		});
+	functions.loadusers();
+*/	
+},
+//didnt work 拟稿人自定义格式。前端只有id 怎么方便地展示name TODO
+draftPersonId_customFormatter:function(cellvalue,options,rowObject){
+//	console.log(cellvalue);
+//	return &quot;{{users['&quot;+cellvalue+&quot;'].userRealname}}&quot;
+},
+loadusers:function(){
+//  didnt work  TODO
+	if($scope.users==undefined){
+		$http.post(&quot;ws/getAllUserinfo&quot;,{})
+			.success(function(data){
+				$timeout(function(){
+					$scope.$apply(function(){
+						$scope.users = data.result;
+					});
+					console.log(&quot;users&quot;,$scope.users);
+				});
+
+			});
+	}
+},
+
+page_afterDataSourceLoad:function(){
+	console.log(&quot;$scope.subject.id&quot;,$scope.subject.id);
+//	console.log(&quot;dictdata&quot;,$model.dictdata.result);
+},
+
+title_customFormatter:function(cellvalue,options,rowObject,dictValueExpression){
+	return '&lt;a href=&quot;javascript:void(0)&quot; ng-click=functions.worktitleclick(&quot;'+rowObject.businessKey+'&quot;)>'+cellvalue+'&lt;/a>'
+},
+worktitleclick:function(businessKey){
+	var params = &quot;menuCode=NFcvaAWUShKRa3wTpUc0HQ&amp;productNo=HYSQ&amp;formId=4B_QUPJ5TkK6u0l-qnB7vg&quot;+&quot;&amp;businessKey=&quot;+businessKey;
+	window.location.href = &quot;#/wf/taskHandle?&quot;+params;
+},
+
+page_onload:function(){
+	if(TabOperator!=null){
+	/*先保存之前的监听事件*/
+		var onSelectBefore = TabOperator.config().events.onSelect;
+		if(!TabOperator.config().events.iscarapplydraftListenAdded){
+			TabOperator.config().events.onSelect=function(url,currTab){
+				  onSelectBefore(url,currTab);
+				  if(url==&quot;f/mycarapply&quot;){
+					  	/*加入自己的flag，标记自己的监听已经添加完毕*/
+					    TabOperator.config().events.iscarapplydraftListenAdded = true;
+/*			    	  	$params.search = {};
+			    	  	$params.search.serviceTypeId = $params.workType;*/
+			    	  	$view.mrapplydraftlist.refresh();
+			      }
+			
+			}		
+		}	
+	}	
+}</form:scripts>
+</form:Form>

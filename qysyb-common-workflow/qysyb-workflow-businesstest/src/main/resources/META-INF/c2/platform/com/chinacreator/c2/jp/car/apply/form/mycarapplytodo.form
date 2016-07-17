@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="我的车辆待办" res="" sn="mycarapplytodo" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="TabOperator">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" binding="$model.list" id="dispatchtodolist" name="列表型数据源">
+      <form:control type="container/table_jqgrid">
+        <form:attributes source="container/table_jqgrid">
+          <dync:attribute default="" group="表格设置" id="searchDIV" name="搜索DIV" value="ewtodosearch1">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="表格设置" id="paramData" name="初始化参数" value="{&quot;serviceTypeId&quot;:$params.workType,&quot;isExternalStorage&quot;:true,&quot;formId&quot;:$params.formId,needInvolved:false}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Group" id="toolbar_table" name="toolbar_table">
+        <form:control type="container/toolbar_table">
+          <form:attributes source="container/toolbar_table"/>
+        </form:control>
+        <form:child xsi:type="form:Field" id="newField1" name="事件办理" res="" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-wrench">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="newField1_click(rowId,rowData,tableData)">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField2" name="流程监控" res="" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-bar-chart-o">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="newField2_click(rowId,rowData,tableData)">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="dark">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField7" name="查询" res="" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="newField7_click(rowId,rowData,tableData)">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="custom" group="事件设置" id="clickType" name="事件类型" value="expend">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="light-blue">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField6" name="刷新" res="" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="custom" group="事件设置" id="clickType" name="事件类型" value="refrash">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="workNo" id="workNo" name="工单编号">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="resizable" name="列宽调节" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="基本设置" id="width" name="宽度" value="200">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="APPLY_REASON" id="title" name="用车事由">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="resizable" name="列宽调节" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="title_customFormatter(cellvalue,options,rowObject)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="APPLY_USER_NAME" id="applicant_name" name="申请人">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="resizable" name="列宽调节" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="APPLY_DEPT_NAME" id="apply_branch_name" name="申请单位">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="resizable" name="列宽调节" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="START_PLACE" id="newField12" name="出发地点" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid"/>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="ARRIVED_PLACE" id="newField14" name="目的地点" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="resizable" name="列宽调节" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="PASSENGERS_NAME" id="newField8" name="乘车人姓名" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid"/>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="CAR_NUM" id="newField11" name="用车" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="workStage" id="stage" name="当前环节">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="resizable" name="列宽调节" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="基本设置" id="width" name="宽度" value="280px;">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="lhActName" id="newField14" name="上一环节" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="lhUserName" id="newField14" name="上一处理人" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="" group="基本设置" id="width" name="宽度" value="80">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="lhTimel" id="newField14" name="任务开始时间" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="" group="格式设置" id="formatter" name="预定格式" value="millisecondDate">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="格式设置" id="formatoptions" name="预定格式设置" value="{dateFormat:&quot;yyyy-MM-dd hh:mm&quot;}">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="USER_NAME" id="newField9" name="当前处理人" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="newField9_customFormatter(cellvalue,options,rowObject,dictValueExpression)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" id="newField" name="超时告警" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="newField_customFormatter(cellvalue,options,rowObject)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="happenedtimel" id="newField5" name="SLA剩余时间" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="newField5_customFormatter(cellvalue,options,rowObject)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" id="newField10" name="关注" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="newField10_customFormatter(cellvalue,options,rowObject)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="基本设置" id="width" name="宽度" value="120">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="right">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="基本设置" id="classes" name="样式" value="overflowvisible">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="fixed" name="宽度固定" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="prodefid" id="newField3" name="prodefid" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="proinsid" id="newField4" name="proinsid" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="businessKey" id="businessKey" name="businessKey">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="taskId" id="taskId" name="taskId">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="moduleId" id="moduleId" name="moduleId">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="workId" id="workId" name="workId">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Group" id="ewtodosearch1" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div"/>
+      </form:control>
+      <form:child xsi:type="form:Group" id="newGroup2" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup2_html">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" logic="com.chinacreator.c2.omp.service.manage.workflowcommon.impl.WorkServiceArrayContentProviderImp" pageSize="10" type="custom"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="priority" name="优先级" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
+      <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;优先级&quot;]"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="getUser" name="当前登录用户" logic="rule:com.chinacreator.c2.sysmgr.security.getSubject" sn="getSubject"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="servicetypes" name="服务分类字典数据" logic="rule:com.chinacreator.c2.omp.common.getDictDataByType" sn="getdictdatabytype">
+      <form:param id="dictTypeName" name="新输入参数" value="[&quot;服务分类&quot;]"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:EntityDataSource" id="uccentity" name="单实体数据源" data="" entity="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.UserConcernedConfig"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="getconcernconfig" name="用户关注工单配置" logic="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.getUserconcernConfig" sn="getconcernconfig">
+      <form:param id="ucc" name="新输入参数"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>//发起任务待办
+newField1_click:function(rowId,rowData,tableData){
+	//console.log(rowId);
+	//console.log(rowData.taskId);
+	//console.log(tableData);
+	var selected = $view.dispatchtodolist.getSelectRowIds();
+	if(selected.length > 1){
+		Messenger.post({
+			'message': &quot;不能同时处理多个事件&quot;,
+            'type': 'error',
+        });	
+        return;
+	}else if(selected.length==0)
+	{
+		Messenger.post({
+			'message': &quot;需要选中一个事件才能进行处理&quot;,
+            'type': 'error',
+        });	
+        return;
+	}
+	
+	var params = &quot;taskId=&quot;+rowData.taskId+&quot;&amp;moduleId=&quot;+rowData.moduleId+&quot;&amp;businessKey=&quot;+rowData.businessKey+&quot;&amp;taskType=todo&quot;
+	location.href = &quot;#/wf/taskHandle?&quot;+params;
+//	$view.dispatchtodolist.refresh();
+},
+//打开流程监控
+newField2_click:function(rowId,rowData,tableData){
+	var selected = $view.dispatchtodolist.getSelectRowIds();
+	if(selected.length > 1){
+		Messenger.post({
+			'message': &quot;不能同时监控多个事件&quot;,
+            'type': 'error',
+        });	
+        return;
+	}else if(selected.length==0)
+	{
+		Messenger.post({
+			'message': &quot;需要选中一个事件才能进行监控&quot;,
+            'type': 'error',
+        });	
+        return;
+	}
+	var paramsjson = {
+		processInstanceId:rowData.proinsid,
+		processDefinitionId:rowData.prodefid
+	}
+	Modal.open(&quot;f/monitorProcess&quot;,paramsjson);	
+},
+//查询
+newField11_click:function($event){
+	$scope.search.formId = $params.formId==null?&quot;krouvHXqTcCbei3QiWt85g&quot;:$params.formId;
+	$scope.search.isExternalStorage = true;
+	$scope.search.serviceTypeId = $params.workType==null?$scope.search.serviceTypeId:$params.workType;
+	$scope.search.retrieveId = $params.workType==null?'commonext':$params.workType;
+	$scope.search.needInvolved = $params.needInvolved==null?false:$params.needInvolved;
+	console.log(&quot;query condition&quot;,$scope.search);
+	$view.dispatchtodolist.refresh($scope.search);
+},
+//选择资产
+newField10_customEven:function(){
+//	console.log($params);
+	Modal.open(&quot;f/assetChoose&quot;,null,function(data){
+		$params.search = {};
+		$params.search.assetXh = data.assetXh;
+		$params.search.assetName = data.assetName;
+		
+	});
+},
+//重置
+newField12_click:function($event){
+	$scope.search = {};
+	$scope.search.formId = $params.formId==null?&quot;krouvHXqTcCbei3QiWt85g&quot;:$params.formId;
+	$scope.search.isExternalStorage = true;
+	$scope.search.retrieveId = $params.workType==null?'commonext':$params.workType;
+	$scope.search.needInvolved = $params.needInvolved==null?false:$params.needInvolved;
+	$scope.search.serviceTypeId = $params.workType==null?$scope.search.serviceTypeId:$params.workType;
+	$view.dispatchtodolist.refresh($scope.search);
+},
+
+newField_click:function(rowId,rowData,tableData){
+	$http.get(&quot;ws/deleteprocessins&quot;,
+	 {
+		 params:{
+			processInstanceId:rowData.proinsid,
+			deleteReason:&quot;删除调试数据&quot;,
+			wfOperator:{
+				userId:$model.getUser.result.id,
+				businessData:{
+					moduleId:rowData.moduleId,
+					businessKey:rowData.businessKey
+				}
+		    }
+		}
+	 
+	 }).success(function(data){
+			//delete需要加上返回值
+			Messenger.post({
+				'message': &quot;流程结束成功&quot;,
+                'type': 'success'
+            });						 	 
+	 });		
+},
+
+//字典值显示处理优先级
+prio_customFormatter:function(cellvalue,options,rowObject){
+	if(!angular.isUndefined($model.priority.result)){
+		var ary = $model.priority.result['优先级'];
+		for(var i=0;i&lt;ary.length;i++){
+			if(ary[i].dictdataName==cellvalue){
+				return ary[i].dictdataValue;
+			}
+		}
+		return &quot;无&quot;;
+	}
+
+},
+
+page_onload:function(){
+	if(TabOperator!=null){
+	/*先保存之前的监听事件*/
+		var onSelectBefore = TabOperator.config().events.onSelect;
+		if(!TabOperator.config().events.iscarapplytodoListenAdded){
+			TabOperator.config().events.onSelect=function(url,currTab){
+				  onSelectBefore(url,currTab);
+				  if(url==&quot;f/mycarapply&quot;){
+					  	/*加入自己的flag，标记自己的监听已经添加完毕*/
+					    TabOperator.config().events.iscarapplytodoListenAdded = true;
+/*			    	  	$params.search = {};
+			    	  	$params.search.serviceTypeId = $params.workType;*/
+			    	  	$view.dispatchtodolist.refresh();
+			      }
+			
+			}		
+		}	
+	}
+
+},
+
+newField_customFormatter:function(cellvalue,options,rowObject){
+//	console.log(rowObject);
+	var a;
+	var b;
+	if(rowObject.isHandleTimeout == true){
+		b = '&lt;img class=&quot;rdtalarm&quot; title=&quot;解决时间告警&quot; data-rdt=&quot;117&quot; data-dst=&quot;120&quot; data-dot=&quot;0&quot; src=&quot;assets/images/OTime_red.gif&quot;>'
+	}else if((rowObject.isHandleTimeout == false)){
+		b = '&lt;img class=&quot;rdtalarm&quot; title=&quot;解决时间告警&quot; data-rdt=&quot;117&quot; data-dst=&quot;120&quot; data-dot=&quot;0&quot; src=&quot;assets/images/noOTime_green.gif&quot;>'
+	}else{
+		b = '&lt;img class=&quot;rdtalarm&quot; title=&quot;无SLA数据&quot; data-rdt=&quot;117&quot; data-dst=&quot;120&quot; data-dot=&quot;0&quot; src=&quot;assets/images/stop.gif&quot;>'
+	}
+	if(rowObject.isRecieveTimeout == true){
+		a = '&lt;img class=&quot;&quot; title=&quot;响应时间告警 &quot; data-rrt=&quot;0&quot; data-rst=&quot;60&quot; data-rot=&quot;0&quot; src=&quot;assets/images/OTime_red.gif&quot;>'
+	}else if((rowObject.isRecieveTimeout == false)){
+		a = '&lt;img class=&quot;&quot; title=&quot;响应时间告警 &quot; data-rrt=&quot;0&quot; data-rst=&quot;60&quot; data-rot=&quot;0&quot; src=&quot;assets/images/noOTime_green.gif&quot;>'
+	}else{
+		a = '&lt;img class=&quot;rdtalarm&quot; title=&quot;无SLA数据&quot; data-rdt=&quot;117&quot; data-dst=&quot;120&quot; data-dot=&quot;0&quot; src=&quot;assets/images/stop.gif&quot;>'
+	}
+	return a+b;
+//	var a = 
+//	&lt;img class=&quot;&quot; title=&quot;响应时间告警 &quot; data-rrt=&quot;0&quot; data-rst=&quot;60&quot; data-rot=&quot;0&quot; src=&quot;/itsm/css/default/images/OTime_red.gif&quot;> &lt;img class=&quot;rdtalarm&quot; title=&quot;解决时间告警&quot; data-rdt=&quot;117&quot; data-dst=&quot;120&quot; data-dot=&quot;0&quot; src=&quot;/itsm/css/default/images/noOTime_green.gif&quot;>
+},
+
+newField5_customFormatter:function(cellvalue,options,rowObject){
+	var a;
+	if(!angular.isUndefined(rowObject.slaRemaintime)){
+		return '&lt;div title=&quot;响应时间+解决时间&quot;>&lt;span class=&quot;sla_remainder&quot; style=&quot;color:red&quot; >'+rowObject.slaRemaintime+'&lt;/span>分钟&lt;/div>'
+	}else{
+		return '&amp;nbsp';
+	}
+},
+
+newField8_customFormatter:function(cellvalue,options,rowObject){
+//	console.log($model.servicetypes.result[&quot;服务分类&quot;][cellvalue]);
+	return '{{$model.servicetypes.result[&quot;服务分类&quot;][&quot;'+cellvalue+'&quot;]}}'
+},
+
+title_customFormatter:function(cellvalue,options,rowObject){
+	return '&lt;a href=&quot;javascript:void(0)&quot; ng-click=functions.workclick(&quot;'+rowObject.taskId+'&quot;,&quot;'+rowObject.moduleId+'&quot;,&quot;'+rowObject.businessKey+'&quot;)>'+cellvalue+'&lt;/a>'
+},
+workclick:function(a,b,c){
+	var params = &quot;taskId=&quot;+a+&quot;&amp;moduleId=&quot;+b+&quot;&amp;businessKey=&quot;+c+&quot;&amp;taskType=todo&quot;
+	location.href = &quot;#/wf/taskHandle?&quot;+params;
+},
+
+newField10_customFormatter:function(cellvalue,options,rowObject){
+	/*console.log(rowObject);*/
+	var buttonContent = angular.isUndefined(rowObject.ConcernStatus)?kcompglobal.workoperate.concernthiswork:rowObject.ConcernStatus;
+	var concernWork = kcompglobal.workoperate.concernthiswork;
+	var concernProduct = kcompglobal.workoperate.concerntheproduct;
+	var content = '&lt;div id=&quot;concerndiv&quot; class=&quot;btn-group overflowvisible&quot; style=&quot;overflow:visible&quot;>'
+	+'&lt;button id=&quot;statusButtion&quot; type=&quot;button&quot; class=&quot;btn btn-xs btn-info&quot;  ng-class=&quot;{\'remind\':rowObject.ConcernStatus}&quot; ng-click=functions.operateConcernedWork(&quot;'+rowObject.proinsid+'&quot;,&quot;'+rowObject.moduleId+'&quot;,&quot;'+rowObject.taskdefid+'&quot;,&quot;'+rowObject.ConcernStatus+'&quot;,this,$event)> &lt;div>'+buttonContent+'&lt;span ng-if=rowObject.ConcernStatus>取消关注&lt;/span>&lt;/div>&lt;/button>'
+	+'&lt;button type=&quot;button&quot; class=&quot;btn btn-xs btn-info dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;>'
+	+'&lt;span class=&quot;caret&quot;>&lt;/span>&lt;span class=&quot;sr-only&quot;>Toggle Dropdown&lt;/span>&lt;/button>'
+	+'&lt;ul class=&quot;dropdown-menu dropdown-menu-right&quot;>'
+	+'&lt;li>&lt;a href=&quot;#&quot; ng-click=functions.operateConcernedWork(&quot;'+rowObject.proinsid+'&quot;,&quot;'+rowObject.moduleId+'&quot;,&quot;'+rowObject.taskdefid+'&quot;,&quot;'+undefined+'&quot;,this,$event)>'+concernWork+'&lt;/a>&lt;/li>'
+	+'&lt;li>&lt;a href=&quot;#&quot; ng-click=functions.addConcernedSP(&quot;'+rowObject.proinsid+'&quot;,&quot;'+rowObject.moduleId+'&quot;,&quot;'+rowObject.taskdefid+'&quot;,&quot;'+rowObject.ConcernStatus+'&quot;,this,$event)>'+concernProduct+'&lt;/a>&lt;/li>'
+	+'&lt;/ul>'
+	+'&lt;/div>'
+	return content;
+},
+operateConcernedWork:function(proinsid,moduleId,taskdefid,ConcernStatus,thiz,$event){
+	//阻止事件冒泡，点击按钮不需要选中行
+	$event.stopPropagation();
+	if(ConcernStatus==&quot;undefined&quot;){
+		ConcernStatus = undefined;
+	}
+	console.log(ConcernStatus,ConcernStatus);
+	//关注状态为空 则为添加关注工单操作
+	if(angular.isUndefined(ConcernStatus)){
+		Modal.open(&quot;f/servicemanageinformtypechoose&quot;
+			,function(){			
+			}
+			,function(data){
+				if(angular.isUndefined(data.informType)){
+					Messenger.post({
+						'message': &quot;选择通知方式&quot;,
+		                'type': 'error'
+		            });					
+					return;
+				}
+				$model.uccentity.processInsId = proinsid;
+				/*此处不能用流程定义 因为多个服务产品可能用的是同一个流程定义 此处modelId可以代表一个服务产品*/
+				$model.uccentity.processDefId = moduleId;
+				$model.uccentity.observerId = $model.curUserId;
+				$model.uccentity.catogory = &quot;user&quot;;
+				$model.uccentity.informType = data.informType;
+				console.log('entity',$model.uccentity);
+				//默认邮件通知和短信通知
+				$model.uccentity.informType = data.informType;
+				$http.post(&quot;ws/operateuserconcernwork&quot;,{ucc:$model.uccentity,userId:$model.curUserId,concernStatus:ConcernStatus,action:kcompglobal.workoperate.concernthiswork})
+					.success(function(a){
+						$view.dispatchtodolist.refresh();
+					});
+		});
+	}else{//关注状态不为空 则为取消关注操作
+		$model.uccentity.processInsId = proinsid;
+		/*此处不能用流程定义 因为多个服务产品可能用的是同一个流程定义 此处modelId可以代表一个服务产品*/
+		$model.uccentity.processDefId = moduleId;
+		$model.uccentity.observerId = $model.curUserId;
+		$model.uccentity.catogory = &quot;user&quot;;
+		/*$model.uccentity.informType = data.informType;*/
+		$http.post(&quot;ws/operateuserconcernwork&quot;,{ucc:$model.uccentity,userId:$model.curUserId,concernStatus:ConcernStatus,action:kcompglobal.workoperate.concernthiswork})
+			.success(function(a){
+				$view.dispatchtodolist.refresh();
+			});		
+	}
+		
+/*	console.log(proinsid);
+	console.log(ConcernStatus);
+	console.log(&quot;this&quot;,thiz);*/
+	
+
+},
+/*添加产品关注*/
+addConcernedSP:function(proinsid,moduleId,taskdefid,ConcernStatus,thiz,$event){
+	$model.uccentity = {};
+	$event.stopPropagation();
+	
+	/*concernstatus 置空后台才是添加关注操作*/
+	ConcernStatus = undefined;
+	if(angular.isUndefined(ConcernStatus)){
+		Modal.open(&quot;f/servicemanageinformtypechoose&quot;
+			,function(){			
+			}
+			,function(data){
+				if(angular.isUndefined(data.informType)){
+					Messenger.post({
+						'message': &quot;选择通知方式&quot;,
+		                'type': 'error'
+		            });					
+					return;
+				}
+				$model.uccentity.processInsId = proinsid;
+				/*此处不能用流程定义 因为多个服务产品可能用的是同一个流程定义 此处modelId可以代表一个服务产品*/
+				$model.uccentity.processDefId = moduleId;
+				$model.uccentity.obseverId = $model.curUserId;
+				$model.uccentity.catogory = &quot;user&quot;;
+				$model.uccentity.informType = data.informType;	
+				$http.post(&quot;ws/operateuserconcernwork&quot;,{ucc:$model.uccentity,userId:$model.curUserId,concernStatus:ConcernStatus,action:kcompglobal.workoperate.concerntheproduct})
+					.success(function(a){
+						$view.dispatchtodolist.refresh();
+					});			
+			});
+	
+	}
+},
+page_afterDataSourceLoad:function(){
+	
+/*	$model.state = &quot;关注此工单&quot;;
+	$model.buttonlabel = this.buttonlabel;*/
+	
+	$model.curUserId = $model.getUser.result.id;
+/*定义search对象 以及查询重置函数 给子作用域使用*/
+	$scope.search = {};
+	$scope.query = this.newField11_click;
+	$scope.reset = this.newField12_click;
+	
+//	console.log(&quot;d&quot;,$model.list.result);
+/*	var jgrid = $view.dispatchtodolist.getObject();
+	var params = jgrid.getGridParam();
+	console.log(&quot;jgrid&quot;,jgrid);
+	console.log(&quot;params&quot;,jgrid.getGridParam());
+	jgrid.GridUnload();
+	params.colModel[2].name = &quot;title&quot;;
+	jQuery(&quot;#dispatchtodolist&quot;).jqGrid(params);
+//	jgrid.GridNav();
+*/},
+
+newField9_customFormatter:function(cellvalue,options,rowObject,dictValueExpression){
+	var userName = rowObject.USER_NAME;
+	var groupName = rowObject.GROUP_NAME;
+	if(userName!=undefined&amp;&amp;userName!=&quot;&quot;){
+		return userName;
+	}
+	if(groupName!=undefined&amp;&amp;groupName!=&quot;&quot;){
+		return &quot;组【&quot;+groupName+&quot;】&quot;;
+	}	
+},
+
+qianshou_click:function(rowId,rowData,tableData){
+	
+}</form:scripts>
+  <form:htmls>&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup2_html&quot;>&#xD;
+&lt;div ng-include=&quot;'f/retrievedisplay'&quot; ng-init=&quot;$params={'retrieveKey':$params.workType==null?'commonext':$params.workType}&quot;>&#xD;
+&lt;/script>&#xD;
+&lt;style>&#xD;
+.ui-jqgrid .ui-jqgrid-bdiv {&#xD;
+	overflow: visible;&#xD;
+}&#xD;
+.overflowvisible {&#xD;
+	overflow:visible !important;&#xD;
+}&#xD;
+.remind span {display:block;margin-top:0px;}&#xD;
+.remind div:hover {margin-top:-22px;}&#xD;
+.remind div {float:left;overflow:hidden;}&#xD;
+.remind{height:22px;line-height:22px;overflow:hidden;padding-left:0px;}&#xD;
+&lt;/style></form:htmls>
+</form:Form>
