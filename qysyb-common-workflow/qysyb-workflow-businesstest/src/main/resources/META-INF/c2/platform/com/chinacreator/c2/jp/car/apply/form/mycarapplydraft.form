@@ -281,9 +281,6 @@
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
     <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.jp.car.apply.entity.carapply" pageSize="10"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="dictdata" name="字典" logic="rule:com.chinacreator.c2.omp.common.getDictDataByType" sn="getdictdatabytype">
-      <form:param id="dictTypeName" name="新输入参数" value="[&quot;公文管理_密级&quot;,&quot;公文管理_紧急程度&quot;]"/>
-    </form:datasource>
   </form:datasources>
   <form:scripts>
 
@@ -361,7 +358,9 @@ page_onload:function(){
 		var onSelectBefore = TabOperator.config().events.onSelect;
 		if(!TabOperator.config().events.iscarapplydraftListenAdded){
 			TabOperator.config().events.onSelect=function(url,currTab){
-				  onSelectBefore(url,currTab);
+				  if(onSelectBefore!=undefined &amp;&amp; typeof onSelectBefore == &quot;function&quot;){
+					  onSelectBefore(url,currTab);
+				  }
 				  if(url==&quot;f/mycarapply&quot;){
 					  	/*加入自己的flag，标记自己的监听已经添加完毕*/
 					    TabOperator.config().events.iscarapplydraftListenAdded = true;
