@@ -33,7 +33,13 @@
 			<artifactId>qysyb-workflow-manage</artifactId>		
 			<scope>provided</scope>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>com.chinacreator.c2.qyb</groupId>
+			<version>${project.version}</version>
+			<artifactId>qysyb-workflow-serviceapi</artifactId>		
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>com.chinacreator.c2.qyb</groupId>

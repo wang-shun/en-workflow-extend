@@ -13,11 +13,21 @@
 		 <dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-sys-std-oracle</artifactId>
-			<version>4.2.1</version>
+			<version>4.2.3</version>
+		</dependency>
+			
+		<dependency>
+		  <groupId>com.chinacreator.c2</groupId>
+		  <artifactId>c2-runtime</artifactId>
+		  <version>4.2.4</version>
+		</dependency>	
+		<dependency>
+		  <groupId>com.chinacreator.c2</groupId>
+		  <artifactId>c2-ui-components</artifactId>
+		  <version>4.2.8.4</version>
 		</dependency>
 
-
-		 <dependency>
+<!-- 		 <dependency>
 			<groupId>com.chinacreator.c2.qyb</groupId>
 			<artifactId>qysyb-workflow-businesstest</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -27,14 +37,19 @@
 			<version>0.0.1-SNAPSHOT</version>
 		  <artifactId>qysyb-workflow-resource</artifactId>
 		  <type>war</type>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
 			<groupId>com.chinacreator.c2.qyb</groupId>
 			<version>0.0.1-SNAPSHOT</version>
-			<artifactId>qysyb-workflow-manage</artifactId>		
+			<artifactId>qysyb-workflow-oracle-test</artifactId>		
 		</dependency>
-		
+		<dependency>
+		  <groupId>com.chinacreator.c2.qyb</groupId>
+		  <version>${project.version}</version>
+		  <artifactId>qysyb-workflow-resource</artifactId>
+		  <type>war</type>
+		</dependency>		
 <!-- 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-flow-ui</artifactId>
@@ -63,17 +78,7 @@
 			<version>1.1.2</version>
 		</dependency>
 		
-			
-		<dependency>
-		  <groupId>com.chinacreator.c2</groupId>
-		  <artifactId>c2-runtime</artifactId>
-		  <version>4.2.1.2</version>
-		</dependency>	
-		<dependency>
-		  <groupId>com.chinacreator.c2</groupId>
-		  <artifactId>c2-ui-components</artifactId>
-		  <version>4.2.8-SNAPSHOT</version>
-		</dependency>
+
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-module-fs-dir</artifactId>

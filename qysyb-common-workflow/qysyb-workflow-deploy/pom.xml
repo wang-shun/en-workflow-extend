@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+   <parent>
+    <groupId>com.chinacreator.c2.qyb</groupId>
+    <artifactId>qysyb-workflow-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent> 
+  <artifactId>qysyb-workflow-deploy</artifactId>
+  <name>qysyb-workflow-deploy</name>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>qysyb-workflow-oracle</module>
+  	<module>qysyb-workflow-oracle-test</module>
+  </modules>
+  <distributionManagement>
+		<repository>
+			<id>business-releases</id>
+			<name>business</name>
+			<url>http://172.16.25.142/nexus/content/repositories/business-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>business-snapshots</id>
+			<name>business</name>
+			<url>http://172.16.25.142/nexus/content/repositories/business-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>
