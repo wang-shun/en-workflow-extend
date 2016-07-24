@@ -457,7 +457,7 @@ btn_edit_click:function($event){
     </docket:event>
     <docket:event desc="" id="list" name="列表for自定义查询器">
       <docket:logic/>
-      <docket:ui name="列表for自定义查询器" sn="servicemangerfieldlist" type="inner">
+      <docket:ui id="list" name="列表for自定义查询器" sn="servicemangerfieldlist" type="inner">
         <form:control type="page/modal">
           <form:attributes source="page/modal">
             <dync:attribute default="" group="HTML" id="title" name="标题" value="自定义查询器">
@@ -771,8 +771,8 @@ btn_edit_click:function($event){
           <form:datasource xsi:type="form:Inputs">
             <form:input id="id" name="实体数据id"/>
           </form:datasource>
-          <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField" pageSize="10"/>
-          <form:datasource xsi:type="form:PagingDataSource" id="list1" name="列表型数据源" elementType="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.retrieval.RetrieveItem" pageSize="10"/>
+          <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.qyb.workflow.form.entity.FormField" pageSize="10"/>
+          <form:datasource xsi:type="form:PagingDataSource" id="list1" name="列表型数据源" elementType="entity:com.chinacreator.c2.qyb.workflow.customretrieval.entity.RetrieveItem" pageSize="10"/>
         </form:datasources>
         <form:scripts>
 
