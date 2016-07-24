@@ -283,6 +283,39 @@
           exists(select LINK.USER_ID_ from ${prefix}ACT_HI_IDENTITYLINK LINK where USER_ID_ = #{involvedUser} and LINK.PROC_INST_ID_ = RES.ID_)
         )
       </if>
+ 	  <!--排除待办记录  目前不能够仅仅排除待办而没有involvedUser-->
+      <if test="excludeTodo &amp;&amp; involvedUser != null">
+ 			AND NOT EXISTS (
+ 				SELECT
+ 					LINK1.USER_ID_,
+ 					LINK1.PROC_INST_ID_ AS PROC_INST_ID_
+ 				FROM
+ 					(
+ 						SELECT
+ 							LL.GROUP_ID_ AS GROUP_ID_ ,LL.USER_ID_ AS USER_ID_, TT.PROC_INST_ID_ AS PROC_INST_ID_
+ 						FROM
+ 							ACT_RU_TASK TT,
+ 							ACT_RU_IDENTITYLINK LL,
+ 							ACT_HI_PROCINST II
+ 						WHERE
+ 							LL.TASK_ID_ = TT.ID_
+ 						AND TT.PROC_INST_ID_ = II.PROC_INST_ID_
+ 					) LINK1
+ 				WHERE
+ 					(
+ 						LINK1.USER_ID_ = #{involvedUser}
+ 						OR LINK1.GROUP_ID_ IN (
+ 							SELECT
+ 								G .GROUP_ID_
+ 							FROM
+ 								ACT_ID_MEMBERSHIP G
+ 							WHERE
+ 								G .USER_ID_ = #{involvedUser}
+ 						)
+ 					)
+ 				AND res.id_ = LINK1.PROC_INST_ID_
+ 			)
+      </if>       
       <if test="startedBy != null">
         and RES.START_USER_ID_ = #{startedBy}
       </if>

@@ -135,5 +135,13 @@ public class MHistoricProcessInstanceQueryImpl extends HistoricProcessInstanceQu
 		    }
 		    return Boolean.class.isAssignableFrom(value.getClass()) || boolean.class.isAssignableFrom(value.getClass());
 	}
-
+ 	//排除待办中的记录
+	
+ 	boolean excludeTodo = false;
+ 	public boolean isExcludeTodo() {
+ 		return excludeTodo;
+ 	}
+ 	public void setExcludeTodo(boolean excludeTodo) {
+ 		this.excludeTodo = excludeTodo;
+ 	}
 }

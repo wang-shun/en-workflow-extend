@@ -33,6 +33,7 @@ import oracle.sql.TIMESTAMP;
  */
 @Service
 public class HistoricProcInstanceQueryService {
+	static final String EXCLUDE_TODO = "excludeTodo";
 	@Autowired
 	FormService fs;
 	@Autowired
@@ -97,11 +98,13 @@ public class HistoricProcInstanceQueryService {
  		String productNo = null;
  		if(con!=null&&con.get(WorkFlowService.PRODUCTNO)!=null){
  			productNo = (String) con.get(WorkFlowService.PRODUCTNO);
+ 			historicInstanceQuery.variableValueEquals(WorkFlowService.PRODUCTNO,productNo);
  		}
  		/*服务类型过滤*/
  		String serviceType = null;
  		if(con!=null&&con.get(WorkFlowService.SERVICETYPEKEY)!=null){
  			serviceType = (String) con.get(WorkFlowService.SERVICETYPEKEY);
+ 			historicInstanceQuery.variableValueEquals(WorkFlowService.SERVICETYPEKEY, serviceType);
  		}
 		Boolean needFinished = null;
 		if(con!=null&&con.get(WorkFlowService.NEEDFINISHED)!=null){
@@ -133,22 +136,24 @@ public class HistoricProcInstanceQueryService {
 		if(needInvolved==true&&userId!=null){
 			historicInstanceQuery.involvedUser(userId);
 		}
- 		/*服务产品过滤*/
- 		if(con!=null&&con.get(WorkFlowService.PRODUCTNO)!=null){
- 			productNo = (String) con.get(WorkFlowService.PRODUCTNO);
- 			historicInstanceQuery.variableValueEquals(WorkFlowService.PRODUCTNO,productNo);
- 		}
- 		/*服务类型过滤*/
- 		if(con!=null&&con.get(WorkFlowService.SERVICETYPEKEY)!=null){
- 			serviceType = (String) con.get(WorkFlowService.SERVICETYPEKEY);
- 			historicInstanceQuery.variableValueEquals(WorkFlowService.SERVICETYPEKEY, serviceType);
- 		}
+ 		//是否排除待办记录
+ 		boolean excludeTodo = false;
+ 		if(con!=null&&con.get(EXCLUDE_TODO)!=null&&userId!=null){
+ 			excludeTodo = (boolean) con.get(EXCLUDE_TODO);
+ 			if(excludeTodo){
+ 				historicInstanceQuery.setExcludeTodo(true);
+ 				historicInstanceQuery.involvedUser(userId);
+ 			}
+ 		}		
+ 		
 		//可以让其查出所有
 		if(offset<0||limit<0){
 //			historicInstanceQuery.setPage(0, 1000);
 		}else{
 			historicInstanceQuery.setPage(offset, limit);
 		}
+ 		//默认未完成工单在前
+ 		historicInstanceQuery.orderByProcessInstanceEndTime().desc();
 		//默认开始时间排序
 		historicInstanceQuery.orderByProcessInstanceStartTime().desc();
 		RetrieveItemService retrieveItemService = ApplicationContextManager.getContext().getBean(RetrieveItemService.class);

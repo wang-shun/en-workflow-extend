@@ -2498,6 +2498,9 @@ public class WorkFlowService {
 	 */
 	public String getRecoverToTaskDefId(String proInsId, String taskId,
 			String userId, String businessId) {
+ 		if(taskId == null||taskId.equals("")){
+ 			return null;
+ 		}
 		HistoricActivityInstanceQuery htiQuery = historyService
 				.createHistoricActivityInstanceQuery();
 		List<HistoricActivityInstance> htiList = htiQuery
