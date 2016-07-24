@@ -5,7 +5,7 @@
 
 	<groupId>com.chinacreator.c2.qyb</groupId>
 	<artifactId>qysyb-workflow-parent</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.9.9</version>
 	<packaging>pom</packaging>
 
 	<name>qysyb-workflow-parent</name>
@@ -27,6 +27,7 @@
 		<module>qysyb-workflow-daoapi</module>
 		<module>qysyb-workflow-serviceapi</module>	
 		<module>qysyb-workflow-businesstest</module>	
+		<module>qysyb-workflow-deploy</module>
 	</modules>
 	<dependencies>
 

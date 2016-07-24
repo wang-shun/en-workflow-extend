@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.chinacreator.c2.qyb</groupId>
 		<artifactId>qysyb-workflow-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.9.9</version>
 	</parent>
 	<artifactId>qysyb-workflow-console</artifactId>
 	<packaging>war</packaging>
@@ -41,7 +41,7 @@
 		
 		<dependency>
 			<groupId>com.chinacreator.c2.qyb</groupId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<artifactId>qysyb-workflow-oracle-test</artifactId>		
 		</dependency>
 		<dependency>
