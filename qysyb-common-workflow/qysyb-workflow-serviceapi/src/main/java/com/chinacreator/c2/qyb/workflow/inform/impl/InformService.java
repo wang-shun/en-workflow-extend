@@ -80,6 +80,7 @@ public class InformService {
 	//防止重复发送邮件
 	private List<InformTask> listTaskTodo = new ArrayList<InformTask>();
 	
+	private Map busientity = new HashMap();
 	private ActivityConfigService activityConfigService;
 	private UserConcernedConfigService userConcernedConfigService;
 	@Autowired
@@ -90,6 +91,10 @@ public class InformService {
 	private HistoryService historyService;
 
 	private String ccInformJsonStr;
+ 	public synchronized void informDo(Map entity){
+ 		this.busientity = entity;
+ 		informDo();
+ 	}	
 	/**
 	 * 
 	 */

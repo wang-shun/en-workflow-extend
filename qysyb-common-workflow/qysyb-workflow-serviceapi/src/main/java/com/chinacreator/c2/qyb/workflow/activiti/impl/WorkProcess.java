@@ -812,7 +812,7 @@ public class WorkProcess {
 			}
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
-			informService.informDo();
+			informService.informDo(entitymap);
 			return new ResponseFactory().createResponseBodyJSONObject(JSON
 					.toJSONString(wfresult));
 		}
@@ -851,7 +851,7 @@ public class WorkProcess {
 		informService = ApplicationContextManager.getContext().getBean(
 				InformService.class);
 		informService.setCcInformsInfo(ccInformJsonStr);
-		informService.informDo();
+		informService.informDo(entitymap);
 
 		return new ResponseFactory().createResponseBodyJSONObject(JSON
 				.toJSONString(wfresult));
@@ -1004,7 +1004,7 @@ public class WorkProcess {
  					processDefinitionId,wfTransition.getDest().getId(),moduleId,variables);
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
-			informService.informDo();
+			informService.informDo(mapentity);
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
