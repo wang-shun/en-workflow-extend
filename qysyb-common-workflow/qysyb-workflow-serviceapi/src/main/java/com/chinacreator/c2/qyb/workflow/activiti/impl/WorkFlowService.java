@@ -753,6 +753,27 @@ public class WorkFlowService {
 		}
 	}
 
+ 	/**
+	
+ 	 * 批量获取服务类型的待办事项数量
+ 	 * 
+ 	 * @param types
+ 	 * @param userId
+ 	 * @return
+ 	 */
+ 	public Map<String, Integer> getTodoWorkTotalbyTypes(String[] serviceType, String formId) {
+ 		Map<String, Integer> map = new HashMap<String, Integer>();
+ 		Map con = new HashMap();
+ 		AccessControlService acc = new AccessControlServiceImpl();
+ 		String userId = acc.getUserID();
+ 			con.put("isExternalStorage", true);
+ 			con.put("formId", formId);
+ 			map.put("all",
+ 					getTodoWorkTotalByST(null, con, userId));
+ 			return map;
+ 	
+ 	}	
+	
 	/**
 	 * 获取服务产品的待办
 	 * 

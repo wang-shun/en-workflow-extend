@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getTodoWorkTotalByIndex" log="false" className="com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService" method="getTodoWorkTotalbyTypes">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>首页获取统一待办</name>
+  <desc>批量获取服务类型的待办事项数量</desc>
+  <inputs>
+    <input collection="false" desc="@param" id="serviceType" required="true" type="[LString;"/>
+    <input collection="false" desc="@param" id="formId" required="true" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.Map"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.serviceType" name="serviceType" signature="[QString;" type="[LString;"/>
+    <param autoValue="Input.formId" name="formId" signature="QString;" type="String"/>
+  </params>
+  <return signature="QMap&lt;QString;QInteger;>;" type="java.util.Map"/>
+</CustomRule>
