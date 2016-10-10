@@ -1129,7 +1129,8 @@ public class WorkProcess {
 		UserJobService userJobService = ApplicationContextManager.getContext()
 				.getBean(UserJobService.class);
 		List assigneList = new ArrayList();
-		if (variables.get(WorkFlowService.TYPE_ASSIGNEE) != null) { // 分派人
+ 		if (variables.get(WorkFlowService.TYPE_ASSIGNEE) != null 
+ 				&& !variables.get(WorkFlowService.TYPE_ASSIGNEE).equals("")) { // 分派人
 			String s = (String) variables.get(WorkFlowService.TYPE_ASSIGNEE);
 			variables.put(HANDLE_TYPE_KEY, WorkFlowService.TYPE_ASSIGNEE);
 			variables.put(HANDLE_VALUE_KEY, s);
@@ -1138,7 +1139,8 @@ public class WorkProcess {
 			}
 			variables.put("candidateUsers", s.substring(0, s.length() - 1));
 			// assigneList.add(s.substring(0, s.length()-1));
-		} else if (variables.get(WorkFlowService.TYPE_CANDIDATEUSERS) != null) { // 候选人
+ 		} else if (variables.get(WorkFlowService.TYPE_CANDIDATEUSERS) != null
+ 				&& !variables.get(WorkFlowService.TYPE_CANDIDATEUSERS).equals("")) { // 候选人
 			String s = (String) variables.get("candidateUsers");
 			if (s.length() == 0) {
 				throw new RuntimeException();
@@ -1157,7 +1159,8 @@ public class WorkProcess {
 					.split(",")));
 			variables.put(WorkFlowService.TYPE_ASSIGNEELIST, assigneList);
 
-		} else if (variables.get(WorkFlowService.TYPE_CANDIDATEGROUPS) != null) { // 候选组
+ 		} else if (variables.get(WorkFlowService.TYPE_CANDIDATEGROUPS) != null
+ 				&& !variables.get(WorkFlowService.TYPE_CANDIDATEGROUPS).equals("")) { // 候选组
 
 			variables
 					.put(HANDLE_TYPE_KEY, WorkFlowService.TYPE_CANDIDATEGROUPS);
@@ -1190,7 +1193,8 @@ public class WorkProcess {
 				 */
 			}
 
-		} else if (variables.get(WorkFlowService.TYPE_ASSIGNEELIST) != null) {// assigneeList
+ 		} else if (variables.get(WorkFlowService.TYPE_ASSIGNEELIST) != null
+ 				&& !variables.get(WorkFlowService.TYPE_ASSIGNEELIST).equals("")) {// assigneeList
 																				// 多任务实例
 			String value = (String) variables
 					.get(WorkFlowService.TYPE_ASSIGNEELIST);
