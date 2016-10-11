@@ -101,6 +101,11 @@
   <form:scripts>
 
 page_afterDataSourceLoad:function(){
+ 	//为特定事项加入特定的样式
+ 	var productNo = $params.params.serviceproduct.productNo
+ 	var serviceTypeId = $params.params.serviceproduct.serviceTypeId
+ 	$scope.productClass = &quot;a4_list &quot;+&quot;product_&quot;+productNo+&quot; serviceType_&quot;+serviceTypeId;
+ 	 
 	$model.categories = $model.allcategory.result;
 //	$scope.formentity = $params.pModel.formentity.result;
 //	$scope.permissionData = $model.permissiondata.result;
@@ -197,7 +202,7 @@ update:function(triggersrc,data){
 	&lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;div ng-if=&quot;!$params.isAccordian&quot; class=&quot;a4_list&quot;>
+&lt;div ng-if=&quot;!$params.isAccordian&quot; class={{productClass}}>
 &lt;div ng-repeat=&quot;a in $model.fields&quot; class=&quot;a4&quot;>
 	&lt;div ng-if=&quot;permissionData[a.fieldNo].visible&quot;>
 
