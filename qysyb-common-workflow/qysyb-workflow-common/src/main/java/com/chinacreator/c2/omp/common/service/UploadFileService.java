@@ -81,6 +81,22 @@ public class UploadFileService {
 		Dao dao = DaoFactory.create(UploadFile.class);
 		dao.update(file);
 	}
+ 	/**
+ 	 * 获取指定id 和  key 的记录条数
+ 	 * @param businessType 请必填
+ 	 * @param businesskey 请必填
+ 	 * @param taskid
+ 	 * @return
+ 	 */
+ 	public List<UploadFile> getFiles(String businessType,String businessKey,String businessKey2){
+ 		Dao<UploadFile> dao = DaoFactory.create(UploadFile.class);
+ 		UploadFile file = new UploadFile();
+ 		file.setBusinessType(businessType);
+ 		file.setBusinessKey(businessKey);
+ 		file.setTaskId(businessKey2);
+ 		return dao.select(file);
+ 	}
+ 	
 	/**
 	 * 获取指定id 和  key 的记录条数
 	 * @param businessType 请必填
