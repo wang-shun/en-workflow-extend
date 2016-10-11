@@ -221,6 +221,27 @@
                 </form:control>
                 <form:validation/>
               </form:child>
+              <form:child xsi:type="form:Field" binding="$model.freechooseuser" id="checkbox" name="自由选人" customize="true">
+                <form:control type="widget/checkbox">
+                  <form:attributes source="widget/checkbox">
+                    <dync:attribute default="2" group="HTML设置" id="span" name="控件宽度" value="12">
+                      <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="" group="事件设置" id="onChange" name="状态改变" value="checkbox_onChange()">
+                      <dync:render colSpan="2" height="0" multi="false" name="event">
+                        <dync:item name="params" value=""/>
+                      </dync:render>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="false">
+                      <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
             </form:child>
           </form:child>
         </form:child>
@@ -244,6 +265,7 @@
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="75" group="基本设置" id="lableWidth" name="lable宽度" value="150">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
@@ -519,10 +541,10 @@
     </form:datasource>
     <form:datasource xsi:type="form:TreeDataSource" id="tree" name="树型数据源" impl="com.chinacreator.c2.workflow.workflowManage.ds.CandidateChooseTreeContentProvider" type="custom"/>
     <form:datasource xsi:type="form:EntityDataSource" id="entity" name="单实体数据源" data="" entity="entity:com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="alltabs" name="服务产品关联的tabs" logic="rule:com.chinacreator.c2.qyb.workflow.tab.getAllTabsForProduct" sn="getalltabforproduct">
+    <form:datasource xsi:type="form:LogicDataSource" id="alltabs" name="所有页签" logic="rule:com.chinacreator.c2.qyb.workflow.tab.getAllTabsForProduct" sn="getalltabforproduct">
       <form:param id="productId" name="新输入参数" value="$params.moduleId"/>
     </form:datasource>
-    <form:datasource xsi:type="form:LogicDataSource" id="activities" name="流程定义中的activities" logic="rule:com.chinacreator.c2.qyb.workflow.process.getActivitiesFromProcDef" sn="getactivitiesfromprocdef">
+    <form:datasource xsi:type="form:LogicDataSource" id="activities" name="流程定义中的所有活动" logic="rule:com.chinacreator.c2.qyb.workflow.process.getActivitiesFromProcDef" sn="getactivitiesfromprocdef">
       <form:param id="procDefId" name="新输入参数" value="$params.processDefId"/>
     </form:datasource>
   </form:datasources>
@@ -591,7 +613,15 @@ page_afterDataSourceLoad:function(){
 			var kvs = filtervalue.split(&quot;:&quot;);
 			var value = kvs[1];
 			$model.filtertype = value;
-		}			
+		}
+		
+		//自由选人
+		var fcuindex = functions.has_action(&quot;freechooseuser&quot;);
+		if(fcuindex==undefined){
+			$model.freechooseuser = false;
+		}else{
+			$model.freechooseuser = true;
+		}					
 	});
 	
 	
@@ -639,7 +669,14 @@ page_afterDataSourceLoad:function(){
 				$model.entityactivityconfig.remark4 = &quot;f/choosetaskhandler&quot;;
 			}else{
 				$model.freeChoose = true;
-			}		
+			}	
+			//自由选人
+			var fcuindex = functions.has_action(&quot;freechooseuser&quot;);
+			if(fcuindex==undefined){
+				$model.freechooseuser = false;
+			}else{
+				$model.freechooseuser = true;
+			}				
 		});
 */
 //用户关注设置		
@@ -658,13 +695,7 @@ page_afterDataSourceLoad:function(){
 },
 
 page_onload:function(){
-	$model.activity_Name = $params.activity_name;
-	/*有一个默认的处理页面*/
-/*	$model.freechoose = true;
-	if($model.freeChoose==false){
-		$model.entityactivityconfig.remark4 = &quot;f/choosetaskhandler&quot;;
-	}*/
-	
+	$model.activity_Name = $params.activity_name;	
 },
 // save
 newField9_click:function($event){
@@ -851,10 +882,6 @@ add_action:function(action,value){
 	if($model.entityactivityconfig.includeActions==undefined||$model.entityactivityconfig.includeActions==&quot;&quot;){
 		$model.entityactivityconfig.includeActions = value;
 	}else{
-/*		var index = this.has_action(action);
-		if(index==undefined){
-			$model.entityactivityconfig.includeActions = $model.entityactivityconfig.includeActions+&quot;,&quot;+value;
-		}*/	
 		this.del_action(action);
 		$model.entityactivityconfig.includeActions = $model.entityactivityconfig.includeActions+&quot;,&quot;+value;
 	}
@@ -915,10 +942,13 @@ newField11_onChange:function(){
 	}	
 	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);
 },
+//组装action字符串。组装成 key:value 或 key:value1|value2 的形式
 assemble_action:function(key,value,arrayvalues){
+	//value是单个值
 	if(value!=undefined){
 		return key+&quot;:&quot;+value;
 	}
+	//value是多个值
 	if(arrayvalues instanceof Array){
 		var result = &quot;&quot;;
 		for(var i=0;i&lt;arrayvalues.length;i++){
@@ -936,7 +966,16 @@ filtertypediv_clickEvent:function(value){
 	}else{
 		this.del_action(&quot;filtertype&quot;);
 	}
-	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);	
+//	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);	
+},
+//自由选人
+checkbox_onChange:function(){
+	if($model.freechooseuser){
+		this.add_action(&quot;freechooseuser&quot;,&quot;freechooseuser&quot;);
+	}else{	
+		this.del_action(&quot;freechooseuser&quot;);
+	}
+//	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);
 }</form:scripts>
   <form:htmls>
 </form:htmls>

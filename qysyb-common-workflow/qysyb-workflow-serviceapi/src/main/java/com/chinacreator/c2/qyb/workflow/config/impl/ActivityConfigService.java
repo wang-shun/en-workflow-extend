@@ -105,6 +105,9 @@ public class ActivityConfigService {
 //						Map actionPorperty2 = new HashMap<String,String>();	
 //						actionPorperty2.put(key, list);
 						action.put(key, list);
+ 					}else if(kvs.length==1){
+ 						String key = kvs[0];
+ 						action.put(key, true);						
 					}
 
 				}
