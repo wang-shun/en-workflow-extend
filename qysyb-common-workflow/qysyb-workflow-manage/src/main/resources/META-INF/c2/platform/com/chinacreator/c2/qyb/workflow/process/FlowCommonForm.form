@@ -1350,7 +1350,36 @@ newField4_click:function($event){
 				                'hideAfter':5
 				            });
 	});
-}</form:scripts>
+},
+ //结束流程按钮
+ button_click:function($event){
+ 	Modal.openConfirm({message:&amp;quot;确认删除流程实例？删除后将不可恢复！&amp;quot;},
+ 			function(){
+ 				$http.get(&amp;quot;ws/deleteprocessins&amp;quot;,
+ 					{
+	
+ 						params:{
+ 							wfOperator:{
+ 								userId:$scope.subject.id,
+ 								businessData:{
+ 									moduleId:$params.params.moduleId,
+ 									businessKey:$params.businessKey
+ 								}
+ 						    },
+ 						    deleteReason:&amp;quot;用户删除&amp;quot;,
+ 						    processInstanceId:$params.params.processInstanceId,
+ 						    formId:$model.formId			
+ 						}
+ 					}).success(function(){
+ 						TabOperator.closeTab(TabOperator.getCurrentTab());
+ 						Messenger.post({
+ 												'message': &amp;quot;删除成功!&amp;quot;,
+ 								                'type': 'success',
+ 								                'hideAfter':5
+ 								            });					
+ 					});
+ 			});
+ }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>
 	&lt;div ng-include=$model.in  ng-init=&quot;$params={'pModel':$model,'params':$params.params,'isAccordian':false}&quot;>&lt;/div>

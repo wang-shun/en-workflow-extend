@@ -1340,30 +1340,12 @@ public class WorkFlowService {
 	 */
 	@Transactional
 	public String deleteProcessInstancesById(WfOperator wfOperator,
-			String deleteReason, String processInstanceId, String clazz)
+ 			String deleteReason, String processInstanceId, String formId)
 			throws Exception {
 		String result = WfApiFactory.getWfRuntimeService()
 				.deleteProcessInstancesById(wfOperator, deleteReason,
 						processInstanceId);
-		// 业务数据，删闿
-		// if (result == "200") {
-		// Class clz = Class.forName(clazz);
-		// Dao dao = DaoFactory.create(clz);
-		// Object o = clz.newInstance();
-		// Method m = clz.getMethod("setBusinessKey", String.class);
-		// m.invoke(o, wfOperator.getBusinessData().getBusinessKey());
-		// try{
-		// o = dao.select(o);
-		// if(o instanceof ArrayList){
-		// dao.deleteBatch((List) o);
-		// }else if(o instanceof Object){
-		// dao.delete(o);
-		// }
-		// }catch(Exception e){
-		// e.printStackTrace();
-		// throw new RuntimeException();
-		// }
-		// }
+ 		//TODO 处理业务数据
 		return result;
 	}
 

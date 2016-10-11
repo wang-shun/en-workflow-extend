@@ -9,17 +9,17 @@
     <input collection="false" desc="操作者信息，必须参数" id="wfOperator" required="true" type="com.chinacreator.c2.flow.detail.WfOperator"/>
     <input collection="false" desc="删除原因" id="deleteReason" required="true" type="String"/>
     <input collection="false" desc="流程实例id,必须参数" id="processInstanceId" required="true" type="String"/>
-    <input collection="false" desc="class" id="clazz" required="false" type="String"/>
+    <input collection="false" desc="" id="formId" required="true" type="String"/>
   </inputs>
   <outputs>
-    <output autoValue="Result" desc="200-操作成功、300-参数不正确、400-操作失败、404-操作对象不存在  @throws Exception" id="result" name="方法返回值" type="String"/>
+    <output autoValue="Result" desc="200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿  @throws Exception" id="result" name="方法返回值" type="String"/>
   </outputs>
   <res></res>
   <params>
     <param autoValue="Input.wfOperator" name="wfOperator" signature="QWfOperator;" type="com.chinacreator.c2.flow.detail.WfOperator"/>
     <param autoValue="Input.deleteReason" name="deleteReason" signature="QString;" type="String"/>
     <param autoValue="Input.processInstanceId" name="processInstanceId" signature="QString;" type="String"/>
-    <param autoValue="Input.clazz" name="clazz" signature="QString;" type="String"/>
+    <param autoValue="Input.formId" name="formId" signature="QString;" type="String"/>
   </params>
   <return signature="QString;" type="String"/>
 </CustomRule>

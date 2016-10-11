@@ -244,6 +244,33 @@
               </form:child>
             </form:child>
           </form:child>
+          <form:child xsi:type="form:Group" id="div1" name="简单容器(DIV)">
+            <form:control type="container/div">
+              <form:attributes source="container/div">
+                <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+                  <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:child xsi:type="form:Field" binding="$model.endprocess" id="checkbox1" name="允许结束流程" customize="true">
+              <form:control type="widget/checkbox">
+                <form:attributes source="widget/checkbox">
+                  <dync:attribute default="2" group="HTML设置" id="span" name="控件宽度" value="4">
+                    <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="" group="事件设置" id="onChange" name="状态改变" value="checkbox1_onChange()">
+                    <dync:render colSpan="2" height="0" multi="false" name="event">
+                      <dync:item name="params" value=""/>
+                    </dync:render>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
+            </form:child>
+          </form:child>
         </form:child>
         <form:child xsi:type="form:Field" binding="$model.filtertype" id="filtertypediv" name="处理人策略" customize="true">
           <form:control type="widget/radio_group">
@@ -582,10 +609,10 @@
     </form:datasource>
     <form:datasource xsi:type="form:TreeDataSource" id="tree" name="树型数据源" impl="com.chinacreator.c2.workflow.workflowManage.ds.CandidateChooseTreeContentProvider" type="custom"/>
     <form:datasource xsi:type="form:EntityDataSource" id="entity" name="单实体数据源" data="" entity="entity:com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="alltabs" name="tab页签" logic="rule:com.chinacreator.c2.qyb.workflow.tab.getAllTabsForProduct" sn="getalltabforproduct">
+    <form:datasource xsi:type="form:LogicDataSource" id="alltabs" name="所有页签" logic="rule:com.chinacreator.c2.qyb.workflow.tab.getAllTabsForProduct" sn="getalltabforproduct">
       <form:param id="productId" name="新输入参数" value="$params.moduleId"/>
     </form:datasource>
-    <form:datasource xsi:type="form:LogicDataSource" id="activities" name="流程所有活动定义" logic="rule:com.chinacreator.c2.qyb.workflow.process.getActivitiesFromProcDef" sn="getactivitiesfromprocdef">
+    <form:datasource xsi:type="form:LogicDataSource" id="activities" name="所有流程活动" logic="rule:com.chinacreator.c2.qyb.workflow.process.getActivitiesFromProcDef" sn="getactivitiesfromprocdef">
       <form:param id="procDefId" name="新输入参数" value="$params.processDefId"/>
     </form:datasource>
   </form:datasources>
@@ -662,7 +689,15 @@ page_afterDataSourceLoad:function(){
 			$model.freechooseuser = false;
 		}else{
 			$model.freechooseuser = true;
-		}					
+		}	
+		
+		//允许结束
+		var epuindex = functions.has_action(&quot;endprocess&quot;);
+		if(epuindex==undefined){
+			$model.endprocess = false;
+		}else{
+			$model.endprocess = true;
+		}						
 	});
 	
 	
@@ -1017,6 +1052,15 @@ checkbox_onChange:function(){
 		this.del_action(&quot;freechooseuser&quot;);
 	}
 //	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);
+},
+//允许结束值变换
+checkbox1_onChange:function(){
+	if($model.endprocess){
+		this.add_action(&quot;endprocess&quot;,&quot;endprocess&quot;);
+	}else{	
+		this.del_action(&quot;endprocess&quot;);
+	}	
+//	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);	
 }</form:scripts>
   <form:htmls>
 </form:htmls>
