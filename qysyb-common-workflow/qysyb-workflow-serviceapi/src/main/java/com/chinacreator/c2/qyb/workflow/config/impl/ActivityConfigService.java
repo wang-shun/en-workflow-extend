@@ -146,4 +146,18 @@ public class ActivityConfigService {
 		ActivityConfig ac = this.getActivityConfigById(activityId);
 		return ac;
 	}
+ 	/**
+ 	 * 
+ 	 * @param moduleId
+ 	 * @param taskDefKey
+ 	 * @return
+ 	 */
+ 	public ActivityConfig getActivityConfig(String moduleId, String taskDefKey){
+ 		Dao<ActivityConfig> daoac = DaoFactory.create(ActivityConfig.class);
+ 		ActivityConfig con = new ActivityConfig();
+ 		con.setModuleId(moduleId);
+ 		con.setTaskDefId(taskDefKey);		
+ 		ActivityConfig ac = daoac.selectOne(con);	
+ 		return ac;
+ 	}	
 }

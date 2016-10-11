@@ -46,6 +46,7 @@ import com.chinacreator.c2.qyb.workflow.activiti.cmd.RecoverTaskCmd;
 import com.chinacreator.c2.qyb.workflow.activiti.inf.IFormOperate;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowActivity;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowTransition;
+import com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig;
 import com.chinacreator.c2.qyb.workflow.config.impl.ActivityConfigService;
 import com.chinacreator.c2.qyb.workflow.form.entity.Form;
 import com.chinacreator.c2.qyb.workflow.form.entity.FormField;
@@ -808,7 +809,7 @@ public class WorkProcess {
 						moduleId, wfTransition.getSrc(),wfTransition.getDest(), nextTaskId,
 						wfOperator.getUserId(),paramsMap);
  				setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
- 						processDefinitionId, wfTransition.getDest().getId(), moduleId, entitymap);
+ 						processDefinitionId,proInsId, wfTransition.getDest().getId(), moduleId, entitymap);
 			}
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
@@ -844,7 +845,7 @@ public class WorkProcess {
 					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, wfOperator.getUserId(),
 					paramsMap);
  			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
- 					processDefinitionId, wfTransition.getDest().getId(), moduleId, entitymap);
+ 					processDefinitionId,proInsId, wfTransition.getDest().getId(), moduleId, entitymap);
 		}
 
 		/* 通知处理 */
@@ -1001,7 +1002,7 @@ public class WorkProcess {
 					wfOperator.getUserId(),paramsMap);
 
  			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(),				
- 					processDefinitionId,wfTransition.getDest().getId(),moduleId,variables);
+ 					processDefinitionId,null,wfTransition.getDest().getId(),moduleId,variables);
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
 			informService.informDo(mapentity);
@@ -1036,7 +1037,7 @@ public class WorkProcess {
 	 * @param processVariables
 	 */
 	private void setTaskHandler(Map<String, String> valuemap, Map variables,
-			String taskId,String curUserId,String processDefinitionId,
+ 			String taskId,String curUserId,String processDefinitionId,String processInsId,
 			String taskDefKey,String moduleId,Map processVariables) {
 		if (taskId == null) {
 			return;
@@ -1060,6 +1061,15 @@ public class WorkProcess {
 			if(filterType!=null&&filterType.equals("starter")){
 				//分派流程开始人策略
 				taskService.addCandidateUser(taskId,(String) processVariables.get(WorkFlowService.STARTER));				
+ 			}else if(filterType!=null&&filterType.equals("historyassign") && processInsId != null){
+ 				ActivityConfig ac = activityConfigService.getActivityConfig(moduleId, taskDefKey);
+ 				List<HistoricTaskInstance> historicTaskInstances = historyService
+ 						.createHistoricTaskInstanceQuery()
+ 						.taskDefinitionKey(ac.getRemark1())
+ 						.processInstanceId(processInsId)
+ 						.orderByHistoricTaskInstanceEndTime().desc().list();
+ 				String destAssignee = historicTaskInstances.get(0).getAssignee();	
+ 				taskService.addCandidateUser(taskId, destAssignee);			
 			}else{
 				//获取平台处理人配置
 				List<Map> confCandidate = workflowservice.getActivityCandidates(processDefinitionId, moduleId, taskDefKey);
