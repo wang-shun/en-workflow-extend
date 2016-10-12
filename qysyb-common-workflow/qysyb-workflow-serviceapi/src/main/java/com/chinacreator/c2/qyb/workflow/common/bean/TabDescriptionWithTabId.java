@@ -1,8 +1,8 @@
 package com.chinacreator.c2.qyb.workflow.common.bean;
 
-import com.chinacreator.c2.ui.beans.TabDescription;
 
-public class TabDescriptionWithTabId extends TabDescription{
+
+public class TabDescriptionWithTabId {
 	String tabId;
 
 	public String getTabId() {

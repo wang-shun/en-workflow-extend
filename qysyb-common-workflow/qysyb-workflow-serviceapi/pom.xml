@@ -15,17 +15,17 @@
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.chinacreator.c2</groupId>
-				<artifactId>c2-runtime</artifactId>
-				<version>4.2.1.2</version>
+				<groupId>com.cool.energy</groupId>
+				<artifactId>en-runtime</artifactId>
+				<version>0.2.4-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
-			<dependency>
+<!-- 			<dependency>
 				<groupId>com.chinacreator.c2</groupId>
 				<artifactId>c2-ui-components</artifactId>
 				<version>4.2.8.1</version>
 				<scope>provided</scope>
-			</dependency>
+			</dependency> -->
 			
 			
 		<dependency>
@@ -63,14 +63,14 @@
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-sys-std-mysql</artifactId>
-			<version>4.1.4</version>
+			<version>4.2.3</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-sys-sysmgr-dataUtil</artifactId>
-			<version>4.1.4</version>
+			<version>4.2.3</version>
 			<scope>provided</scope>
 		</dependency>
 		
@@ -106,12 +106,12 @@
 			<scope>provided</scope>
 		</dependency>
 		
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-sys-ui-components</artifactId>
 			<version>1.0.0</version>
 			<scope>provided</scope>
-		</dependency>					
+		</dependency>	 -->				
   </dependencies>
   <distributionManagement>
 		<repository>

@@ -9,7 +9,7 @@ import com.chinacreator.c2.annotation.Entity;
  * @author 
  * @generated
  */
-@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.form.entity.FormFieldRel", table = "WORKFLOW_FORM_FIELD_REL", ds = "oracDB", cache = false)
+@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.form.entity.FormFieldRel", sn="workflowformfieldrel", table = "WORKFLOW_FORM_FIELD_REL", ds = "oracDB", cache = false)
 public class FormFieldRel {
 	/**
 	 *ID

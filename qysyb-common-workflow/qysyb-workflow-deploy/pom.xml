@@ -10,7 +10,7 @@
   <packaging>pom</packaging>
   <modules>
   	<module>qysyb-workflow-oracle</module>
-  	<module>qysyb-workflow-oracle-test</module>
+<!--   	<module>qysyb-workflow-oracle-test</module> -->
   </modules>
   <distributionManagement>
 		<repository>
