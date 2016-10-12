@@ -1333,22 +1333,40 @@ public class WorkFlowService {
 	 *            删除原因
 	 * @param processInstanceId
 	 *            流程实例id,必须参数
-	 * @param clazz
-	 *            class
+	 * @param formId
+	 *            formId
 	 * @return 200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿
 	 * @throws Exception
 	 */
 	@Transactional
 	public String deleteProcessInstancesById(WfOperator wfOperator,
- 			String deleteReason, String processInstanceId, String formId)
+ 			String deleteReason, String processInstanceId, String formId, boolean deleteHistory)
 			throws Exception {
 		String result = WfApiFactory.getWfRuntimeService()
 				.deleteProcessInstancesById(wfOperator, deleteReason,
 						processInstanceId);
  		//TODO 处理业务数据
-		return result;
-	}
-
+ 
+ 		if(deleteHistory){
+ 			historyService.deleteHistoricProcessInstance(processInstanceId);
+ 		}
+ 		return result;
+ 	}
+ 
+ 	/**
+ 	 * 根据流程实例id删除流程实例
+ 	 * @param processInstanceId
+ 	 *            流程实例id,必须参数
+ 	 * @return 200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿
+ 	 * @throws Exception
+ 	 */
+ 	@Transactional
+ 	public String deleteHisProcessInstancesById(String processInstanceId)
+ 			throws Exception {
+ 		String result = WfApiFactory.getWfHistoryService().deleteHistoricProcessInstance(processInstanceId);
+ 		return result;
+ 	}	
+ 	
 	/**
 	 * 获取所有流程定义
 	 * 

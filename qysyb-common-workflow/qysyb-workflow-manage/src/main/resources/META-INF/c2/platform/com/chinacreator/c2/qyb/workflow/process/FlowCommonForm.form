@@ -1368,7 +1368,8 @@ newField4_click:function($event){
  						    },
  						    deleteReason:&amp;quot;用户删除&amp;quot;,
  						    processInstanceId:$params.params.processInstanceId,
- 						    formId:$model.formId			
+ 						    formId:$model.formId,
+ 						    deleteHistory:true		
  						}
  					}).success(function(){
  						TabOperator.closeTab(TabOperator.getCurrentTab());

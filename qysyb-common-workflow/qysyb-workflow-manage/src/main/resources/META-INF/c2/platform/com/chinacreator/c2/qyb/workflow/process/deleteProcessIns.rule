@@ -10,6 +10,7 @@
     <input collection="false" desc="删除原因" id="deleteReason" required="true" type="String"/>
     <input collection="false" desc="流程实例id,必须参数" id="processInstanceId" required="true" type="String"/>
     <input collection="false" desc="" id="formId" required="true" type="String"/>
+    <input collection="false" desc="操作者信息，必须参数" id="deleteHistory" required="true" type="boolean"/>
   </inputs>
   <outputs>
     <output autoValue="Result" desc="200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿  @throws Exception" id="result" name="方法返回值" type="String"/>
@@ -20,6 +21,7 @@
     <param autoValue="Input.deleteReason" name="deleteReason" signature="QString;" type="String"/>
     <param autoValue="Input.processInstanceId" name="processInstanceId" signature="QString;" type="String"/>
     <param autoValue="Input.formId" name="formId" signature="QString;" type="String"/>
+    <param autoValue="Input.deleteHistory" name="deleteHistory" signature="Z" type="boolean"/>
   </params>
   <return signature="QString;" type="String"/>
 </CustomRule>
