@@ -264,11 +264,11 @@ public class WorkProcess {
 		RecoverTaskCmd recoverTaskCmd = new RecoverTaskCmd(processInstanceId,
 				recoverReason, recoverToActivityId, variables,userId);
 		WfResult wfresult = managementService.executeCommand(recoverTaskCmd);
-		/* 通知处理 */
-		//informService = ApplicationContextManager.getContext().getBean(
-		//		InformService.class);
-		//informService.setCcInformsInfo(ccInformJsonStr);
-		//informService.informDo();
+ 		/* 通知处理  追回 需要把事件清除*/
+ 		informService = ApplicationContextManager.getContext().getBean(
+ 				InformService.class);
+ //		informService.setCcInformsInfo(ccInformJsonStr);
+ 		informService.clearEvents();
 		return new ResponseFactory().createResponseBodyJSONObject(JSON
 				.toJSONString(wfresult));
 	}
