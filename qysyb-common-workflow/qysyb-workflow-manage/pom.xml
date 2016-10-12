@@ -27,7 +27,11 @@
 				<scope>provided</scope>
 			</dependency>
 			
-			
+ 		    <dependency>
+ 		      <groupId>com.chinacreator.c2</groupId>
+ 		      <artifactId>c2-module-keyvalue-editor</artifactId>
+ 		      <version>1.0.0</version>
+ 		    </dependency>			
 <!-- 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-flow-core</artifactId>

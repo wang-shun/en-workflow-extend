@@ -787,6 +787,10 @@ public class WorkProcess {
 			// 声明后 assignee便有了值。
 			taskService.claim(currenTaskId, wfOperator.getUserId());
 			taskService.complete(currenTaskId);
+ 			//流程执行结束 业务处理
+ 			formOperate.addOrUpdateEntityAfterTaskExcu(entity, bussinessKey, proInsId, moduleId,
+ 					wfTransition.getSrc(), wfOperator.getUserId(),wfTransition.getDest(),paramsMap);
+ 			
 			wfresult = new WfResult();
 			wfresult.setResult(WfConstants.WF_CONTROL_EXE_SUCCESS);
 			int nrOfCompletedInstances = (int) taskEntity.getVariables().get(
@@ -831,7 +835,10 @@ public class WorkProcess {
 				false, bussinessKey,
 				processDefinitionId, currenTaskId, transitionId,
 				destTaskDefinitionKey, false, variables);
-		
+ 		//流程执行结束 业务处理
+ 		formOperate.addOrUpdateEntityAfterTaskExcu(entity, bussinessKey, proInsId, moduleId,
+ 				wfTransition.getSrc(), wfOperator.getUserId(),wfTransition.getDest(),paramsMap);		
+ 		
 		Object multiInstancePor = wfTransition.getDest().getPorperties()
 				.get("multiInstance");
 		if (multiInstancePor != null
@@ -993,9 +1000,13 @@ public class WorkProcess {
 						processDefinitionId, wf.getNextTaskId(), 
 						wfTransition.id, wfTransition.getDest().id, false, variables);
 			}
-
+ 			//流程执行结束 业务处理
+ 			formOperate.addOrUpdateEntityAfterTaskExcu(entity, businessKey, 
+ 					wf.getProcessInstanceId(), moduleId,wfTransition.getSrc(),
+ 					wfOperator.getUserId(),wfTransition.getDest(),paramsMap);
 //			taskService.complete(wf.getNextTaskId());
 			String nextTaskId = wf.getNextTaskId();
+			//业务模块自定义处理人
 			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
 					businessKey, wf.getProcessInstanceId(), moduleId,
 					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, 

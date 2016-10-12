@@ -1000,7 +1000,7 @@ page_afterDataSourceLoad:function(){
 		$scope.permissionData = data.result;
  		//保证tab页中有权限数据
  		$http.post(&quot;ws/getalltabsforactivity&quot;,{productId:$params.params.moduleId,params:$params.params,activityId:$params.params.taskDefKey}).success(function(data){
- 	//		console.log(&amp;quot;tabs&amp;quot;,data);
+ 	//		console.log(&quot;tabs&quot;,data);
  			$model.dynamictabs = data.result;
  		});		
 	});
@@ -1353,9 +1353,9 @@ newField4_click:function($event){
 },
  //结束流程按钮
  button_click:function($event){
- 	Modal.openConfirm({message:&amp;quot;确认删除流程实例？删除后将不可恢复！&amp;quot;},
+ 	Modal.openConfirm({message:&quot;确认删除流程实例？删除后将不可恢复！&quot;},
  			function(){
- 				$http.get(&amp;quot;ws/deleteprocessins&amp;quot;,
+ 				$http.get(&quot;ws/deleteprocessins&quot;,
  					{
 	
  						params:{
@@ -1366,7 +1366,7 @@ newField4_click:function($event){
  									businessKey:$params.businessKey
  								}
  						    },
- 						    deleteReason:&amp;quot;用户删除&amp;quot;,
+ 						    deleteReason:&quot;用户删除&quot;,
  						    processInstanceId:$params.params.processInstanceId,
  						    formId:$model.formId,
  						    deleteHistory:true		
@@ -1374,7 +1374,7 @@ newField4_click:function($event){
  					}).success(function(){
  						TabOperator.closeTab(TabOperator.getCurrentTab());
  						Messenger.post({
- 												'message': &amp;quot;删除成功!&amp;quot;,
+ 												'message': &quot;删除成功!&quot;,
  								                'type': 'success',
  								                'hideAfter':5
  								            });					
