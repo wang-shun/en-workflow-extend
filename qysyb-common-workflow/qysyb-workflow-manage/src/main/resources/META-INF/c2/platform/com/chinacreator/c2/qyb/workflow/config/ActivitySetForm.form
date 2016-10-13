@@ -726,10 +726,13 @@ page_afterDataSourceLoad:function(){
 		}
 
 		var customPropertys = customPropertyStr.split(&quot;,&quot;)
-		angular.forEach(customPropertys,function(v){				
-			var kv = v.split(&quot;:&quot;);
-			var key = kv[0];
-			functions.del_action(key)
+		angular.forEach(customPropertys,function(v){
+			if(v != undefined &amp;&amp;　v != &quot;&quot;){
+				var kv = v.split(&quot;:&quot;);
+				var key = kv[0];
+				//这里为什么要删除呢 因为没有做自定义属性的 添加删除监听事件 所以del all and add all
+				functions.del_action(key)			
+			}
 		});		
 		functions.expand_customProperty(customPropertyStr);					
 	});
@@ -808,7 +811,7 @@ page_onload:function(){
 	$model.activity_Name = $params.activity_name;	
 },
 // save
-newField9_click:function($event){
+newField9_click:function($event){debugger
 	functions.assemble_customProperty()
 //infromType 字段取到，不同方式以逗号分隔
 	var result;
@@ -1118,12 +1121,15 @@ assemble_customProperty:function(){
 	if($model.entityactivityconfig.includeActions == undefined){
 		$model.entityactivityconfig.includeActions = &quot;&quot;
 	}
-	angular.forEach($model.customProperty,function(v){	
-		var property = v.name+&quot;:&quot;+v.value
-		if($model.entityactivityconfig.includeActions == &quot;&quot;){
-			$model.entityactivityconfig.includeActions = property
-		}else{
-			$model.entityactivityconfig.includeActions = $model.entityactivityconfig.includeActions + &quot;,&quot; + property
+	angular.forEach($model.customProperty,function(v){
+		if(v.name != undefined &amp;&amp; v.name != &quot;&quot;
+			&amp;&amp; v.value != undefined &amp;&amp; v.name != &quot;&quot;){
+			var property = v.name+&quot;:&quot;+v.value
+			if($model.entityactivityconfig.includeActions == &quot;&quot;){
+				$model.entityactivityconfig.includeActions = property
+			}else{
+				$model.entityactivityconfig.includeActions = $model.entityactivityconfig.includeActions + &quot;,&quot; + property
+			}			
 		}
 	});
 },
