@@ -3,7 +3,7 @@
   <docket:name>节点配置</docket:name>
   <docket:createType>来自数据库</docket:createType>
   <docket:primaryKey>
-    <docket:pkAttribute attribute="id"/>
+    <docket:pkAttribute attribute="id" type="UUID"/>
   </docket:primaryKey>
   <docket:attributes>
     <docket:attribute code="id" length="128" nullable="false" type="string128" default="">
@@ -403,7 +403,7 @@ btn_edit_click:function($event){
           </inputs>
         </node>
       </docket:logic>
-      <docket:ui id="get" name="单记录查询" type="none">
+      <docket:ui name="单记录查询" type="none">
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){
         Modal.instance.close();

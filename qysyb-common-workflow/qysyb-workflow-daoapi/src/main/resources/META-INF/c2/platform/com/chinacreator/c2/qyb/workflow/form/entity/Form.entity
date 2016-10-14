@@ -3,7 +3,7 @@
   <docket:name>表单</docket:name>
   <docket:createType>来自数据库</docket:createType>
   <docket:primaryKey>
-    <docket:pkAttribute attribute="form_id"/>
+    <docket:pkAttribute attribute="form_id" type="UUID"/>
   </docket:primaryKey>
   <docket:attributes>
     <docket:attribute code="form_id" length="128" nullable="false" type="string128" default="">

@@ -115,11 +115,7 @@
 
 <!-- ElementID:insert,Generated=true -->
 <insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.customretrieval.entity.RetrieveItem">
-	<selectKey keyProperty="itemId" resultType="java.lang.String" order="BEFORE">
-         select WORKFLOW_RETRIEVAL_ITEM_PK.NEXTVAL from dual
-     </selectKey>
 	insert into WORKFLOW_RETRIEVAL_ITEM(
-	<trim prefixOverrides=",">
 	         <if test="itemId != null">item_id</if>
 	         <if test="retrieveKey != null">,retrieve_key</if>
 	         <if test="isLike != null">,is_like</if>
@@ -133,10 +129,8 @@
 	         <if test="webdisplayTypeId != null">,webdisplay_type_id</if>
 	         <if test="rorder != null">,rorder</if>
 	 	 	 <if test="fieldId != null and fieldId.fieldId !=null">,field_id</if>
-	 	 </trim>
-	 )
+	 	 )
 	 values (
-	 <trim prefixOverrides=",">
 	         <if test="itemId != null">#{itemId,jdbcType=VARCHAR}</if>
 	         <if test="retrieveKey != null">,#{retrieveKey,jdbcType=VARCHAR}</if>
 	         <if test="isLike != null">,#{isLike,jdbcType=CHAR}</if>
@@ -150,8 +144,7 @@
 	         <if test="webdisplayTypeId != null">,#{webdisplayTypeId,jdbcType=VARCHAR}</if>
 	         <if test="rorder != null">,#{rorder,jdbcType=NUMERIC}</if>
 	 	 	 <if test="fieldId != null and fieldId.fieldId !=null">,#{fieldId.fieldId,jdbcType=VARCHAR}</if>
-	 	 </trim>
-	 )
+	 	 )
 </insert>
 
 <!-- ElementID:count,Generated=true -->
@@ -233,25 +226,24 @@
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into WORKFLOW_RETRIEVAL_ITEM (item_id,retrieve_key,is_like,right_operate,left_operate,remark1,remark2,remark3,remark4,display_span,webdisplay_type_id,rorder,field_id)
-		select  WORKFLOW_RETRIEVAL_ITEM_PK.NEXTVAL , B.* from(
-			<foreach collection="list" item="entity" index="index" separator="union all">
-				select 
-	              #{entity.retrieveKey,jdbcType = VARCHAR},
-	              #{entity.isLike,jdbcType = CHAR},
-	              #{entity.rightOperate,jdbcType = VARCHAR},
-	              #{entity.leftOperate,jdbcType = VARCHAR},
-	              #{entity.remark1,jdbcType = VARCHAR},
-	              #{entity.remark2,jdbcType = VARCHAR},
-	              #{entity.remark3,jdbcType = VARCHAR},
-	              #{entity.remark4,jdbcType = NUMERIC},
-	              #{entity.displaySpan,jdbcType = NUMERIC},
-	              #{entity.webdisplayTypeId,jdbcType = VARCHAR},
-	              #{entity.rorder,jdbcType = NUMERIC},
-				 #{entity.fieldId.fieldId,jdbcType=VARCHAR}
-		        from dual
+	insert into WORKFLOW_RETRIEVAL_ITEM (item_id,retrieve_key,is_like,right_operate,left_operate,remark1,remark2,remark3,remark4,display_span,webdisplay_type_id,rorder,field_id) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.itemId,jdbcType = VARCHAR},
+				#{entity.retrieveKey,jdbcType = VARCHAR},
+				#{entity.isLike,jdbcType = CHAR},
+				#{entity.rightOperate,jdbcType = VARCHAR},
+				#{entity.leftOperate,jdbcType = VARCHAR},
+				#{entity.remark1,jdbcType = VARCHAR},
+				#{entity.remark2,jdbcType = VARCHAR},
+				#{entity.remark3,jdbcType = VARCHAR},
+				#{entity.remark4,jdbcType = NUMERIC},
+				#{entity.displaySpan,jdbcType = NUMERIC},
+				#{entity.webdisplayTypeId,jdbcType = VARCHAR},
+				#{entity.rorder,jdbcType = NUMERIC},
+						 #{entity.fieldId.fieldId,jdbcType=VARCHAR}
+		from dual
 </foreach>
-	    )B
 </insert>
 
 <!-- ElementID:deleteBatch,Generated=true -->

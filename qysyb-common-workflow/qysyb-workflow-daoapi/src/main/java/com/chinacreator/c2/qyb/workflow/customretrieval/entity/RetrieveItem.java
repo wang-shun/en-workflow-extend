@@ -15,7 +15,7 @@ import com.chinacreator.c2.qyb.workflow.form.entity.FormField;
 @Entity(id = "entity:com.chinacreator.c2.qyb.workflow.customretrieval.entity.RetrieveItem", table = "WORKFLOW_RETRIEVAL_ITEM", ds = "oracDB")
 public class RetrieveItem implements Serializable {
 	private static final long serialVersionUID = 1499414005514240L;
-	@Column(id = "item_id", type = ColumnType.increment, datatype = "string128")
+	@Column(id = "item_id", type = ColumnType.uuid, datatype = "string128")
 	private java.lang.String itemId;
 
 	/**

@@ -68,11 +68,7 @@
 
 <!-- ElementID:insert,Generated=true -->
 <insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig">
-	<selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
-         select WORKFLOW_ACTIVITY_SETTING_PK.NEXTVAL from dual
-     </selectKey>
 	insert into WORKFLOW_ACTIVITY_SETTING(
-	<trim prefixOverrides=",">
 	         <if test="id != null">id</if>
 	         <if test="moduleId != null">,module_id</if>
 	         <if test="taskDefId != null">,task_def_id</if>
@@ -89,10 +85,8 @@
 	         <if test="remark3 != null">,remark3</if>
 	         <if test="remark4 != null">,remark4</if>
 	         <if test="hisAssignActivity != null">,his_assign_activity</if>
-	 	 	 </trim>
-	 )
+	 	 	 )
 	 values (
-	 <trim prefixOverrides=",">
 	         <if test="id != null">#{id,jdbcType=VARCHAR}</if>
 	         <if test="moduleId != null">,#{moduleId,jdbcType=VARCHAR}</if>
 	         <if test="taskDefId != null">,#{taskDefId,jdbcType=VARCHAR}</if>
@@ -109,8 +103,7 @@
 	         <if test="remark3 != null">,#{remark3,jdbcType=CHAR}</if>
 	         <if test="remark4 != null">,#{remark4,jdbcType=NUMERIC}</if>
 	         <if test="hisAssignActivity != null">,#{hisAssignActivity,jdbcType=VARCHAR}</if>
-	 	 	 </trim>
-	 )
+	 	 	 )
 </insert>
 
 <!-- ElementID:count,Generated=true -->
@@ -197,28 +190,27 @@
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into WORKFLOW_ACTIVITY_SETTING (id,module_id,task_def_id,action,inform_type,needclaim,is_sla_time,include_tabs,include_actions,return_activity,freechoose_url,remark1,remark2,remark3,remark4,his_assign_activity)
-		select  WORKFLOW_ACTIVITY_SETTING_PK.NEXTVAL , B.* from(
-			<foreach collection="list" item="entity" index="index" separator="union all">
-				select 
-	              #{entity.moduleId,jdbcType = VARCHAR},
-	              #{entity.taskDefId,jdbcType = VARCHAR},
-	              #{entity.action,jdbcType = VARCHAR},
-	              #{entity.informType,jdbcType = VARCHAR},
-	              #{entity.needclaim,jdbcType = CHAR},
-	              #{entity.isSlaTime,jdbcType = CHAR},
-	              #{entity.includeTabs,jdbcType = VARCHAR},
-	              #{entity.includeActions,jdbcType = VARCHAR},
-	              #{entity.returnActivity,jdbcType = VARCHAR},
-	              #{entity.freechooseUrl,jdbcType = VARCHAR},
-	              #{entity.remark1,jdbcType = VARCHAR},
-	              #{entity.remark2,jdbcType = VARCHAR},
-	              #{entity.remark3,jdbcType = CHAR},
-	              #{entity.remark4,jdbcType = NUMERIC},
-	              #{entity.hisAssignActivity,jdbcType = VARCHAR}
-		        from dual
+	insert into WORKFLOW_ACTIVITY_SETTING (id,module_id,task_def_id,action,inform_type,needclaim,is_sla_time,include_tabs,include_actions,return_activity,freechoose_url,remark1,remark2,remark3,remark4,his_assign_activity) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.id,jdbcType = VARCHAR},
+				#{entity.moduleId,jdbcType = VARCHAR},
+				#{entity.taskDefId,jdbcType = VARCHAR},
+				#{entity.action,jdbcType = VARCHAR},
+				#{entity.informType,jdbcType = VARCHAR},
+				#{entity.needclaim,jdbcType = CHAR},
+				#{entity.isSlaTime,jdbcType = CHAR},
+				#{entity.includeTabs,jdbcType = VARCHAR},
+				#{entity.includeActions,jdbcType = VARCHAR},
+				#{entity.returnActivity,jdbcType = VARCHAR},
+				#{entity.freechooseUrl,jdbcType = VARCHAR},
+				#{entity.remark1,jdbcType = VARCHAR},
+				#{entity.remark2,jdbcType = VARCHAR},
+				#{entity.remark3,jdbcType = CHAR},
+				#{entity.remark4,jdbcType = NUMERIC},
+				#{entity.hisAssignActivity,jdbcType = VARCHAR}
+		from dual
 </foreach>
-	    )B
 </insert>
 
 <!-- ElementID:deleteBatch,Generated=true -->

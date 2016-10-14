@@ -14,7 +14,7 @@ import com.chinacreator.c2.annotation.Entity;
 @Entity(id = "entity:com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig", table = "WORKFLOW_ACTIVITY_SETTING", ds = "oracDB")
 public class ActivityConfig implements Serializable {
 	private static final long serialVersionUID = 1468232196112384L;
-	@Column(id = "id", type = ColumnType.increment, datatype = "string128")
+	@Column(id = "id", type = ColumnType.uuid, datatype = "string128")
 	private java.lang.String id;
 
 	/**

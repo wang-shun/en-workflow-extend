@@ -3,7 +3,7 @@
   <docket:name>检索器项</docket:name>
   <docket:createType>来自数据库</docket:createType>
   <docket:primaryKey>
-    <docket:pkAttribute attribute="item_id"/>
+    <docket:pkAttribute attribute="item_id" type="UUID"/>
   </docket:primaryKey>
   <docket:attributes>
     <docket:attribute code="item_id" length="128" nullable="false" type="string128" default="">

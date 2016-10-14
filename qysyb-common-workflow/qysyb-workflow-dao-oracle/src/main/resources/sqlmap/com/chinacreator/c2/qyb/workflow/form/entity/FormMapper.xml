@@ -50,11 +50,7 @@
 
 <!-- ElementID:insert,Generated=true -->
 <insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.Form">
-	<selectKey keyProperty="formId" resultType="java.lang.String" order="BEFORE">
-         select WORKFLOW_FORM_PK.NEXTVAL from dual
-     </selectKey>
 	insert into WORKFLOW_FORM(
-	<trim prefixOverrides=",">
 	         <if test="formId != null">form_id</if>
 	         <if test="formNo != null">,form_no</if>
 	         <if test="formName != null">,form_name</if>
@@ -65,10 +61,8 @@
 	         <if test="remark2 != null">,remark2</if>
 	         <if test="remark3 != null">,remark3</if>
 	         <if test="operateBean != null">,operate_bean</if>
-	 	 	 </trim>
-	 )
+	 	 	 )
 	 values (
-	 <trim prefixOverrides=",">
 	         <if test="formId != null">#{formId,jdbcType=VARCHAR}</if>
 	         <if test="formNo != null">,#{formNo,jdbcType=VARCHAR}</if>
 	         <if test="formName != null">,#{formName,jdbcType=VARCHAR}</if>
@@ -79,8 +73,7 @@
 	         <if test="remark2 != null">,#{remark2,jdbcType=VARCHAR}</if>
 	         <if test="remark3 != null">,#{remark3,jdbcType=VARCHAR}</if>
 	         <if test="operateBean != null">,#{operateBean,jdbcType=VARCHAR}</if>
-	 	 	 </trim>
-	 )
+	 	 	 )
 </insert>
 
 <!-- ElementID:count,Generated=true -->
@@ -155,22 +148,21 @@
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into WORKFLOW_FORM (form_id,form_no,form_name,form_describe,is_table_storage,table_name,remark1,remark2,remark3,operate_bean)
-		select  WORKFLOW_FORM_PK.NEXTVAL , B.* from(
-			<foreach collection="list" item="entity" index="index" separator="union all">
-				select 
-	              #{entity.formNo,jdbcType = VARCHAR},
-	              #{entity.formName,jdbcType = VARCHAR},
-	              #{entity.formDescribe,jdbcType = VARCHAR},
-	              #{entity.isTableStorage,jdbcType = CHAR},
-	              #{entity.tableName,jdbcType = VARCHAR},
-	              #{entity.remark1,jdbcType = NUMERIC},
-	              #{entity.remark2,jdbcType = VARCHAR},
-	              #{entity.remark3,jdbcType = VARCHAR},
-	              #{entity.operateBean,jdbcType = VARCHAR}
-		        from dual
+	insert into WORKFLOW_FORM (form_id,form_no,form_name,form_describe,is_table_storage,table_name,remark1,remark2,remark3,operate_bean) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.formId,jdbcType = VARCHAR},
+				#{entity.formNo,jdbcType = VARCHAR},
+				#{entity.formName,jdbcType = VARCHAR},
+				#{entity.formDescribe,jdbcType = VARCHAR},
+				#{entity.isTableStorage,jdbcType = CHAR},
+				#{entity.tableName,jdbcType = VARCHAR},
+				#{entity.remark1,jdbcType = NUMERIC},
+				#{entity.remark2,jdbcType = VARCHAR},
+				#{entity.remark3,jdbcType = VARCHAR},
+				#{entity.operateBean,jdbcType = VARCHAR}
+		from dual
 </foreach>
-	    )B
 </insert>
 
 <!-- ElementID:deleteBatch,Generated=true -->

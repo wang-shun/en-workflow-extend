@@ -3,28 +3,31 @@
   <docket:name>前端控件类型</docket:name>
   <docket:createType>来自数据库</docket:createType>
   <docket:primaryKey>
-    <docket:pkAttribute attribute="id_" docketId="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.Form.webdisplaycategory" type="UUID"/>
+    <docket:pkAttribute attribute="id_" type="UUID"/>
   </docket:primaryKey>
   <docket:attributes>
-    <docket:attribute code="id_" name="" nullable="false" type="string256" default="">
+    <docket:attribute code="id_" length="128" nullable="false" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="category_no" name="编码" nullable="true" type="string256" default="">
+    <docket:attribute code="category_no" length="128" name="编码" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="category_name" name="名字" nullable="true" type="string256" default="">
+    <docket:attribute code="category_name" length="128" name="名字" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="url" name="url" nullable="true" type="string256" default="">
+    <docket:attribute code="url" length="256" name="url" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="describe" name="" nullable="true" type="string1024" default="">
+    <docket:attribute code="describe" length="1024" nullable="true" type="string1024" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark1" name="" nullable="true" type="tinyint" default="">
+    <docket:attribute code="remark1" length="1" nullable="true" type="boolean" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark2" name="" nullable="true" type="string512" default="">
+    <docket:attribute code="remark2" length="256" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="mobile_url" length="256" name="手机端显示资源路径" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
   </docket:attributes>
@@ -285,7 +288,7 @@ btn_edit_click:function($event){
       <docket:ui type="none"/>
     </docket:event>
   </docket:events>
-  <docket:table ds="bspf" table="workflow_webdisplay_category"/>
+  <docket:table ds="oracDB" table="WORKFLOW_WEBDISPLAY_CATEGORY"/>
   <entity:datas/>
   <entity:views/>
 </entity:Entity>
