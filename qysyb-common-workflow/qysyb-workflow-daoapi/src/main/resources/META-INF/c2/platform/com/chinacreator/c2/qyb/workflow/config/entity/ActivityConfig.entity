@@ -3,22 +3,22 @@
   <docket:name>节点配置</docket:name>
   <docket:createType>来自数据库</docket:createType>
   <docket:primaryKey>
-    <docket:pkAttribute attribute="id" type="UUID"/>
+    <docket:pkAttribute attribute="id"/>
   </docket:primaryKey>
   <docket:attributes>
-    <docket:attribute code="id" nullable="false" type="string128" default="">
+    <docket:attribute code="id" length="128" nullable="false" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="module_id" name="事项Id(服务产品Id)" nullable="true" type="string128" default="">
+    <docket:attribute code="module_id" length="128" name="事项Id(服务产品Id)" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="task_def_id" name="环节" nullable="true" type="string256" default="">
+    <docket:attribute code="task_def_id" length="256" name="环节" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="action" nullable="true" type="string256" default="">
+    <docket:attribute code="action" length="256" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="inform_type" name="通知类型" nullable="true" type="string256" default="">
+    <docket:attribute code="inform_type" length="256" name="通知类型" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="needclaim" length="1" name="需要签收" nullable="true" type="boolean" default="">
@@ -27,28 +27,31 @@
     <docket:attribute code="is_sla_time" length="1" name="是否计入处理时间" nullable="true" type="boolean" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="include_tabs" name="用来设置节点包含哪些tab页" nullable="true" type="string2000" default="">
+    <docket:attribute code="include_tabs" length="2000" name="用来设置节点包含哪些tab页" nullable="true" type="string2000" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="include_actions" name="节点进行的操作" nullable="true" type="string256" default="">
+    <docket:attribute code="include_actions" length="256" name="节点进行的操作" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="return_activity" name="退回操作退回到环节的ID" nullable="true" type="string256" default="">
+    <docket:attribute code="return_activity" length="256" name="退回操作退回到环节的ID" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="freechoose_url" name="自由选择的url" nullable="true" type="string256" default="">
+    <docket:attribute code="freechoose_url" length="256" name="自由选择的url" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark1" nullable="true" type="string1024" default="">
+    <docket:attribute code="remark1" length="1024" nullable="true" type="string1024" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark2" nullable="true" type="string1024" default="">
+    <docket:attribute code="remark2" length="1024" nullable="true" type="string1024" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark3" length="1" name="" nullable="true" type="boolean" default="">
+    <docket:attribute code="remark3" length="1" nullable="true" type="boolean" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark4" nullable="true" type="smallint" default="">
+    <docket:attribute code="remark4" length="4" nullable="true" type="smallint" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="his_assign_activity" length="256" name="选择历史处理人的环节的id" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
   </docket:attributes>
@@ -394,13 +397,13 @@ btn_edit_click:function($event){
     </docket:event>
     <docket:event id="get" name="单记录查询">
       <docket:logic>
-        <node xsi:type="RuleRef" id="getActivityConfigOne" name="获取环节配置信息" ruleId="rule:com.chinacreator.c2.omp.service.manage.workflowcommon.Inform.getActivityConfigOne">
+        <node xsi:type="RuleRef" id="selectOne1" name="单记录查询" ruleId="rule:c2.dao.selectOne">
           <inputs>
-            <input code="o" from="data"/>
+            <input code="entity" from="data"/>
           </inputs>
         </node>
       </docket:logic>
-      <docket:ui name="单记录查询" type="none">
+      <docket:ui id="get" name="单记录查询" type="none">
         <form:scripts>btn_add_click:function($event){
     $model.entity.$save(function(){
         Modal.instance.close();

@@ -1076,7 +1076,7 @@ public class WorkProcess {
  				ActivityConfig ac = activityConfigService.getActivityConfig(moduleId, taskDefKey);
  				List<HistoricTaskInstance> historicTaskInstances = historyService
  						.createHistoricTaskInstanceQuery()
- 						.taskDefinitionKey(ac.getRemark1())
+ 						.taskDefinitionKey(ac.getHisAssignActivity())
  						.processInstanceId(processInsId)
  						.orderByHistoricTaskInstanceEndTime().desc().list();
  				String destAssignee = historicTaskInstances.get(0).getAssignee();	
