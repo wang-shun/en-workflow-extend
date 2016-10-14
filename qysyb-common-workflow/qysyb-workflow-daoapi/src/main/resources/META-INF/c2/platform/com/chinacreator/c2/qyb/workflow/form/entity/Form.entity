@@ -3,34 +3,37 @@
   <docket:name>表单</docket:name>
   <docket:createType>来自数据库</docket:createType>
   <docket:primaryKey>
-    <docket:pkAttribute attribute="form_id" type="UUID"/>
+    <docket:pkAttribute attribute="form_id"/>
   </docket:primaryKey>
   <docket:attributes>
-    <docket:attribute code="form_id" nullable="false" type="string128" default="">
+    <docket:attribute code="form_id" length="128" nullable="false" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="form_no" name="字段标号" nullable="true" type="string128" default="">
+    <docket:attribute code="form_no" length="128" name="字段标号" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="form_name" name="表单名称" nullable="true" type="string256" default="">
+    <docket:attribute code="form_name" length="256" name="表单名称" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="form_describe" name="描述" nullable="true" type="string1024" default="">
+    <docket:attribute code="form_describe" length="1024" name="描述" nullable="true" type="string1024" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="is_table_storage" length="1" name="是否有实体数据库表" nullable="true" type="boolean" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="table_name" name="数据库表名" nullable="true" type="string64" default="">
+    <docket:attribute code="table_name" length="128" name="数据库表名" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark1" nullable="true" type="tinyint" default="">
+    <docket:attribute code="remark1" length="0" nullable="true" type="long" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark2" nullable="true" type="string256" default="">
+    <docket:attribute code="remark2" length="800" nullable="true" type="string1024" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark3" nullable="true" type="string256" default="">
+    <docket:attribute code="remark3" length="200" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="operate_bean" length="100" name="业务数据操作bean名称" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
   </docket:attributes>

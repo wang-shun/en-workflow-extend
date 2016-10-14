@@ -15,13 +15,13 @@ import com.chinacreator.c2.qyb.workflow.form.entity.FormField;
 @Entity(id = "entity:com.chinacreator.c2.qyb.workflow.customretrieval.entity.RetrieveItem", table = "WORKFLOW_RETRIEVAL_ITEM", ds = "oracDB")
 public class RetrieveItem implements Serializable {
 	private static final long serialVersionUID = 1499414005514240L;
-	@Column(id = "item_id", type = ColumnType.uuid, datatype = "string128")
+	@Column(id = "item_id", type = ColumnType.increment, datatype = "string128")
 	private java.lang.String itemId;
 
 	/**
 	 *检索器id
 	 */
-	@Column(id = "retrieve_key", datatype = "string256")
+	@Column(id = "retrieve_key", datatype = "string128")
 	private java.lang.String retrieveKey;
 
 	/**
@@ -39,13 +39,13 @@ public class RetrieveItem implements Serializable {
 	/**
 	 *左边操作符
 	 */
-	@Column(id = "right_operate", datatype = "string256")
+	@Column(id = "right_operate", datatype = "string128")
 	private java.lang.String rightOperate;
 
 	/**
 	 *右边操作符
 	 */
-	@Column(id = "left_operate", datatype = "string256")
+	@Column(id = "left_operate", datatype = "string128")
 	private java.lang.String leftOperate;
 
 	/**
@@ -63,7 +63,7 @@ public class RetrieveItem implements Serializable {
 	/**
 	 *3
 	 */
-	@Column(id = "remark3", datatype = "string2000")
+	@Column(id = "remark3", datatype = "string256")
 	private java.lang.String remark3;
 
 	/**
@@ -71,6 +71,24 @@ public class RetrieveItem implements Serializable {
 	 */
 	@Column(id = "remark4", datatype = "smallint")
 	private java.lang.Integer remark4;
+
+	/**
+	 *前端占位数
+	 */
+	@Column(id = "display_span", datatype = "int")
+	private java.lang.Integer displaySpan;
+
+	/**
+	 *前端展示UI模板
+	 */
+	@Column(id = "webdisplay_type_id", datatype = "string128")
+	private java.lang.String webdisplayTypeId;
+
+	/**
+	 *排序号
+	 */
+	@Column(id = "rorder", datatype = "int")
+	private java.lang.Integer rorder;
 
 	/**
 	 * 设置${field.desc}
@@ -210,5 +228,47 @@ public class RetrieveItem implements Serializable {
 	 */
 	public java.lang.Integer getRemark4() {
 		return remark4;
+	}
+
+	/**
+	 * 设置前端占位数
+	 */
+	public void setDisplaySpan(java.lang.Integer displaySpan) {
+		this.displaySpan = displaySpan;
+	}
+
+	/**
+	 * 获取前端占位数
+	 */
+	public java.lang.Integer getDisplaySpan() {
+		return displaySpan;
+	}
+
+	/**
+	 * 设置前端展示UI模板
+	 */
+	public void setWebdisplayTypeId(java.lang.String webdisplayTypeId) {
+		this.webdisplayTypeId = webdisplayTypeId;
+	}
+
+	/**
+	 * 获取前端展示UI模板
+	 */
+	public java.lang.String getWebdisplayTypeId() {
+		return webdisplayTypeId;
+	}
+
+	/**
+	 * 设置排序号
+	 */
+	public void setRorder(java.lang.Integer rorder) {
+		this.rorder = rorder;
+	}
+
+	/**
+	 * 获取排序号
+	 */
+	public java.lang.Integer getRorder() {
+		return rorder;
 	}
 }

@@ -14,7 +14,7 @@ import com.chinacreator.c2.annotation.Entity;
 @Entity(id = "entity:com.chinacreator.c2.qyb.workflow.form.entity.Form", table = "WORKFLOW_FORM", ds = "oracDB")
 public class Form implements Serializable {
 	private static final long serialVersionUID = 1407413776711680L;
-	@Column(id = "form_id", type = ColumnType.uuid, datatype = "string128")
+	@Column(id = "form_id", type = ColumnType.increment, datatype = "string128")
 	private java.lang.String formId;
 
 	/**
@@ -44,17 +44,23 @@ public class Form implements Serializable {
 	/**
 	 *数据库表名
 	 */
-	@Column(id = "table_name", datatype = "string64")
+	@Column(id = "table_name", datatype = "string128")
 	private java.lang.String tableName;
 
-	@Column(id = "remark1", datatype = "tinyint")
-	private java.lang.Integer remark1;
+	@Column(id = "remark1", datatype = "long")
+	private java.lang.Long remark1;
 
-	@Column(id = "remark2", datatype = "string256")
+	@Column(id = "remark2", datatype = "string1024")
 	private java.lang.String remark2;
 
 	@Column(id = "remark3", datatype = "string256")
 	private java.lang.String remark3;
+
+	/**
+	 *业务数据操作bean名称
+	 */
+	@Column(id = "operate_bean", datatype = "string128")
+	private java.lang.String operateBean;
 
 	/**
 	 * 设置${field.desc}
@@ -143,14 +149,14 @@ public class Form implements Serializable {
 	/**
 	 * 设置${field.desc}
 	 */
-	public void setRemark1(java.lang.Integer remark1) {
+	public void setRemark1(java.lang.Long remark1) {
 		this.remark1 = remark1;
 	}
 
 	/**
 	 * 获取${field.desc}
 	 */
-	public java.lang.Integer getRemark1() {
+	public java.lang.Long getRemark1() {
 		return remark1;
 	}
 
@@ -180,5 +186,19 @@ public class Form implements Serializable {
 	 */
 	public java.lang.String getRemark3() {
 		return remark3;
+	}
+
+	/**
+	 * 设置业务数据操作bean名称
+	 */
+	public void setOperateBean(java.lang.String operateBean) {
+		this.operateBean = operateBean;
+	}
+
+	/**
+	 * 获取业务数据操作bean名称
+	 */
+	public java.lang.String getOperateBean() {
+		return operateBean;
 	}
 }

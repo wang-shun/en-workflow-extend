@@ -11,7 +11,8 @@
 		  WORKFLOW_FORM.table_name ,
 		  WORKFLOW_FORM.remark1 ,
 		  WORKFLOW_FORM.remark2 ,
-		  WORKFLOW_FORM.remark3 
+		  WORKFLOW_FORM.remark3 ,
+		  WORKFLOW_FORM.operate_bean 
 </sql>
 
 <!-- ElementID:whereClause_sql,Generated=true -->
@@ -25,6 +26,7 @@
 	    <if test="remark1 != null">and WORKFLOW_FORM.remark1 = #{remark1}</if>
 	    <if test="remark2 != null">and WORKFLOW_FORM.remark2 = #{remark2}</if>
 	    <if test="remark3 != null">and WORKFLOW_FORM.remark3 = #{remark3}</if>
+	    <if test="operateBean != null">and WORKFLOW_FORM.operate_bean = #{operateBean}</if>
 </sql>
 
 
@@ -39,15 +41,20 @@
 	<result property="remark1" column="remark1"/>
 	<result property="remark2" column="remark2"/>
 	<result property="remark3" column="remark3"/>
+	<result property="operateBean" column="operate_bean"/>
 </resultMap>
 
 
 <!-- ElementName:cache,Generated=true -->
-<cache/>
+<cache type="C2_Default_Dao_Cache"/>
 
 <!-- ElementID:insert,Generated=true -->
 <insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.Form">
+	<selectKey keyProperty="formId" resultType="java.lang.String" order="BEFORE">
+         select WORKFLOW_FORM_PK.NEXTVAL from dual
+     </selectKey>
 	insert into WORKFLOW_FORM(
+	<trim prefixOverrides=",">
 	         <if test="formId != null">form_id</if>
 	         <if test="formNo != null">,form_no</if>
 	         <if test="formName != null">,form_name</if>
@@ -57,8 +64,11 @@
 	         <if test="remark1 != null">,remark1</if>
 	         <if test="remark2 != null">,remark2</if>
 	         <if test="remark3 != null">,remark3</if>
-	 	 	 )
+	         <if test="operateBean != null">,operate_bean</if>
+	 	 	 </trim>
+	 )
 	 values (
+	 <trim prefixOverrides=",">
 	         <if test="formId != null">#{formId,jdbcType=VARCHAR}</if>
 	         <if test="formNo != null">,#{formNo,jdbcType=VARCHAR}</if>
 	         <if test="formName != null">,#{formName,jdbcType=VARCHAR}</if>
@@ -68,7 +78,9 @@
 	         <if test="remark1 != null">,#{remark1,jdbcType=NUMERIC}</if>
 	         <if test="remark2 != null">,#{remark2,jdbcType=VARCHAR}</if>
 	         <if test="remark3 != null">,#{remark3,jdbcType=VARCHAR}</if>
-	 	 	 )
+	         <if test="operateBean != null">,#{operateBean,jdbcType=VARCHAR}</if>
+	 	 	 </trim>
+	 )
 </insert>
 
 <!-- ElementID:count,Generated=true -->
@@ -90,7 +102,8 @@
 	<if test="tableName != null">table_name=#{tableName,jdbcType=VARCHAR},</if>
 	<if test="remark1 != null">remark1=#{remark1,jdbcType=NUMERIC},</if>
 	<if test="remark2 != null">remark2=#{remark2,jdbcType=VARCHAR},</if>
-	<if test="remark3 != null">remark3=#{remark3,jdbcType=VARCHAR}</if>
+	<if test="remark3 != null">remark3=#{remark3,jdbcType=VARCHAR},</if>
+	<if test="operateBean != null">operate_bean=#{operateBean,jdbcType=VARCHAR}</if>
 </set>
 <where>
 	<choose>
@@ -113,6 +126,7 @@
 		    <if test="remark1==null">remark1 = null,</if>
 		    <if test="remark2==null">remark2 = null,</if>
 		    <if test="remark3==null">remark3 = null,</if>
+		    <if test="operateBean==null">operate_bean = null,</if>
 		</trim>
 	</set>
 	<where>
@@ -141,20 +155,22 @@
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into WORKFLOW_FORM (form_id,form_no,form_name,form_describe,is_table_storage,table_name,remark1,remark2,remark3) 
-<foreach collection="list" item="entity" index="index" separator="union all">
-		select 
-		#{entity.formId,jdbcType = VARCHAR},
-				#{entity.formNo,jdbcType = VARCHAR},
-				#{entity.formName,jdbcType = VARCHAR},
-				#{entity.formDescribe,jdbcType = VARCHAR},
-				#{entity.isTableStorage,jdbcType = CHAR},
-				#{entity.tableName,jdbcType = VARCHAR},
-				#{entity.remark1,jdbcType = NUMERIC},
-				#{entity.remark2,jdbcType = VARCHAR},
-				#{entity.remark3,jdbcType = VARCHAR}
-		from dual
+	insert into WORKFLOW_FORM (form_id,form_no,form_name,form_describe,is_table_storage,table_name,remark1,remark2,remark3,operate_bean)
+		select  WORKFLOW_FORM_PK.NEXTVAL , B.* from(
+			<foreach collection="list" item="entity" index="index" separator="union all">
+				select 
+	              #{entity.formNo,jdbcType = VARCHAR},
+	              #{entity.formName,jdbcType = VARCHAR},
+	              #{entity.formDescribe,jdbcType = VARCHAR},
+	              #{entity.isTableStorage,jdbcType = CHAR},
+	              #{entity.tableName,jdbcType = VARCHAR},
+	              #{entity.remark1,jdbcType = NUMERIC},
+	              #{entity.remark2,jdbcType = VARCHAR},
+	              #{entity.remark3,jdbcType = VARCHAR},
+	              #{entity.operateBean,jdbcType = VARCHAR}
+		        from dual
 </foreach>
+	    )B
 </insert>
 
 <!-- ElementID:deleteBatch,Generated=true -->
@@ -167,31 +183,36 @@
 </trim>
 </delete>
 
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update WORKFLOW_FORM
+	<set>
+	<if test="entity.formNo != null">form_no= #{entity.formNo,jdbcType=VARCHAR},</if>
+	<if test="entity.formName != null">form_name= #{entity.formName,jdbcType=VARCHAR},</if>
+	<if test="entity.formDescribe != null">form_describe= #{entity.formDescribe,jdbcType=VARCHAR},</if>
+	<if test="entity.isTableStorage != null">is_table_storage= #{entity.isTableStorage,jdbcType=CHAR},</if>
+	<if test="entity.tableName != null">table_name= #{entity.tableName,jdbcType=VARCHAR},</if>
+	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=NUMERIC},</if>
+	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
+	<if test="entity.remark3 != null">remark3= #{entity.remark3,jdbcType=VARCHAR},</if>
+	<if test="entity.operateBean != null">operate_bean= #{entity.operateBean,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.formId != null">and form_id = #{entity.formId}</when>
+				<otherwise>and form_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
 <!-- ElementID:selectAll,Generated=true -->
 <select id="selectAll" resultMap="FormResult">
 	select 
 		<include refid="column_sql"/>
 	    from WORKFLOW_FORM 
 </select>
-
-<!-- ElementID:selectByID,Generated=true -->
-<select id="selectByID" parameterType="java.lang.String" resultMap="FormResult">
-	select 
-		<include refid="column_sql"/>
-	    from WORKFLOW_FORM 
-		 where WORKFLOW_FORM.form_id = #{formId,jdbcType=VARCHAR}
-</select>
-
-<!-- ElementID:selectByPage,Generated=true -->
-<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.Form" resultMap="FormResult">
-	select 
-		<include refid="column_sql"/>
-	    from WORKFLOW_FORM 
-		 <where>
-			<include refid="whereClause_sql"/>
-		</where>
-</select>
-
 
 <!-- ElementID:selectMany,Generated=true -->
 <select id="selectMany" parameterType="list" resultMap="FormResult">
@@ -213,30 +234,28 @@ select
 	        <if test="entity.remark1 != null">and WORKFLOW_FORM.remark1 = #{entity.remark1}</if>
 	        <if test="entity.remark2 != null">and WORKFLOW_FORM.remark2 = #{entity.remark2}</if>
 	        <if test="entity.remark3 != null">and WORKFLOW_FORM.remark3 = #{entity.remark3}</if>
+	        <if test="entity.operateBean != null">and WORKFLOW_FORM.operate_bean = #{entity.operateBean}</if>
 		</where>
 </foreach>
 )
 </select>
-<!--Generated=true-->
-<update id="updateBatch" parameterType="list">
-	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
-			update WORKFLOW_FORM
-	<set>
-	<if test="entity.formNo != null">form_no= #{entity.formNo,jdbcType=VARCHAR},</if>
-	<if test="entity.formName != null">form_name= #{entity.formName,jdbcType=VARCHAR},</if>
-	<if test="entity.formDescribe != null">form_describe= #{entity.formDescribe,jdbcType=VARCHAR},</if>
-	<if test="entity.isTableStorage != null">is_table_storage= #{entity.isTableStorage,jdbcType=CHAR},</if>
-	<if test="entity.tableName != null">table_name= #{entity.tableName,jdbcType=VARCHAR},</if>
-	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=NUMERIC},</if>
-	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
-	<if test="entity.remark3 != null">remark3= #{entity.remark3,jdbcType=VARCHAR}</if>
-	</set>
-		<where>
-			<choose>
-				<when test="entity.formId != null">and form_id = #{entity.formId}</when>
-				<otherwise>and form_id = </otherwise>
-			</choose>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="FormResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_FORM 
+		 where WORKFLOW_FORM.form_id = #{formId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.Form" resultMap="FormResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_FORM 
+		 <where>
+			<include refid="whereClause_sql"/>
 		</where>
-	</foreach>
-</update>
+</select>
+
 </mapper>

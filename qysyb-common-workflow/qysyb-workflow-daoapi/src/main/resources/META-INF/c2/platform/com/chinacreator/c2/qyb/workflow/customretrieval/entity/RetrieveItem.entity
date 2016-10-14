@@ -3,37 +3,46 @@
   <docket:name>检索器项</docket:name>
   <docket:createType>来自数据库</docket:createType>
   <docket:primaryKey>
-    <docket:pkAttribute attribute="item_id" type="UUID"/>
+    <docket:pkAttribute attribute="item_id"/>
   </docket:primaryKey>
   <docket:attributes>
-    <docket:attribute code="item_id" nullable="false" type="string128" default="">
+    <docket:attribute code="item_id" length="128" nullable="false" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="retrieve_key" name="检索器id" nullable="true" type="string256" default="">
+    <docket:attribute code="retrieve_key" length="128" name="检索器id" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="field_id" length="" name="字段id" nullable="true" precision="" type="string128" default="">
-      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.FormField.field_id" id="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField"/>
+    <docket:attribute code="field_id" length="128" name="字段id" nullable="true" precision="" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.FormField.field_id" id="entity:com.chinacreator.c2.qyb.workflow.form.entity.FormField"/>
     </docket:attribute>
     <docket:attribute code="is_like" length="1" name="是否模糊检索" nullable="true" type="boolean" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="right_operate" name="左边操作符" nullable="true" type="string256" default="">
+    <docket:attribute code="right_operate" length="128" name="左边操作符" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="left_operate" name="右边操作符" nullable="true" type="string256" default="">
+    <docket:attribute code="left_operate" length="128" name="右边操作符" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark1" name="1" nullable="true" type="string256" default="">
+    <docket:attribute code="remark1" length="256" name="1" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark2" name="2" nullable="true" type="string256" default="">
+    <docket:attribute code="remark2" length="256" name="2" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark3" name="3" nullable="true" type="string2000" default="">
+    <docket:attribute code="remark3" length="256" name="3" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark4" name="4" nullable="true" type="smallint" default="">
+    <docket:attribute code="remark4" length="4" name="4" nullable="true" type="smallint" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="display_span" length="10" name="前端占位数" nullable="true" type="int" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="webdisplay_type_id" length="128" name="前端展示UI模板" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="rorder" length="10" name="排序号" nullable="true" type="int" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
   </docket:attributes>
