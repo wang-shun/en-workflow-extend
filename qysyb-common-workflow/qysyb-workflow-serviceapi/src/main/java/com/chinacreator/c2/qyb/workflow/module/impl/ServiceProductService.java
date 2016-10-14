@@ -166,7 +166,7 @@ public class ServiceProductService {
 			for(ServiceProduct sp:list){
 //				Object o = sps.getBindProcessByModuleId(sp.getProductId());
 				WfProcessDefinition wfp = sps.getBindProcessByModuleId(sp.getProductId());
-				if(wfp.getId()!=null){
+				if(wfp != null && wfp.getId()!=null){
 					map.put(sp.getProductId(), wfp);
 				}
 			}
