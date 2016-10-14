@@ -75,7 +75,7 @@
           <dync:render/>
           <dync:children/>
         </dync:attribute>
-        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="a4_border">
           <dync:render/>
           <dync:children/>
         </dync:attribute>
