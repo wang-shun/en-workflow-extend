@@ -14,7 +14,7 @@ import com.chinacreator.c2.annotation.Entity;
 @Entity(id = "entity:com.chinacreator.c2.qyb.workflow.form.entity.FormField", table = "WORKFLOW_FORM_FIELD", ds = "oracDB")
 public class FormField implements Serializable {
 	private static final long serialVersionUID = 1407415065837568L;
-	@Column(id = "field_id", type = ColumnType.uuid, datatype = "string128")
+	@Column(id = "field_id", type = ColumnType.increment, datatype = "string128")
 	private java.lang.String fieldId;
 
 	/**
@@ -32,7 +32,7 @@ public class FormField implements Serializable {
 	/**
 	 *持久数据类型
 	 */
-	@Column(id = "field_type", datatype = "string64")
+	@Column(id = "field_type", datatype = "string128")
 	private java.lang.String fieldType;
 
 	/**
@@ -44,7 +44,7 @@ public class FormField implements Serializable {
 	/**
 	 *内嵌表单ID
 	 */
-	@Column(id = "object_class", datatype = "string512")
+	@Column(id = "object_class", datatype = "string256")
 	private java.lang.String objectClass;
 
 	/**
@@ -62,28 +62,43 @@ public class FormField implements Serializable {
 	/**
 	 *前端控件类型
 	 */
-	@Column(id = "web_display_type_id", datatype = "string512")
+	@Column(id = "web_display_type_id", datatype = "string128")
 	private java.lang.String webDisplayTypeId;
 
 	@Column(id = "forder", datatype = "mediumdouble")
 	private java.lang.Double forder;
 
+	/**
+	 *字典名 字典下拉框等生效 DC
+	 */
 	@Column(id = "remark1", datatype = "string256")
 	private java.lang.String remark1;
 
+	/**
+	 *list数据源 给字段展示控件使用
+	 */
 	@Column(id = "remark2", datatype = "string256")
 	private java.lang.String remark2;
 
+	/**
+	 *名属性 前端控件 使用
+	 */
 	@Column(id = "remark3", datatype = "string256")
 	private java.lang.String remark3;
 
+	/**
+	 *值属性 前端控件使用
+	 */
 	@Column(id = "remark4", datatype = "string256")
 	private java.lang.String remark4;
 
 	@Column(id = "remark5", datatype = "string256")
 	private java.lang.String remark5;
 
-	@Column(id = "remark6", datatype = "string256")
+	/**
+	 *数据库表名 字段以单独业务表组织时使用 DC
+	 */
+	@Column(id = "remark6", datatype = "string128")
 	private java.lang.String remark6;
 
 	@Column(id = "ramark7", datatype = "string512")
@@ -93,13 +108,40 @@ public class FormField implements Serializable {
 	private java.lang.String remark8;
 
 	/**
-	 *
+	 *是否存入流程变量保存 DC
 	 */
 	@Column(id = "remark9", datatype = "boolean")
 	private java.lang.Boolean remark9;
 
+	/**
+	 *控件占位数 DC
+	 */
 	@Column(id = "remark10", datatype = "mediumdouble")
 	private java.lang.Double remark10;
+
+	/**
+	 *字典名 字典下拉框等生效
+	 */
+	@Column(id = "dict_name", datatype = "string256")
+	private java.lang.String dictName;
+
+	/**
+	 *数据库表字段名 字段以单独业务表组织时使用
+	 */
+	@Column(id = "field_col_name", datatype = "string256")
+	private java.lang.String fieldColName;
+
+	/**
+	 *是否存入流程变量保存
+	 */
+	@Column(id = "is_proc_var", datatype = "boolean")
+	private java.lang.Boolean isProcVar;
+
+	/**
+	 *控件占位数
+	 */
+	@Column(id = "display_span", datatype = "mediumdouble")
+	private java.lang.Double displaySpan;
 
 	/**
 	 * 设置${field.desc}
@@ -242,56 +284,56 @@ public class FormField implements Serializable {
 	}
 
 	/**
-	 * 设置${field.desc}
+	 * 设置字典名 字典下拉框等生效 DC
 	 */
 	public void setRemark1(java.lang.String remark1) {
 		this.remark1 = remark1;
 	}
 
 	/**
-	 * 获取${field.desc}
+	 * 获取字典名 字典下拉框等生效 DC
 	 */
 	public java.lang.String getRemark1() {
 		return remark1;
 	}
 
 	/**
-	 * 设置${field.desc}
+	 * 设置list数据源 给字段展示控件使用
 	 */
 	public void setRemark2(java.lang.String remark2) {
 		this.remark2 = remark2;
 	}
 
 	/**
-	 * 获取${field.desc}
+	 * 获取list数据源 给字段展示控件使用
 	 */
 	public java.lang.String getRemark2() {
 		return remark2;
 	}
 
 	/**
-	 * 设置${field.desc}
+	 * 设置名属性 前端控件 使用
 	 */
 	public void setRemark3(java.lang.String remark3) {
 		this.remark3 = remark3;
 	}
 
 	/**
-	 * 获取${field.desc}
+	 * 获取名属性 前端控件 使用
 	 */
 	public java.lang.String getRemark3() {
 		return remark3;
 	}
 
 	/**
-	 * 设置${field.desc}
+	 * 设置值属性 前端控件使用
 	 */
 	public void setRemark4(java.lang.String remark4) {
 		this.remark4 = remark4;
 	}
 
 	/**
-	 * 获取${field.desc}
+	 * 获取值属性 前端控件使用
 	 */
 	public java.lang.String getRemark4() {
 		return remark4;
@@ -312,14 +354,14 @@ public class FormField implements Serializable {
 	}
 
 	/**
-	 * 设置${field.desc}
+	 * 设置数据库表名 字段以单独业务表组织时使用 DC
 	 */
 	public void setRemark6(java.lang.String remark6) {
 		this.remark6 = remark6;
 	}
 
 	/**
-	 * 获取${field.desc}
+	 * 获取数据库表名 字段以单独业务表组织时使用 DC
 	 */
 	public java.lang.String getRemark6() {
 		return remark6;
@@ -354,30 +396,86 @@ public class FormField implements Serializable {
 	}
 
 	/**
-	 * 设置
+	 * 设置是否存入流程变量保存 DC
 	 */
 	public void setRemark9(java.lang.Boolean remark9) {
 		this.remark9 = remark9;
 	}
 
 	/**
-	 * 获取
+	 * 获取是否存入流程变量保存 DC
 	 */
 	public java.lang.Boolean isRemark9() {
 		return remark9;
 	}
 
 	/**
-	 * 设置${field.desc}
+	 * 设置控件占位数 DC
 	 */
 	public void setRemark10(java.lang.Double remark10) {
 		this.remark10 = remark10;
 	}
 
 	/**
-	 * 获取${field.desc}
+	 * 获取控件占位数 DC
 	 */
 	public java.lang.Double getRemark10() {
 		return remark10;
+	}
+
+	/**
+	 * 设置字典名 字典下拉框等生效
+	 */
+	public void setDictName(java.lang.String dictName) {
+		this.dictName = dictName;
+	}
+
+	/**
+	 * 获取字典名 字典下拉框等生效
+	 */
+	public java.lang.String getDictName() {
+		return dictName;
+	}
+
+	/**
+	 * 设置数据库表字段名 字段以单独业务表组织时使用
+	 */
+	public void setFieldColName(java.lang.String fieldColName) {
+		this.fieldColName = fieldColName;
+	}
+
+	/**
+	 * 获取数据库表字段名 字段以单独业务表组织时使用
+	 */
+	public java.lang.String getFieldColName() {
+		return fieldColName;
+	}
+
+	/**
+	 * 设置是否存入流程变量保存
+	 */
+	public void setIsProcVar(java.lang.Boolean isProcVar) {
+		this.isProcVar = isProcVar;
+	}
+
+	/**
+	 * 获取是否存入流程变量保存
+	 */
+	public java.lang.Boolean isIsProcVar() {
+		return isProcVar;
+	}
+
+	/**
+	 * 设置控件占位数
+	 */
+	public void setDisplaySpan(java.lang.Double displaySpan) {
+		this.displaySpan = displaySpan;
+	}
+
+	/**
+	 * 获取控件占位数
+	 */
+	public java.lang.Double getDisplaySpan() {
+		return displaySpan;
 	}
 }

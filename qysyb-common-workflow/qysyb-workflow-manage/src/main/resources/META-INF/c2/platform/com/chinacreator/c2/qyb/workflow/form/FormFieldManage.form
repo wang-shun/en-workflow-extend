@@ -182,6 +182,39 @@
             </form:attributes>
           </form:control>
         </form:child>
+        <form:child xsi:type="form:Field" id="buttonATable" name="查找" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="custom" group="事件设置" id="clickType" name="事件类型" value="expend">
+                <dync:render colSpan="2" height="0" multi="false" name="select">
+                  <dync:item name="自定义" value="custom"/>
+                  <dync:item name="添加" value="add"/>
+                  <dync:item name="编辑" value="edit"/>
+                  <dync:item name="查看" value="get"/>
+                  <dync:item name="删除" value="delete"/>
+                  <dync:item name="查找" value="search"/>
+                  <dync:item name="展开搜索框" value="expend"/>
+                  <dync:item name="刷新" value="refrash"/>
+                  <dync:item name="行内添加" value="inlineAdd"/>
+                  <dync:item name="行内编辑" value="inlineEdit"/>
+                  <dync:item name="行内保存" value="inlineSave"/>
+                  <dync:item name="行内取消" value="inlineRestore"/>
+                  <dync:item name="行内删除" value="inlineDelete"/>
+                </dync:render>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
+                <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="light-blue">
+                <dync:render colSpan="2" height="0" multi="false" name="selectIconColor"/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
       </form:child>
       <form:child xsi:type="form:Field" binding="fieldId" id="fieldId" name="fieldId">
         <form:control type="widget/col_jqgrid">
@@ -252,7 +285,14 @@
       </form:child>
       <form:child xsi:type="form:Field" id="newField3" name="重置" customize="true">
         <form:control type="widget/button">
-          <form:attributes source="widget/button"/>
+          <form:attributes source="widget/button">
+            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField3_click($event)">
+              <dync:render colSpan="1" height="0" multi="false" name="event">
+                <dync:item name="params" value="$event"/>
+              </dync:render>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
         </form:control>
         <form:validation/>
       </form:child>
@@ -265,12 +305,20 @@
   <form:scripts>
 
 newField2_click:function($event){
-//Todo 后台暂未支持实现
-	var conditions = { groupOp:&quot;AND&quot;, rules:[
-	                   {field:&quot;fieldNo&quot;,op:&quot;cn&quot;,data:$model.search.fieldNo},
-	                   {field:&quot;fieldName&quot;,op:&quot;cn&quot;,data:$model.search.fieldName}
-	                ]};
-	$view.list.refresh({conditions:conditions});
+	var queryParams = new Array();
+	var fieldNo = null;
+	var fieldName = null;
+	fieldNo = $model.search.fieldNo;
+	fieldName = $model.search.fieldName;
+	if(fieldNo != null){
+		queryParams.push({field:&quot;fieldNo&quot;,op:&quot;cn&quot;,data:$model.search.fieldNo});
+	}
+	if(fieldName !=null){
+		queryParams.push({field:&quot;fieldName&quot;,op:&quot;cn&quot;,data:$model.search.fieldName});
+	}
+
+	var filters={groupOp:&quot;AND&quot;,rules:queryParams};
+	$view.list.refresh({filters:filters});
 },
 
 buttonEdit_click:function(rowId,rowData,tableData){
@@ -287,5 +335,10 @@ buttonAdd_click:function(rowId,rowData,tableData){
 		function(){
 			$view.list.refresh();
 		});		
+},
+
+newField3_click:function($event){
+	$view.mainForm.clean();
+	$view.list.refresh({});	
 }</form:scripts>
 </form:Form>
