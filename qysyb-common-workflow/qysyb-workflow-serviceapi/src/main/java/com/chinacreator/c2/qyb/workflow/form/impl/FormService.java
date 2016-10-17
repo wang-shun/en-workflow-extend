@@ -28,6 +28,7 @@ import com.chinacreator.c2.qyb.workflow.form.entity.FormField;
 import com.chinacreator.c2.qyb.workflow.form.entity.FormFieldRel;
 import com.chinacreator.c2.qyb.workflow.form.entity.FormFieldValue;
 import com.chinacreator.c2.qyb.workflow.form.entity.WebDisplayCategory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 表单服务接口
@@ -355,8 +356,8 @@ public class FormService {
 	 * @param isClassify 是否按字段类别分类
 	 * @return
 	 */
-	public Map<String,List<FormField>> getFormField(String formId,String[] fieldType,boolean isClassify){
-		Map<String,List<FormField>> mapresult = new HashMap<String,List<FormField>>();
+	public Map<String,List<Map>> getFormField(String formId,String[] fieldType,boolean isClassify){
+		Map<String,List<Map>> mapresult = new HashMap<String,List<Map>>();
 		Dao<FormFieldRel> daoffr = DaoFactory.create(FormFieldRel.class);
 		Form f = new Form();
 		f.setFormId(formId);
@@ -364,10 +365,20 @@ public class FormService {
 			FormFieldRel ffr = new FormFieldRel();
 			ffr.setFormId(f);
 			List<FormFieldRel> listffr = daoffr.select(ffr);	
-			List<FormField> list = new ArrayList<FormField>();
+			List<Map> list = new ArrayList<Map>();
 			for(FormFieldRel o:listffr){
 				if(o.getFieldId()!=null){
-					list.add(o.getFieldId());
+					Map map = new HashMap();
+					ObjectMapper m = new ObjectMapper();
+					Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
+					if(props != null){
+						map.putAll(props);
+					}
+					Map<String,Object> relprops = m.convertValue(o, Map.class);		
+					if(relprops != null){
+						map.putAll(relprops);
+					}					
+					list.add(map);
 				}		
 			}
 			if(list.size()>0){
@@ -375,49 +386,49 @@ public class FormService {
 			}
 			return mapresult;
 		}
-		if(fieldType==null){
-			Dao<DictDataInfo> daod = DaoFactory.create(DictDataInfo.class);
-			Dao<DictTypeInfo> daot = DaoFactory.create(DictTypeInfo.class);
-			DictTypeInfo cont = new DictTypeInfo();
-			DictDataInfo cond = new DictDataInfo();
-			cont.setDicttypeName(FormService.WFFIELDTYPEDICTNAME);
-			cont = daot.selectOne(cont);
-			cond.setDicttypeId(cont);
-			List<DictDataInfo> listd = daod.select(cond);
-			for(DictDataInfo d:listd){
-				FormFieldRel ffr = new FormFieldRel();
-				ffr.setFormId(f);
-				ffr.setCategotyId(d.getDictdataName());
-				List<FormFieldRel> listffr = daoffr.select(ffr);
-				List<FormField> list = new ArrayList<FormField>();
-				for(FormFieldRel o:listffr){
-					if(o.getFieldId()!=null){
-						o.getFieldId().setCategoryId(d.getDictdataName());
-						list.add(o.getFieldId());
-					}		
-				}
-				if(list.size()>0){
-					mapresult.put(d.getDictdataName(), list);
-				}			
-			}
-		}else{
-			for(String d:fieldType){
-				FormFieldRel ffr = new FormFieldRel();
-				ffr.setFormId(f);
-				ffr.setCategotyId(d);
-				List<FormFieldRel> listffr = daoffr.select(ffr);
-				List<FormField> list = new ArrayList<FormField>();
-				for(FormFieldRel o:listffr){
-					if(o.getFieldId()!=null){
-						o.getFieldId().setCategoryId(d);
-						list.add(o.getFieldId());
-					}		
-				}
-				if(list.size()>0){
-					mapresult.put(d, list);
-				}		
-			}
-		}
+//		if(fieldType==null){
+//			Dao<DictDataInfo> daod = DaoFactory.create(DictDataInfo.class);
+//			Dao<DictTypeInfo> daot = DaoFactory.create(DictTypeInfo.class);
+//			DictTypeInfo cont = new DictTypeInfo();
+//			DictDataInfo cond = new DictDataInfo();
+//			cont.setDicttypeName(FormService.WFFIELDTYPEDICTNAME);
+//			cont = daot.selectOne(cont);
+//			cond.setDicttypeId(cont);
+//			List<DictDataInfo> listd = daod.select(cond);
+//			for(DictDataInfo d:listd){
+//				FormFieldRel ffr = new FormFieldRel();
+//				ffr.setFormId(f);
+//				ffr.setCategotyId(d.getDictdataName());
+//				List<FormFieldRel> listffr = daoffr.select(ffr);
+//				List<FormField> list = new ArrayList<FormField>();
+//				for(FormFieldRel o:listffr){
+//					if(o.getFieldId()!=null){
+//						o.getFieldId().setCategoryId(d.getDictdataName());
+//						list.add(o.getFieldId());
+//					}		
+//				}
+//				if(list.size()>0){
+//					mapresult.put(d.getDictdataName(), list);
+//				}			
+//			}
+//		}else{
+//			for(String d:fieldType){
+//				FormFieldRel ffr = new FormFieldRel();
+//				ffr.setFormId(f);
+//				ffr.setCategotyId(d);
+//				List<FormFieldRel> listffr = daoffr.select(ffr);
+//				List<FormField> list = new ArrayList<FormField>();
+//				for(FormFieldRel o:listffr){
+//					if(o.getFieldId()!=null){
+//						o.getFieldId().setCategoryId(d);
+//						list.add(o.getFieldId());
+//					}		
+//				}
+//				if(list.size()>0){
+//					mapresult.put(d, list);
+//				}		
+//			}
+//		}
 		return mapresult;
 	}
 	/**
