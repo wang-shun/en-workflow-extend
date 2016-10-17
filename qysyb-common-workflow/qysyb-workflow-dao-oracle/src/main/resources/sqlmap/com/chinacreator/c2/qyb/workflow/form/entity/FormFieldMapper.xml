@@ -26,7 +26,8 @@
 		  WORKFLOW_FORM_FIELD.dict_name ,
 		  WORKFLOW_FORM_FIELD.field_col_name ,
 		  WORKFLOW_FORM_FIELD.is_proc_var ,
-		  WORKFLOW_FORM_FIELD.display_span 
+		  WORKFLOW_FORM_FIELD.display_span ,
+		  WORKFLOW_FORM_FIELD.label_width 
 </sql>
 
 <!-- ElementID:whereClause_sql,Generated=true -->
@@ -55,6 +56,7 @@
 	    <if test="fieldColName != null">and WORKFLOW_FORM_FIELD.field_col_name = #{fieldColName}</if>
 	    <if test="isProcVar != null">and WORKFLOW_FORM_FIELD.is_proc_var = #{isProcVar}</if>
 	    <if test="displaySpan != null">and WORKFLOW_FORM_FIELD.display_span = #{displaySpan}</if>
+	    <if test="labelWidth != null">and WORKFLOW_FORM_FIELD.label_width = #{labelWidth}</if>
 </sql>
 
 
@@ -84,6 +86,7 @@
 	<result property="fieldColName" column="field_col_name"/>
 	<result property="isProcVar" column="is_proc_var"/>
 	<result property="displaySpan" column="display_span"/>
+	<result property="labelWidth" column="label_width"/>
 </resultMap>
 
 
@@ -117,6 +120,7 @@
 	         <if test="fieldColName != null">,field_col_name</if>
 	         <if test="isProcVar != null">,is_proc_var</if>
 	         <if test="displaySpan != null">,display_span</if>
+	         <if test="labelWidth != null">,label_width</if>
 	 	 	 )
 	 values (
 	         <if test="fieldId != null">#{fieldId,jdbcType=VARCHAR}</if>
@@ -137,12 +141,13 @@
 	         <if test="remark6 != null">,#{remark6,jdbcType=VARCHAR}</if>
 	         <if test="ramark7 != null">,#{ramark7,jdbcType=VARCHAR}</if>
 	         <if test="remark8 != null">,#{remark8,jdbcType=VARCHAR}</if>
-	         <if test="remark9 != null">,#{remark9,jdbcType=CHAR}</if>
+	         <if test="remark9 != null">,#{remark9,jdbcType=NUMERIC}</if>
 	         <if test="remark10 != null">,#{remark10,jdbcType=NUMERIC}</if>
 	         <if test="dictName != null">,#{dictName,jdbcType=VARCHAR}</if>
 	         <if test="fieldColName != null">,#{fieldColName,jdbcType=VARCHAR}</if>
 	         <if test="isProcVar != null">,#{isProcVar,jdbcType=CHAR}</if>
 	         <if test="displaySpan != null">,#{displaySpan,jdbcType=NUMERIC}</if>
+	         <if test="labelWidth != null">,#{labelWidth,jdbcType=NUMERIC}</if>
 	 	 	 )
 </insert>
 
@@ -175,12 +180,13 @@
 	<if test="remark6 != null">remark6=#{remark6,jdbcType=VARCHAR},</if>
 	<if test="ramark7 != null">ramark7=#{ramark7,jdbcType=VARCHAR},</if>
 	<if test="remark8 != null">remark8=#{remark8,jdbcType=VARCHAR},</if>
-	<if test="remark9 != null">remark9=#{remark9,jdbcType=CHAR},</if>
+	<if test="remark9 != null">remark9=#{remark9,jdbcType=NUMERIC},</if>
 	<if test="remark10 != null">remark10=#{remark10,jdbcType=NUMERIC},</if>
 	<if test="dictName != null">dict_name=#{dictName,jdbcType=VARCHAR},</if>
 	<if test="fieldColName != null">field_col_name=#{fieldColName,jdbcType=VARCHAR},</if>
 	<if test="isProcVar != null">is_proc_var=#{isProcVar,jdbcType=CHAR},</if>
-	<if test="displaySpan != null">display_span=#{displaySpan,jdbcType=NUMERIC}</if>
+	<if test="displaySpan != null">display_span=#{displaySpan,jdbcType=NUMERIC},</if>
+	<if test="labelWidth != null">label_width=#{labelWidth,jdbcType=NUMERIC}</if>
 </set>
 <where>
 	<choose>
@@ -218,6 +224,7 @@
 		    <if test="fieldColName==null">field_col_name = null,</if>
 		    <if test="isProcVar==null">is_proc_var = null,</if>
 		    <if test="displaySpan==null">display_span = null,</if>
+		    <if test="labelWidth==null">label_width = null,</if>
 		</trim>
 	</set>
 	<where>
@@ -246,7 +253,7 @@
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into WORKFLOW_FORM_FIELD (field_id,field_no,field_name,field_type,is_object,object_class,field_describe,category_id,web_display_type_id,forder,remark1,remark2,remark3,remark4,remark5,remark6,ramark7,remark8,remark9,remark10,dict_name,field_col_name,is_proc_var,display_span) 
+	insert into WORKFLOW_FORM_FIELD (field_id,field_no,field_name,field_type,is_object,object_class,field_describe,category_id,web_display_type_id,forder,remark1,remark2,remark3,remark4,remark5,remark6,ramark7,remark8,remark9,remark10,dict_name,field_col_name,is_proc_var,display_span,label_width) 
 <foreach collection="list" item="entity" index="index" separator="union all">
 		select 
 		#{entity.fieldId,jdbcType = VARCHAR},
@@ -267,12 +274,13 @@
 				#{entity.remark6,jdbcType = VARCHAR},
 				#{entity.ramark7,jdbcType = VARCHAR},
 				#{entity.remark8,jdbcType = VARCHAR},
-				#{entity.remark9,jdbcType = CHAR},
+				#{entity.remark9,jdbcType = NUMERIC},
 				#{entity.remark10,jdbcType = NUMERIC},
 				#{entity.dictName,jdbcType = VARCHAR},
 				#{entity.fieldColName,jdbcType = VARCHAR},
 				#{entity.isProcVar,jdbcType = CHAR},
-				#{entity.displaySpan,jdbcType = NUMERIC}
+				#{entity.displaySpan,jdbcType = NUMERIC},
+				#{entity.labelWidth,jdbcType = NUMERIC}
 		from dual
 </foreach>
 </insert>
@@ -309,12 +317,13 @@
 	<if test="entity.remark6 != null">remark6= #{entity.remark6,jdbcType=VARCHAR},</if>
 	<if test="entity.ramark7 != null">ramark7= #{entity.ramark7,jdbcType=VARCHAR},</if>
 	<if test="entity.remark8 != null">remark8= #{entity.remark8,jdbcType=VARCHAR},</if>
-	<if test="entity.remark9 != null">remark9= #{entity.remark9,jdbcType=CHAR},</if>
+	<if test="entity.remark9 != null">remark9= #{entity.remark9,jdbcType=NUMERIC},</if>
 	<if test="entity.remark10 != null">remark10= #{entity.remark10,jdbcType=NUMERIC},</if>
 	<if test="entity.dictName != null">dict_name= #{entity.dictName,jdbcType=VARCHAR},</if>
 	<if test="entity.fieldColName != null">field_col_name= #{entity.fieldColName,jdbcType=VARCHAR},</if>
 	<if test="entity.isProcVar != null">is_proc_var= #{entity.isProcVar,jdbcType=CHAR},</if>
-	<if test="entity.displaySpan != null">display_span= #{entity.displaySpan,jdbcType=NUMERIC}</if>
+	<if test="entity.displaySpan != null">display_span= #{entity.displaySpan,jdbcType=NUMERIC},</if>
+	<if test="entity.labelWidth != null">label_width= #{entity.labelWidth,jdbcType=NUMERIC}</if>
 	</set>
 		<where>
 			<choose>
@@ -367,6 +376,7 @@ select
 	        <if test="entity.fieldColName != null">and WORKFLOW_FORM_FIELD.field_col_name = #{entity.fieldColName}</if>
 	        <if test="entity.isProcVar != null">and WORKFLOW_FORM_FIELD.is_proc_var = #{entity.isProcVar}</if>
 	        <if test="entity.displaySpan != null">and WORKFLOW_FORM_FIELD.display_span = #{entity.displaySpan}</if>
+	        <if test="entity.labelWidth != null">and WORKFLOW_FORM_FIELD.label_width = #{entity.labelWidth}</if>
 		</where>
 </foreach>
 )

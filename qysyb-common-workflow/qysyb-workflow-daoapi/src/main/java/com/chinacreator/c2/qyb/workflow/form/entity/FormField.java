@@ -44,7 +44,7 @@ public class FormField implements Serializable {
 	/**
 	 *内嵌表单ID
 	 */
-	@Column(id = "object_class", datatype = "string256")
+	@Column(id = "object_class", datatype = "string128")
 	private java.lang.String objectClass;
 
 	/**
@@ -68,54 +68,33 @@ public class FormField implements Serializable {
 	@Column(id = "forder", datatype = "mediumdouble")
 	private java.lang.Double forder;
 
-	/**
-	 *字典名 字典下拉框等生效 DC
-	 */
 	@Column(id = "remark1", datatype = "string256")
 	private java.lang.String remark1;
 
-	/**
-	 *list数据源 给字段展示控件使用
-	 */
 	@Column(id = "remark2", datatype = "string256")
 	private java.lang.String remark2;
 
-	/**
-	 *名属性 前端控件 使用
-	 */
 	@Column(id = "remark3", datatype = "string256")
 	private java.lang.String remark3;
 
-	/**
-	 *值属性 前端控件使用
-	 */
 	@Column(id = "remark4", datatype = "string256")
 	private java.lang.String remark4;
 
 	@Column(id = "remark5", datatype = "string256")
 	private java.lang.String remark5;
 
-	/**
-	 *数据库表名 字段以单独业务表组织时使用 DC
-	 */
-	@Column(id = "remark6", datatype = "string128")
+	@Column(id = "remark6", datatype = "string256")
 	private java.lang.String remark6;
 
-	@Column(id = "ramark7", datatype = "string512")
+	@Column(id = "ramark7", datatype = "string1024")
 	private java.lang.String ramark7;
 
-	@Column(id = "remark8", datatype = "string512")
+	@Column(id = "remark8", datatype = "string1024")
 	private java.lang.String remark8;
 
-	/**
-	 *是否存入流程变量保存 DC
-	 */
-	@Column(id = "remark9", datatype = "boolean")
-	private java.lang.Boolean remark9;
+	@Column(id = "remark9", datatype = "mediumdouble")
+	private java.lang.Double remark9;
 
-	/**
-	 *控件占位数 DC
-	 */
 	@Column(id = "remark10", datatype = "mediumdouble")
 	private java.lang.Double remark10;
 
@@ -142,6 +121,12 @@ public class FormField implements Serializable {
 	 */
 	@Column(id = "display_span", datatype = "mediumdouble")
 	private java.lang.Double displaySpan;
+
+	/**
+	 *label宽度 UI模板可选择去实现此字段以达到更好的复用
+	 */
+	@Column(id = "label_width", datatype = "mediumdouble")
+	private java.lang.Double labelWidth;
 
 	/**
 	 * 设置${field.desc}
@@ -284,56 +269,56 @@ public class FormField implements Serializable {
 	}
 
 	/**
-	 * 设置字典名 字典下拉框等生效 DC
+	 * 设置${field.desc}
 	 */
 	public void setRemark1(java.lang.String remark1) {
 		this.remark1 = remark1;
 	}
 
 	/**
-	 * 获取字典名 字典下拉框等生效 DC
+	 * 获取${field.desc}
 	 */
 	public java.lang.String getRemark1() {
 		return remark1;
 	}
 
 	/**
-	 * 设置list数据源 给字段展示控件使用
+	 * 设置${field.desc}
 	 */
 	public void setRemark2(java.lang.String remark2) {
 		this.remark2 = remark2;
 	}
 
 	/**
-	 * 获取list数据源 给字段展示控件使用
+	 * 获取${field.desc}
 	 */
 	public java.lang.String getRemark2() {
 		return remark2;
 	}
 
 	/**
-	 * 设置名属性 前端控件 使用
+	 * 设置${field.desc}
 	 */
 	public void setRemark3(java.lang.String remark3) {
 		this.remark3 = remark3;
 	}
 
 	/**
-	 * 获取名属性 前端控件 使用
+	 * 获取${field.desc}
 	 */
 	public java.lang.String getRemark3() {
 		return remark3;
 	}
 
 	/**
-	 * 设置值属性 前端控件使用
+	 * 设置${field.desc}
 	 */
 	public void setRemark4(java.lang.String remark4) {
 		this.remark4 = remark4;
 	}
 
 	/**
-	 * 获取值属性 前端控件使用
+	 * 获取${field.desc}
 	 */
 	public java.lang.String getRemark4() {
 		return remark4;
@@ -354,14 +339,14 @@ public class FormField implements Serializable {
 	}
 
 	/**
-	 * 设置数据库表名 字段以单独业务表组织时使用 DC
+	 * 设置${field.desc}
 	 */
 	public void setRemark6(java.lang.String remark6) {
 		this.remark6 = remark6;
 	}
 
 	/**
-	 * 获取数据库表名 字段以单独业务表组织时使用 DC
+	 * 获取${field.desc}
 	 */
 	public java.lang.String getRemark6() {
 		return remark6;
@@ -396,28 +381,28 @@ public class FormField implements Serializable {
 	}
 
 	/**
-	 * 设置是否存入流程变量保存 DC
+	 * 设置${field.desc}
 	 */
-	public void setRemark9(java.lang.Boolean remark9) {
+	public void setRemark9(java.lang.Double remark9) {
 		this.remark9 = remark9;
 	}
 
 	/**
-	 * 获取是否存入流程变量保存 DC
+	 * 获取${field.desc}
 	 */
-	public java.lang.Boolean isRemark9() {
+	public java.lang.Double getRemark9() {
 		return remark9;
 	}
 
 	/**
-	 * 设置控件占位数 DC
+	 * 设置${field.desc}
 	 */
 	public void setRemark10(java.lang.Double remark10) {
 		this.remark10 = remark10;
 	}
 
 	/**
-	 * 获取控件占位数 DC
+	 * 获取${field.desc}
 	 */
 	public java.lang.Double getRemark10() {
 		return remark10;
@@ -477,5 +462,19 @@ public class FormField implements Serializable {
 	 */
 	public java.lang.Double getDisplaySpan() {
 		return displaySpan;
+	}
+
+	/**
+	 * 设置label宽度 UI模板可选择去实现此字段以达到更好的复用
+	 */
+	public void setLabelWidth(java.lang.Double labelWidth) {
+		this.labelWidth = labelWidth;
+	}
+
+	/**
+	 * 获取label宽度 UI模板可选择去实现此字段以达到更好的复用
+	 */
+	public java.lang.Double getLabelWidth() {
+		return labelWidth;
 	}
 }

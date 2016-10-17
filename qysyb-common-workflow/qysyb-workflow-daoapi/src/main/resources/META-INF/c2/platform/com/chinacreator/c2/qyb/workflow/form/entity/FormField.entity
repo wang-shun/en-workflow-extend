@@ -21,7 +21,7 @@
     <docket:attribute code="is_object" length="1" name="是否为内嵌表单" nullable="true" type="boolean" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="object_class" length="256" name="内嵌表单ID" nullable="true" type="string256" default="">
+    <docket:attribute code="object_class" length="128" name="内嵌表单ID" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="field_describe" length="1024" name="描述" nullable="true" type="string1024" default="">
@@ -36,34 +36,34 @@
     <docket:attribute code="forder" length="11" nullable="true" type="mediumdouble" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark1" length="256" name="字典名 字典下拉框等生效 DC" nullable="true" type="string256" default="">
+    <docket:attribute code="remark1" length="256" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark2" length="256" name="list数据源 给字段展示控件使用" nullable="true" type="string256" default="">
+    <docket:attribute code="remark2" length="256" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark3" length="256" name="名属性 前端控件 使用" nullable="true" type="string256" default="">
+    <docket:attribute code="remark3" length="256" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark4" length="256" name="值属性 前端控件使用" nullable="true" type="string256" default="">
+    <docket:attribute code="remark4" length="256" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="remark5" length="256" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark6" length="128" name="数据库表名 字段以单独业务表组织时使用 DC" nullable="true" type="string128" default="">
+    <docket:attribute code="remark6" length="256" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="ramark7" length="512" nullable="true" type="string512" default="">
+    <docket:attribute code="ramark7" length="1024" nullable="true" type="string1024" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark8" length="512" nullable="true" type="string512" default="">
+    <docket:attribute code="remark8" length="1024" nullable="true" type="string1024" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark9" length="1" name="是否存入流程变量保存 DC" nullable="true" type="boolean" default="">
+    <docket:attribute code="remark9" length="11" nullable="true" type="mediumdouble" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark10" length="11" name="控件占位数 DC" nullable="true" type="mediumdouble" default="">
+    <docket:attribute code="remark10" length="11" nullable="true" type="mediumdouble" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="dict_name" length="256" name="字典名 字典下拉框等生效" nullable="true" type="string256" default="">
@@ -76,6 +76,9 @@
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="display_span" length="11" name="控件占位数" nullable="true" type="mediumdouble" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="label_width" length="11" name="label宽度 UI模板可选择去实现此字段以达到更好的复用" nullable="true" type="mediumdouble" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
   </docket:attributes>

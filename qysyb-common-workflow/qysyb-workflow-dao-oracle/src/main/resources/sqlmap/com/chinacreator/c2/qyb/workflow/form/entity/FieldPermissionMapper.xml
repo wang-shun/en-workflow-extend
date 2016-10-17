@@ -34,7 +34,8 @@
 		  WORKFLOW_FORM_FIELD_T1.dict_name T1_dict_name ,
 		  WORKFLOW_FORM_FIELD_T1.field_col_name T1_field_col_name ,
 		  WORKFLOW_FORM_FIELD_T1.is_proc_var T1_is_proc_var ,
-		  WORKFLOW_FORM_FIELD_T1.display_span T1_display_span 
+		  WORKFLOW_FORM_FIELD_T1.display_span T1_display_span ,
+		  WORKFLOW_FORM_FIELD_T1.label_width T1_label_width 
 </sql>
 
 <!-- ElementID:whereClause_sql,Generated=true -->
@@ -81,6 +82,7 @@
 	<result property="fieldColName" column="field_col_name"/>
 	<result property="isProcVar" column="is_proc_var"/>
 	<result property="displaySpan" column="display_span"/>
+	<result property="labelWidth" column="label_width"/>
 </resultMap>
 
 
