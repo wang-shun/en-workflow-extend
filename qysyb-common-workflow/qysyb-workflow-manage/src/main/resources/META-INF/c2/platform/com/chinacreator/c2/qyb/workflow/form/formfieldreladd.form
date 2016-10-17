@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="表单字段关联增加" sn="formfieldreladd" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal"/>
+  </form:control>
+  <form:child xsi:type="form:Group" id="main1" name="表单字段关联表">
+    <form:control type="container/div">
+      <form:attributes source="container/div"/>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="$model.fieldType" id="newField1" name="字段类别" customize="true">
+      <form:control type="widget/select_simple_dict">
+        <form:attributes source="widget/select_simple_dict">
+          <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="工作流_字段类别">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="下拉框设置" id="defaultValue" name="默认值" value="JBXX">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Group" binding="$model.list" id="list" name="列表型数据源">
+      <form:control type="container/table_jqgrid">
+        <form:attributes source="container/table_jqgrid"/>
+      </form:control>
+      <form:child xsi:type="form:Group" id="toolbar_table1" name="toolbar_table">
+        <form:control type="container/toolbar_table">
+          <form:attributes source="container/toolbar_table"/>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="fieldId" id="fieldId1" name="fieldId">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute id="key" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute id="hidden" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="fieldNo" id="fieldNo1" name="字段编码">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid"/>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="fieldName" id="fieldName1" name="字段名称">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid"/>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="fieldDescribe" id="fieldDescribe1" name="描述">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid"/>
+        </form:control>
+      </form:child>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="toolbar1" name="主按钮组">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="btn_add1" name="新增">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_add_click($event)">
+            <dync:render colSpan="1" height="0" multi="false" name="event">
+              <dync:item name="params" value="$event"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-primary" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-success">
+            <dync:render colSpan="1" height="0" multi="false" name="select">
+              <dync:item name="默认" value="btn-default"/>
+              <dync:item name="主要" value="btn-primary"/>
+              <dync:item name="成功" value="btn-success"/>
+              <dync:item name="信息" value="btn-info"/>
+              <dync:item name="警告" value="btn-warning"/>
+              <dync:item name="危险" value="btn-danger"/>
+              <dync:item name="链接" value="btn-link"/>
+              <dync:item name="通用" value="btn-white no-border"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" id="btn_edit1" name="取消">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-times">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="btn_edit_click($event)">
+            <dync:render colSpan="1" height="0" multi="false" name="event">
+              <dync:item name="params" value="$event"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.qyb.workflow.form.entity.FormField" pageSize="10"/>
+  </form:datasources>
+  <form:scripts>btn_add_click:function($event){&#xD;
+	var ids = $view.list.getSelectRowIds();&#xD;
+	$http.post(&quot;ws/addformfieldrel&quot;,{&quot;fieldType&quot;:$model.fieldType,&quot;formId&quot;:$params.formId,&quot;fieldIds&quot;:ids}).success(function(){&#xD;
+	    Modal.instance.close();&#xD;
+        Messenger.post({type:'success',message:'新增成功'});&#xD;
+	});&#xD;
+},&#xD;
+btn_edit_click:function($event){&#xD;
+   Modal.instance.dismiss();&#xD;
+}&#xD;
+</form:scripts>
+</form:Form>

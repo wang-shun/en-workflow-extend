@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
@@ -350,7 +351,7 @@ public class FormService {
 		return list;
 	}
 	/**
-	 * 
+	 * 获取字段 以及字段的配置 如果 formfieldrel 里面有自定义的配置 优先使用 formfieldrel里面的配置
 	 * @param formId
 	 * @param fieldType
 	 * @param isClassify 是否按字段类别分类
@@ -376,7 +377,8 @@ public class FormService {
 					}
 					Map<String,Object> relprops = m.convertValue(o, Map.class);		
 					if(relprops != null){
-						map.putAll(relprops);
+						Map relpropstrimed = removeNullInMap(relprops);
+						map.putAll(relpropstrimed);
 					}					
 					list.add(map);
 				}		
@@ -386,49 +388,69 @@ public class FormService {
 			}
 			return mapresult;
 		}
-//		if(fieldType==null){
-//			Dao<DictDataInfo> daod = DaoFactory.create(DictDataInfo.class);
-//			Dao<DictTypeInfo> daot = DaoFactory.create(DictTypeInfo.class);
-//			DictTypeInfo cont = new DictTypeInfo();
-//			DictDataInfo cond = new DictDataInfo();
-//			cont.setDicttypeName(FormService.WFFIELDTYPEDICTNAME);
-//			cont = daot.selectOne(cont);
-//			cond.setDicttypeId(cont);
-//			List<DictDataInfo> listd = daod.select(cond);
-//			for(DictDataInfo d:listd){
-//				FormFieldRel ffr = new FormFieldRel();
-//				ffr.setFormId(f);
-//				ffr.setCategotyId(d.getDictdataName());
-//				List<FormFieldRel> listffr = daoffr.select(ffr);
-//				List<FormField> list = new ArrayList<FormField>();
-//				for(FormFieldRel o:listffr){
-//					if(o.getFieldId()!=null){
-//						o.getFieldId().setCategoryId(d.getDictdataName());
-//						list.add(o.getFieldId());
-//					}		
-//				}
-//				if(list.size()>0){
-//					mapresult.put(d.getDictdataName(), list);
-//				}			
-//			}
-//		}else{
-//			for(String d:fieldType){
-//				FormFieldRel ffr = new FormFieldRel();
-//				ffr.setFormId(f);
-//				ffr.setCategotyId(d);
-//				List<FormFieldRel> listffr = daoffr.select(ffr);
-//				List<FormField> list = new ArrayList<FormField>();
-//				for(FormFieldRel o:listffr){
-//					if(o.getFieldId()!=null){
-//						o.getFieldId().setCategoryId(d);
-//						list.add(o.getFieldId());
-//					}		
-//				}
-//				if(list.size()>0){
-//					mapresult.put(d, list);
-//				}		
-//			}
-//		}
+		if(fieldType==null){
+			Dao<DictDataInfo> daod = DaoFactory.create(DictDataInfo.class);
+			Dao<DictTypeInfo> daot = DaoFactory.create(DictTypeInfo.class);
+			DictTypeInfo cont = new DictTypeInfo();
+			DictDataInfo cond = new DictDataInfo();
+			cont.setDicttypeName(FormService.WFFIELDTYPEDICTNAME);
+			cont = daot.selectOne(cont);
+			cond.setDicttypeId(cont);
+			List<DictDataInfo> listd = daod.select(cond);
+			for(DictDataInfo d:listd){
+				FormFieldRel ffr = new FormFieldRel();
+				ffr.setFormId(f);
+				ffr.setCategotyId(d.getDictdataName());
+				List<FormFieldRel> listffr = daoffr.select(ffr);
+				List<Map> list = new ArrayList<Map>();
+				for(FormFieldRel o:listffr){
+					if(o.getFieldId()!=null){
+						Map map = new HashMap();
+						ObjectMapper m = new ObjectMapper();
+						Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
+						if(props != null){
+							map.putAll(props);
+						}
+						Map<String,Object> relprops = m.convertValue(o, Map.class);		
+						if(relprops != null){
+							Map relpropstrimed = removeNullInMap(relprops);
+							map.putAll(relpropstrimed);
+						}					
+						list.add(map);
+					}		
+				}
+				if(list.size()>0){
+					mapresult.put(d.getDictdataName(), list);
+				}			
+			}
+		}else{
+			for(String d:fieldType){
+				FormFieldRel ffr = new FormFieldRel();
+				ffr.setFormId(f);
+				ffr.setCategotyId(d);
+				List<FormFieldRel> listffr = daoffr.select(ffr);
+				List<Map> list = new ArrayList<Map>();
+				for(FormFieldRel o:listffr){
+					if(o.getFieldId()!=null){
+						Map map = new HashMap();
+						ObjectMapper m = new ObjectMapper();
+						Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
+						if(props != null){
+							map.putAll(props);
+						}
+						Map<String,Object> relprops = m.convertValue(o, Map.class);		
+						if(relprops != null){
+							Map relpropstrimed = removeNullInMap(relprops);
+							map.putAll(relpropstrimed);
+						}					
+						list.add(map);
+					}		
+				}
+				if(list.size()>0){
+					mapresult.put(d, list);
+				}		
+			}
+		}
 		return mapresult;
 	}
 	/**
@@ -599,5 +621,25 @@ public class FormService {
 		Dao<WebDisplayCategory> dao = DaoFactory.create(WebDisplayCategory.class);
 		List<WebDisplayCategory> list = dao.selectAll();	
 		return list;
+	}
+	/**
+	 * 去掉map中的 null 空字符串
+	 * @param map
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private Map removeNullInMap(Map map){
+		Map result = new HashMap();
+		Set<String> set = map.keySet();
+		for(String key:set){
+			Object o = map.get(key);
+			if(o == null){
+				continue;
+			}
+			if(o instanceof String && ((String) o).trim().equals("")){
+				continue;
+			}
+			result.put(key, o);
+		}
+		return result;
 	}
 }

@@ -329,16 +329,18 @@
           <form:child xsi:type="form:Field" id="buttonEdit" name="编辑">
             <form:control type="widget/button_a_table">
               <form:attributes source="widget/button_a_table">
-                <dync:attribute id="clickType" value="edit">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
                 <dync:attribute id="icon" value="fa-pencil">
                   <dync:render/>
                   <dync:children/>
                 </dync:attribute>
                 <dync:attribute id="iconColor" value="blue">
                   <dync:render/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="buttonEdit_click(rowId,rowData,tableData)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="rowId,rowData,tableData"/>
+                  </dync:render>
                   <dync:children/>
                 </dync:attribute>
               </form:attributes>
@@ -432,7 +434,7 @@ buttonAdd_click:function(rowId,rowData,tableData){
 			return;
 		}else{
 			var formId = ids[0]; 
-			Modal.open(&quot;ef/servicemanageformfieldrel/add&quot;,{&quot;formId&quot;:formId},function(){
+			Modal.open(&quot;f/formfieldreladd&quot;,{&quot;formId&quot;:formId},function(){
 				$view.list1.refresh();
 			});
 		}	
@@ -456,5 +458,19 @@ newField2_click:function($event){
 
 list1_onDrop:function(table,row){
 	console.log(table,row);
+},
+
+buttonEdit_click:function(rowId,rowData,tableData){
+	var ids = $view.list1.getSelectRowIds();
+	if(ids.length != 1){
+		Messenger.post({
+		    'message': &quot;请选择或只一个记录！&quot;,
+		    'type': 'error',
+		});		
+		return
+	}
+	Modal.open(&quot;f/formfieldreledit&quot;,{&quot;id&quot;:ids[0]},function(){
+		$view.list1.refresh();
+	});	
 }</form:scripts>
 </form:Form>
