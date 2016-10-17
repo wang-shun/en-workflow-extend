@@ -45,6 +45,72 @@ public class FormFieldRel {
 	private java.lang.String relDescribe;
 
 	/**
+	 *关联时自定义占位符
+	 */
+	@Column(id = "display_span", datatype = "mediumdouble")
+	private java.lang.Double displaySpan;
+
+	/**
+	 *关联时自定义LABEL宽度
+	 */
+	@Column(id = "label_width", datatype = "mediumdouble")
+	private java.lang.Double labelWidth;
+
+	/**
+	 *关联时自定义 显示名
+	 */
+	@Column(id = "display_name", datatype = "string128")
+	private java.lang.String displayName;
+
+	/**
+	 *关联时 他会出现在的位置 用来控制样式
+	 */
+	@Column(id = "position", datatype = "string128")
+	private java.lang.String position;
+
+	/**
+	 *关联时 自定义 字典名
+	 */
+	@Column(id = "dict_name", datatype = "string128")
+	private java.lang.String dictName;
+
+	/**
+	 *关联时自定义属性1
+	 */
+	@Column(id = "remark1", datatype = "string128")
+	private java.lang.String remark1;
+
+	/**
+	 *关联时自定义属性2
+	 */
+	@Column(id = "remark2", datatype = "string128")
+	private java.lang.String remark2;
+
+	/**
+	 *关联时自定义属性3
+	 */
+	@Column(id = "remark3", datatype = "string128")
+	private java.lang.String remark3;
+
+	/**
+	 *关联时自定义属性4
+	 */
+	@Column(id = "remark4", datatype = "string128")
+	private java.lang.String remark4;
+
+	/**
+	 *关联时自定义属性5
+	 */
+	@Column(id = "remark5", datatype = "boolean")
+	private java.lang.Boolean remark5;
+
+	/**
+	 *关联时自定义属性6
+	 */
+	@Column(id = "remark6", datatype = "mediumdouble")
+	private java.lang.Double remark6;
+
+	/**
 	 * 设置ID
 	 */
 	public void setRelId(java.lang.String relId) {
@@ -126,5 +192,159 @@ public class FormFieldRel {
 	 */
 	public java.lang.String getRelDescribe() {
 		return relDescribe;
+	}
+
+	/**
+	 * 设置关联时自定义占位符
+	 */
+	public void setDisplaySpan(java.lang.Double displaySpan) {
+		this.displaySpan = displaySpan;
+	}
+
+	/**
+	 * 获取关联时自定义占位符
+	 */
+	public java.lang.Double getDisplaySpan() {
+		return displaySpan;
+	}
+
+	/**
+	 * 设置关联时自定义LABEL宽度
+	 */
+	public void setLabelWidth(java.lang.Double labelWidth) {
+		this.labelWidth = labelWidth;
+	}
+
+	/**
+	 * 获取关联时自定义LABEL宽度
+	 */
+	public java.lang.Double getLabelWidth() {
+		return labelWidth;
+	}
+
+	/**
+	 * 设置关联时自定义 显示名
+	 */
+	public void setDisplayName(java.lang.String displayName) {
+		this.displayName = displayName;
+	}
+
+	/**
+	 * 获取关联时自定义 显示名
+	 */
+	public java.lang.String getDisplayName() {
+		return displayName;
+	}
+
+	/**
+	 * 设置关联时 他会出现在的位置 用来控制样式
+	 */
+	public void setPosition(java.lang.String position) {
+		this.position = position;
+	}
+
+	/**
+	 * 获取关联时 他会出现在的位置 用来控制样式
+	 */
+	public java.lang.String getPosition() {
+		return position;
+	}
+
+	/**
+	 * 设置关联时 自定义 字典名
+	 */
+	public void setDictName(java.lang.String dictName) {
+		this.dictName = dictName;
+	}
+
+	/**
+	 * 获取关联时 自定义 字典名
+	 */
+	public java.lang.String getDictName() {
+		return dictName;
+	}
+
+	/**
+	 * 设置关联时自定义属性1
+	 */
+	public void setRemark1(java.lang.String remark1) {
+		this.remark1 = remark1;
+	}
+
+	/**
+	 * 获取关联时自定义属性1
+	 */
+	public java.lang.String getRemark1() {
+		return remark1;
+	}
+
+	/**
+	 * 设置关联时自定义属性2
+	 */
+	public void setRemark2(java.lang.String remark2) {
+		this.remark2 = remark2;
+	}
+
+	/**
+	 * 获取关联时自定义属性2
+	 */
+	public java.lang.String getRemark2() {
+		return remark2;
+	}
+
+	/**
+	 * 设置关联时自定义属性3
+	 */
+	public void setRemark3(java.lang.String remark3) {
+		this.remark3 = remark3;
+	}
+
+	/**
+	 * 获取关联时自定义属性3
+	 */
+	public java.lang.String getRemark3() {
+		return remark3;
+	}
+
+	/**
+	 * 设置关联时自定义属性4
+	 */
+	public void setRemark4(java.lang.String remark4) {
+		this.remark4 = remark4;
+	}
+
+	/**
+	 * 获取关联时自定义属性4
+	 */
+	public java.lang.String getRemark4() {
+		return remark4;
+	}
+
+	/**
+	 * 设置关联时自定义属性5
+	 */
+	public void setRemark5(java.lang.Boolean remark5) {
+		this.remark5 = remark5;
+	}
+
+	/**
+	 * 获取关联时自定义属性5
+	 */
+	public java.lang.Boolean isRemark5() {
+		return remark5;
+	}
+
+	/**
+	 * 设置关联时自定义属性6
+	 */
+	public void setRemark6(java.lang.Double remark6) {
+		this.remark6 = remark6;
+	}
+
+	/**
+	 * 获取关联时自定义属性6
+	 */
+	public java.lang.Double getRemark6() {
+		return remark6;
 	}
 }
