@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="sortFormFieldRel" log="false" className="com.chinacreator.c2.qyb.workflow.form.impl.FormService" method="sortFormFieldRel">
+  <name>表单字段排序</name>
+  <inputs>
+    <input collection="false" desc="" id="page" required="true" type="int"/>
+    <input collection="false" desc="" id="rowNum" required="true" type="int"/>
+    <input collection="false" desc="" id="ids" required="true" type="[LString;"/>
+  </inputs>
+  <outputs/>
+  <params>
+    <param autoValue="Input.page" name="page" signature="I" type="int"/>
+    <param autoValue="Input.rowNum" name="rowNum" signature="I" type="int"/>
+    <param autoValue="Input.ids" name="ids" signature="[QString;" type="[LString;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

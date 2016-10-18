@@ -642,4 +642,21 @@ public class FormService {
 		}
 		return result;
 	}
+	/**
+	 * 
+	 * @param page
+	 * @param rowNum
+	 * @param ids
+	 */
+	public void sortFormFieldRel(int page,int rowNum,String[] ids){
+		Dao<FormFieldRel> dao = DaoFactory.create(FormFieldRel.class);
+		if (null != ids && ids.length > 0) {
+			for (int i = 0; i < ids.length; i++) {
+				FormFieldRel rel = new FormFieldRel();
+				rel.setRelId(ids[i]);
+				rel.setRorder((double) ((page - 1) * rowNum + i));
+				dao.update(rel);
+			}
+		}		
+	}
 }
