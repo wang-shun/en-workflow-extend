@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" xmlns:template="http://www.chinacreator.com/c2/ui/template" name="通用流程任务表单" res="" sn="flowcommonform" type="form">
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="通用流程任务表单" res="" sn="flowcommonform" type="form">
   <form:control type="page/normal">
     <form:attributes source="page/normal">
       <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
@@ -38,7 +38,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="TabOperator">
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="TabOperator $q">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -89,402 +89,229 @@
         </dync:attribute>
       </form:attributes>
     </form:control>
-    <form:child xsi:type="form:Group" id="newGroup17" name="常规信息">
-      <form:control type="container/tabs">
-        <form:attributes source="container/tabs">
-          <dync:attribute default="false" group="动态页签配置" id="retain" name="保留静态内容" value="true">
-            <dync:render/>
+    <form:child xsi:type="form:Group" id="wftabcontainer" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+            <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="false" group="动态页签配置" id="dynamic" name="启用动态页签" value="true">
-            <dync:render/>
+          <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="!$model.tabDisplay">
+            <dync:render colSpan="2" height="0" multi="false" name="text"/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" group="动态页签配置" id="dynamicSource" name="页签来源" value="$model.dynamictabs">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="动态标签事件" id="onDynamicSelected" name="选中事件" value="newGroup17_onDynamicSelected(tab)">
-            <dync:render/>
+          <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="true">
+            <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
       </form:control>
-      <form:child xsi:type="form:Group" id="newGroup18" name="{{$model.baseinfo}}">
-        <form:control type="container/tab">
-          <form:attributes source="container/tab">
-            <dync:attribute default="false" group="HTML配置" id="active" name="选中" value="true">
+      <form:child xsi:type="form:Group" id="newGroup17" name="常规信息">
+        <form:control type="container/tabs">
+          <form:attributes source="container/tabs">
+            <dync:attribute default="false" group="动态页签配置" id="retain" name="保留静态内容" value="true">
               <dync:render/>
               <dync:children/>
             </dync:attribute>
-            <dync:attribute default="10px" group="HTML配置" id="padding" name="内边距" value="0px">
+            <dync:attribute default="false" group="动态页签配置" id="dynamic" name="启用动态页签" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="动态页签配置" id="dynamicSource" name="页签来源" value="$model.dynamictabs">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="动态标签事件" id="onDynamicSelected" name="选中事件" value="newGroup17_onDynamicSelected(tab)">
               <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
         </form:control>
-        <form:child xsi:type="form:Group" id="newGroup21" name="简单容器(DIV)">
-          <form:control type="container/toolbar">
-            <form:attributes source="container/toolbar">
-              <dync:attribute default="center" group="基本设置" id="position" name="按钮位置" value="pull-left">
+        <form:child xsi:type="form:Group" id="newGroup18" name="{{$model.baseinfo}}">
+          <form:control type="container/tab">
+            <form:attributes source="container/tab">
+              <dync:attribute default="false" group="HTML配置" id="active" name="选中" value="true">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
-              <dync:attribute default="" group="样式设置" id="marginBottom" name="底部外边距" value="0">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="样式设置" id="marginTop" name="顶部外边距" value="10">
+              <dync:attribute default="10px" group="HTML配置" id="padding" name="内边距" value="0px">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
           </form:control>
-          <form:child xsi:type="form:Field" id="newField21" name="提交" res="" customize="true">
-            <form:control type="widget/button">
-              <form:attributes source="widget/button">
-                <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="commit($event)">
+          <form:child xsi:type="form:Group" id="newGroup22" name="简单容器(DIV)">
+            <form:control type="container/toolbar">
+              <form:attributes source="container/toolbar">
+                <dync:attribute default="center" group="基本设置" id="position" name="按钮位置" value="pull-left">
                   <dync:render/>
                   <dync:children/>
                 </dync:attribute>
-                <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId!=null">
+                <dync:attribute default="" group="样式设置" id="marginBottom" name="底部外边距" value="0">
                   <dync:render/>
                   <dync:children/>
                 </dync:attribute>
-                <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                <dync:attribute default="" group="样式设置" id="marginTop" name="顶部外边距" value="10">
                   <dync:render/>
                   <dync:children/>
                 </dync:attribute>
               </form:attributes>
             </form:control>
-            <form:validation/>
+            <form:child xsi:type="form:Field" id="newField22" name="提交" res="" customize="true">
+              <form:control type="widget/button">
+                <form:attributes source="widget/button">
+                  <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="commit($event)">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId!=null">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
+            </form:child>
+            <form:child xsi:type="form:Field" id="newField12" name="流程监控" res="" customize="true">
+              <form:control type="widget/button">
+                <form:attributes source="widget/button">
+                  <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField2_click($event)">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId!=null">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
+            </form:child>
+            <form:child xsi:type="form:Field" id="newField1" name="退回" res="" customize="true">
+              <form:control type="widget/button">
+                <form:attributes source="widget/button">
+                  <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField_click($event)">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.actions.return!=undefined">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
+            </form:child>
+            <form:child xsi:type="form:Field" id="submitflow1" name="提交流程" res="" customize="true">
+              <form:control type="widget/button">
+                <form:attributes source="widget/button">
+                  <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="start_flow($event)">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId==null">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
+            </form:child>
+            <form:child xsi:type="form:Field" id="newField5" name="保存" customize="true">
+              <form:control type="widget/button">
+                <form:attributes source="widget/button">
+                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId==null">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField4_click($event)">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                    <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
+            </form:child>
           </form:child>
-          <form:child xsi:type="form:Field" id="newField11" name="流程监控" res="" customize="true">
-            <form:control type="widget/button">
-              <form:attributes source="widget/button">
-                <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField2_click($event)">
+          <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+            <form:control type="container/div">
+              <form:attributes source="container/div">
+                <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
                   <dync:render/>
                   <dync:children/>
                 </dync:attribute>
-                <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId!=null">
+                <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup_html">
                   <dync:render/>
                   <dync:children/>
                 </dync:attribute>
               </form:attributes>
             </form:control>
-            <form:validation/>
           </form:child>
-          <form:child xsi:type="form:Field" id="newField" name="退回" res="" customize="true">
-            <form:control type="widget/button">
-              <form:attributes source="widget/button">
-                <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField_click($event)">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.actions.return!=undefined">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" id="submitflow" name="提交流程" res="" customize="true">
-            <form:control type="widget/button">
-              <form:attributes source="widget/button">
-                <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="start_flow($event)">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId==null">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" id="newField4" name="保存" customize="true">
-            <form:control type="widget/button">
-              <form:attributes source="widget/button">
-                <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId==null">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField4_click($event)">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-        </form:child>
-        <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
-          <form:control type="container/div">
-            <form:attributes source="container/div">
-              <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup_html">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="$params.processDefinitionId" id="newField45" name="流程定义ID" customize="true">
-          <form:control type="widget/text">
-            <form:attributes source="widget/text">
-              <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
-                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="$params.processInstanceId" id="newField64" name="流程实例ID" customize="true">
-          <form:control type="widget/text">
-            <form:attributes source="widget/text">
-              <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
-                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="$params.moduleId" id="newField65" name="事项ID" customize="true">
-          <form:control type="widget/text">
-            <form:attributes source="widget/text">
-              <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
-                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="$params.taskId" id="newField66" name="任务ID" customize="true">
-          <form:control type="widget/text">
-            <form:attributes source="widget/text">
-              <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
-                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="$model.getUser.result.name" id="newField67" name="登录用户" customize="true">
-          <form:control type="widget/text">
-            <form:attributes source="widget/text">
-              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="$params.taskDefKey" id="newField68" name="活动定义ID" customize="true">
-          <form:control type="widget/text">
-            <form:attributes source="widget/text">
-              <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
-                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="$model.businessKey" id="newField69" name="业务ID" customize="true">
-          <form:control type="widget/text">
-            <form:attributes source="widget/text">
-              <dync:attribute default="false" desc="是否验证必填。只有当焦点离开文本框时才开始验证，验证失败会有验证失败的样式和提示。也有单独触发验证的方法：`check()`。" group="数据校验" hidden="false" id="required" name="必填项" required="true" value="true">
-                <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="custom" desc="验证的数据类型。" group="数据校验" hidden="false" id="valitype" name="数据类型" required="true" value="combiOne">
-                <dync:render colSpan="2" height="0" multi="false" name="select">
-                  <dync:item name="自定义" value="custom"/>
-                  <dync:item name="手机号" value="mobile"/>
-                  <dync:item name="电话号码" value="phone"/>
-                  <dync:item name="QQ" value="qq"/>
-                  <dync:item name="身份证" value="idCard"/>
-                  <dync:item name="邮件" value="email"/>
-                  <dync:item name="URL" value="url"/>
-                  <dync:item name="数字|字母|下划线" value="combiOne"/>
-                  <dync:item name="中文|数字|字母|下划线" value="combiTwo"/>
-                </dync:render>
-                <dync:children/>
-                <dync:onChange>
-                  <template:case value="custom">
-                    <template:set param="pattern" value=""/>
-                    <template:set param="patternError" value=""/>
-                    <template:hide param="pattern" value="false"/>
-                    <template:hide param="patternError" value="false"/>
-                  </template:case>
-                  <template:case value="mobile">
-                    <template:set param="pattern" value="/^1[3-8][0-9]\d{8}$/"/>
-                    <template:set param="patternError" value="手机号码格式不正确!"/>
-                    <template:hide param="pattern" value="false"/>
-                    <template:hide param="patternError" value="false"/>
-                  </template:case>
-                  <template:case value="phone">
-                    <template:set param="pattern" value="/((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/"/>
-                    <template:set param="patternError" value="电话号码格式不正确!"/>
-                    <template:hide param="pattern" value="false"/>
-                    <template:hide param="patternError" value="false"/>
-                  </template:case>
-                  <template:case value="qq">
-                    <template:set param="pattern" value="/^\d{5,10}$/"/>
-                    <template:set param="patternError" value="QQ号码格式不正确!"/>
-                    <template:hide param="pattern" value="false"/>
-                    <template:hide param="patternError" value="false"/>
-                  </template:case>
-                  <template:case value="idCard">
-                    <template:set param="pattern" value="/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/"/>
-                    <template:set param="patternError" value="身份证格式不正确!"/>
-                    <template:hide param="pattern" value="false"/>
-                    <template:hide param="patternError" value="false"/>
-                  </template:case>
-                  <template:case value="email">
-                    <template:set param="pattern" value="/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/"/>
-                    <template:set param="patternError" value="邮件格式不正确!"/>
-                    <template:hide param="pattern" value="false"/>
-                    <template:hide param="patternError" value="false"/>
-                  </template:case>
-                  <template:case value="url">
-                    <template:set param="pattern" value="/[a-zA-z]+://[^s]*/"/>
-                    <template:set param="patternError" value="url格式不正确!"/>
-                    <template:hide param="pattern" value="false"/>
-                    <template:hide param="patternError" value="false"/>
-                  </template:case>
-                  <template:case value="combiOne">
-                    <template:set param="pattern" value="/^[\w]+$/"/>
-                    <template:set param="patternError" value="只能输入数字、字母、下划线!"/>
-                    <template:hide param="pattern" value="false"/>
-                    <template:hide param="patternError" value="false"/>
-                  </template:case>
-                  <template:case value="combiTwo">
-                    <template:set param="pattern" value="/^[\w\u4e00-\u9fa5]+$/"/>
-                    <template:set param="patternError" value="只能输入中文、数字、字母、下划线!"/>
-                    <template:hide param="pattern" value="false"/>
-                    <template:hide param="patternError" value="false"/>
-                  </template:case>
-                </dync:onChange>
-              </dync:attribute>
-              <dync:attribute default="" desc="验证正则表达式，注意正则表达式必须包含在“//”内：“/^\\d+$/”" group="数据校验" hidden="false" id="pattern" name="正则验证" required="false" value="/^[\w]+$/">
-                <dync:render colSpan="1" height="0" multi="false" name="text"/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" desc="验证正则表达式失败后的提示。" group="数据校验" hidden="false" id="patternError" name="正则验证失败提示" required="false" value="只能输入数字、字母、下划线!">
-                <dync:render colSpan="1" height="0" multi="false" name="text"/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
         </form:child>
       </form:child>
     </form:child>
-    <form:child xsi:type="form:Group" id="workflowhandlediv" name="流程操作">
+    <form:child xsi:type="form:Group" id="wfsinglepagecontainer" name="流程操作">
       <form:control type="container/div">
-        <form:attributes source="container/div"/>
+        <form:attributes source="container/div">
+          <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="true">
+            <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="$model.tabDisplay">
+            <dync:render colSpan="2" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
       </form:control>
-      <form:child xsi:type="form:Group" id="newGroup2" name="简单容器(DIV)">
-        <form:control type="container/div">
-          <form:attributes source="container/div">
-            <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="true">
+      <form:child xsi:type="form:Group" id="newGroup21" name="简单容器(DIV)">
+        <form:control type="container/toolbar">
+          <form:attributes source="container/toolbar">
+            <dync:attribute default="center" group="基本设置" id="position" name="按钮位置" value="pull-left">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="样式设置" id="marginBottom" name="底部外边距" value="0">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="样式设置" id="marginTop" name="顶部外边距" value="10">
               <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
         </form:control>
-        <form:child xsi:type="form:Field" binding="$model.handleway" id="radios" name="处理方式" customize="true">
-          <form:control type="widget/checkbox_group">
-            <form:attributes source="widget/checkbox_group">
-              <dync:attribute default="" group="单选按钮组设置" id="checkboxOptions" name="选项" value="{&quot;处理完成&quot;:&quot;处理完成&quot;}">
+        <form:child xsi:type="form:Field" id="newField21" name="提交" res="" customize="true">
+          <form:control type="widget/button">
+            <form:attributes source="widget/button">
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="commit($event)">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="clickEvent" name="选中事件" value="newField2_clickEvent(value,checked,checkboxObj)">
+              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId!=null">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-      </form:child>
-      <form:child xsi:type="form:Group" id="nextdiv" name="简单容器(DIV)">
-        <form:control type="container/div">
-          <form:attributes source="container/div">
-            <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-        <form:child xsi:type="form:Field" binding="$model.nexttask" id="nexttaskview" name="下一步骤" customize="true">
-          <form:control type="widget/select_simple">
-            <form:attributes source="widget/select_simple">
-              <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.getOutTransition.result">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="change" name="值变换事件" value="newField_change()">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="3">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="false" group="下拉框设置" id="firstSelected" name="选中第一个" value="true">
+              <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -492,153 +319,17 @@
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Group" id="nextnodediv" name="简单容器(DIV)">
-          <form:control type="container/div">
-            <form:attributes source="container/div">
-              <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="3">
+        <form:child xsi:type="form:Field" id="newField11" name="流程监控" res="" customize="true">
+          <form:control type="widget/button">
+            <form:attributes source="widget/button">
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField2_click($event)">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
-              <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup4_html">
+              <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
-            </form:attributes>
-          </form:control>
-        </form:child>
-      </form:child>
-      <form:child xsi:type="form:Group" id="chulirendiv" name="简单容器(DIV)">
-        <form:control type="container/div">
-          <form:attributes source="container/div">
-            <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-        <form:child xsi:type="form:Field" binding="$model.nexthandlegroupid" id="handlegroupdiv" name="处理组" customize="true">
-          <form:control type="widget/select_simple">
-            <form:attributes source="widget/select_simple">
-              <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.nextgroups">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="3">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="change" name="值变换事件" value="handlegroupdiv_change()">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="true" group="基本设置" id="show" name="可见" value="!$model.isAssigneeApplicant">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="$model.isassignee" id="newField1" name="指定处理人" customize="true">
-          <form:control type="widget/checkbox">
-            <form:attributes source="widget/checkbox">
-              <dync:attribute default="75" group="HTML设置" id="lableWidth" name="文字宽度" value="100">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="onChange" name="状态改变" value="newField1_onChange()">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="!$model.isAssigneeApplicant">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="$model.nexthandleid" id="newField3" name="处理人" customize="true">
-          <form:control type="widget/select_simple">
-            <form:attributes source="widget/select_simple">
-              <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="2">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="false" group="基本设置" id="selectDisabled" name="禁用" value="!$model.isassignee">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.handles">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="userId">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="userRealname">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="true" group="基本设置" id="show" name="可见" value="!$model.isAssigneeApplicant">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="change" name="值变换事件" value="newField3_change()">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
-          <form:control type="container/div">
-            <form:attributes source="container/div">
-              <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup1_html">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="3">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="padding-top:0px;padding-bottom:5px;">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="$model." id="newField2" name="文本" customize="true">
-          <form:control type="widget/span">
-            <form:attributes source="widget/span">
-              <dync:attribute default="6" group="基础属性" id="span" name="占位数" value="1">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="true" group="基础属性" id="show" name="可见" value="false">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-      </form:child>
-      <form:child xsi:type="form:Group" id="newGroup3" name="简单容器(DIV)">
-        <form:control type="container/div">
-          <form:attributes source="container/div">
-            <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-        <form:child xsi:type="form:Field" binding="$model.opinion" id="newField16" name="处理意见*" customize="true">
-          <form:control type="widget/textarea">
-            <form:attributes source="widget/textarea">
               <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId!=null">
                 <dync:render/>
                 <dync:children/>
@@ -647,6 +338,77 @@
           </form:control>
           <form:validation/>
         </form:child>
+        <form:child xsi:type="form:Field" id="newField" name="退回" res="" customize="true">
+          <form:control type="widget/button">
+            <form:attributes source="widget/button">
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField_click($event)">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.actions.return!=undefined">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="submitflow" name="提交流程" res="" customize="true">
+          <form:control type="widget/button">
+            <form:attributes source="widget/button">
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="start_flow($event)">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId==null">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField4" name="保存" customize="true">
+          <form:control type="widget/button">
+            <form:attributes source="widget/button">
+              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId==null">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField4_click($event)">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+      </form:child>
+      <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="singlePage_html">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
       </form:child>
     </form:child>
   </form:child>
@@ -665,69 +427,8 @@
       <form:param id="id" name="新输入参数" value="$params.params.moduleId"/>
     </form:datasource>
   </form:datasources>
-  <form:scripts>
-//选择路径事件
-newField_change:function(){
-	$params.nextname = $view.nexttaskview.getOptionObj($model.nexttask).dest.name;
-	if($params.nextname==undefined){
-		$model.transition = $view.nexttaskview.getOptionObj($model.nexttask);
-	//	console.log(&quot;transtion&quot;,$model.transition);
-		$model.dest = $model.transition.dest;
-		//如果最后一步是结束事件
-		if($model.dest.porperties.type==&quot;endEvent&quot;){ 
-			$params.nextname = &quot;结束&quot;;
-		}	
-		//如果下一步是会签事件
-		if($model.dest.porperties.multiInstance==&quot;parallel&quot;){
-			$model.isParallel = true;
-		}
-	}
-	
-	if($params.nextname == &quot;反馈申请人&quot;){
-		$model.nexthandleid = $scope.formentity.applicantId;
-		$model.isAssigneeApplicant = true;
-	}else{
-		$model.nexthandleid = null;
-		$model.isAssigneeApplicant = false;
-	}
-
-
-	$http.get(&quot;ws/getactivitycandidates&quot;,{
-		params:{
-			processDefinitionId:$params.params.processDefinitionId,
-			moduleId:$params.params.moduleId,
-			taskDefKey:$view.nexttaskview.getOptionObj($model.nexttask).dest.id,
-		}}).success(function(data){
-			$model.nextgroups = data.result;
-			//默认选中第一个处理组吧
-			$model.nexthandlegroupid = $model.nextgroups[0].id;
-			$http.get(&quot;ws/getuserjobbyid&quot;,{
-					params:{
-						jobid:$model.nexthandlegroupid,
-					}}).success(function(data){
-						$model.handles = data.result;
-					//	$model.handleid = $model.handles[0].userId;
-					});	
-
-		});	
-},
-//选择处理人
-newField3_customEven:function(){
-	Modal.open(&quot;f/chooespersonfromgroup&quot;,{groups:$model.nextgroups},
-			function(data){
-				console.log(data);
-				var candidateUsersStr = &quot;&quot;;
-				for(var i=0;i&lt;data.selected.length;i++){
-					candidateUsersStr=candidateUsersStr+data.selected[i].id+&quot;,&quot;;
-				}
-				$model.candidateUsersStr = candidateUsersStr;
-				},
-			function(data){
-				
-			});	
-},
-//提交
-commit:function($event){
+  <form:scripts>//提交
+commit:function($event){debugger
 	console.log(&quot;$scope.formentity&quot;,$scope.formentity);
 	//func 为业务表单提交前验证函数
 	if(!angular.isUndefined($model.func)){
@@ -752,13 +453,6 @@ commit:function($event){
 		return;
 	}*/
 	
-	var destroad = $view.nexttaskview.getOptionObj($model.nexttask);
-	var dest = $view.nexttaskview.getOptionObj($model.nexttask).dest;
-//	console.log(&quot;dest&quot;,dest);
-	if(dest.porperties.type==&quot;endEvent&quot;){ //下一步是结束节点 不选人
-		functions.newField5_click($event);
-		return;
-	}
 	if($model.isCountersign){  //会签环节 不选人，下一步处理人用环节外围配置
 		functions.newField5_click($event);
 		return;		
@@ -783,26 +477,32 @@ commit:function($event){
 					$model.ccInform = data.ccInform;
 					$model.transition = data.transition;
 					$model.dest = $model.transition.dest;
-					$model.nexttask = $model.transition.id;
+					$model.transitionId = $model.transition.id;
 					
 					functions.newField5_click($event);
 				
 			});
 		return;
 	}
+	
+	var dest = $model.transition.dest;
+//	console.log(&quot;dest&quot;,dest);
+	if(dest.porperties.type==&quot;endEvent&quot;){ //下一步是结束节点 不选人
+		functions.newField5_click($event);
+		return;
+	}	
+	
 	functions.newField5_click($event);
 },
 //提交
 newField5_click:function($event){
 	//1117test
-	var transitionId = $model.nexttask;
+	var transitionId = $model.transitionId;
 	console.log(&quot;1111&quot;,$model.ccInform);
 	//return;
 	$model.formId = $model.serviceproduct.result.formId;
 //	console.log(&quot;entitybeforsubmit&quot;,$scope.formentity);
-	if($model.isAssigneeApplicant){
-		$model.nexthandleid = $scope.formentity.applicantId;
-	}
+
 	if(!angular.isUndefined($scope.func)){
 		var a = $scope.func();	
 	}	
@@ -972,8 +672,7 @@ page_afterDataSourceLoad:function(){
 //		console.log(&quot;recmsg&quot;,msg);
 		$model.selectfuncs.push(msg);
 	});
-	console.log(&quot;params&quot;,$params);
-	$model.isAssigneeApplicant = false;
+
 /*	$scope.$on('entity',function(event,msg){
 		$model.entity = msg.entity;
 		$scope.entity = msg.entity;
@@ -995,15 +694,52 @@ page_afterDataSourceLoad:function(){
 	$model.activityName = $model.getOutTransition.result[0].src.name;
 
 	$model.formId = $model.serviceproduct.result.formId;
-	$http.post(&quot;ws/getformfiledpermissiondata&quot;,{&quot;serviceProduct&quot;:$model.serviceproduct.result,&quot;businessKey&quot;:$params.params.taskDefKey}).success(function(data){
-//		$scope.$apply(function(){$scope.permissionData = data.result;});	
-		$scope.permissionData = data.result;
- 		//保证tab页中有权限数据
- 		$http.post(&quot;ws/getalltabsforactivity&quot;,{productId:$params.params.moduleId,params:$params.params,activityId:$params.params.taskDefKey}).success(function(data){
- 	//		console.log(&amp;quot;tabs&amp;quot;,data);
- 			$model.dynamictabs = data.result;
- 		});		
-	});
+	
+    $q.all(
+    		[
+    		$http.post(&quot;ws/getformfiledpermissiondata&quot;,{&quot;serviceProduct&quot;:$model.serviceproduct.result,&quot;businessKey&quot;:$params.params.taskDefKey}), 		
+    		$http.post(&quot;ws/queryformdatafromprovariable&quot;,{&quot;formId&quot;:$model.serviceproduct.result.formId,&quot;filter&quot;:true,&quot;businessKey&quot;:$model.formBusinessKey,&quot;proInsId&quot;:$params.params.processInstanceId})
+    		]
+    ).then(function(resps){
+		$scope.permissionData = resps[0].data.result;
+		var promises = new Array()
+		//保证tab页中有权限数据
+		promises.push($http.post(&quot;ws/getalltabsforactivity&quot;,{productId:$params.params.moduleId,params:$params.params,activityId:$params.params.taskDefKey}))		
+ 		
+		$scope.formentity = {};
+		$scope.formentity = resps[1].data.result;
+//		console.log($scope.formentity.result);
+		//取得地址栏中的参数 赋值地址栏参数到实体
+		for(var a in locationparams){
+			//businessKey属性不要放入formentity 会覆盖了原来的同名属性
+			if(a!=&quot;businessKey&quot;){
+				$scope.formentity[a] = locationparams[a];
+			}	
+		}		
+		console.log(&quot;formentity&quot;,$scope.formentity);
+		//工单编号的自动赋值 ugly TODO
+		if(angular.isUndefined($scope.formentity[WORKNOKEY])||$scope.formentity[WORKNOKEY]==&quot;&quot;){
+			promises.push($http.post(&quot;ws/numberwithtimestamp&quot;,{prefix:$model.serviceproduct.result.productNo+&quot;_&quot;}))
+		}
+ 		$q.all(promises).then(function(reps){
+ 	//		console.log(&quot;tabs&quot;,data);
+ 			$model.dynamictabs = reps[0].data.result;
+ 			if($model.dynamictabs.length == 0){
+ 				$model.tabDisplay = false
+ 			}else{
+ 				$model.tabDisplay = true
+ 			}
+ 			if(reps.length == 2){
+				$scope.formentity[WORKNOKEY] = reps[1].data.result;				
+ 			} 	
+			if($model.tabDisplay){
+				$model.tabUrl = $params.businessForm;
+			}else{
+				$model.singleUrl = $params.businessForm;
+			}  				
+ 		})
+    })
+	
 //  businessKey processInstanceId不为null，表明是处理任务而不是提交
 //  formBusinessKey 一定有业务数据与其对应 $model.businessKey则有可能是新生成的Key
 	if($params.params.businessKey&amp;&amp;$params.params.processInstanceId!=null){
@@ -1026,37 +762,10 @@ page_afterDataSourceLoad:function(){
 	//取得地址栏中的参数
 	var locationparams = $location.$$search;
 
-	$http.post(&quot;ws/queryformdatafromprovariable&quot;,{&quot;formId&quot;:$model.serviceproduct.result.formId,&quot;filter&quot;:true,&quot;businessKey&quot;:$model.formBusinessKey,&quot;proInsId&quot;:$params.params.processInstanceId}).success(function(data){	
-		$model.formentity = {};
-		$model.formentity.result = data.result;
-//		console.log($model.formentity.result);
-		//取得地址栏中的参数 赋值地址栏参数到实体
-		for(var a in locationparams){
-			//businessKey属性不要放入formentity 会覆盖了原来的同名属性
-			if(a!=&quot;businessKey&quot;){
-				$model.formentity.result[a] = locationparams[a];
-			}	
-		}		
-		console.log(&quot;formentity&quot;,$model.formentity.result);
-		//工单编号的自动赋值 ugly TODO
-		if(angular.isUndefined($model.formentity.result[WORKNOKEY])||$model.formentity.result[WORKNOKEY]==&quot;&quot;){
-			$http.post(&quot;ws/numberwithtimestamp&quot;,{prefix:$model.serviceproduct.result.productNo+&quot;_&quot;})
-				.success(function(a){
-					$model.formentity.result[WORKNOKEY] = a.result;
-					$model.in = $params.businessForm;
-				});
-		}else{
-			$model.in = $params.businessForm;
-		}
-		$scope.formentity = $model.formentity.result;
-	});
-
-
-	
 	$model.handleway = &quot;处理完成&quot;;
 	
 //默认选中第一个步骤并触发值变换事件
-	$model.nexttask = $model.getOutTransition.result[0].id;	
+	$model.transitionId = $model.getOutTransition.result[0].id;	
 
 //当前环节属性
 	var ac = $model.getOutTransition.result[0].src.porperties;
@@ -1098,7 +807,7 @@ page_afterDataSourceLoad:function(){
 						$model.handles = data.result;
 					//	$model.handleid = $model.handles[0].userId;
 					});	
-			$params.nextname = $view.nexttaskview.getOptionObj($model.nexttask).dest.name;
+			$params.nextname = $view.nexttaskview.getOptionObj($model.transitionId).dest.name;
 		});	*/
 },
 //tab页的验证函数
@@ -1114,24 +823,7 @@ dotabchecks:function(){
 	}
 	return result;	
 },
-//选择组事件
-handlegroupdiv_change:function(){
-	$http.get(&quot;ws/getuserjobbyid&quot;,{
-		params:{
-			jobId:$model.nexthandlegroupid,
-		}}).success(function(data){
-//			console.log(data);
-			$model.handles = data.result;
-		});	
-},
 
-newField1_onChange:function(){
-//	console.log($model.isassignee);
-	if($model.isassignee!=true){
-		$model.nexthandleid = null;
-	}
-//	console.log($model.nexthandleid);
-},
 dateconvert:function(a){
 	var date = new Date(a);
 	return date.Format(&quot;MM/dd hh:mm&quot;);;
@@ -1227,7 +919,7 @@ start_flow:function($event){
 					$model.ccInform = data.ccInform;
 					$model.transition = data.transition;
 					$model.dest = $model.transition.dest;
-					$model.nexttask = $model.transition.id;
+					$model.transitionId = $model.transition.id;
 					functions.submitflow_click($event);		
 		});
 		return;
@@ -1350,11 +1042,45 @@ newField4_click:function($event){
 				                'hideAfter':5
 				            });
 	});
-}</form:scripts>
+},
+ //结束流程按钮
+ button_click:function($event){
+ 	Modal.openConfirm({message:&quot;确认删除流程实例？删除后将不可恢复！&quot;},
+ 			function(){
+ 				$http.get(&quot;ws/deleteprocessins&quot;,
+ 					{
+	
+ 						params:{
+ 							wfOperator:{
+ 								userId:$scope.subject.id,
+ 								businessData:{
+ 									moduleId:$params.params.moduleId,
+ 									businessKey:$params.businessKey
+ 								}
+ 						    },
+ 						    deleteReason:&quot;用户删除&quot;,
+ 						    processInstanceId:$params.params.processInstanceId,
+ 						    formId:$model.formId,
+ 						    deleteHistory:true		
+ 						}
+ 					}).success(function(){
+ 						TabOperator.closeTab(TabOperator.getCurrentTab());
+ 						Messenger.post({
+ 												'message': &quot;删除成功!&quot;,
+ 								                'type': 'success',
+ 								                'hideAfter':5
+ 								            });					
+ 					});
+ 			});
+ }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>
-	&lt;div ng-include=$model.in  ng-init=&quot;$params={'pModel':$model,'params':$params.params,'isAccordian':false}&quot;>&lt;/div>
+	&lt;div ng-include=$model.tabUrl  ng-init=&quot;$params={'pModel':$model,'params':$params.params,'isAccordian':false}&quot;>&lt;/div>
 &lt;/script>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;singlePage_html&quot;>
+	&lt;div ng-include=$model.singleUrl  ng-init=&quot;$params={'pModel':$model,'params':$params.params,'isAccordian':false}&quot;>&lt;/div>
+&lt;/script>
+
 &lt;style>
 #workflowhandlediv .form-group{/*输入框*/
     padding: 0px;
@@ -1374,29 +1100,6 @@ newField4_click:function($event){
 	margin-left:143px;
 }
 &lt;/style>
-&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup4_html&quot;>
-	&lt;div id=&quot;nextnodeWrapper&quot; ng-show=&quot;true&quot;>
-   		&lt;label  style=&quot;max-width:200px; width:100px;float:left;padding-left:28px;&quot;>下一节点&amp;nbsp&amp;nbsp:&lt;/label>
-   			&lt;div style=&quot;margin-left:100px;width:85px;&quot;>	    	
-    			&lt;span id=&quot;nextnode&quot; class=&quot;c2Span ng-binding&quot; ng-model=&quot;$params.nextname&quot;>{{$params.nextname}}&lt;/span>					
-            &lt;/div>
-	&lt;/div>
-&lt;/script>
-&lt;script type=&quot;text/ng-template&quot; id=&quot;rizhidiv_html&quot;>
-	&lt;tr ng-repeat=&quot;temp in $model.getallhiscomment.result&quot;>
-		&lt;td class=&quot;body&quot; >
-    		&lt;div style=&quot;margin-top: 12px;&quot;>环节:&amp;nbsp&amp;nbsp&lt;span style=&quot;font-size:14px;&quot; class=&quot;title&quot;>{{temp.taskName}}&lt;/span>   		
-    		&lt;/div>
-    		&lt;div style=&quot;margin-top: 3px; &quot; >时间:&amp;nbsp&amp;nbsp&lt;span style=&quot;font-style:italic&quot;>{{temp.message}}&lt;/span>   &lt;span style=&quot;float:right&quot;>&amp;nbsp&amp;nbsp&amp;nbsp&amp;nbsp{{functions.dateconvert(temp.date)}}&lt;/span>&lt;/div>
-    	 &lt;/td>
-	&lt;/tr>
-&lt;/script>
-&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>
-	&lt;div id=&quot;nextnodeWrapper&quot; ng-show=&quot;$model.isAssigneeApplicant&quot;>
-   		&lt;label  style=&quot;max-width:100px; width:75px;float:left;font-size:12px&quot;>test&lt;/label>
-   		&lt;div style=&quot;margin-left:75px;width:85px;font-size:12px&quot;>	    	
-    			&lt;span id=&quot;nextnode&quot; class=&quot;c2Span ng-binding&quot; bind-html-unsafe=&quot;$model.entity.applicantName&quot;>申请人&lt;/span>					
-            &lt;/div>
-	&lt;/div>
-&lt;/script></form:htmls>
+
+</form:htmls>
 </form:Form>

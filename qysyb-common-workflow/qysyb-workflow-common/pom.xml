@@ -46,11 +46,11 @@
 		  <version>4.2.6-beta</version>
 		  <scope>provided</scope>
 		</dependency> -->
-<!-- 		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-module-fs-dir</artifactId>
-			<version>1.1.8</version>
-		</dependency> -->
+		<dependency>
+			<groupId>en.cool.energy</groupId>
+			<artifactId>en-module-fs-dir</artifactId>
+			<version>1.1.9.5</version>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>

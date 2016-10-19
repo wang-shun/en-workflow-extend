@@ -27,6 +27,9 @@ public class UserJobService {
 	public List<UserDTO> getAllUserJob(String jobid){
 		JobService jobService = ApplicationContextManager.getContext().getBean(JobService.class);
 		List<UserDTO> list = jobService.queryUsers(jobid);
+ 		for(int i=0;i<list.size();i++){
+ 			list.get(i).setUserPassword(null);
+ 		}		
 		return list;
 	}
 	@Autowired
@@ -44,6 +47,7 @@ public class UserJobService {
 		for(UserDTO userDTO:list){
 			OrgDTO org = userService.queryMainOrg(userDTO.getUserId());
 			if(con.getOrgId().equals(org.getOrgId())){
+				userDTO.setUserPassword(null);
 				result.add(userDTO);
 			}
 		}

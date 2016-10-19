@@ -105,6 +105,9 @@ public class ActivityConfigService {
 //						Map actionPorperty2 = new HashMap<String,String>();	
 //						actionPorperty2.put(key, list);
 						action.put(key, list);
+ 					}else if(kvs.length==1){
+ 						String key = kvs[0];
+ 						action.put(key, true);						
 					}
 
 				}
@@ -143,4 +146,18 @@ public class ActivityConfigService {
 		ActivityConfig ac = this.getActivityConfigById(activityId);
 		return ac;
 	}
+ 	/**
+ 	 * 
+ 	 * @param moduleId
+ 	 * @param taskDefKey
+ 	 * @return
+ 	 */
+ 	public ActivityConfig getActivityConfig(String moduleId, String taskDefKey){
+ 		Dao<ActivityConfig> daoac = DaoFactory.create(ActivityConfig.class);
+ 		ActivityConfig con = new ActivityConfig();
+ 		con.setModuleId(moduleId);
+ 		con.setTaskDefId(taskDefKey);		
+ 		ActivityConfig ac = daoac.selectOne(con);	
+ 		return ac;
+ 	}	
 }

@@ -32,7 +32,7 @@ public abstract class FormOperate implements IFormOperate {
 			Dao<T> dao = DaoFactory.create(clazz);
 			T ob = (T) JSONObject.parseObject(json, clazz);
 			Method methodgetUId = clazz.getDeclaredMethod("getOid");
-
+			Method methodsetUId = clazz.getDeclaredMethod("setOid",String.class);
 			Method methodgetBusinessKey = clazz.getDeclaredMethod("getBusinessKey"); 
 			Method methodsetBusinessKey = clazz.getDeclaredMethod("setBusinessKey",String.class); 
 			Method methodsetStatus = clazz.getDeclaredMethod("setStatus",String.class);
@@ -61,8 +61,8 @@ public abstract class FormOperate implements IFormOperate {
 					methodsetStatus.invoke(ob,"处理中");
 					return dao.insert(ob);
 				}else{
-					//TODO 已经有businessKey的情况 目前没有遇到这里情形。。
-					return 0;
+					methodsetUId.invoke(ob, methodgetUId.invoke(condition));
+ 					return dao.update(ob);
 				}
 			//没有主键 流程实例Id也为空 这里一般就是草稿保存了吧
 			}else if(businessKey!=null){
@@ -120,6 +120,8 @@ public abstract class FormOperate implements IFormOperate {
 		try{
 			Dao<T> dao = (Dao<T>) DaoFactory.create(clazz);
 			Method methodgetUId = clazz.getDeclaredMethod("getOid");
+			Method methodsetUId = clazz.getDeclaredMethod("setOid",String.class);
+			
 			Method methodgetBusinessKey = clazz.getDeclaredMethod("getBusinessKey"); 
 			Method methodsetBusinessKey = clazz.getDeclaredMethod("setBusinessKey",String.class); 
 			Method methodsetStatus = clazz.getDeclaredMethod("setStatus",String.class);
@@ -147,8 +149,8 @@ public abstract class FormOperate implements IFormOperate {
 	//				officeNotice.setBusinessKey(proInsId);
 					return dao.insert(ob);
 				}else{
-					//TODO 已经有businessKey的情况 目前没有遇到这里情形。。
-					return 0;
+ 					methodsetUId.invoke(ob, methodgetUId.invoke(condition));
+ 					return dao.update(ob);
 				}
 			//没有主键 流程实例Id也为空 这里一般就是草稿保存了吧
 			}else if(businessKey!=null){

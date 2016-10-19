@@ -753,6 +753,27 @@ public class WorkFlowService {
 		}
 	}
 
+ 	/**
+	
+ 	 * 批量获取服务类型的待办事项数量
+ 	 * 
+ 	 * @param types
+ 	 * @param userId
+ 	 * @return
+ 	 */
+ 	public Map<String, Integer> getTodoWorkTotalbyTypes(String[] serviceType, String formId) {
+ 		Map<String, Integer> map = new HashMap<String, Integer>();
+ 		Map con = new HashMap();
+ 		AccessControlService acc = new AccessControlServiceImpl();
+ 		String userId = acc.getUserID();
+ 			con.put("isExternalStorage", true);
+ 			con.put("formId", formId);
+ 			map.put("all",
+ 					getTodoWorkTotalByST(null, con, userId));
+ 			return map;
+ 	
+ 	}	
+	
 	/**
 	 * 获取服务产品的待办
 	 * 
@@ -1312,40 +1333,40 @@ public class WorkFlowService {
 	 *            删除原因
 	 * @param processInstanceId
 	 *            流程实例id,必须参数
-	 * @param clazz
-	 *            class
+	 * @param formId
+	 *            formId
 	 * @return 200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿
 	 * @throws Exception
 	 */
 	@Transactional
 	public String deleteProcessInstancesById(WfOperator wfOperator,
-			String deleteReason, String processInstanceId, String clazz)
+ 			String deleteReason, String processInstanceId, String formId, boolean deleteHistory)
 			throws Exception {
 		String result = WfApiFactory.getWfRuntimeService()
 				.deleteProcessInstancesById(wfOperator, deleteReason,
 						processInstanceId);
-		// 业务数据，删闿
-		// if (result == "200") {
-		// Class clz = Class.forName(clazz);
-		// Dao dao = DaoFactory.create(clz);
-		// Object o = clz.newInstance();
-		// Method m = clz.getMethod("setBusinessKey", String.class);
-		// m.invoke(o, wfOperator.getBusinessData().getBusinessKey());
-		// try{
-		// o = dao.select(o);
-		// if(o instanceof ArrayList){
-		// dao.deleteBatch((List) o);
-		// }else if(o instanceof Object){
-		// dao.delete(o);
-		// }
-		// }catch(Exception e){
-		// e.printStackTrace();
-		// throw new RuntimeException();
-		// }
-		// }
-		return result;
-	}
-
+ 		//TODO 处理业务数据
+ 
+ 		if(deleteHistory){
+ 			historyService.deleteHistoricProcessInstance(processInstanceId);
+ 		}
+ 		return result;
+ 	}
+ 
+ 	/**
+ 	 * 根据流程实例id删除流程实例
+ 	 * @param processInstanceId
+ 	 *            流程实例id,必须参数
+ 	 * @return 200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿
+ 	 * @throws Exception
+ 	 */
+ 	@Transactional
+ 	public String deleteHisProcessInstancesById(String processInstanceId)
+ 			throws Exception {
+ 		String result = WfApiFactory.getWfHistoryService().deleteHistoricProcessInstance(processInstanceId);
+ 		return result;
+ 	}	
+ 	
 	/**
 	 * 获取所有流程定义
 	 * 
@@ -2545,7 +2566,7 @@ public class WorkFlowService {
 		List<Map> result = new ArrayList<Map>();
 		List<Map> list = this.getActivityCandidates(processDefinitionId,
 				moduleId, taskDefKey);
-		String orgName = userService.queryMainOrg(curUserId).getOrgName();
+		String curOrgName = userService.queryMainOrg(curUserId).getOrgName();
 		for (Map map : list) {
 			String category = (String) map.get("category");
 			String id = (String) map.get("id");
@@ -2554,6 +2575,7 @@ public class WorkFlowService {
 				if(filterType==null){
 					List<UserDTO> userList = userJobService.getAllUserJob(id);
 					for(UserDTO user:userList){
+						String orgName = userService.queryMainOrg(user.getUserId()).getOrgName();
 						Map map1 = new HashMap();
 						map1.put("id", user.getUserId());
 						map1.put("name", user.getUserRealname());
@@ -2573,7 +2595,7 @@ public class WorkFlowService {
 						map1.put("id", user.getUserId());
 						map1.put("name", user.getUserRealname());
 						map1.put("type", "user");
-						map1.put("category", orgName);
+						map1.put("category", curOrgName);
 						result.add(map1);
 					}
 					break;

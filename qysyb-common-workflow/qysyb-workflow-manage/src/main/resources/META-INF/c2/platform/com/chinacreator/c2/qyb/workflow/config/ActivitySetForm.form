@@ -221,13 +221,61 @@
                 </form:control>
                 <form:validation/>
               </form:child>
+              <form:child xsi:type="form:Field" binding="$model.freechooseuser" id="checkbox" name="自由选人" customize="true">
+                <form:control type="widget/checkbox">
+                  <form:attributes source="widget/checkbox">
+                    <dync:attribute default="2" group="HTML设置" id="span" name="控件宽度" value="12">
+                      <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="" group="事件设置" id="onChange" name="状态改变" value="checkbox_onChange()">
+                      <dync:render colSpan="2" height="0" multi="false" name="event">
+                        <dync:item name="params" value=""/>
+                      </dync:render>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="false">
+                      <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+            </form:child>
+          </form:child>
+          <form:child xsi:type="form:Group" id="div1" name="简单容器(DIV)">
+            <form:control type="container/div">
+              <form:attributes source="container/div">
+                <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+                  <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:child xsi:type="form:Field" binding="$model.endprocess" id="checkbox1" name="允许结束流程" customize="true">
+              <form:control type="widget/checkbox">
+                <form:attributes source="widget/checkbox">
+                  <dync:attribute default="2" group="HTML设置" id="span" name="控件宽度" value="4">
+                    <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="" group="事件设置" id="onChange" name="状态改变" value="checkbox1_onChange()">
+                    <dync:render colSpan="2" height="0" multi="false" name="event">
+                      <dync:item name="params" value=""/>
+                    </dync:render>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
             </form:child>
           </form:child>
         </form:child>
         <form:child xsi:type="form:Field" binding="$model.filtertype" id="filtertypediv" name="处理人策略" customize="true">
           <form:control type="widget/radio_group">
             <form:attributes source="widget/radio_group">
-              <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;falsefilter&quot;:&quot;无过滤&quot;,&quot;orgfilter&quot;:&quot;按部门过滤&quot;,&quot;orgbossfilter&quot;:&quot;按部门&amp;领导过滤&quot;,&quot;starter&quot;:&quot;分派申请人&quot;}">
+              <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;falsefilter&quot;:&quot;无过滤&quot;,&quot;orgfilter&quot;:&quot;按部门过滤&quot;,&quot;orgbossfilter&quot;:&quot;按部门&amp;领导过滤&quot;,&quot;starter&quot;:&quot;分派申请人&quot;,&quot;historyassign&quot;:&quot;历史处理人&quot;}">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -244,11 +292,53 @@
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="75" group="基本设置" id="lableWidth" name="lable宽度" value="150">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
           </form:control>
           <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Group" id="div" name="简单容器(DIV)">
+          <form:control type="container/div">
+            <form:attributes source="container/div">
+              <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="8">
+                <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="4">
+                <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+                <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:child xsi:type="form:Field" binding="$model.entityactivityconfig.remark1" id="selectSimple" name="历史环节" customize="true">
+            <form:control type="widget/select_simple">
+              <form:attributes source="widget/select_simple">
+                <dync:attribute default="true" group="基本设置" id="show" name="可见" value="$model.filtertype == &quot;historyassign&quot;">
+                  <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
+                  <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.activities.result">
+                  <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="false" group="基本设置" id="selectRequired" name="必填项" value="">
+                  <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
+          </form:child>
         </form:child>
       </form:child>
       <form:child xsi:type="form:Group" id="newTab2" name="通知">
@@ -483,6 +573,22 @@
           </form:child>
         </form:child>
       </form:child>
+      <form:child xsi:type="form:Group" id="tab" name="自定义属性">
+        <form:control type="container/tab">
+          <form:attributes source="container/tab"/>
+        </form:control>
+        <form:child xsi:type="form:Field" binding="$model.customProperty" id="keyValueEditor" name="键值对编辑器" customize="true">
+          <form:control type="widget/key_value_editor">
+            <form:attributes source="widget/key_value_editor">
+              <dync:attribute default="false" group="操作设置" id="cannotSort" name="是否不允许排序" value="true">
+                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+      </form:child>
     </form:child>
   </form:child>
   <form:child xsi:type="form:Group" id="newGroup5" name="对话框工具条">
@@ -519,10 +625,10 @@
     </form:datasource>
     <form:datasource xsi:type="form:TreeDataSource" id="tree" name="树型数据源" impl="com.chinacreator.c2.workflow.workflowManage.ds.CandidateChooseTreeContentProvider" type="custom"/>
     <form:datasource xsi:type="form:EntityDataSource" id="entity" name="单实体数据源" data="" entity="entity:com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="alltabs" name="服务产品关联的tabs" logic="rule:com.chinacreator.c2.qyb.workflow.tab.getAllTabsForProduct" sn="getalltabforproduct">
+    <form:datasource xsi:type="form:LogicDataSource" id="alltabs" name="所有页签" logic="rule:com.chinacreator.c2.qyb.workflow.tab.getAllTabsForProduct" sn="getalltabforproduct">
       <form:param id="productId" name="新输入参数" value="$params.moduleId"/>
     </form:datasource>
-    <form:datasource xsi:type="form:LogicDataSource" id="activities" name="流程定义中的activities" logic="rule:com.chinacreator.c2.qyb.workflow.process.getActivitiesFromProcDef" sn="getactivitiesfromprocdef">
+    <form:datasource xsi:type="form:LogicDataSource" id="activities" name="所有活动" logic="rule:com.chinacreator.c2.qyb.workflow.process.getActivitiesFromProcDef" sn="getactivitiesfromprocdef">
       <form:param id="procDefId" name="新输入参数" value="$params.processDefId"/>
     </form:datasource>
   </form:datasources>
@@ -535,6 +641,8 @@ newField1_onChange:function(){
 },
 
 page_afterDataSourceLoad:function(){
+	$model.customProperty = []
+	
 //	console.log(&quot;alltabs&quot;,$model.alltabs.result);
 //	console.log(&quot;params&quot;,$params);
 //	console.log(&quot;activities&quot;,$model.activities.result);
@@ -549,7 +657,7 @@ page_afterDataSourceLoad:function(){
 			$model.entityactivityconfig.taskDefId = $params.activityId;
 		}
 		if(!angular.isUndefined($model.entityactivityconfig.informType)){
-//			console.log(&quot;activity config entity geted&quot;,$model.entityactivityconfig);
+			console.log(&quot;activity config entity geted&quot;,$model.entityactivityconfig);
 			var informs = $model.entityactivityconfig.informType.split(&quot;,&quot;);
 			var options = $view.assigneInformType.getOptions();
 			angular.forEach(options,function(v){				
@@ -572,13 +680,16 @@ page_afterDataSourceLoad:function(){
 				}
 			});
 		}	
+		var customPropertyStr = $model.entityactivityconfig.includeActions;
 		var returnindex = functions.has_action(&quot;return&quot;);
+		customPropertyStr = functions.del_action(&quot;return&quot;,customPropertyStr);
 		if(returnindex==undefined){
 			$model.allowReject = false;
 		}else{
 			$model.allowReject = true;
 		}
 		var returnindex = functions.has_action(&quot;freechoose&quot;);
+		customPropertyStr = functions.del_action(&quot;freechoose&quot;,customPropertyStr);
 		if(returnindex==undefined){
 			$model.freeChoose = false;
 			$model.entityactivityconfig.freeshooseUrl = &quot;f/choosetaskhandler&quot;;
@@ -586,12 +697,44 @@ page_afterDataSourceLoad:function(){
 			$model.freeChoose = true;
 		}	
 		var filtervalue = functions.get_action(&quot;filtertype&quot;);
+		customPropertyStr = functions.del_action(&quot;filtertype&quot;,customPropertyStr);
 		console.log(&quot;saved filtervalue&quot;,filtervalue);
 		if(filtervalue){
 			var kvs = filtervalue.split(&quot;:&quot;);
 			var value = kvs[1];
 			$model.filtertype = value;
-		}			
+		}
+		
+		//自由选人
+		var fcuindex = functions.has_action(&quot;freechooseuser&quot;);
+		customPropertyStr = functions.del_action(&quot;freechooseuser&quot;,customPropertyStr);
+		
+		if(fcuindex==undefined){
+			$model.freechooseuser = false;
+		}else{
+			$model.freechooseuser = true;
+		}	
+		
+		//允许结束
+		var epuindex = functions.has_action(&quot;endprocess&quot;);
+		customPropertyStr = functions.del_action(&quot;endprocess&quot;,customPropertyStr);
+		
+		if(epuindex==undefined){
+			$model.endprocess = false;
+		}else{
+			$model.endprocess = true;
+		}
+
+		var customPropertys = customPropertyStr.split(&quot;,&quot;)
+		angular.forEach(customPropertys,function(v){
+			if(v != undefined &amp;&amp;　v != &quot;&quot;){
+				var kv = v.split(&quot;:&quot;);
+				var key = kv[0];
+				//这里为什么要删除呢 因为没有做自定义属性的 添加删除监听事件 所以del all and add all
+				functions.del_action(key)			
+			}
+		});		
+		functions.expand_customProperty(customPropertyStr);					
 	});
 	
 	
@@ -639,7 +782,14 @@ page_afterDataSourceLoad:function(){
 				$model.entityactivityconfig.remark4 = &quot;f/choosetaskhandler&quot;;
 			}else{
 				$model.freeChoose = true;
-			}		
+			}	
+			//自由选人
+			var fcuindex = functions.has_action(&quot;freechooseuser&quot;);
+			if(fcuindex==undefined){
+				$model.freechooseuser = false;
+			}else{
+				$model.freechooseuser = true;
+			}				
 		});
 */
 //用户关注设置		
@@ -658,16 +808,11 @@ page_afterDataSourceLoad:function(){
 },
 
 page_onload:function(){
-	$model.activity_Name = $params.activity_name;
-	/*有一个默认的处理页面*/
-/*	$model.freechoose = true;
-	if($model.freeChoose==false){
-		$model.entityactivityconfig.remark4 = &quot;f/choosetaskhandler&quot;;
-	}*/
-	
+	$model.activity_Name = $params.activity_name;	
 },
 // save
-newField9_click:function($event){
+newField9_click:function($event){debugger
+	functions.assemble_customProperty()
 //infromType 字段取到，不同方式以逗号分隔
 	var result;
 	var options = $view.assigneInformType.getOptions();
@@ -851,10 +996,6 @@ add_action:function(action,value){
 	if($model.entityactivityconfig.includeActions==undefined||$model.entityactivityconfig.includeActions==&quot;&quot;){
 		$model.entityactivityconfig.includeActions = value;
 	}else{
-/*		var index = this.has_action(action);
-		if(index==undefined){
-			$model.entityactivityconfig.includeActions = $model.entityactivityconfig.includeActions+&quot;,&quot;+value;
-		}*/	
 		this.del_action(action);
 		$model.entityactivityconfig.includeActions = $model.entityactivityconfig.includeActions+&quot;,&quot;+value;
 	}
@@ -878,8 +1019,23 @@ has_action:function(action){
 	}
 	return index;
 },
-del_action:function(action){
-	if($model.entityactivityconfig.includeActions!=undefined){
+del_action:function(action,actions){
+	if(actions != undefined){
+		var a = actions.split(&quot;,&quot;);
+		var index = undefined;
+		for(var i=0;i&lt;a.length;i++){
+			if(a[i].match(action)){
+				index = i;
+				break;
+			}
+		}
+		if(index!=undefined){
+			a.splice(index,1);
+			return a.join(&quot;,&quot;)
+		}else{
+			return actions
+		}
+	}else if($model.entityactivityconfig.includeActions!=undefined){
 		var a = $model.entityactivityconfig.includeActions.split(&quot;,&quot;);
 		var index = undefined;
 		for(var i=0;i&lt;a.length;i++){
@@ -915,10 +1071,13 @@ newField11_onChange:function(){
 	}	
 	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);
 },
+//组装action字符串。组装成 key:value 或 key:value1|value2 的形式
 assemble_action:function(key,value,arrayvalues){
+	//value是单个值
 	if(value!=undefined){
 		return key+&quot;:&quot;+value;
 	}
+	//value是多个值
 	if(arrayvalues instanceof Array){
 		var result = &quot;&quot;;
 		for(var i=0;i&lt;arrayvalues.length;i++){
@@ -936,8 +1095,58 @@ filtertypediv_clickEvent:function(value){
 	}else{
 		this.del_action(&quot;filtertype&quot;);
 	}
-	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);	
-}</form:scripts>
+//	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);	
+},
+//自由选人
+checkbox_onChange:function(){
+	if($model.freechooseuser){
+		this.add_action(&quot;freechooseuser&quot;,&quot;freechooseuser&quot;);
+	}else{	
+		this.del_action(&quot;freechooseuser&quot;);
+	}
+//	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);
+},
+//允许结束值变换
+checkbox1_onChange:function(){
+	if($model.endprocess){
+		this.add_action(&quot;endprocess&quot;,&quot;endprocess&quot;);
+	}else{	
+		this.del_action(&quot;endprocess&quot;);
+	}	
+//	console.log(&quot;actions&quot;,$model.entityactivityconfig.includeActions);	
+},
+//自定义属性组装
+assemble_customProperty:function(){
+
+	if($model.entityactivityconfig.includeActions == undefined){
+		$model.entityactivityconfig.includeActions = &quot;&quot;
+	}
+	angular.forEach($model.customProperty,function(v){
+		if(v.name != undefined &amp;&amp; v.name != &quot;&quot;
+			&amp;&amp; v.value != undefined &amp;&amp; v.name != &quot;&quot;){
+			var property = v.name+&quot;:&quot;+v.value
+			if($model.entityactivityconfig.includeActions == &quot;&quot;){
+				$model.entityactivityconfig.includeActions = property
+			}else{
+				$model.entityactivityconfig.includeActions = $model.entityactivityconfig.includeActions + &quot;,&quot; + property
+			}			
+		}
+	});
+},
+//自定义属性展开
+expand_customProperty(value){
+	var a = value.split(&quot;,&quot;);
+	angular.forEach(a,function(v){	
+		var kv = v.split(&quot;:&quot;);
+		var key = kv[0];
+		var value = kv[1];
+		var o = {}
+		o.name = key
+		o.value = value
+		$model.customProperty.push(o)
+	});
+}
+</form:scripts>
   <form:htmls>
 </form:htmls>
 </form:Form>

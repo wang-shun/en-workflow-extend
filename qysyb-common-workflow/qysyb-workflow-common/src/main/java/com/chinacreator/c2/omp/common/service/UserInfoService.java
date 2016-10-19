@@ -75,6 +75,7 @@ public class UserInfoService {
 		UserService userService = ApplicationContextManager.getContext().getBean(UserService.class);
 		for(String userId:userIds){
 			UserDTO userDTO = userService.queryByPK(userId);
+			userDTO.setUserPassword(null);
 			map.put(userId, userDTO);
 		}
 		return map;
