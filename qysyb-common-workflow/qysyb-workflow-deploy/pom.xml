@@ -11,6 +11,7 @@
   <modules>
   	<module>qysyb-workflow-oracle</module>
   	<module>qysyb-workflow-oracle-test</module>
+  	<module>qysyb-workflow-mysql</module>
   </modules>
   <distributionManagement>
 		<repository>
