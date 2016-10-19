@@ -323,16 +323,23 @@ public class WorkProcess {
 				WfOperator.class);
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
 		
+		String moduleId = wfOperator.getBusinessData().getModuleId();
+		
 		WorkFlowActivity nextActivity = new WorkFlowActivity();
 		nextActivity.setId(destTaskDefinitionKey);
 		// 处理人选择
 		chooseHandleTypeValue(variables);
 
 		Map entitymap = JSONObject.parseObject(entity, Map.class);
+		
 		FormService formService = ApplicationContextManager.getContext()
 				.getBean(FormService.class);
 		Form form = formService.getFormById(formId);
 
+		String beanName = form.getOperateBean();
+		IFormOperate formOperate = 
+				(IFormOperate) ApplicationContextManager.getContext()
+				.getBean(beanName);	
 		// 业务数据吧上一次保存的一些流程变量去掉
 		entitymap.remove(WorkFlowService.TYPE_ASSIGNEE);
 		entitymap.remove(WorkFlowService.TYPE_CANDIDATEUSERS);
@@ -382,7 +389,8 @@ public class WorkProcess {
 		/* 通知处理 */
 		informService = ApplicationContextManager.getContext().getBean(
 				InformService.class);
-		informService.informDo();
+		informService.informDo(moduleId,entitymap);
+		formOperate.onTaskReject(entity, bussinessKey, proInsId, moduleId, curActivity, wfOperator.getUserId(), nextActivity, null);
 		return new ResponseFactory().createResponseBodyJSONObject(JSON
 				.toJSONString(wfresult));
 
@@ -817,7 +825,7 @@ public class WorkProcess {
 			}
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
-			informService.informDo(entitymap);
+			informService.informDo(moduleId,entitymap);
 			return new ResponseFactory().createResponseBodyJSONObject(JSON
 					.toJSONString(wfresult));
 		}
@@ -859,7 +867,7 @@ public class WorkProcess {
 		informService = ApplicationContextManager.getContext().getBean(
 				InformService.class);
 		informService.setCcInformsInfo(ccInformJsonStr);
-		informService.informDo(entitymap);
+		informService.informDo(moduleId,entitymap);
 
 		return new ResponseFactory().createResponseBodyJSONObject(JSON
 				.toJSONString(wfresult));
@@ -1016,7 +1024,7 @@ public class WorkProcess {
  					processDefinitionId,null,wfTransition.getDest().getId(),moduleId,variables);
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
-			informService.informDo(mapentity);
+			informService.informDo(moduleId,mapentity);
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

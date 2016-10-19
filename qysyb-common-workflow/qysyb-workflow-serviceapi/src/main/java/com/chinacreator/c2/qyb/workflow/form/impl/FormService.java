@@ -574,7 +574,7 @@ public class FormService {
 		if(form.getFormNo()==null){
 			form = this.getFormById((form.getFormId()));
 		}	
-		String beanName = form.getRemark2();
+		String beanName = form.getOperateBean();
 		IFormOperate formOperate = 
 				(IFormOperate) ApplicationContextManager.getContext()
 				.getBean(beanName);
