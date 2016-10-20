@@ -696,8 +696,8 @@ public class WorkProcess {
 		String wfOperatorStr = (String) paramsMap.get("wfOperator");
 		String bussinessKey = (String) paramsMap.get("businessKey");
 		String currenTaskId = (String) paramsMap.get("currenTaskId");
-		String destTaskDefinitionKey = (String) paramsMap
-				.get("destTaskDefinitionKey");
+//		String destTaskDefinitionKey = (String) paramsMap
+//				.get("destTaskDefinitionKey");
 		// String taskDefKey = paramsMap.get("taskDefKey");
 		String processDefinitionId = (String) paramsMap
 				.get("processDefinitionId");
@@ -705,7 +705,7 @@ public class WorkProcess {
 		String opinion = (String) paramsMap.get("opinion");
 		String proInsId = (String) paramsMap.get("proInsId");
 		String moduleId = (String) paramsMap.get("moduleId");
-		String transitionId = (String) paramsMap.get("transitionId");
+//		String transitionId = (String) paramsMap.get("transitionId");
 		String transitionStr = (String) paramsMap.get("transition");
 		String ccInformJsonStr = (String) paramsMap.get("ccInform");
 		WorkFlowTransition wfTransition = JSONObject.parseObject(transitionStr,
@@ -841,8 +841,8 @@ public class WorkProcess {
 		// JumpActivityByTakeTransitionCmd 自由流
 		wfresult = this.goAnyWhereTakeTransition(wfOperator,
 				false, bussinessKey,
-				processDefinitionId, currenTaskId, transitionId,
-				destTaskDefinitionKey, false, variables);
+				processDefinitionId, currenTaskId, wfTransition.getId(),
+				wfTransition.getDest().getId(), false, variables);
  		//流程执行结束 业务处理
  		formOperate.addOrUpdateEntityAfterTaskExcu(entity, bussinessKey, proInsId, moduleId,
  				wfTransition.getSrc(), wfOperator.getUserId(),wfTransition.getDest(),paramsMap);		
