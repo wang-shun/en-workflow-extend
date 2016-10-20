@@ -593,7 +593,7 @@ public class FormService {
  			String proInsId,
  			String businessKey2,Form form,Map con){
 		form = this.getFormById((form.getFormId()));
-		String beanName = form.getRemark2();
+		String beanName = form.getOperateBean();
 		IFormOperate formOperate = 
 				(IFormOperate) ApplicationContextManager.getContext()
 				.getBean(beanName);
