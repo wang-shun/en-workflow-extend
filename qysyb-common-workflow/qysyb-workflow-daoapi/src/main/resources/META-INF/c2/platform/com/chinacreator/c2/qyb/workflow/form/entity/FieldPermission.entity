@@ -9,8 +9,8 @@
     <docket:attribute code="id" nullable="false" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="field_id" length="" name="字段ID" nullable="true" precision="" type="string128" default="">
-      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.FormField.field_id" id="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField"/>
+    <docket:attribute code="field_id" length="128" name="字段ID" nullable="true" precision="" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.FormField.field_id" id="entity:com.chinacreator.c2.qyb.workflow.form.entity.FormField"/>
     </docket:attribute>
     <docket:attribute code="module_id" name="事项ID" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>

@@ -11,25 +11,22 @@ import com.chinacreator.c2.annotation.Entity;
  * @author 
  * @generated
  */
-@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.form.entity.WebDisplayCategory", table = "workflow_webdisplay_category", ds = "bspf")
+@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.form.entity.WebDisplayCategory", table = "WORKFLOW_WEBDISPLAY_CATEGORY", ds = "oracDB")
 public class WebDisplayCategory implements Serializable {
 	private static final long serialVersionUID = 1625214065623040L;
-	/**
-	 *
-	 */
-	@Column(id = "id_", type = ColumnType.uuid, datatype = "string256")
+	@Column(id = "id_", type = ColumnType.uuid, datatype = "string128")
 	private java.lang.String id;
 
 	/**
 	 *编码
 	 */
-	@Column(id = "category_no", datatype = "string256")
+	@Column(id = "category_no", datatype = "string128")
 	private java.lang.String categoryNo;
 
 	/**
 	 *名字
 	 */
-	@Column(id = "category_name", datatype = "string256")
+	@Column(id = "category_name", datatype = "string128")
 	private java.lang.String categoryName;
 
 	/**
@@ -38,33 +35,30 @@ public class WebDisplayCategory implements Serializable {
 	@Column(id = "url", datatype = "string256")
 	private java.lang.String url;
 
-	/**
-	 *
-	 */
 	@Column(id = "describe", datatype = "string1024")
 	private java.lang.String describe;
 
-	/**
-	 *
-	 */
-	@Column(id = "remark1", datatype = "tinyint")
-	private java.lang.Integer remark1;
+	@Column(id = "remark1", datatype = "boolean")
+	private java.lang.Boolean remark1;
 
-	/**
-	 *
-	 */
-	@Column(id = "remark2", datatype = "string512")
+	@Column(id = "remark2", datatype = "string256")
 	private java.lang.String remark2;
 
 	/**
-	 * 设置
+	 *手机端显示资源路径
+	 */
+	@Column(id = "mobile_url", datatype = "string256")
+	private java.lang.String mobileUrl;
+
+	/**
+	 * 设置${field.desc}
 	 */
 	public void setId(java.lang.String id) {
 		this.id = id;
 	}
 
 	/**
-	 * 获取
+	 * 获取${field.desc}
 	 */
 	public java.lang.String getId() {
 		return id;
@@ -113,44 +107,58 @@ public class WebDisplayCategory implements Serializable {
 	}
 
 	/**
-	 * 设置
+	 * 设置${field.desc}
 	 */
 	public void setDescribe(java.lang.String describe) {
 		this.describe = describe;
 	}
 
 	/**
-	 * 获取
+	 * 获取${field.desc}
 	 */
 	public java.lang.String getDescribe() {
 		return describe;
 	}
 
 	/**
-	 * 设置
+	 * 设置${field.desc}
 	 */
-	public void setRemark1(java.lang.Integer remark1) {
+	public void setRemark1(java.lang.Boolean remark1) {
 		this.remark1 = remark1;
 	}
 
 	/**
-	 * 获取
+	 * 获取${field.desc}
 	 */
-	public java.lang.Integer getRemark1() {
+	public java.lang.Boolean isRemark1() {
 		return remark1;
 	}
 
 	/**
-	 * 设置
+	 * 设置${field.desc}
 	 */
 	public void setRemark2(java.lang.String remark2) {
 		this.remark2 = remark2;
 	}
 
 	/**
-	 * 获取
+	 * 获取${field.desc}
 	 */
 	public java.lang.String getRemark2() {
 		return remark2;
+	}
+
+	/**
+	 * 设置手机端显示资源路径
+	 */
+	public void setMobileUrl(java.lang.String mobileUrl) {
+		this.mobileUrl = mobileUrl;
+	}
+
+	/**
+	 * 获取手机端显示资源路径
+	 */
+	public java.lang.String getMobileUrl() {
+		return mobileUrl;
 	}
 }

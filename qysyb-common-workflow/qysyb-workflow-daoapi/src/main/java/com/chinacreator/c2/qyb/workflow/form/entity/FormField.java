@@ -32,7 +32,7 @@ public class FormField implements Serializable {
 	/**
 	 *持久数据类型
 	 */
-	@Column(id = "field_type", datatype = "string64")
+	@Column(id = "field_type", datatype = "string128")
 	private java.lang.String fieldType;
 
 	/**
@@ -44,7 +44,7 @@ public class FormField implements Serializable {
 	/**
 	 *内嵌表单ID
 	 */
-	@Column(id = "object_class", datatype = "string512")
+	@Column(id = "object_class", datatype = "string128")
 	private java.lang.String objectClass;
 
 	/**
@@ -62,7 +62,7 @@ public class FormField implements Serializable {
 	/**
 	 *前端控件类型
 	 */
-	@Column(id = "web_display_type_id", datatype = "string512")
+	@Column(id = "web_display_type_id", datatype = "string128")
 	private java.lang.String webDisplayTypeId;
 
 	@Column(id = "forder", datatype = "mediumdouble")
@@ -86,20 +86,47 @@ public class FormField implements Serializable {
 	@Column(id = "remark6", datatype = "string256")
 	private java.lang.String remark6;
 
-	@Column(id = "ramark7", datatype = "string512")
+	@Column(id = "ramark7", datatype = "string1024")
 	private java.lang.String ramark7;
 
-	@Column(id = "remark8", datatype = "string512")
+	@Column(id = "remark8", datatype = "string1024")
 	private java.lang.String remark8;
 
-	/**
-	 *
-	 */
-	@Column(id = "remark9", datatype = "boolean")
-	private java.lang.Boolean remark9;
+	@Column(id = "remark9", datatype = "mediumdouble")
+	private java.lang.Double remark9;
 
 	@Column(id = "remark10", datatype = "mediumdouble")
 	private java.lang.Double remark10;
+
+	/**
+	 *字典名 字典下拉框等生效
+	 */
+	@Column(id = "dict_name", datatype = "string256")
+	private java.lang.String dictName;
+
+	/**
+	 *数据库表字段名 字段以单独业务表组织时使用
+	 */
+	@Column(id = "field_col_name", datatype = "string256")
+	private java.lang.String fieldColName;
+
+	/**
+	 *是否存入流程变量保存
+	 */
+	@Column(id = "is_proc_var", datatype = "boolean")
+	private java.lang.Boolean isProcVar;
+
+	/**
+	 *控件占位数
+	 */
+	@Column(id = "display_span", datatype = "mediumdouble")
+	private java.lang.Double displaySpan;
+
+	/**
+	 *label宽度 UI模板可选择去实现此字段以达到更好的复用
+	 */
+	@Column(id = "label_width", datatype = "mediumdouble")
+	private java.lang.Double labelWidth;
 
 	/**
 	 * 设置${field.desc}
@@ -354,16 +381,16 @@ public class FormField implements Serializable {
 	}
 
 	/**
-	 * 设置
+	 * 设置${field.desc}
 	 */
-	public void setRemark9(java.lang.Boolean remark9) {
+	public void setRemark9(java.lang.Double remark9) {
 		this.remark9 = remark9;
 	}
 
 	/**
-	 * 获取
+	 * 获取${field.desc}
 	 */
-	public java.lang.Boolean isRemark9() {
+	public java.lang.Double getRemark9() {
 		return remark9;
 	}
 
@@ -379,5 +406,75 @@ public class FormField implements Serializable {
 	 */
 	public java.lang.Double getRemark10() {
 		return remark10;
+	}
+
+	/**
+	 * 设置字典名 字典下拉框等生效
+	 */
+	public void setDictName(java.lang.String dictName) {
+		this.dictName = dictName;
+	}
+
+	/**
+	 * 获取字典名 字典下拉框等生效
+	 */
+	public java.lang.String getDictName() {
+		return dictName;
+	}
+
+	/**
+	 * 设置数据库表字段名 字段以单独业务表组织时使用
+	 */
+	public void setFieldColName(java.lang.String fieldColName) {
+		this.fieldColName = fieldColName;
+	}
+
+	/**
+	 * 获取数据库表字段名 字段以单独业务表组织时使用
+	 */
+	public java.lang.String getFieldColName() {
+		return fieldColName;
+	}
+
+	/**
+	 * 设置是否存入流程变量保存
+	 */
+	public void setIsProcVar(java.lang.Boolean isProcVar) {
+		this.isProcVar = isProcVar;
+	}
+
+	/**
+	 * 获取是否存入流程变量保存
+	 */
+	public java.lang.Boolean isIsProcVar() {
+		return isProcVar;
+	}
+
+	/**
+	 * 设置控件占位数
+	 */
+	public void setDisplaySpan(java.lang.Double displaySpan) {
+		this.displaySpan = displaySpan;
+	}
+
+	/**
+	 * 获取控件占位数
+	 */
+	public java.lang.Double getDisplaySpan() {
+		return displaySpan;
+	}
+
+	/**
+	 * 设置label宽度 UI模板可选择去实现此字段以达到更好的复用
+	 */
+	public void setLabelWidth(java.lang.Double labelWidth) {
+		this.labelWidth = labelWidth;
+	}
+
+	/**
+	 * 获取label宽度 UI模板可选择去实现此字段以达到更好的复用
+	 */
+	public java.lang.Double getLabelWidth() {
+		return labelWidth;
 	}
 }

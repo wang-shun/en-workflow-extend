@@ -17,7 +17,8 @@
 		  WORKFLOW_ACTIVITY_SETTING.remark1 ,
 		  WORKFLOW_ACTIVITY_SETTING.remark2 ,
 		  WORKFLOW_ACTIVITY_SETTING.remark3 ,
-		  WORKFLOW_ACTIVITY_SETTING.remark4 
+		  WORKFLOW_ACTIVITY_SETTING.remark4 ,
+		  WORKFLOW_ACTIVITY_SETTING.his_assign_activity 
 </sql>
 
 <!-- ElementID:whereClause_sql,Generated=true -->
@@ -37,6 +38,7 @@
 	    <if test="remark2 != null">and WORKFLOW_ACTIVITY_SETTING.remark2 = #{remark2}</if>
 	    <if test="remark3 != null">and WORKFLOW_ACTIVITY_SETTING.remark3 = #{remark3}</if>
 	    <if test="remark4 != null">and WORKFLOW_ACTIVITY_SETTING.remark4 = #{remark4}</if>
+	    <if test="hisAssignActivity != null">and WORKFLOW_ACTIVITY_SETTING.his_assign_activity = #{hisAssignActivity}</if>
 </sql>
 
 
@@ -57,11 +59,12 @@
 	<result property="remark2" column="remark2"/>
 	<result property="remark3" column="remark3"/>
 	<result property="remark4" column="remark4"/>
+	<result property="hisAssignActivity" column="his_assign_activity"/>
 </resultMap>
 
 
 <!-- ElementName:cache,Generated=true -->
-<cache/>
+<cache type="C2_Default_Dao_Cache"/>
 
 <!-- ElementID:insert,Generated=true -->
 <insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig">
@@ -81,6 +84,7 @@
 	         <if test="remark2 != null">,remark2</if>
 	         <if test="remark3 != null">,remark3</if>
 	         <if test="remark4 != null">,remark4</if>
+	         <if test="hisAssignActivity != null">,his_assign_activity</if>
 	 	 	 )
 	 values (
 	         <if test="id != null">#{id,jdbcType=VARCHAR}</if>
@@ -98,6 +102,7 @@
 	         <if test="remark2 != null">,#{remark2,jdbcType=VARCHAR}</if>
 	         <if test="remark3 != null">,#{remark3,jdbcType=CHAR}</if>
 	         <if test="remark4 != null">,#{remark4,jdbcType=NUMERIC}</if>
+	         <if test="hisAssignActivity != null">,#{hisAssignActivity,jdbcType=VARCHAR}</if>
 	 	 	 )
 </insert>
 
@@ -126,7 +131,8 @@
 	<if test="remark1 != null">remark1=#{remark1,jdbcType=VARCHAR},</if>
 	<if test="remark2 != null">remark2=#{remark2,jdbcType=VARCHAR},</if>
 	<if test="remark3 != null">remark3=#{remark3,jdbcType=CHAR},</if>
-	<if test="remark4 != null">remark4=#{remark4,jdbcType=NUMERIC}</if>
+	<if test="remark4 != null">remark4=#{remark4,jdbcType=NUMERIC},</if>
+	<if test="hisAssignActivity != null">his_assign_activity=#{hisAssignActivity,jdbcType=VARCHAR}</if>
 </set>
 <where>
 	<choose>
@@ -155,6 +161,7 @@
 		    <if test="remark2==null">remark2 = null,</if>
 		    <if test="remark3==null">remark3 = null,</if>
 		    <if test="remark4==null">remark4 = null,</if>
+		    <if test="hisAssignActivity==null">his_assign_activity = null,</if>
 		</trim>
 	</set>
 	<where>
@@ -183,7 +190,7 @@
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into WORKFLOW_ACTIVITY_SETTING (id,module_id,task_def_id,action,inform_type,needclaim,is_sla_time,include_tabs,include_actions,return_activity,freechoose_url,remark1,remark2,remark3,remark4) 
+	insert into WORKFLOW_ACTIVITY_SETTING (id,module_id,task_def_id,action,inform_type,needclaim,is_sla_time,include_tabs,include_actions,return_activity,freechoose_url,remark1,remark2,remark3,remark4,his_assign_activity) 
 <foreach collection="list" item="entity" index="index" separator="union all">
 		select 
 		#{entity.id,jdbcType = VARCHAR},
@@ -200,7 +207,8 @@
 				#{entity.remark1,jdbcType = VARCHAR},
 				#{entity.remark2,jdbcType = VARCHAR},
 				#{entity.remark3,jdbcType = CHAR},
-				#{entity.remark4,jdbcType = NUMERIC}
+				#{entity.remark4,jdbcType = NUMERIC},
+				#{entity.hisAssignActivity,jdbcType = VARCHAR}
 		from dual
 </foreach>
 </insert>
@@ -215,31 +223,42 @@
 </trim>
 </delete>
 
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update WORKFLOW_ACTIVITY_SETTING
+	<set>
+	<if test="entity.moduleId != null">module_id= #{entity.moduleId,jdbcType=VARCHAR},</if>
+	<if test="entity.taskDefId != null">task_def_id= #{entity.taskDefId,jdbcType=VARCHAR},</if>
+	<if test="entity.action != null">action= #{entity.action,jdbcType=VARCHAR},</if>
+	<if test="entity.informType != null">inform_type= #{entity.informType,jdbcType=VARCHAR},</if>
+	<if test="entity.needclaim != null">needclaim= #{entity.needclaim,jdbcType=CHAR},</if>
+	<if test="entity.isSlaTime != null">is_sla_time= #{entity.isSlaTime,jdbcType=CHAR},</if>
+	<if test="entity.includeTabs != null">include_tabs= #{entity.includeTabs,jdbcType=VARCHAR},</if>
+	<if test="entity.includeActions != null">include_actions= #{entity.includeActions,jdbcType=VARCHAR},</if>
+	<if test="entity.returnActivity != null">return_activity= #{entity.returnActivity,jdbcType=VARCHAR},</if>
+	<if test="entity.freechooseUrl != null">freechoose_url= #{entity.freechooseUrl,jdbcType=VARCHAR},</if>
+	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=VARCHAR},</if>
+	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
+	<if test="entity.remark3 != null">remark3= #{entity.remark3,jdbcType=CHAR},</if>
+	<if test="entity.remark4 != null">remark4= #{entity.remark4,jdbcType=NUMERIC},</if>
+	<if test="entity.hisAssignActivity != null">his_assign_activity= #{entity.hisAssignActivity,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.id != null">and id = #{entity.id}</when>
+				<otherwise>and id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
 <!-- ElementID:selectAll,Generated=true -->
 <select id="selectAll" resultMap="ActivityConfigResult">
 	select 
 		<include refid="column_sql"/>
 	    from WORKFLOW_ACTIVITY_SETTING 
 </select>
-
-<!-- ElementID:selectByID,Generated=true -->
-<select id="selectByID" parameterType="java.lang.String" resultMap="ActivityConfigResult">
-	select 
-		<include refid="column_sql"/>
-	    from WORKFLOW_ACTIVITY_SETTING 
-		 where WORKFLOW_ACTIVITY_SETTING.id = #{id,jdbcType=VARCHAR}
-</select>
-
-<!-- ElementID:selectByPage,Generated=true -->
-<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig" resultMap="ActivityConfigResult">
-	select 
-		<include refid="column_sql"/>
-	    from WORKFLOW_ACTIVITY_SETTING 
-		 <where>
-			<include refid="whereClause_sql"/>
-		</where>
-</select>
-
 
 <!-- ElementID:selectMany,Generated=true -->
 <select id="selectMany" parameterType="list" resultMap="ActivityConfigResult">
@@ -267,36 +286,28 @@ select
 	        <if test="entity.remark2 != null">and WORKFLOW_ACTIVITY_SETTING.remark2 = #{entity.remark2}</if>
 	        <if test="entity.remark3 != null">and WORKFLOW_ACTIVITY_SETTING.remark3 = #{entity.remark3}</if>
 	        <if test="entity.remark4 != null">and WORKFLOW_ACTIVITY_SETTING.remark4 = #{entity.remark4}</if>
+	        <if test="entity.hisAssignActivity != null">and WORKFLOW_ACTIVITY_SETTING.his_assign_activity = #{entity.hisAssignActivity}</if>
 		</where>
 </foreach>
 )
 </select>
-<!--Generated=true-->
-<update id="updateBatch" parameterType="list">
-	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
-			update WORKFLOW_ACTIVITY_SETTING
-	<set>
-	<if test="entity.moduleId != null">module_id= #{entity.moduleId,jdbcType=VARCHAR},</if>
-	<if test="entity.taskDefId != null">task_def_id= #{entity.taskDefId,jdbcType=VARCHAR},</if>
-	<if test="entity.action != null">action= #{entity.action,jdbcType=VARCHAR},</if>
-	<if test="entity.informType != null">inform_type= #{entity.informType,jdbcType=VARCHAR},</if>
-	<if test="entity.needclaim != null">needclaim= #{entity.needclaim,jdbcType=CHAR},</if>
-	<if test="entity.isSlaTime != null">is_sla_time= #{entity.isSlaTime,jdbcType=CHAR},</if>
-	<if test="entity.includeTabs != null">include_tabs= #{entity.includeTabs,jdbcType=VARCHAR},</if>
-	<if test="entity.includeActions != null">include_actions= #{entity.includeActions,jdbcType=VARCHAR},</if>
-	<if test="entity.returnActivity != null">return_activity= #{entity.returnActivity,jdbcType=VARCHAR},</if>
-	<if test="entity.freechooseUrl != null">freechoose_url= #{entity.freechooseUrl,jdbcType=VARCHAR},</if>
-	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=VARCHAR},</if>
-	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
-	<if test="entity.remark3 != null">remark3= #{entity.remark3,jdbcType=CHAR},</if>
-	<if test="entity.remark4 != null">remark4= #{entity.remark4,jdbcType=NUMERIC}</if>
-	</set>
-		<where>
-			<choose>
-				<when test="entity.id != null">and id = #{entity.id}</when>
-				<otherwise>and id = </otherwise>
-			</choose>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="ActivityConfigResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_ACTIVITY_SETTING 
+		 where WORKFLOW_ACTIVITY_SETTING.id = #{id,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig" resultMap="ActivityConfigResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_ACTIVITY_SETTING 
+		 <where>
+			<include refid="whereClause_sql"/>
 		</where>
-	</foreach>
-</update>
+</select>
+
 </mapper>

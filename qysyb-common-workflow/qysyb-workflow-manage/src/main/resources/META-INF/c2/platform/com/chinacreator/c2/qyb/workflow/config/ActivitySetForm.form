@@ -316,7 +316,7 @@
               </dync:attribute>
             </form:attributes>
           </form:control>
-          <form:child xsi:type="form:Field" binding="$model.entityactivityconfig.remark1" id="selectSimple" name="历史环节" customize="true">
+          <form:child xsi:type="form:Field" binding="$model.entityactivityconfig.hisAssignActivity" id="selectSimple" name="历史环节" customize="true">
             <form:control type="widget/select_simple">
               <form:attributes source="widget/select_simple">
                 <dync:attribute default="true" group="基本设置" id="show" name="可见" value="$model.filtertype == &quot;historyassign&quot;">
@@ -738,60 +738,7 @@ page_afterDataSourceLoad:function(){
 	});
 	
 	
-/*	$model.entityactivityconfig.$get()
-		.then(function(a){
-//			console.log(&quot;activity config entity geted&quot;,a);
-			if(angular.isUndefined($model.entityactivityconfig.id)){
-				$model.entityactivityconfig.id = $params.activityId;
-			}
 
-			if(angular.isUndefined($model.entityactivityconfig.informType)){
-				
-			}else{
-//				console.log(&quot;activity config entity geted&quot;,$model.entityactivityconfig);
-				var informs = $model.entityactivityconfig.informType.split(&quot;,&quot;);
-				var options = $view.assigneInformType.getOptions();
-				angular.forEach(options,function(v){				
-					for(x in informs){
-						if(informs[x]==v.value){
-							v.checked = true;
-						}
-					}
-				});					
-			}
-			if(!angular.isUndefined($model.entityactivityconfig.remark1)){						
-				var tabs = $model.entityactivityconfig.remark1.split(&quot;,&quot;);
-				var taboptions = $view.producttabs.getOptions();	
-				angular.forEach(taboptions,function(v){				
-					for(x in tabs){
-						if(tabs[x]==v.value){
-							v.checked = true;
-						}
-					}
-				});
-			}
-			var returnindex = functions.has_action(&quot;return&quot;);
-			if(returnindex==undefined){
-				$model.allowReject = false;
-			}else{
-				$model.allowReject = true;
-			}
-			var returnindex = functions.has_action(&quot;freechoose&quot;);
-			if(returnindex==undefined){
-				$model.freeChoose = false;
-				$model.entityactivityconfig.remark4 = &quot;f/choosetaskhandler&quot;;
-			}else{
-				$model.freeChoose = true;
-			}	
-			//自由选人
-			var fcuindex = functions.has_action(&quot;freechooseuser&quot;);
-			if(fcuindex==undefined){
-				$model.freechooseuser = false;
-			}else{
-				$model.freechooseuser = true;
-			}				
-		});
-*/
 //用户关注设置		
 	var con = {};
 	con.taskDefId = $params.activityId;

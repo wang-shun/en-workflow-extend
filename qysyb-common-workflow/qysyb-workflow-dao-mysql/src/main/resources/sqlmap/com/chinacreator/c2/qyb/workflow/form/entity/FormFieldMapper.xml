@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.form.entity.FormFieldMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  WORKFLOW_FORM_FIELD.field_id ,
+		  WORKFLOW_FORM_FIELD.field_no ,
+		  WORKFLOW_FORM_FIELD.field_name ,
+		  WORKFLOW_FORM_FIELD.field_type ,
+		  WORKFLOW_FORM_FIELD.is_object ,
+		  WORKFLOW_FORM_FIELD.object_class ,
+		  WORKFLOW_FORM_FIELD.field_describe ,
+		  WORKFLOW_FORM_FIELD.category_id ,
+		  WORKFLOW_FORM_FIELD.web_display_type_id ,
+		  WORKFLOW_FORM_FIELD.forder ,
+		  WORKFLOW_FORM_FIELD.remark1 ,
+		  WORKFLOW_FORM_FIELD.remark2 ,
+		  WORKFLOW_FORM_FIELD.remark3 ,
+		  WORKFLOW_FORM_FIELD.remark4 ,
+		  WORKFLOW_FORM_FIELD.remark5 ,
+		  WORKFLOW_FORM_FIELD.remark6 ,
+		  WORKFLOW_FORM_FIELD.ramark7 ,
+		  WORKFLOW_FORM_FIELD.remark8 ,
+		  WORKFLOW_FORM_FIELD.remark9 ,
+		  WORKFLOW_FORM_FIELD.remark10 ,
+		  WORKFLOW_FORM_FIELD.dict_name ,
+		  WORKFLOW_FORM_FIELD.field_col_name ,
+		  WORKFLOW_FORM_FIELD.is_proc_var ,
+		  WORKFLOW_FORM_FIELD.display_span ,
+		  WORKFLOW_FORM_FIELD.label_width 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="fieldId != null">and WORKFLOW_FORM_FIELD.field_id = #{fieldId}</if>
+	    <if test="fieldNo != null">and WORKFLOW_FORM_FIELD.field_no = #{fieldNo}</if>
+	    <if test="fieldName != null">and WORKFLOW_FORM_FIELD.field_name = #{fieldName}</if>
+	    <if test="fieldType != null">and WORKFLOW_FORM_FIELD.field_type = #{fieldType}</if>
+	    <if test="isObject != null">and WORKFLOW_FORM_FIELD.is_object = #{isObject}</if>
+	    <if test="objectClass != null">and WORKFLOW_FORM_FIELD.object_class = #{objectClass}</if>
+	    <if test="fieldDescribe != null">and WORKFLOW_FORM_FIELD.field_describe = #{fieldDescribe}</if>
+	    <if test="categoryId != null">and WORKFLOW_FORM_FIELD.category_id = #{categoryId}</if>
+	    <if test="webDisplayTypeId != null">and WORKFLOW_FORM_FIELD.web_display_type_id = #{webDisplayTypeId}</if>
+	    <if test="forder != null">and WORKFLOW_FORM_FIELD.forder = #{forder}</if>
+	    <if test="remark1 != null">and WORKFLOW_FORM_FIELD.remark1 = #{remark1}</if>
+	    <if test="remark2 != null">and WORKFLOW_FORM_FIELD.remark2 = #{remark2}</if>
+	    <if test="remark3 != null">and WORKFLOW_FORM_FIELD.remark3 = #{remark3}</if>
+	    <if test="remark4 != null">and WORKFLOW_FORM_FIELD.remark4 = #{remark4}</if>
+	    <if test="remark5 != null">and WORKFLOW_FORM_FIELD.remark5 = #{remark5}</if>
+	    <if test="remark6 != null">and WORKFLOW_FORM_FIELD.remark6 = #{remark6}</if>
+	    <if test="ramark7 != null">and WORKFLOW_FORM_FIELD.ramark7 = #{ramark7}</if>
+	    <if test="remark8 != null">and WORKFLOW_FORM_FIELD.remark8 = #{remark8}</if>
+	    <if test="remark9 != null">and WORKFLOW_FORM_FIELD.remark9 = #{remark9}</if>
+	    <if test="remark10 != null">and WORKFLOW_FORM_FIELD.remark10 = #{remark10}</if>
+	    <if test="dictName != null">and WORKFLOW_FORM_FIELD.dict_name = #{dictName}</if>
+	    <if test="fieldColName != null">and WORKFLOW_FORM_FIELD.field_col_name = #{fieldColName}</if>
+	    <if test="isProcVar != null">and WORKFLOW_FORM_FIELD.is_proc_var = #{isProcVar}</if>
+	    <if test="displaySpan != null">and WORKFLOW_FORM_FIELD.display_span = #{displaySpan}</if>
+	    <if test="labelWidth != null">and WORKFLOW_FORM_FIELD.label_width = #{labelWidth}</if>
+</sql>
+
+
+<!-- ElementID:FormFieldResult,Generated=true -->
+<resultMap id="FormFieldResult" type="com.chinacreator.c2.qyb.workflow.form.entity.FormField">
+	<id property="fieldId" column="field_id"/>
+	<result property="fieldNo" column="field_no"/>
+	<result property="fieldName" column="field_name"/>
+	<result property="fieldType" column="field_type"/>
+	<result property="isObject" column="is_object"/>
+	<result property="objectClass" column="object_class"/>
+	<result property="fieldDescribe" column="field_describe"/>
+	<result property="categoryId" column="category_id"/>
+	<result property="webDisplayTypeId" column="web_display_type_id"/>
+	<result property="forder" column="forder"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+	<result property="remark3" column="remark3"/>
+	<result property="remark4" column="remark4"/>
+	<result property="remark5" column="remark5"/>
+	<result property="remark6" column="remark6"/>
+	<result property="ramark7" column="ramark7"/>
+	<result property="remark8" column="remark8"/>
+	<result property="remark9" column="remark9"/>
+	<result property="remark10" column="remark10"/>
+	<result property="dictName" column="dict_name"/>
+	<result property="fieldColName" column="field_col_name"/>
+	<result property="isProcVar" column="is_proc_var"/>
+	<result property="displaySpan" column="display_span"/>
+	<result property="labelWidth" column="label_width"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache type="C2_Default_Dao_Cache"/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FormField">
+	insert into WORKFLOW_FORM_FIELD(
+	         <if test="fieldId != null">field_id</if>
+	         <if test="fieldNo != null">,field_no</if>
+	         <if test="fieldName != null">,field_name</if>
+	         <if test="fieldType != null">,field_type</if>
+	         <if test="isObject != null">,is_object</if>
+	         <if test="objectClass != null">,object_class</if>
+	         <if test="fieldDescribe != null">,field_describe</if>
+	         <if test="categoryId != null">,category_id</if>
+	         <if test="webDisplayTypeId != null">,web_display_type_id</if>
+	         <if test="forder != null">,forder</if>
+	         <if test="remark1 != null">,remark1</if>
+	         <if test="remark2 != null">,remark2</if>
+	         <if test="remark3 != null">,remark3</if>
+	         <if test="remark4 != null">,remark4</if>
+	         <if test="remark5 != null">,remark5</if>
+	         <if test="remark6 != null">,remark6</if>
+	         <if test="ramark7 != null">,ramark7</if>
+	         <if test="remark8 != null">,remark8</if>
+	         <if test="remark9 != null">,remark9</if>
+	         <if test="remark10 != null">,remark10</if>
+	         <if test="dictName != null">,dict_name</if>
+	         <if test="fieldColName != null">,field_col_name</if>
+	         <if test="isProcVar != null">,is_proc_var</if>
+	         <if test="displaySpan != null">,display_span</if>
+	         <if test="labelWidth != null">,label_width</if>
+	 	 	 )
+	 values (
+	         <if test="fieldId != null">#{fieldId,jdbcType=VARCHAR}</if>
+	         <if test="fieldNo != null">,#{fieldNo,jdbcType=VARCHAR}</if>
+	         <if test="fieldName != null">,#{fieldName,jdbcType=VARCHAR}</if>
+	         <if test="fieldType != null">,#{fieldType,jdbcType=VARCHAR}</if>
+	         <if test="isObject != null">,#{isObject,jdbcType=CHAR}</if>
+	         <if test="objectClass != null">,#{objectClass,jdbcType=VARCHAR}</if>
+	         <if test="fieldDescribe != null">,#{fieldDescribe,jdbcType=VARCHAR}</if>
+	         <if test="categoryId != null">,#{categoryId,jdbcType=VARCHAR}</if>
+	         <if test="webDisplayTypeId != null">,#{webDisplayTypeId,jdbcType=VARCHAR}</if>
+	         <if test="forder != null">,#{forder,jdbcType=NUMERIC}</if>
+	         <if test="remark1 != null">,#{remark1,jdbcType=VARCHAR}</if>
+	         <if test="remark2 != null">,#{remark2,jdbcType=VARCHAR}</if>
+	         <if test="remark3 != null">,#{remark3,jdbcType=VARCHAR}</if>
+	         <if test="remark4 != null">,#{remark4,jdbcType=VARCHAR}</if>
+	         <if test="remark5 != null">,#{remark5,jdbcType=VARCHAR}</if>
+	         <if test="remark6 != null">,#{remark6,jdbcType=VARCHAR}</if>
+	         <if test="ramark7 != null">,#{ramark7,jdbcType=VARCHAR}</if>
+	         <if test="remark8 != null">,#{remark8,jdbcType=VARCHAR}</if>
+	         <if test="remark9 != null">,#{remark9,jdbcType=NUMERIC}</if>
+	         <if test="remark10 != null">,#{remark10,jdbcType=NUMERIC}</if>
+	         <if test="dictName != null">,#{dictName,jdbcType=VARCHAR}</if>
+	         <if test="fieldColName != null">,#{fieldColName,jdbcType=VARCHAR}</if>
+	         <if test="isProcVar != null">,#{isProcVar,jdbcType=CHAR}</if>
+	         <if test="displaySpan != null">,#{displaySpan,jdbcType=NUMERIC}</if>
+	         <if test="labelWidth != null">,#{labelWidth,jdbcType=NUMERIC}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FormField" resultType="int">
+	select count(*) from WORKFLOW_FORM_FIELD 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FormField">
+	update WORKFLOW_FORM_FIELD
+<set>
+	<if test="fieldNo != null">field_no=#{fieldNo,jdbcType=VARCHAR},</if>
+	<if test="fieldName != null">field_name=#{fieldName,jdbcType=VARCHAR},</if>
+	<if test="fieldType != null">field_type=#{fieldType,jdbcType=VARCHAR},</if>
+	<if test="isObject != null">is_object=#{isObject,jdbcType=CHAR},</if>
+	<if test="objectClass != null">object_class=#{objectClass,jdbcType=VARCHAR},</if>
+	<if test="fieldDescribe != null">field_describe=#{fieldDescribe,jdbcType=VARCHAR},</if>
+	<if test="categoryId != null">category_id=#{categoryId,jdbcType=VARCHAR},</if>
+	<if test="webDisplayTypeId != null">web_display_type_id=#{webDisplayTypeId,jdbcType=VARCHAR},</if>
+	<if test="forder != null">forder=#{forder,jdbcType=NUMERIC},</if>
+	<if test="remark1 != null">remark1=#{remark1,jdbcType=VARCHAR},</if>
+	<if test="remark2 != null">remark2=#{remark2,jdbcType=VARCHAR},</if>
+	<if test="remark3 != null">remark3=#{remark3,jdbcType=VARCHAR},</if>
+	<if test="remark4 != null">remark4=#{remark4,jdbcType=VARCHAR},</if>
+	<if test="remark5 != null">remark5=#{remark5,jdbcType=VARCHAR},</if>
+	<if test="remark6 != null">remark6=#{remark6,jdbcType=VARCHAR},</if>
+	<if test="ramark7 != null">ramark7=#{ramark7,jdbcType=VARCHAR},</if>
+	<if test="remark8 != null">remark8=#{remark8,jdbcType=VARCHAR},</if>
+	<if test="remark9 != null">remark9=#{remark9,jdbcType=NUMERIC},</if>
+	<if test="remark10 != null">remark10=#{remark10,jdbcType=NUMERIC},</if>
+	<if test="dictName != null">dict_name=#{dictName,jdbcType=VARCHAR},</if>
+	<if test="fieldColName != null">field_col_name=#{fieldColName,jdbcType=VARCHAR},</if>
+	<if test="isProcVar != null">is_proc_var=#{isProcVar,jdbcType=CHAR},</if>
+	<if test="displaySpan != null">display_span=#{displaySpan,jdbcType=NUMERIC},</if>
+	<if test="labelWidth != null">label_width=#{labelWidth,jdbcType=NUMERIC}</if>
+</set>
+<where>
+	<choose>
+        <when test="fieldId != null">and field_id = #{fieldId}</when>
+        <otherwise>and field_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update WORKFLOW_FORM_FIELD
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="fieldNo==null">field_no = null,</if>
+		    <if test="fieldName==null">field_name = null,</if>
+		    <if test="fieldType==null">field_type = null,</if>
+		    <if test="isObject==null">is_object = null,</if>
+		    <if test="objectClass==null">object_class = null,</if>
+		    <if test="fieldDescribe==null">field_describe = null,</if>
+		    <if test="categoryId==null">category_id = null,</if>
+		    <if test="webDisplayTypeId==null">web_display_type_id = null,</if>
+		    <if test="forder==null">forder = null,</if>
+		    <if test="remark1==null">remark1 = null,</if>
+		    <if test="remark2==null">remark2 = null,</if>
+		    <if test="remark3==null">remark3 = null,</if>
+		    <if test="remark4==null">remark4 = null,</if>
+		    <if test="remark5==null">remark5 = null,</if>
+		    <if test="remark6==null">remark6 = null,</if>
+		    <if test="ramark7==null">ramark7 = null,</if>
+		    <if test="remark8==null">remark8 = null,</if>
+		    <if test="remark9==null">remark9 = null,</if>
+		    <if test="remark10==null">remark10 = null,</if>
+		    <if test="dictName==null">dict_name = null,</if>
+		    <if test="fieldColName==null">field_col_name = null,</if>
+		    <if test="isProcVar==null">is_proc_var = null,</if>
+		    <if test="displaySpan==null">display_span = null,</if>
+		    <if test="labelWidth==null">label_width = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="fieldId != null">and field_id = #{fieldId}</when>
+			<otherwise>and field_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FormField">
+    delete from WORKFLOW_FORM_FIELD where 1=1 and field_id = #{fieldId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FormField" resultMap="FormFieldResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_FORM_FIELD 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into WORKFLOW_FORM_FIELD (field_id,field_no,field_name,field_type,is_object,object_class,field_describe,category_id,web_display_type_id,forder,remark1,remark2,remark3,remark4,remark5,remark6,ramark7,remark8,remark9,remark10,dict_name,field_col_name,is_proc_var,display_span,label_width) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.fieldId,jdbcType = VARCHAR},
+				#{entity.fieldNo,jdbcType = VARCHAR},
+				#{entity.fieldName,jdbcType = VARCHAR},
+				#{entity.fieldType,jdbcType = VARCHAR},
+				#{entity.isObject,jdbcType = CHAR},
+				#{entity.objectClass,jdbcType = VARCHAR},
+				#{entity.fieldDescribe,jdbcType = VARCHAR},
+				#{entity.categoryId,jdbcType = VARCHAR},
+				#{entity.webDisplayTypeId,jdbcType = VARCHAR},
+				#{entity.forder,jdbcType = NUMERIC},
+				#{entity.remark1,jdbcType = VARCHAR},
+				#{entity.remark2,jdbcType = VARCHAR},
+				#{entity.remark3,jdbcType = VARCHAR},
+				#{entity.remark4,jdbcType = VARCHAR},
+				#{entity.remark5,jdbcType = VARCHAR},
+				#{entity.remark6,jdbcType = VARCHAR},
+				#{entity.ramark7,jdbcType = VARCHAR},
+				#{entity.remark8,jdbcType = VARCHAR},
+				#{entity.remark9,jdbcType = NUMERIC},
+				#{entity.remark10,jdbcType = NUMERIC},
+				#{entity.dictName,jdbcType = VARCHAR},
+				#{entity.fieldColName,jdbcType = VARCHAR},
+				#{entity.isProcVar,jdbcType = CHAR},
+				#{entity.displaySpan,jdbcType = NUMERIC},
+				#{entity.labelWidth,jdbcType = NUMERIC}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from WORKFLOW_FORM_FIELD where field_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.fieldId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update WORKFLOW_FORM_FIELD
+	<set>
+	<if test="entity.fieldNo != null">field_no= #{entity.fieldNo,jdbcType=VARCHAR},</if>
+	<if test="entity.fieldName != null">field_name= #{entity.fieldName,jdbcType=VARCHAR},</if>
+	<if test="entity.fieldType != null">field_type= #{entity.fieldType,jdbcType=VARCHAR},</if>
+	<if test="entity.isObject != null">is_object= #{entity.isObject,jdbcType=CHAR},</if>
+	<if test="entity.objectClass != null">object_class= #{entity.objectClass,jdbcType=VARCHAR},</if>
+	<if test="entity.fieldDescribe != null">field_describe= #{entity.fieldDescribe,jdbcType=VARCHAR},</if>
+	<if test="entity.categoryId != null">category_id= #{entity.categoryId,jdbcType=VARCHAR},</if>
+	<if test="entity.webDisplayTypeId != null">web_display_type_id= #{entity.webDisplayTypeId,jdbcType=VARCHAR},</if>
+	<if test="entity.forder != null">forder= #{entity.forder,jdbcType=NUMERIC},</if>
+	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=VARCHAR},</if>
+	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
+	<if test="entity.remark3 != null">remark3= #{entity.remark3,jdbcType=VARCHAR},</if>
+	<if test="entity.remark4 != null">remark4= #{entity.remark4,jdbcType=VARCHAR},</if>
+	<if test="entity.remark5 != null">remark5= #{entity.remark5,jdbcType=VARCHAR},</if>
+	<if test="entity.remark6 != null">remark6= #{entity.remark6,jdbcType=VARCHAR},</if>
+	<if test="entity.ramark7 != null">ramark7= #{entity.ramark7,jdbcType=VARCHAR},</if>
+	<if test="entity.remark8 != null">remark8= #{entity.remark8,jdbcType=VARCHAR},</if>
+	<if test="entity.remark9 != null">remark9= #{entity.remark9,jdbcType=NUMERIC},</if>
+	<if test="entity.remark10 != null">remark10= #{entity.remark10,jdbcType=NUMERIC},</if>
+	<if test="entity.dictName != null">dict_name= #{entity.dictName,jdbcType=VARCHAR},</if>
+	<if test="entity.fieldColName != null">field_col_name= #{entity.fieldColName,jdbcType=VARCHAR},</if>
+	<if test="entity.isProcVar != null">is_proc_var= #{entity.isProcVar,jdbcType=CHAR},</if>
+	<if test="entity.displaySpan != null">display_span= #{entity.displaySpan,jdbcType=NUMERIC},</if>
+	<if test="entity.labelWidth != null">label_width= #{entity.labelWidth,jdbcType=NUMERIC}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.fieldId != null">and field_id = #{entity.fieldId}</when>
+				<otherwise>and field_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="FormFieldResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_FORM_FIELD 
+</select>
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="FormFieldResult">
+select 
+	<include refid="column_sql"/> 
+	from WORKFLOW_FORM_FIELD 
+	where WORKFLOW_FORM_FIELD.field_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		WORKFLOW_FORM_FIELD.field_id
+	    from WORKFLOW_FORM_FIELD 
+		 <where>
+	        <if test="entity.fieldId != null">and WORKFLOW_FORM_FIELD.field_id = #{entity.fieldId}</if>
+	        <if test="entity.fieldNo != null">and WORKFLOW_FORM_FIELD.field_no = #{entity.fieldNo}</if>
+	        <if test="entity.fieldName != null">and WORKFLOW_FORM_FIELD.field_name = #{entity.fieldName}</if>
+	        <if test="entity.fieldType != null">and WORKFLOW_FORM_FIELD.field_type = #{entity.fieldType}</if>
+	        <if test="entity.isObject != null">and WORKFLOW_FORM_FIELD.is_object = #{entity.isObject}</if>
+	        <if test="entity.objectClass != null">and WORKFLOW_FORM_FIELD.object_class = #{entity.objectClass}</if>
+	        <if test="entity.fieldDescribe != null">and WORKFLOW_FORM_FIELD.field_describe = #{entity.fieldDescribe}</if>
+	        <if test="entity.categoryId != null">and WORKFLOW_FORM_FIELD.category_id = #{entity.categoryId}</if>
+	        <if test="entity.webDisplayTypeId != null">and WORKFLOW_FORM_FIELD.web_display_type_id = #{entity.webDisplayTypeId}</if>
+	        <if test="entity.forder != null">and WORKFLOW_FORM_FIELD.forder = #{entity.forder}</if>
+	        <if test="entity.remark1 != null">and WORKFLOW_FORM_FIELD.remark1 = #{entity.remark1}</if>
+	        <if test="entity.remark2 != null">and WORKFLOW_FORM_FIELD.remark2 = #{entity.remark2}</if>
+	        <if test="entity.remark3 != null">and WORKFLOW_FORM_FIELD.remark3 = #{entity.remark3}</if>
+	        <if test="entity.remark4 != null">and WORKFLOW_FORM_FIELD.remark4 = #{entity.remark4}</if>
+	        <if test="entity.remark5 != null">and WORKFLOW_FORM_FIELD.remark5 = #{entity.remark5}</if>
+	        <if test="entity.remark6 != null">and WORKFLOW_FORM_FIELD.remark6 = #{entity.remark6}</if>
+	        <if test="entity.ramark7 != null">and WORKFLOW_FORM_FIELD.ramark7 = #{entity.ramark7}</if>
+	        <if test="entity.remark8 != null">and WORKFLOW_FORM_FIELD.remark8 = #{entity.remark8}</if>
+	        <if test="entity.remark9 != null">and WORKFLOW_FORM_FIELD.remark9 = #{entity.remark9}</if>
+	        <if test="entity.remark10 != null">and WORKFLOW_FORM_FIELD.remark10 = #{entity.remark10}</if>
+	        <if test="entity.dictName != null">and WORKFLOW_FORM_FIELD.dict_name = #{entity.dictName}</if>
+	        <if test="entity.fieldColName != null">and WORKFLOW_FORM_FIELD.field_col_name = #{entity.fieldColName}</if>
+	        <if test="entity.isProcVar != null">and WORKFLOW_FORM_FIELD.is_proc_var = #{entity.isProcVar}</if>
+	        <if test="entity.displaySpan != null">and WORKFLOW_FORM_FIELD.display_span = #{entity.displaySpan}</if>
+	        <if test="entity.labelWidth != null">and WORKFLOW_FORM_FIELD.label_width = #{entity.labelWidth}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="FormFieldResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_FORM_FIELD 
+		 where WORKFLOW_FORM_FIELD.field_id = #{fieldId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.form.entity.FormField" resultMap="FormFieldResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_FORM_FIELD 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+</mapper>

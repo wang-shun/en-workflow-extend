@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfigMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  WORKFLOW_USERCONCERNED_SETTING.id ,
+		  WORKFLOW_USERCONCERNED_SETTING.observer_id ,
+		  WORKFLOW_USERCONCERNED_SETTING.catogory ,
+		  WORKFLOW_USERCONCERNED_SETTING.process_ins_id ,
+		  WORKFLOW_USERCONCERNED_SETTING.process_def_id ,
+		  WORKFLOW_USERCONCERNED_SETTING.task_def_id ,
+		  WORKFLOW_USERCONCERNED_SETTING.action ,
+		  WORKFLOW_USERCONCERNED_SETTING.inform_type ,
+		  WORKFLOW_USERCONCERNED_SETTING.remark1 ,
+		  WORKFLOW_USERCONCERNED_SETTING.remark2 ,
+		  WORKFLOW_USERCONCERNED_SETTING.remark3 ,
+		  WORKFLOW_USERCONCERNED_SETTING.remark4 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="id != null">and WORKFLOW_USERCONCERNED_SETTING.id = #{id}</if>
+	    <if test="observerId != null">and WORKFLOW_USERCONCERNED_SETTING.observer_id = #{observerId}</if>
+	    <if test="catogory != null">and WORKFLOW_USERCONCERNED_SETTING.catogory = #{catogory}</if>
+	    <if test="processInsId != null">and WORKFLOW_USERCONCERNED_SETTING.process_ins_id = #{processInsId}</if>
+	    <if test="processDefId != null">and WORKFLOW_USERCONCERNED_SETTING.process_def_id = #{processDefId}</if>
+	    <if test="taskDefId != null">and WORKFLOW_USERCONCERNED_SETTING.task_def_id = #{taskDefId}</if>
+	    <if test="action != null">and WORKFLOW_USERCONCERNED_SETTING.action = #{action}</if>
+	    <if test="informType != null">and WORKFLOW_USERCONCERNED_SETTING.inform_type = #{informType}</if>
+	    <if test="remark1 != null">and WORKFLOW_USERCONCERNED_SETTING.remark1 = #{remark1}</if>
+	    <if test="remark2 != null">and WORKFLOW_USERCONCERNED_SETTING.remark2 = #{remark2}</if>
+	    <if test="remark3 != null">and WORKFLOW_USERCONCERNED_SETTING.remark3 = #{remark3}</if>
+	    <if test="remark4 != null">and WORKFLOW_USERCONCERNED_SETTING.remark4 = #{remark4}</if>
+</sql>
+
+
+<!-- ElementID:UserConcernedConfigResult,Generated=true -->
+<resultMap id="UserConcernedConfigResult" type="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig">
+	<id property="id" column="id"/>
+	<result property="observerId" column="observer_id"/>
+	<result property="catogory" column="catogory"/>
+	<result property="processInsId" column="process_ins_id"/>
+	<result property="processDefId" column="process_def_id"/>
+	<result property="taskDefId" column="task_def_id"/>
+	<result property="action" column="action"/>
+	<result property="informType" column="inform_type"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+	<result property="remark3" column="remark3"/>
+	<result property="remark4" column="remark4"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig">
+	insert into WORKFLOW_USERCONCERNED_SETTING(
+	         <if test="id != null">id</if>
+	         <if test="observerId != null">,observer_id</if>
+	         <if test="catogory != null">,catogory</if>
+	         <if test="processInsId != null">,process_ins_id</if>
+	         <if test="processDefId != null">,process_def_id</if>
+	         <if test="taskDefId != null">,task_def_id</if>
+	         <if test="action != null">,action</if>
+	         <if test="informType != null">,inform_type</if>
+	         <if test="remark1 != null">,remark1</if>
+	         <if test="remark2 != null">,remark2</if>
+	         <if test="remark3 != null">,remark3</if>
+	         <if test="remark4 != null">,remark4</if>
+	 	 	 )
+	 values (
+	         <if test="id != null">#{id,jdbcType=VARCHAR}</if>
+	         <if test="observerId != null">,#{observerId,jdbcType=VARCHAR}</if>
+	         <if test="catogory != null">,#{catogory,jdbcType=VARCHAR}</if>
+	         <if test="processInsId != null">,#{processInsId,jdbcType=VARCHAR}</if>
+	         <if test="processDefId != null">,#{processDefId,jdbcType=VARCHAR}</if>
+	         <if test="taskDefId != null">,#{taskDefId,jdbcType=VARCHAR}</if>
+	         <if test="action != null">,#{action,jdbcType=VARCHAR}</if>
+	         <if test="informType != null">,#{informType,jdbcType=VARCHAR}</if>
+	         <if test="remark1 != null">,#{remark1,jdbcType=VARCHAR}</if>
+	         <if test="remark2 != null">,#{remark2,jdbcType=VARCHAR}</if>
+	         <if test="remark3 != null">,#{remark3,jdbcType=VARCHAR}</if>
+	         <if test="remark4 != null">,#{remark4,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig" resultType="int">
+	select count(*) from WORKFLOW_USERCONCERNED_SETTING 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig">
+	update WORKFLOW_USERCONCERNED_SETTING
+<set>
+	<if test="observerId != null">observer_id=#{observerId,jdbcType=VARCHAR},</if>
+	<if test="catogory != null">catogory=#{catogory,jdbcType=VARCHAR},</if>
+	<if test="processInsId != null">process_ins_id=#{processInsId,jdbcType=VARCHAR},</if>
+	<if test="processDefId != null">process_def_id=#{processDefId,jdbcType=VARCHAR},</if>
+	<if test="taskDefId != null">task_def_id=#{taskDefId,jdbcType=VARCHAR},</if>
+	<if test="action != null">action=#{action,jdbcType=VARCHAR},</if>
+	<if test="informType != null">inform_type=#{informType,jdbcType=VARCHAR},</if>
+	<if test="remark1 != null">remark1=#{remark1,jdbcType=VARCHAR},</if>
+	<if test="remark2 != null">remark2=#{remark2,jdbcType=VARCHAR},</if>
+	<if test="remark3 != null">remark3=#{remark3,jdbcType=VARCHAR},</if>
+	<if test="remark4 != null">remark4=#{remark4,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="id != null">and id = #{id}</when>
+        <otherwise>and id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update WORKFLOW_USERCONCERNED_SETTING
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="observerId==null">observer_id = null,</if>
+		    <if test="catogory==null">catogory = null,</if>
+		    <if test="processInsId==null">process_ins_id = null,</if>
+		    <if test="processDefId==null">process_def_id = null,</if>
+		    <if test="taskDefId==null">task_def_id = null,</if>
+		    <if test="action==null">action = null,</if>
+		    <if test="informType==null">inform_type = null,</if>
+		    <if test="remark1==null">remark1 = null,</if>
+		    <if test="remark2==null">remark2 = null,</if>
+		    <if test="remark3==null">remark3 = null,</if>
+		    <if test="remark4==null">remark4 = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="id != null">and id = #{id}</when>
+			<otherwise>and id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig">
+    delete from WORKFLOW_USERCONCERNED_SETTING where 1=1 and id = #{id}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig" resultMap="UserConcernedConfigResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_USERCONCERNED_SETTING 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into WORKFLOW_USERCONCERNED_SETTING (id,observer_id,catogory,process_ins_id,process_def_id,task_def_id,action,inform_type,remark1,remark2,remark3,remark4) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.id,jdbcType = VARCHAR},
+				#{entity.observerId,jdbcType = VARCHAR},
+				#{entity.catogory,jdbcType = VARCHAR},
+				#{entity.processInsId,jdbcType = VARCHAR},
+				#{entity.processDefId,jdbcType = VARCHAR},
+				#{entity.taskDefId,jdbcType = VARCHAR},
+				#{entity.action,jdbcType = VARCHAR},
+				#{entity.informType,jdbcType = VARCHAR},
+				#{entity.remark1,jdbcType = VARCHAR},
+				#{entity.remark2,jdbcType = VARCHAR},
+				#{entity.remark3,jdbcType = VARCHAR},
+				#{entity.remark4,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from WORKFLOW_USERCONCERNED_SETTING where id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.id}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="UserConcernedConfigResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_USERCONCERNED_SETTING 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="UserConcernedConfigResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_USERCONCERNED_SETTING 
+		 where WORKFLOW_USERCONCERNED_SETTING.id = #{id,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig" resultMap="UserConcernedConfigResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_USERCONCERNED_SETTING 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="UserConcernedConfigResult">
+select 
+	<include refid="column_sql"/> 
+	from WORKFLOW_USERCONCERNED_SETTING 
+	where WORKFLOW_USERCONCERNED_SETTING.id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		WORKFLOW_USERCONCERNED_SETTING.id
+	    from WORKFLOW_USERCONCERNED_SETTING 
+		 <where>
+	        <if test="entity.id != null">and WORKFLOW_USERCONCERNED_SETTING.id = #{entity.id}</if>
+	        <if test="entity.observerId != null">and WORKFLOW_USERCONCERNED_SETTING.observer_id = #{entity.observerId}</if>
+	        <if test="entity.catogory != null">and WORKFLOW_USERCONCERNED_SETTING.catogory = #{entity.catogory}</if>
+	        <if test="entity.processInsId != null">and WORKFLOW_USERCONCERNED_SETTING.process_ins_id = #{entity.processInsId}</if>
+	        <if test="entity.processDefId != null">and WORKFLOW_USERCONCERNED_SETTING.process_def_id = #{entity.processDefId}</if>
+	        <if test="entity.taskDefId != null">and WORKFLOW_USERCONCERNED_SETTING.task_def_id = #{entity.taskDefId}</if>
+	        <if test="entity.action != null">and WORKFLOW_USERCONCERNED_SETTING.action = #{entity.action}</if>
+	        <if test="entity.informType != null">and WORKFLOW_USERCONCERNED_SETTING.inform_type = #{entity.informType}</if>
+	        <if test="entity.remark1 != null">and WORKFLOW_USERCONCERNED_SETTING.remark1 = #{entity.remark1}</if>
+	        <if test="entity.remark2 != null">and WORKFLOW_USERCONCERNED_SETTING.remark2 = #{entity.remark2}</if>
+	        <if test="entity.remark3 != null">and WORKFLOW_USERCONCERNED_SETTING.remark3 = #{entity.remark3}</if>
+	        <if test="entity.remark4 != null">and WORKFLOW_USERCONCERNED_SETTING.remark4 = #{entity.remark4}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:selectMany,Generated=false -->
+<select id="selectForStatus" parameterType="Map" resultMap="UserConcernedConfigResult">
+select 
+	<include refid="column_sql"/> 
+FROM
+	WORKFLOW_USERCONCERNED_SETTING
+WHERE
+	1=1 
+	<if test="processDefId != null">and WORKFLOW_USERCONCERNED_SETTING.process_def_id = #{processDefId}</if>
+	<if test="processInsId != null">and WORKFLOW_USERCONCERNED_SETTING.process_ins_id = #{processInsId}</if>
+AND (
+	(
+		catogory = 'user'
+		AND observer_id = #{userId}
+	)
+	OR (
+		catogory = 'group'
+		AND #{userId} IN (
+			SELECT
+				g.USER_ID_
+			FROM
+				ACT_ID_MEMBERSHIP g
+			WHERE
+				g.GROUP_ID_ = WORKFLOW_USERCONCERNED_SETTING.observer_id
+		)
+	)
+)
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update WORKFLOW_USERCONCERNED_SETTING
+	<set>
+	<if test="entity.observerId != null">observer_id= #{entity.observerId,jdbcType=VARCHAR},</if>
+	<if test="entity.catogory != null">catogory= #{entity.catogory,jdbcType=VARCHAR},</if>
+	<if test="entity.processInsId != null">process_ins_id= #{entity.processInsId,jdbcType=VARCHAR},</if>
+	<if test="entity.processDefId != null">process_def_id= #{entity.processDefId,jdbcType=VARCHAR},</if>
+	<if test="entity.taskDefId != null">task_def_id= #{entity.taskDefId,jdbcType=VARCHAR},</if>
+	<if test="entity.action != null">action= #{entity.action,jdbcType=VARCHAR},</if>
+	<if test="entity.informType != null">inform_type= #{entity.informType,jdbcType=VARCHAR},</if>
+	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=VARCHAR},</if>
+	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
+	<if test="entity.remark3 != null">remark3= #{entity.remark3,jdbcType=VARCHAR},</if>
+	<if test="entity.remark4 != null">remark4= #{entity.remark4,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.id != null">and id = #{entity.id}</when>
+				<otherwise>and id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

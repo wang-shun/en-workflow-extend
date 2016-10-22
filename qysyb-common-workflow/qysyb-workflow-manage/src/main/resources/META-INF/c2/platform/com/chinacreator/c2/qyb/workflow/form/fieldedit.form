@@ -48,23 +48,23 @@
         </dync:attribute>
       </form:attributes>
     </form:control>
-    <form:child xsi:type="form:Group" id="main1" name="表单字段">
+    <form:child xsi:type="form:Group" id="main2" name="表单字段">
       <form:control type="container/div">
         <form:attributes source="container/div"/>
       </form:control>
-      <form:child xsi:type="form:Field" binding="$model.entity.fieldNo" id="fieldNo1" name="字段编码" customize="true">
+      <form:child xsi:type="form:Field" binding="$model.entity.fieldNo" id="fieldNo2" name="字段编码" customize="true">
         <form:control type="widget/text">
           <form:attributes source="widget/text"/>
         </form:control>
         <form:validation/>
       </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.fieldName" id="fieldName1" name="字段名称" customize="true">
+      <form:child xsi:type="form:Field" binding="$model.entity.fieldName" id="fieldName2" name="字段名称" customize="true">
         <form:control type="widget/text">
           <form:attributes source="widget/text"/>
         </form:control>
         <form:validation/>
       </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.fieldType" id="fieldType1" name="字段类型">
+      <form:child xsi:type="form:Field" binding="$model.entity.fieldType" id="fieldType2" name="字段类型">
         <form:control type="widget/select_simple">
           <form:attributes source="widget/select_simple">
             <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;STR&quot;:&quot;文本&quot;,&quot;INT&quot;:&quot;数字&quot;,&quot;TIME&quot;:&quot;时间&quot;}">
@@ -74,7 +74,7 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.webDisplayTypeId" id="webDisplayTypeId1" name="控件类型">
+      <form:child xsi:type="form:Field" binding="$model.entity.webDisplayTypeId" id="webDisplayTypeId2" name="控件类型">
         <form:control type="widget/select_simple">
           <form:attributes source="widget/select_simple">
             <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.allwebcategorylist.result">
@@ -92,37 +92,13 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.remark1" id="newField5" name="字典名" customize="true">
+      <form:child xsi:type="form:Field" binding="$model.entity.fieldColName" id="newField11" name="数据库字段名" customize="true">
         <form:control type="widget/text">
           <form:attributes source="widget/text"/>
         </form:control>
         <form:validation/>
       </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.remark2" id="newField6" name="list数据源" customize="true">
-        <form:control type="widget/text">
-          <form:attributes source="widget/text"/>
-        </form:control>
-        <form:validation/>
-      </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.remark3" id="newField7" name="名属性" customize="true">
-        <form:control type="widget/text">
-          <form:attributes source="widget/text"/>
-        </form:control>
-        <form:validation/>
-      </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.remark4" id="newField8" name="值属性" customize="true">
-        <form:control type="widget/text">
-          <form:attributes source="widget/text"/>
-        </form:control>
-        <form:validation/>
-      </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.remark5" id="newField9" name="数据库字段名" customize="true">
-        <form:control type="widget/text">
-          <form:attributes source="widget/text"/>
-        </form:control>
-        <form:validation/>
-      </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.remark9" id="remark11" name="存入流程变量">
+      <form:child xsi:type="form:Field" binding="$model.entity.isProcVar" id="remark13" name="存入流程变量">
         <form:control type="widget/checkbox">
           <form:attributes source="widget/checkbox">
             <dync:attribute default="75" group="HTML设置" id="lableWidth" name="文字宽度" value="100">
@@ -136,14 +112,58 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.remark10" id="remark12" name="占位数">
+      <form:child xsi:type="form:Field" binding="$model.entity.displaySpan" id="remark14" name="占位数">
         <form:control type="widget/text">
           <form:attributes source="widget/text"/>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.fieldDescribe" id="fieldDescribe1" name="描述" customize="true">
+      <form:child xsi:type="form:Field" binding="$model.entity.dictName" id="newField10" name="字典名" customize="true">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text"/>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.entity.labelWidth" id="labelWidth" name="label宽度">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text"/>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.entity.fieldDescribe" id="fieldDescribe2" name="描述" customize="true">
         <form:control type="widget/textarea">
           <form:attributes source="widget/textarea"/>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.entity.remark1" id="newField12" name="属性1" customize="true">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+              <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.entity.remark2" id="newField13" name="属性2" customize="true">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+              <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.entity.remark3" id="newField14" name="属性3" customize="true">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+              <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
         </form:control>
         <form:validation/>
       </form:child>
@@ -152,7 +172,7 @@
       <form:control type="container/toolbar_modal_footer">
         <form:attributes source="container/toolbar_modal_footer"/>
       </form:control>
-      <form:child xsi:type="form:Field" id="btn_add1" name="新增">
+      <form:child xsi:type="form:Field" id="btn_add1" name="保存">
         <form:control type="widget/button">
           <form:attributes source="widget/button">
             <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check">

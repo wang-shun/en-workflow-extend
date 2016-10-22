@@ -33,7 +33,7 @@ public class ExternalTableQueryVariableValue implements Serializable{
 	  
 	  public String getTableCol(){
 		  if(formField!=null){
-			  return formField.getRemark5();
+			  return formField.getFieldColName();
 		  }
 		  return null;	  
 	  }

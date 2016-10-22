@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.tab.entity.TabMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  SERVICE_TAB.title ,
+		  SERVICE_TAB.tab_id ,
+		  SERVICE_TAB.icon ,
+		  SERVICE_TAB.url ,
+		  SERVICE_TAB.content ,
+		  SERVICE_TAB.describe 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="title != null">and SERVICE_TAB.title = #{title}</if>
+	    <if test="tabId != null">and SERVICE_TAB.tab_id = #{tabId}</if>
+	    <if test="icon != null">and SERVICE_TAB.icon = #{icon}</if>
+	    <if test="url != null">and SERVICE_TAB.url = #{url}</if>
+	    <if test="content != null">and SERVICE_TAB.content = #{content}</if>
+	    <if test="describe != null">and SERVICE_TAB.describe = #{describe}</if>
+</sql>
+
+
+<!-- ElementID:TabResult,Generated=true -->
+<resultMap id="TabResult" type="com.chinacreator.c2.qyb.workflow.tab.entity.Tab">
+	<id property="tabId" column="tab_id"/>
+	<result property="title" column="title"/>
+	<result property="icon" column="icon"/>
+	<result property="url" column="url"/>
+	<result property="content" column="content"/>
+	<result property="describe" column="describe"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab">
+	insert into SERVICE_TAB(
+	         <if test="title != null">title</if>
+	         <if test="tabId != null">,tab_id</if>
+	         <if test="icon != null">,icon</if>
+	         <if test="url != null">,url</if>
+	         <if test="content != null">,content</if>
+	         <if test="describe != null">,describe</if>
+	 	 	 )
+	 values (
+	         <if test="title != null">#{title,jdbcType=VARCHAR}</if>
+	         <if test="tabId != null">,#{tabId,jdbcType=VARCHAR}</if>
+	         <if test="icon != null">,#{icon,jdbcType=VARCHAR}</if>
+	         <if test="url != null">,#{url,jdbcType=VARCHAR}</if>
+	         <if test="content != null">,#{content,jdbcType=VARCHAR}</if>
+	         <if test="describe != null">,#{describe,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab" resultType="int">
+	select count(*) from SERVICE_TAB 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab">
+	update SERVICE_TAB
+<set>
+	<if test="title != null">title=#{title,jdbcType=VARCHAR},</if>
+	<if test="icon != null">icon=#{icon,jdbcType=VARCHAR},</if>
+	<if test="url != null">url=#{url,jdbcType=VARCHAR},</if>
+	<if test="content != null">content=#{content,jdbcType=VARCHAR},</if>
+	<if test="describe != null">describe=#{describe,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="tabId != null">and tab_id = #{tabId}</when>
+        <otherwise>and tab_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update SERVICE_TAB
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="title==null">title = null,</if>
+		    <if test="icon==null">icon = null,</if>
+		    <if test="url==null">url = null,</if>
+		    <if test="content==null">content = null,</if>
+		    <if test="describe==null">describe = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="tabId != null">and tab_id = #{tabId}</when>
+			<otherwise>and tab_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab">
+    delete from SERVICE_TAB where 1=1 and tab_id = #{tabId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab" resultMap="TabResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_TAB 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into SERVICE_TAB (title,tab_id,icon,url,content,describe) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.title,jdbcType = VARCHAR},
+				#{entity.tabId,jdbcType = VARCHAR},
+				#{entity.icon,jdbcType = VARCHAR},
+				#{entity.url,jdbcType = VARCHAR},
+				#{entity.content,jdbcType = VARCHAR},
+				#{entity.describe,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from SERVICE_TAB where tab_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.tabId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update SERVICE_TAB
+	<set>
+	<if test="entity.title != null">title= #{entity.title,jdbcType=VARCHAR},</if>
+	<if test="entity.icon != null">icon= #{entity.icon,jdbcType=VARCHAR},</if>
+	<if test="entity.url != null">url= #{entity.url,jdbcType=VARCHAR},</if>
+	<if test="entity.content != null">content= #{entity.content,jdbcType=VARCHAR},</if>
+	<if test="entity.describe != null">describe= #{entity.describe,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.tabId != null">and tab_id = #{entity.tabId}</when>
+				<otherwise>and tab_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="TabResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_TAB 
+</select>
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="TabResult">
+select 
+	<include refid="column_sql"/> 
+	from SERVICE_TAB 
+	where SERVICE_TAB.tab_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		SERVICE_TAB.tab_id
+	    from SERVICE_TAB 
+		 <where>
+	        <if test="entity.title != null">and SERVICE_TAB.title = #{entity.title}</if>
+	        <if test="entity.tabId != null">and SERVICE_TAB.tab_id = #{entity.tabId}</if>
+	        <if test="entity.icon != null">and SERVICE_TAB.icon = #{entity.icon}</if>
+	        <if test="entity.url != null">and SERVICE_TAB.url = #{entity.url}</if>
+	        <if test="entity.content != null">and SERVICE_TAB.content = #{entity.content}</if>
+	        <if test="entity.describe != null">and SERVICE_TAB.describe = #{entity.describe}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="TabResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_TAB 
+		 where SERVICE_TAB.tab_id = #{tabId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.tab.entity.Tab" resultMap="TabResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_TAB 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+</mapper>

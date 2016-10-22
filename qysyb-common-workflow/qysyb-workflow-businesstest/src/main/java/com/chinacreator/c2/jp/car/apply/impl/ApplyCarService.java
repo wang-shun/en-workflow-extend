@@ -119,4 +119,20 @@ public class ApplyCarService extends FormOperate {
 		}
 	}
 
+	@Override
+	public void onTaskReject(String json, String businessKey, String proInsId,
+			String moduleId, WorkFlowActivity curActivity, String curUserId,
+			WorkFlowActivity nextActivity, Map map) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProcessDelete(String json, String businessKey,
+			String proInsId, String moduleId, WorkFlowActivity curActivity,
+			String curUserId, String reason, Map map) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

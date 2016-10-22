@@ -6,22 +6,55 @@
     <docket:pkAttribute attribute="rel_id" type="UUID"/>
   </docket:primaryKey>
   <docket:attributes>
-    <docket:attribute code="rel_id" name="ID" nullable="false" type="string128" default="">
+    <docket:attribute code="rel_id" length="128" name="ID" nullable="false" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="form_id" length="" name="form ID" nullable="true" precision="" type="string128" default="">
-      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.Form.form_id" id="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.Form"/>
+    <docket:attribute code="form_id" length="128" name="form ID" nullable="true" precision="" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.Form.form_id" id="entity:com.chinacreator.c2.qyb.workflow.form.entity.Form"/>
     </docket:attribute>
-    <docket:attribute code="field_id" length="" name="field ID" nullable="true" precision="" type="string128" default="">
-      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.FormField.field_id" id="entity:com.chinacreator.c2.omp.service.manage.workflowcommon.FormField"/>
+    <docket:attribute code="field_id" length="128" name="field ID" nullable="true" precision="" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:BDValueRange" displayExpr="data.FormField.field_id" id="entity:com.chinacreator.c2.qyb.workflow.form.entity.FormField"/>
     </docket:attribute>
-    <docket:attribute code="categoty_id" name="字段类别 问题信息 基本信息 申请人信息等" nullable="true" type="string128" default="">
+    <docket:attribute code="categoty_id" length="128" name="字段类别 问题信息 基本信息 申请人信息等" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="rorder" nullable="true" type="mediumdouble" default="">
+    <docket:attribute code="rorder" length="11" nullable="true" type="mediumdouble" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="rel_describe" name="描述" nullable="true" type="string1024" default="">
+    <docket:attribute code="rel_describe" length="1024" name="描述" nullable="true" type="string1024" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="display_span" length="11" name="关联时自定义占位符" nullable="true" type="mediumdouble" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="label_width" length="11" name="关联时自定义LABEL宽度" nullable="true" type="mediumdouble" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="display_name" length="128" name="关联时自定义 显示名" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="position" length="128" name="关联时 他会出现在的位置 用来控制样式" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="dict_name" length="128" name="关联时 自定义 字典名" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark1" length="128" name="关联时自定义属性1" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark2" length="128" name="关联时自定义属性2" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark3" length="128" name="关联时自定义属性3" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark4" length="128" name="关联时自定义属性4" nullable="true" type="string128" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark5" length="1" name="关联时自定义属性5" nullable="true" type="boolean" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark6" length="11" name="关联时自定义属性6" nullable="true" type="mediumdouble" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
   </docket:attributes>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
@@ -28,6 +29,7 @@ import com.chinacreator.c2.qyb.workflow.form.entity.FormField;
 import com.chinacreator.c2.qyb.workflow.form.entity.FormFieldRel;
 import com.chinacreator.c2.qyb.workflow.form.entity.FormFieldValue;
 import com.chinacreator.c2.qyb.workflow.form.entity.WebDisplayCategory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 表单服务接口
@@ -349,14 +351,14 @@ public class FormService {
 		return list;
 	}
 	/**
-	 * 
+	 * 获取字段 以及字段的配置 如果 formfieldrel 里面有自定义的配置 优先使用 formfieldrel里面的配置
 	 * @param formId
 	 * @param fieldType
 	 * @param isClassify 是否按字段类别分类
 	 * @return
 	 */
-	public Map<String,List<FormField>> getFormField(String formId,String[] fieldType,boolean isClassify){
-		Map<String,List<FormField>> mapresult = new HashMap<String,List<FormField>>();
+	public Map<String,List<Map>> getFormField(String formId,String[] fieldType,boolean isClassify){
+		Map<String,List<Map>> mapresult = new HashMap<String,List<Map>>();
 		Dao<FormFieldRel> daoffr = DaoFactory.create(FormFieldRel.class);
 		Form f = new Form();
 		f.setFormId(formId);
@@ -364,10 +366,21 @@ public class FormService {
 			FormFieldRel ffr = new FormFieldRel();
 			ffr.setFormId(f);
 			List<FormFieldRel> listffr = daoffr.select(ffr);	
-			List<FormField> list = new ArrayList<FormField>();
+			List<Map> list = new ArrayList<Map>();
 			for(FormFieldRel o:listffr){
 				if(o.getFieldId()!=null){
-					list.add(o.getFieldId());
+					Map map = new HashMap();
+					ObjectMapper m = new ObjectMapper();
+					Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
+					if(props != null){
+						map.putAll(props);
+					}
+					Map<String,Object> relprops = m.convertValue(o, Map.class);		
+					if(relprops != null){
+						Map relpropstrimed = removeNullInMap(relprops);
+						map.putAll(relpropstrimed);
+					}					
+					list.add(map);
 				}		
 			}
 			if(list.size()>0){
@@ -389,11 +402,21 @@ public class FormService {
 				ffr.setFormId(f);
 				ffr.setCategotyId(d.getDictdataName());
 				List<FormFieldRel> listffr = daoffr.select(ffr);
-				List<FormField> list = new ArrayList<FormField>();
+				List<Map> list = new ArrayList<Map>();
 				for(FormFieldRel o:listffr){
 					if(o.getFieldId()!=null){
-						o.getFieldId().setCategoryId(d.getDictdataName());
-						list.add(o.getFieldId());
+						Map map = new HashMap();
+						ObjectMapper m = new ObjectMapper();
+						Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
+						if(props != null){
+							map.putAll(props);
+						}
+						Map<String,Object> relprops = m.convertValue(o, Map.class);		
+						if(relprops != null){
+							Map relpropstrimed = removeNullInMap(relprops);
+							map.putAll(relpropstrimed);
+						}					
+						list.add(map);
 					}		
 				}
 				if(list.size()>0){
@@ -406,11 +429,21 @@ public class FormService {
 				ffr.setFormId(f);
 				ffr.setCategotyId(d);
 				List<FormFieldRel> listffr = daoffr.select(ffr);
-				List<FormField> list = new ArrayList<FormField>();
+				List<Map> list = new ArrayList<Map>();
 				for(FormFieldRel o:listffr){
 					if(o.getFieldId()!=null){
-						o.getFieldId().setCategoryId(d);
-						list.add(o.getFieldId());
+						Map map = new HashMap();
+						ObjectMapper m = new ObjectMapper();
+						Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
+						if(props != null){
+							map.putAll(props);
+						}
+						Map<String,Object> relprops = m.convertValue(o, Map.class);		
+						if(relprops != null){
+							Map relpropstrimed = removeNullInMap(relprops);
+							map.putAll(relpropstrimed);
+						}					
+						list.add(map);
 					}		
 				}
 				if(list.size()>0){
@@ -541,7 +574,7 @@ public class FormService {
 		if(form.getFormNo()==null){
 			form = this.getFormById((form.getFormId()));
 		}	
-		String beanName = form.getRemark2();
+		String beanName = form.getOperateBean();
 		IFormOperate formOperate = 
 				(IFormOperate) ApplicationContextManager.getContext()
 				.getBean(beanName);
@@ -560,7 +593,7 @@ public class FormService {
  			String proInsId,
  			String businessKey2,Form form,Map con){
 		form = this.getFormById((form.getFormId()));
-		String beanName = form.getRemark2();
+		String beanName = form.getOperateBean();
 		IFormOperate formOperate = 
 				(IFormOperate) ApplicationContextManager.getContext()
 				.getBean(beanName);
@@ -588,5 +621,42 @@ public class FormService {
 		Dao<WebDisplayCategory> dao = DaoFactory.create(WebDisplayCategory.class);
 		List<WebDisplayCategory> list = dao.selectAll();	
 		return list;
+	}
+	/**
+	 * 去掉map中的 null 空字符串
+	 * @param map
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private Map removeNullInMap(Map map){
+		Map result = new HashMap();
+		Set<String> set = map.keySet();
+		for(String key:set){
+			Object o = map.get(key);
+			if(o == null){
+				continue;
+			}
+			if(o instanceof String && ((String) o).trim().equals("")){
+				continue;
+			}
+			result.put(key, o);
+		}
+		return result;
+	}
+	/**
+	 * 
+	 * @param page
+	 * @param rowNum
+	 * @param ids
+	 */
+	public void sortFormFieldRel(int page,int rowNum,String[] ids){
+		Dao<FormFieldRel> dao = DaoFactory.create(FormFieldRel.class);
+		if (null != ids && ids.length > 0) {
+			for (int i = 0; i < ids.length; i++) {
+				FormFieldRel rel = new FormFieldRel();
+				rel.setRelId(ids[i]);
+				rel.setRorder((double) ((page - 1) * rowNum + i));
+				dao.update(rel);
+			}
+		}		
 	}
 }

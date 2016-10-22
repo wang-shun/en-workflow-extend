@@ -12,6 +12,9 @@
 		  WORKFLOW_RETRIEVAL_ITEM.remark2 ,
 		  WORKFLOW_RETRIEVAL_ITEM.remark3 ,
 		  WORKFLOW_RETRIEVAL_ITEM.remark4 ,
+		  WORKFLOW_RETRIEVAL_ITEM.display_span ,
+		  WORKFLOW_RETRIEVAL_ITEM.webdisplay_type_id ,
+		  WORKFLOW_RETRIEVAL_ITEM.rorder ,
 		  WORKFLOW_FORM_FIELD_T1.field_id T1_field_id ,
 		  WORKFLOW_FORM_FIELD_T1.field_no T1_field_no ,
 		  WORKFLOW_FORM_FIELD_T1.field_name T1_field_name ,
@@ -31,7 +34,12 @@
 		  WORKFLOW_FORM_FIELD_T1.ramark7 T1_ramark7 ,
 		  WORKFLOW_FORM_FIELD_T1.remark8 T1_remark8 ,
 		  WORKFLOW_FORM_FIELD_T1.remark9 T1_remark9 ,
-		  WORKFLOW_FORM_FIELD_T1.remark10 T1_remark10 
+		  WORKFLOW_FORM_FIELD_T1.remark10 T1_remark10 ,
+		  WORKFLOW_FORM_FIELD_T1.dict_name T1_dict_name ,
+		  WORKFLOW_FORM_FIELD_T1.field_col_name T1_field_col_name ,
+		  WORKFLOW_FORM_FIELD_T1.is_proc_var T1_is_proc_var ,
+		  WORKFLOW_FORM_FIELD_T1.display_span T1_display_span ,
+		  WORKFLOW_FORM_FIELD_T1.label_width T1_label_width 
 </sql>
 
 <!-- ElementID:whereClause_sql,Generated=true -->
@@ -45,8 +53,45 @@
 	    <if test="remark2 != null">and WORKFLOW_RETRIEVAL_ITEM.remark2 = #{remark2}</if>
 	    <if test="remark3 != null">and WORKFLOW_RETRIEVAL_ITEM.remark3 = #{remark3}</if>
 	    <if test="remark4 != null">and WORKFLOW_RETRIEVAL_ITEM.remark4 = #{remark4}</if>
+	    <if test="displaySpan != null">and WORKFLOW_RETRIEVAL_ITEM.display_span = #{displaySpan}</if>
+	    <if test="webdisplayTypeId != null">and WORKFLOW_RETRIEVAL_ITEM.webdisplay_type_id = #{webdisplayTypeId}</if>
+	    <if test="rorder != null">and WORKFLOW_RETRIEVAL_ITEM.rorder = #{rorder}</if>
 		<if test="fieldId != null and fieldId.fieldId !=null">and WORKFLOW_RETRIEVAL_ITEM.field_id = #{fieldId.fieldId}</if>
 </sql>
+
+<!-- ElementID:one2one_sql,Generated=true -->
+<sql id="one2one_sql">
+	     left outer join WORKFLOW_FORM_FIELD WORKFLOW_FORM_FIELD_T1 on WORKFLOW_RETRIEVAL_ITEM.field_id=WORKFLOW_FORM_FIELD_T1.field_id
+</sql>
+
+<!-- ElementID:FormFieldResult,Generated=true -->
+<resultMap id="FormFieldResult" type="com.chinacreator.c2.qyb.workflow.form.entity.FormField">
+	<id property="fieldId" column="field_id"/>
+	<result property="fieldNo" column="field_no"/>
+	<result property="fieldName" column="field_name"/>
+	<result property="fieldType" column="field_type"/>
+	<result property="isObject" column="is_object"/>
+	<result property="objectClass" column="object_class"/>
+	<result property="fieldDescribe" column="field_describe"/>
+	<result property="categoryId" column="category_id"/>
+	<result property="webDisplayTypeId" column="web_display_type_id"/>
+	<result property="forder" column="forder"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+	<result property="remark3" column="remark3"/>
+	<result property="remark4" column="remark4"/>
+	<result property="remark5" column="remark5"/>
+	<result property="remark6" column="remark6"/>
+	<result property="ramark7" column="ramark7"/>
+	<result property="remark8" column="remark8"/>
+	<result property="remark9" column="remark9"/>
+	<result property="remark10" column="remark10"/>
+	<result property="dictName" column="dict_name"/>
+	<result property="fieldColName" column="field_col_name"/>
+	<result property="isProcVar" column="is_proc_var"/>
+	<result property="displaySpan" column="display_span"/>
+	<result property="labelWidth" column="label_width"/>
+</resultMap>
 
 
 <!-- ElementID:RetrieveItemResult,Generated=true -->
@@ -60,12 +105,15 @@
 	<result property="remark2" column="remark2"/>
 	<result property="remark3" column="remark3"/>
 	<result property="remark4" column="remark4"/>
+	<result property="displaySpan" column="display_span"/>
+	<result property="webdisplayTypeId" column="webdisplay_type_id"/>
+	<result property="rorder" column="rorder"/>
 	<association property="fieldId" column="T1_field_id" javaType="com.chinacreator.c2.qyb.workflow.form.entity.FormField" resultMap="FormFieldResult" columnPrefix="T1_"/>	
 </resultMap>
 
 
 <!-- ElementName:cache,Generated=true -->
-<cache/>
+<cache type="C2_Default_Dao_Cache"/>
 
 <!-- ElementID:insert,Generated=true -->
 <insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.customretrieval.entity.RetrieveItem">
@@ -79,6 +127,9 @@
 	         <if test="remark2 != null">,remark2</if>
 	         <if test="remark3 != null">,remark3</if>
 	         <if test="remark4 != null">,remark4</if>
+	         <if test="displaySpan != null">,display_span</if>
+	         <if test="webdisplayTypeId != null">,webdisplay_type_id</if>
+	         <if test="rorder != null">,rorder</if>
 	 	 	 <if test="fieldId != null and fieldId.fieldId !=null">,field_id</if>
 	 	 )
 	 values (
@@ -91,6 +142,9 @@
 	         <if test="remark2 != null">,#{remark2,jdbcType=VARCHAR}</if>
 	         <if test="remark3 != null">,#{remark3,jdbcType=VARCHAR}</if>
 	         <if test="remark4 != null">,#{remark4,jdbcType=NUMERIC}</if>
+	         <if test="displaySpan != null">,#{displaySpan,jdbcType=NUMERIC}</if>
+	         <if test="webdisplayTypeId != null">,#{webdisplayTypeId,jdbcType=VARCHAR}</if>
+	         <if test="rorder != null">,#{rorder,jdbcType=NUMERIC}</if>
 	 	 	 <if test="fieldId != null and fieldId.fieldId !=null">,#{fieldId.fieldId,jdbcType=VARCHAR}</if>
 	 	 )
 </insert>
@@ -115,6 +169,9 @@
 	<if test="remark2 != null">remark2=#{remark2,jdbcType=VARCHAR},</if>
 	<if test="remark3 != null">remark3=#{remark3,jdbcType=VARCHAR},</if>
 	<if test="remark4 != null">remark4=#{remark4,jdbcType=NUMERIC},</if>
+	<if test="displaySpan != null">display_span=#{displaySpan,jdbcType=NUMERIC},</if>
+	<if test="webdisplayTypeId != null">webdisplay_type_id=#{webdisplayTypeId,jdbcType=VARCHAR},</if>
+	<if test="rorder != null">rorder=#{rorder,jdbcType=NUMERIC},</if>
 	<if test="fieldId != null and fieldId.fieldId !=null">field_id=#{fieldId.fieldId,jdbcType=VARCHAR}</if>
 </set>
 <where>
@@ -138,6 +195,9 @@
 		    <if test="remark2==null">remark2 = null,</if>
 		    <if test="remark3==null">remark3 = null,</if>
 		    <if test="remark4==null">remark4 = null,</if>
+		    <if test="displaySpan==null">display_span = null,</if>
+		    <if test="webdisplayTypeId==null">webdisplay_type_id = null,</if>
+		    <if test="rorder==null">rorder = null,</if>
 		    <if test="fieldId==null">field_id = null,</if>
 		</trim>
 	</set>
@@ -168,7 +228,7 @@
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into WORKFLOW_RETRIEVAL_ITEM (item_id,retrieve_key,is_like,right_operate,left_operate,remark1,remark2,remark3,remark4,field_id) 
+	insert into WORKFLOW_RETRIEVAL_ITEM (item_id,retrieve_key,is_like,right_operate,left_operate,remark1,remark2,remark3,remark4,display_span,webdisplay_type_id,rorder,field_id) 
 <foreach collection="list" item="entity" index="index" separator="union all">
 		select 
 		#{entity.itemId,jdbcType = VARCHAR},
@@ -180,6 +240,9 @@
 				#{entity.remark2,jdbcType = VARCHAR},
 				#{entity.remark3,jdbcType = VARCHAR},
 				#{entity.remark4,jdbcType = NUMERIC},
+				#{entity.displaySpan,jdbcType = NUMERIC},
+				#{entity.webdisplayTypeId,jdbcType = VARCHAR},
+				#{entity.rorder,jdbcType = NUMERIC},
 						 #{entity.fieldId.fieldId,jdbcType=VARCHAR}
 		from dual
 </foreach>
@@ -195,6 +258,33 @@
 </trim>
 </delete>
 
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update WORKFLOW_RETRIEVAL_ITEM
+	<set>
+	<if test="entity.retrieveKey != null">retrieve_key= #{entity.retrieveKey,jdbcType=VARCHAR},</if>
+	<if test="entity.isLike != null">is_like= #{entity.isLike,jdbcType=CHAR},</if>
+	<if test="entity.rightOperate != null">right_operate= #{entity.rightOperate,jdbcType=VARCHAR},</if>
+	<if test="entity.leftOperate != null">left_operate= #{entity.leftOperate,jdbcType=VARCHAR},</if>
+	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=VARCHAR},</if>
+	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
+	<if test="entity.remark3 != null">remark3= #{entity.remark3,jdbcType=VARCHAR},</if>
+	<if test="entity.remark4 != null">remark4= #{entity.remark4,jdbcType=NUMERIC},</if>
+	<if test="entity.displaySpan != null">display_span= #{entity.displaySpan,jdbcType=NUMERIC},</if>
+	<if test="entity.webdisplayTypeId != null">webdisplay_type_id= #{entity.webdisplayTypeId,jdbcType=VARCHAR},</if>
+	<if test="entity.rorder != null">rorder= #{entity.rorder,jdbcType=NUMERIC},</if>
+	<if test="entity.fieldId != null and entity.fieldId.fieldId !=null">field_id= #{entity.fieldId.fieldId,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.itemId != null">and item_id = #{entity.itemId}</when>
+				<otherwise>and item_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
 <!-- ElementID:selectAll,Generated=true -->
 <select id="selectAll" resultMap="RetrieveItemResult">
 	select 
@@ -202,27 +292,6 @@
 	    from WORKFLOW_RETRIEVAL_ITEM 
 		<include refid="one2one_sql"/>
 </select>
-
-<!-- ElementID:selectByID,Generated=true -->
-<select id="selectByID" parameterType="java.lang.String" resultMap="RetrieveItemResult">
-	select 
-		<include refid="column_sql"/>
-	    from WORKFLOW_RETRIEVAL_ITEM 
-		<include refid="one2one_sql"/>
-		 where WORKFLOW_RETRIEVAL_ITEM.item_id = #{itemId,jdbcType=VARCHAR}
-</select>
-
-<!-- ElementID:selectByPage,Generated=true -->
-<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.customretrieval.entity.RetrieveItem" resultMap="RetrieveItemResult">
-	select 
-		<include refid="column_sql"/>
-	    from WORKFLOW_RETRIEVAL_ITEM 
-		<include refid="one2one_sql"/>
-		 <where>
-			<include refid="whereClause_sql"/>
-		</where>
-</select>
-
 
 <!-- ElementID:selectMany,Generated=true -->
 <select id="selectMany" parameterType="list" resultMap="RetrieveItemResult">
@@ -245,58 +314,32 @@ select
 	        <if test="entity.remark2 != null">and WORKFLOW_RETRIEVAL_ITEM.remark2 = #{entity.remark2}</if>
 	        <if test="entity.remark3 != null">and WORKFLOW_RETRIEVAL_ITEM.remark3 = #{entity.remark3}</if>
 	        <if test="entity.remark4 != null">and WORKFLOW_RETRIEVAL_ITEM.remark4 = #{entity.remark4}</if>
+	        <if test="entity.displaySpan != null">and WORKFLOW_RETRIEVAL_ITEM.display_span = #{entity.displaySpan}</if>
+	        <if test="entity.webdisplayTypeId != null">and WORKFLOW_RETRIEVAL_ITEM.webdisplay_type_id = #{entity.webdisplayTypeId}</if>
+	        <if test="entity.rorder != null">and WORKFLOW_RETRIEVAL_ITEM.rorder = #{entity.rorder}</if>
 		</where>
 </foreach>
 )
 </select>
-<!--Generated=true-->
-<sql id="one2one_sql">
-	     left outer join WORKFLOW_FORM_FIELD WORKFLOW_FORM_FIELD_T1 on WORKFLOW_RETRIEVAL_ITEM.field_id=WORKFLOW_FORM_FIELD_T1.field_id
-</sql>
-<!--Generated=true-->
-<resultMap id="FormFieldResult" type="com.chinacreator.c2.qyb.workflow.form.entity.FormField">
-	<id property="fieldId" column="field_id"/>
-	<result property="fieldNo" column="field_no"/>
-	<result property="fieldName" column="field_name"/>
-	<result property="fieldType" column="field_type"/>
-	<result property="isObject" column="is_object"/>
-	<result property="objectClass" column="object_class"/>
-	<result property="fieldDescribe" column="field_describe"/>
-	<result property="categoryId" column="category_id"/>
-	<result property="webDisplayTypeId" column="web_display_type_id"/>
-	<result property="forder" column="forder"/>
-	<result property="remark1" column="remark1"/>
-	<result property="remark2" column="remark2"/>
-	<result property="remark3" column="remark3"/>
-	<result property="remark4" column="remark4"/>
-	<result property="remark5" column="remark5"/>
-	<result property="remark6" column="remark6"/>
-	<result property="ramark7" column="ramark7"/>
-	<result property="remark8" column="remark8"/>
-	<result property="remark9" column="remark9"/>
-	<result property="remark10" column="remark10"/>
-</resultMap>
-<!--Generated=true-->
-<update id="updateBatch" parameterType="list">
-	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
-			update WORKFLOW_RETRIEVAL_ITEM
-	<set>
-	<if test="entity.retrieveKey != null">retrieve_key= #{entity.retrieveKey,jdbcType=VARCHAR},</if>
-	<if test="entity.isLike != null">is_like= #{entity.isLike,jdbcType=CHAR},</if>
-	<if test="entity.rightOperate != null">right_operate= #{entity.rightOperate,jdbcType=VARCHAR},</if>
-	<if test="entity.leftOperate != null">left_operate= #{entity.leftOperate,jdbcType=VARCHAR},</if>
-	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=VARCHAR},</if>
-	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
-	<if test="entity.remark3 != null">remark3= #{entity.remark3,jdbcType=VARCHAR},</if>
-	<if test="entity.remark4 != null">remark4= #{entity.remark4,jdbcType=NUMERIC},</if>
-	<if test="entity.fieldId != null and entity.fieldId.fieldId !=null">field_id= #{entity.fieldId.fieldId,jdbcType=VARCHAR}</if>
-	</set>
-		<where>
-			<choose>
-				<when test="entity.itemId != null">and item_id = #{entity.itemId}</when>
-				<otherwise>and item_id = </otherwise>
-			</choose>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="RetrieveItemResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_RETRIEVAL_ITEM 
+		<include refid="one2one_sql"/>
+		 where WORKFLOW_RETRIEVAL_ITEM.item_id = #{itemId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.customretrieval.entity.RetrieveItem" resultMap="RetrieveItemResult">
+	select 
+		<include refid="column_sql"/>
+	    from WORKFLOW_RETRIEVAL_ITEM 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
 		</where>
-	</foreach>
-</update>
+</select>
+
 </mapper>

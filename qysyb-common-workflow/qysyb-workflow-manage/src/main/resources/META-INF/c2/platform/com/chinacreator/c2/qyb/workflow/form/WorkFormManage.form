@@ -272,10 +272,6 @@
               <dync:render/>
               <dync:children/>
             </dync:attribute>
-            <dync:attribute default="false" group="高级功能" id="dnd" name="拖拽排序" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
             <dync:attribute default="" group="表格设置" id="searchDIV" name="搜索DIV" value="ffrelsearchdiv">
               <dync:render/>
               <dync:children/>
@@ -329,10 +325,6 @@
           <form:child xsi:type="form:Field" id="buttonEdit" name="编辑">
             <form:control type="widget/button_a_table">
               <form:attributes source="widget/button_a_table">
-                <dync:attribute id="clickType" value="edit">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
                 <dync:attribute id="icon" value="fa-pencil">
                   <dync:render/>
                   <dync:children/>
@@ -341,8 +333,31 @@
                   <dync:render/>
                   <dync:children/>
                 </dync:attribute>
+                <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="buttonEdit_click(rowId,rowData,tableData)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="rowId,rowData,tableData"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
               </form:attributes>
             </form:control>
+          </form:child>
+          <form:child xsi:type="form:Field" id="buttonATable" name="排序" customize="true">
+            <form:control type="widget/button_a_table">
+              <form:attributes source="widget/button_a_table">
+                <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-list">
+                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                  <dync:children/>
+                </dync:attribute>
+                <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="buttonATable_click(rowId,rowData,tableData)">
+                  <dync:render colSpan="1" height="0" multi="false" name="event">
+                    <dync:item name="params" value="rowId,rowData,tableData"/>
+                  </dync:render>
+                  <dync:children/>
+                </dync:attribute>
+              </form:attributes>
+            </form:control>
+            <form:validation/>
           </form:child>
           <form:child xsi:type="form:Field" id="buttonRefresh" name="刷新">
             <form:control type="widget/button_a_table">
@@ -394,7 +409,12 @@
         </form:child>
         <form:child xsi:type="form:Field" binding="rorder" id="rorder" name="rorder">
           <form:control type="widget/col_jqgrid">
-            <form:attributes source="widget/col_jqgrid"/>
+            <form:attributes source="widget/col_jqgrid">
+              <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+                <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
           </form:control>
         </form:child>
         <form:child xsi:type="form:Field" binding="fieldId.fieldDescribe" id="describe" name="字段描述">
@@ -432,7 +452,7 @@ buttonAdd_click:function(rowId,rowData,tableData){
 			return;
 		}else{
 			var formId = ids[0]; 
-			Modal.open(&quot;ef/servicemanageformfieldrel/add&quot;,{&quot;formId&quot;:formId},function(){
+			Modal.open(&quot;f/formfieldreladd&quot;,{&quot;formId&quot;:formId},function(){
 				$view.list1.refresh();
 			});
 		}	
@@ -456,5 +476,48 @@ newField2_click:function($event){
 
 list1_onDrop:function(table,row){
 	console.log(table,row);
+},
+
+buttonEdit_click:function(rowId,rowData,tableData){
+	var ids = $view.list1.getSelectRowIds();
+	if(ids.length != 1){
+		Messenger.post({
+		    'message': &quot;请选择或只一个记录！&quot;,
+		    'type': 'error',
+		});		
+		return
+	}
+	Modal.open(&quot;f/formfieldreledit&quot;,{&quot;id&quot;:ids[0]},function(){
+		$view.list1.refresh();
+	});	
+},
+//排序
+buttonATable_click:function(rowId,rowData,tableData){
+	var sortable = $model.sortDictData;	
+	if(angular.isUndefined(sortable)){
+		sortable = false;
+	}	
+	$model.sortDictData = !sortable;
+	Messenger.post({
+		    'message': (sortable?&quot;关闭&quot;:&quot;开启&quot;)+&quot;排序功能！&quot;,
+		    'type': 'info',
+		});
+	var _this = this;	
+	_this.getFieldListView().setSortRow(!sortable,function(){
+		var rowNum = _this.getFieldListView().getGridParam(&quot;rowNum&quot;);
+		var page = _this.getFieldListView().getGridParam(&quot;page&quot;);
+		var ids = _this.getFieldListView().getDataIDs();
+		$http.post(&quot;ws/sortFormFieldRel&quot;,{&quot;rowNum&quot;:rowNum,&quot;page&quot;:page,&quot;ids&quot;:ids})
+				.success(function(data, status, headers, config){
+					//_this.getFieldListView().refresh()
+					Messenger.post({
+		                'message': &quot;字典数据排序保存成功！&quot;,
+		                'type': 'success',
+		            });	            
+				});
+	});	
+},
+getFieldListView:function(){
+	return $view.list1;
 }</form:scripts>
 </form:Form>

@@ -21,11 +21,11 @@
 		  <artifactId>c2-runtime</artifactId>
 		  <version>4.2.4</version>
 		</dependency>	
-		<dependency>
+<!-- 		<dependency>
 		  <groupId>com.chinacreator.c2</groupId>
 		  <artifactId>c2-ui-components</artifactId>
 		  <version>4.2.8.4</version>
-		</dependency>
+		</dependency> -->
 
 <!-- 		 <dependency>
 			<groupId>com.chinacreator.c2.qyb</groupId>
@@ -67,7 +67,7 @@
 			<version>4.1.5.2</version>
 		</dependency> -->
 
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-sys-ui-components</artifactId>
 			<version>1.0.0</version>
@@ -83,18 +83,18 @@
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-module-fs-dir</artifactId>
 			<version>1.1.8</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 			 <scope>provided</scope> 
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
   			<groupId>com.chinacreator.c2</groupId>
   			<artifactId>c2-module-ueditor</artifactId>
   			<version>1.1.4</version>
-		</dependency>	
+		</dependency>	 -->
 	</dependencies>
 	
 	

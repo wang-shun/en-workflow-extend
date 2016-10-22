@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinacreator.c2.qyb.workflow.usergroup.WorkFlowMapper">
+	<resultMap id="metricResult" type="HashMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+	</resultMap>
+
+	<!-- ElementID:queryDictDataByTypeNameAndValue,Generated=false -->
+	<select id="getActivityCandidates" parameterType="Map" resultType="java.util.HashMap">
+		SELECT
+			t.ID,
+			t.CONFIG_ID,
+			t.TASK_DEF_KEY,
+			t.ALIAS,
+			t.DURATION,
+			t.DURATION_UNIT,
+			t.PERFORMER,
+			t.BIND_FORM,
+			t.GROUP_PERFORMER
+		FROM
+			WF_MOD_PROC_PROP t
+		INNER JOIN WF_MOD_PROC_CONFIG t1 ON t1.ID = t.CONFIG_ID
+		WHERE
+			t1.PROC_DEF_ID =#{processDefinitionId}
+		AND t1.MODULE_ID =#{moduleId}
+		AND t.TASK_DEF_KEY =#{taskDefKey}
+	</select>	
+	
+	<select id="getUserInfoById" parameterType="Map" resultType="java.util.HashMap">
+		SELECT
+			RES.*
+		FROM
+			ACT_ID_USER RES
+		WHERE
+			RES.ID_ = #{performer}
+		ORDER BY
+			RES.ID_ ASC
+	</select>
+	
+	<select id="getGroupInfoById" parameterType="Map" resultType="java.util.HashMap">
+		SELECT
+			RES.*
+		FROM
+			ACT_ID_GROUP RES
+		WHERE
+			RES.ID_ = #{group_performer}
+		ORDER BY
+			RES.ID_ ASC 
+	</select>
+</mapper>

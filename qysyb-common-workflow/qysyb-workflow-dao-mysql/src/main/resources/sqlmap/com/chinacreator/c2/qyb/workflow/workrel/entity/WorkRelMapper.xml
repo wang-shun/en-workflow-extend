@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.workrel.entity.WorkRelMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  SERVICE_WORK_REL.rel_id ,
+		  SERVICE_WORK_REL.work_id ,
+		  SERVICE_WORK_REL.wwork_id ,
+		  SERVICE_WORK_REL.rel_describe ,
+		  SERVICE_WORK_REL.rel_type_id 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="relId != null">and SERVICE_WORK_REL.rel_id = #{relId}</if>
+	    <if test="workId != null">and SERVICE_WORK_REL.work_id = #{workId}</if>
+	    <if test="wworkId != null">and SERVICE_WORK_REL.wwork_id = #{wworkId}</if>
+	    <if test="relDescribe != null">and SERVICE_WORK_REL.rel_describe = #{relDescribe}</if>
+	    <if test="relTypeId != null">and SERVICE_WORK_REL.rel_type_id = #{relTypeId}</if>
+</sql>
+
+
+<!-- ElementID:WorkRelResult,Generated=true -->
+<resultMap id="WorkRelResult" type="com.chinacreator.c2.qyb.workflow.workrel.entity.WorkRel">
+	<id property="relId" column="rel_id"/>
+	<result property="workId" column="work_id"/>
+	<result property="wworkId" column="wwork_id"/>
+	<result property="relDescribe" column="rel_describe"/>
+	<result property="relTypeId" column="rel_type_id"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.workrel.entity.WorkRel">
+	insert into SERVICE_WORK_REL(
+	         <if test="relId != null">rel_id</if>
+	         <if test="workId != null">,work_id</if>
+	         <if test="wworkId != null">,wwork_id</if>
+	         <if test="relDescribe != null">,rel_describe</if>
+	         <if test="relTypeId != null">,rel_type_id</if>
+	 	 	 )
+	 values (
+	         <if test="relId != null">#{relId,jdbcType=VARCHAR}</if>
+	         <if test="workId != null">,#{workId,jdbcType=VARCHAR}</if>
+	         <if test="wworkId != null">,#{wworkId,jdbcType=VARCHAR}</if>
+	         <if test="relDescribe != null">,#{relDescribe,jdbcType=VARCHAR}</if>
+	         <if test="relTypeId != null">,#{relTypeId,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.workrel.entity.WorkRel" resultType="int">
+	select count(*) from SERVICE_WORK_REL 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.workrel.entity.WorkRel">
+	update SERVICE_WORK_REL
+<set>
+	<if test="workId != null">work_id=#{workId,jdbcType=VARCHAR},</if>
+	<if test="wworkId != null">wwork_id=#{wworkId,jdbcType=VARCHAR},</if>
+	<if test="relDescribe != null">rel_describe=#{relDescribe,jdbcType=VARCHAR},</if>
+	<if test="relTypeId != null">rel_type_id=#{relTypeId,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="relId != null">and rel_id = #{relId}</when>
+        <otherwise>and rel_id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update SERVICE_WORK_REL
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="workId==null">work_id = null,</if>
+		    <if test="wworkId==null">wwork_id = null,</if>
+		    <if test="relDescribe==null">rel_describe = null,</if>
+		    <if test="relTypeId==null">rel_type_id = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="relId != null">and rel_id = #{relId}</when>
+			<otherwise>and rel_id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.workrel.entity.WorkRel">
+    delete from SERVICE_WORK_REL where 1=1 and rel_id = #{relId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.workrel.entity.WorkRel" resultMap="WorkRelResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_WORK_REL 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into SERVICE_WORK_REL (rel_id,work_id,wwork_id,rel_describe,rel_type_id) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.relId,jdbcType = VARCHAR},
+				#{entity.workId,jdbcType = VARCHAR},
+				#{entity.wworkId,jdbcType = VARCHAR},
+				#{entity.relDescribe,jdbcType = VARCHAR},
+				#{entity.relTypeId,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from SERVICE_WORK_REL where rel_id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.relId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="WorkRelResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_WORK_REL 
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="WorkRelResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_WORK_REL 
+		 where SERVICE_WORK_REL.rel_id = #{relId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.workrel.entity.WorkRel" resultMap="WorkRelResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_WORK_REL 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="WorkRelResult">
+select 
+	<include refid="column_sql"/> 
+	from SERVICE_WORK_REL 
+	where SERVICE_WORK_REL.rel_id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		SERVICE_WORK_REL.rel_id
+	    from SERVICE_WORK_REL 
+		 <where>
+	        <if test="entity.relId != null">and SERVICE_WORK_REL.rel_id = #{entity.relId}</if>
+	        <if test="entity.workId != null">and SERVICE_WORK_REL.work_id = #{entity.workId}</if>
+	        <if test="entity.wworkId != null">and SERVICE_WORK_REL.wwork_id = #{entity.wworkId}</if>
+	        <if test="entity.relDescribe != null">and SERVICE_WORK_REL.rel_describe = #{entity.relDescribe}</if>
+	        <if test="entity.relTypeId != null">and SERVICE_WORK_REL.rel_type_id = #{entity.relTypeId}</if>
+		</where>
+</foreach>
+)
+</select>
+<!--Generated=true-->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update SERVICE_WORK_REL
+	<set>
+	<if test="entity.workId != null">work_id= #{entity.workId,jdbcType=VARCHAR},</if>
+	<if test="entity.wworkId != null">wwork_id= #{entity.wworkId,jdbcType=VARCHAR},</if>
+	<if test="entity.relDescribe != null">rel_describe= #{entity.relDescribe,jdbcType=VARCHAR},</if>
+	<if test="entity.relTypeId != null">rel_type_id= #{entity.relTypeId,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.relId != null">and rel_id = #{entity.relId}</when>
+				<otherwise>and rel_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+</mapper>

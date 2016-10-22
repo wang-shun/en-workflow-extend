@@ -29,10 +29,10 @@ public class FormFieldService {
 			return false;
 		}
 		//如果不是存入流程变量 则就是在外部作业务数据存储
-		if(ff.isRemark9()==null||!ff.isRemark9()){
+		if(ff.isIsProcVar()==null||!ff.isIsProcVar()){
 			return true;
 		}
-		if(ff.getRemark5()==null){
+		if(ff.getFieldColName()==null){
 			return false;
 		}
 
@@ -51,7 +51,7 @@ public class FormFieldService {
 			return false;
 		}
 		//如果不是存入流程变量 则就是在外部作业务数据存储
-		if(ff.isRemark9()!=null&&ff.isRemark9()){
+		if(ff.isIsProcVar()!=null&&ff.isIsProcVar()){
 			return true;
 		}
 		return false;

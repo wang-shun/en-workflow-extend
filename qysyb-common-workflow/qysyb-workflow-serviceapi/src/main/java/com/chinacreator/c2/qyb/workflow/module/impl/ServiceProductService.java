@@ -142,8 +142,8 @@ public class ServiceProductService {
 			list = dao.select(consp);
 		}
 		for(ServiceProduct sp:list){
-//			Object o = sps.getBindProcessByModuleId(sp.getProductId());
-			if(sps.getBindProcessByModuleId(sp.getProductId()).getId()!=null&&sp.getFormId()!=null){
+			WfProcessDefinition wfp = sps.getBindProcessByModuleId(sp.getProductId());
+			if(wfp != null && wfp.getId()!=null && sp.getFormId() != null){
 				String ico=sp.getIco();
 				sp.setIco(ico);
 				listr.add(sp);
@@ -166,7 +166,7 @@ public class ServiceProductService {
 			for(ServiceProduct sp:list){
 //				Object o = sps.getBindProcessByModuleId(sp.getProductId());
 				WfProcessDefinition wfp = sps.getBindProcessByModuleId(sp.getProductId());
-				if(wfp.getId()!=null){
+				if(wfp != null && wfp.getId()!=null){
 					map.put(sp.getProductId(), wfp);
 				}
 			}

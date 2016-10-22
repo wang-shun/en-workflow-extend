@@ -80,14 +80,17 @@ public class ActivityConfig implements Serializable {
 	@Column(id = "remark2", datatype = "string1024")
 	private java.lang.String remark2;
 
-	/**
-	 *
-	 */
 	@Column(id = "remark3", datatype = "boolean")
 	private java.lang.Boolean remark3;
 
 	@Column(id = "remark4", datatype = "smallint")
 	private java.lang.Integer remark4;
+
+	/**
+	 *选择历史处理人的环节的id
+	 */
+	@Column(id = "his_assign_activity", datatype = "string256")
+	private java.lang.String hisAssignActivity;
 
 	/**
 	 * 设置${field.desc}
@@ -272,14 +275,14 @@ public class ActivityConfig implements Serializable {
 	}
 
 	/**
-	 * 设置
+	 * 设置${field.desc}
 	 */
 	public void setRemark3(java.lang.Boolean remark3) {
 		this.remark3 = remark3;
 	}
 
 	/**
-	 * 获取
+	 * 获取${field.desc}
 	 */
 	public java.lang.Boolean isRemark3() {
 		return remark3;
@@ -297,5 +300,19 @@ public class ActivityConfig implements Serializable {
 	 */
 	public java.lang.Integer getRemark4() {
 		return remark4;
+	}
+
+	/**
+	 * 设置选择历史处理人的环节的id
+	 */
+	public void setHisAssignActivity(java.lang.String hisAssignActivity) {
+		this.hisAssignActivity = hisAssignActivity;
+	}
+
+	/**
+	 * 获取选择历史处理人的环节的id
+	 */
+	public java.lang.String getHisAssignActivity() {
+		return hisAssignActivity;
 	}
 }

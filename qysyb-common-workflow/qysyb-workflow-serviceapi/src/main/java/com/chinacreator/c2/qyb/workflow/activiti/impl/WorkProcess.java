@@ -323,16 +323,23 @@ public class WorkProcess {
 				WfOperator.class);
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
 		
+		String moduleId = wfOperator.getBusinessData().getModuleId();
+		
 		WorkFlowActivity nextActivity = new WorkFlowActivity();
 		nextActivity.setId(destTaskDefinitionKey);
 		// 处理人选择
 		chooseHandleTypeValue(variables);
 
 		Map entitymap = JSONObject.parseObject(entity, Map.class);
+		
 		FormService formService = ApplicationContextManager.getContext()
 				.getBean(FormService.class);
 		Form form = formService.getFormById(formId);
 
+		String beanName = form.getOperateBean();
+		IFormOperate formOperate = 
+				(IFormOperate) ApplicationContextManager.getContext()
+				.getBean(beanName);	
 		// 业务数据吧上一次保存的一些流程变量去掉
 		entitymap.remove(WorkFlowService.TYPE_ASSIGNEE);
 		entitymap.remove(WorkFlowService.TYPE_CANDIDATEUSERS);
@@ -382,7 +389,8 @@ public class WorkProcess {
 		/* 通知处理 */
 		informService = ApplicationContextManager.getContext().getBean(
 				InformService.class);
-		informService.informDo();
+		informService.informDo(moduleId,entitymap);
+		formOperate.onTaskReject(entity, bussinessKey, proInsId, moduleId, curActivity, wfOperator.getUserId(), nextActivity, null);
 		return new ResponseFactory().createResponseBodyJSONObject(JSON
 				.toJSONString(wfresult));
 
@@ -688,8 +696,8 @@ public class WorkProcess {
 		String wfOperatorStr = (String) paramsMap.get("wfOperator");
 		String bussinessKey = (String) paramsMap.get("businessKey");
 		String currenTaskId = (String) paramsMap.get("currenTaskId");
-		String destTaskDefinitionKey = (String) paramsMap
-				.get("destTaskDefinitionKey");
+//		String destTaskDefinitionKey = (String) paramsMap
+//				.get("destTaskDefinitionKey");
 		// String taskDefKey = paramsMap.get("taskDefKey");
 		String processDefinitionId = (String) paramsMap
 				.get("processDefinitionId");
@@ -697,7 +705,7 @@ public class WorkProcess {
 		String opinion = (String) paramsMap.get("opinion");
 		String proInsId = (String) paramsMap.get("proInsId");
 		String moduleId = (String) paramsMap.get("moduleId");
-		String transitionId = (String) paramsMap.get("transitionId");
+//		String transitionId = (String) paramsMap.get("transitionId");
 		String transitionStr = (String) paramsMap.get("transition");
 		String ccInformJsonStr = (String) paramsMap.get("ccInform");
 		WorkFlowTransition wfTransition = JSONObject.parseObject(transitionStr,
@@ -817,7 +825,7 @@ public class WorkProcess {
 			}
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
-			informService.informDo(entitymap);
+			informService.informDo(moduleId,entitymap);
 			return new ResponseFactory().createResponseBodyJSONObject(JSON
 					.toJSONString(wfresult));
 		}
@@ -833,8 +841,8 @@ public class WorkProcess {
 		// JumpActivityByTakeTransitionCmd 自由流
 		wfresult = this.goAnyWhereTakeTransition(wfOperator,
 				false, bussinessKey,
-				processDefinitionId, currenTaskId, transitionId,
-				destTaskDefinitionKey, false, variables);
+				processDefinitionId, currenTaskId, wfTransition.getId(),
+				wfTransition.getDest().getId(), false, variables);
  		//流程执行结束 业务处理
  		formOperate.addOrUpdateEntityAfterTaskExcu(entity, bussinessKey, proInsId, moduleId,
  				wfTransition.getSrc(), wfOperator.getUserId(),wfTransition.getDest(),paramsMap);		
@@ -859,7 +867,7 @@ public class WorkProcess {
 		informService = ApplicationContextManager.getContext().getBean(
 				InformService.class);
 		informService.setCcInformsInfo(ccInformJsonStr);
-		informService.informDo(entitymap);
+		informService.informDo(moduleId,entitymap);
 
 		return new ResponseFactory().createResponseBodyJSONObject(JSON
 				.toJSONString(wfresult));
@@ -1016,7 +1024,7 @@ public class WorkProcess {
  					processDefinitionId,null,wfTransition.getDest().getId(),moduleId,variables);
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
-			informService.informDo(mapentity);
+			informService.informDo(moduleId,mapentity);
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1076,7 +1084,7 @@ public class WorkProcess {
  				ActivityConfig ac = activityConfigService.getActivityConfig(moduleId, taskDefKey);
  				List<HistoricTaskInstance> historicTaskInstances = historyService
  						.createHistoricTaskInstanceQuery()
- 						.taskDefinitionKey(ac.getRemark1())
+ 						.taskDefinitionKey(ac.getHisAssignActivity())
  						.processInstanceId(processInsId)
  						.orderByHistoricTaskInstanceEndTime().desc().list();
  				String destAssignee = historicTaskInstances.get(0).getAssignee();	
