@@ -349,13 +349,13 @@
     </foreach>
  <!-- 外部的表， 只能连接一张业务表。多张不支持  也就是说前面forms，请保持size为1-->
      <foreach collection="forms" index="index" item="var">
-          inner join ${var.tableName} T${index} on RES.PROC_INST_ID_ = T${index}.BUSINESS_KEY   
+          inner join ${var.tableName} T${index} on RES.PROC_INST_ID_ = T${index}.${var.remark2}   
     </foreach>     
     
 <!--  外部表查询字段  正如上面所说 只能连接一张业务表。多张不支持  也就是说前面forms，请保持size为1--> 
     <foreach collection="queriableFields" index="index" item="var">
     	<if test="forms[0] != null &amp;&amp; forms[0].tableName != null &amp;&amp; var.tableCol != null">
-    		inner join ${forms[0].tableName} B${index} on RES.PROC_INST_ID_ = B${index}.BUSINESS_KEY
+    		inner join ${forms[0].tableName} B${index} on RES.PROC_INST_ID_ = B${index}.${forms[0].remark2}   
     	</if>     
     </foreach>    
     

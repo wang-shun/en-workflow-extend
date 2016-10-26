@@ -91,7 +91,12 @@
     </form:control>
     <form:child xsi:type="form:Group" binding="$model.list" id="list" name="列表型数据源">
       <form:control type="container/table_jqgrid">
-        <form:attributes source="container/table_jqgrid"/>
+        <form:attributes source="container/table_jqgrid">
+          <dync:attribute default="" group="表格设置" id="searchDIV" name="搜索DIV" value="uitemplatesearchdiv">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
       </form:control>
       <form:child xsi:type="form:Group" id="toolbar_table" name="toolbar_table">
         <form:control type="container/toolbar_table">
@@ -151,6 +156,39 @@
             </form:attributes>
           </form:control>
         </form:child>
+        <form:child xsi:type="form:Field" id="buttonATable" name="查找" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="custom" group="事件设置" id="clickType" name="事件类型" value="expend">
+                <dync:render colSpan="2" height="0" multi="false" name="select">
+                  <dync:item name="自定义" value="custom"/>
+                  <dync:item name="添加" value="add"/>
+                  <dync:item name="编辑" value="edit"/>
+                  <dync:item name="查看" value="get"/>
+                  <dync:item name="删除" value="delete"/>
+                  <dync:item name="查找" value="search"/>
+                  <dync:item name="展开搜索框" value="expend"/>
+                  <dync:item name="刷新" value="refrash"/>
+                  <dync:item name="行内添加" value="inlineAdd"/>
+                  <dync:item name="行内编辑" value="inlineEdit"/>
+                  <dync:item name="行内保存" value="inlineSave"/>
+                  <dync:item name="行内取消" value="inlineRestore"/>
+                  <dync:item name="行内删除" value="inlineDelete"/>
+                </dync:render>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
+                <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="light-blue">
+                <dync:render colSpan="2" height="0" multi="false" name="selectIconColor"/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
         <form:child xsi:type="form:Field" id="buttonRefresh" name="刷新">
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
@@ -205,9 +243,85 @@
         </form:control>
       </form:child>
     </form:child>
+    <form:child xsi:type="form:Group" id="uitemplatesearchdiv" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div"/>
+      </form:control>
+      <form:child xsi:type="form:Field" binding="$model.search.categoryName" id="text" name="名称" customize="true">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="4">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.search.url" id="text1" name="URL" customize="true">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="4">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" id="button" name="查询" customize="true">
+        <form:control type="widget/button">
+          <form:attributes source="widget/button">
+            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="button_click($event)">
+              <dync:render colSpan="1" height="0" multi="false" name="event">
+                <dync:item name="params" value="$event"/>
+              </dync:render>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" id="button1" name="重置" customize="true">
+        <form:control type="widget/button">
+          <form:attributes source="widget/button">
+            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="button1_click($event)">
+              <dync:render colSpan="1" height="0" multi="false" name="event">
+                <dync:item name="params" value="$event"/>
+              </dync:render>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+    </form:child>
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
     <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.chinacreator.c2.qyb.workflow.form.entity.WebDisplayCategory" pageSize="10"/>
   </form:datasources>
+  <form:scripts>
+
+button_click:function($event){
+	var queryParams = new Array();
+	var categoryName = null;
+	var url = null;
+	categoryName = $model.search.categoryName;
+	url = $model.search.url;
+	if(categoryName != null){
+		queryParams.push({field:&quot;categoryName&quot;,op:&quot;cn&quot;,data:$model.search.categoryName});
+	}
+	if(url !=null){
+		queryParams.push({field:&quot;url&quot;,op:&quot;cn&quot;,data:$model.search.url});
+	}
+
+	var filters={groupOp:&quot;AND&quot;,rules:queryParams};
+	$view.list.refresh({filters:filters});	
+},
+
+button1_click:function($event){
+	$view.mainForm.clean();
+	$view.list.refresh({});		
+}</form:scripts>
 </form:Form>

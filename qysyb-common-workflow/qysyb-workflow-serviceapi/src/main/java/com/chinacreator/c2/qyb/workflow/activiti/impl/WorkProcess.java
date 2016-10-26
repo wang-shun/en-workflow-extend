@@ -726,7 +726,7 @@ public class WorkProcess {
 		FormService formService = ApplicationContextManager.getContext()
 				.getBean(FormService.class);
 		Form form = formService.getFormById(formId);
-		String beanName = form.getRemark2();
+		String beanName = form.getOperateBean();
 		IFormOperate formOperate = (IFormOperate) ApplicationContextManager
 				.getContext().getBean(beanName);
 
@@ -977,7 +977,7 @@ public class WorkProcess {
 					variables.put(WorkFlowService.HANDLE_LIMIT_L, handleLimitl);
 				}
 			}
-			String beanName = form.getRemark2();
+			String beanName = form.getOperateBean();
 			IFormOperate formOperate = (IFormOperate) ApplicationContextManager
 					.getContext().getBean(beanName);
 			// 业务模块流程变量设置
