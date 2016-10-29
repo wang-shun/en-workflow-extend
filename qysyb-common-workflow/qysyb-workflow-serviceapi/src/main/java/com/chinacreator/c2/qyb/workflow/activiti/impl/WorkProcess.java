@@ -961,6 +961,7 @@ public class WorkProcess {
 			variables.put(WorkFlowService.PRODUCTNAMEKEY, sp.getProductName());
 			variables.put(WorkFlowService.MODULE_ID_KEY, moduleId);
 			variables.put(WorkFlowService.PRODUCTNOKEY, sp.getProductNo());
+			variables.put(WorkFlowService.FORMIDSTR,sp.getFormId());
 			variables
 					.put(WorkFlowService.SERVICETYPEKEY, sp.getServiceTypeId());
 			// SLA
