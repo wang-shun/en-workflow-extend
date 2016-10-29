@@ -2617,4 +2617,19 @@ public class WorkFlowService {
 		}
 		return result;
 	}
+	/**
+	 * 根据流程实例id获取一些流程必要的信息如 formId businesskey ext..
+	 * @param procInsId
+	 * @return
+	 */
+	public Map<String, Object> getProcInfoByProcInsId(String procInsId) {
+//		Map<String, Object> result = new HashMap<String, Object>();
+		HistoricProcessInstance ins = historyService.createHistoricProcessInstanceQuery()
+				.processInstanceId(procInsId).includeProcessVariables()
+				.singleResult();
+		Map variables = ins.getProcessVariables();
+		variables.put("businessKey",ins.getBusinessKey());
+		variables.put("processDefinitionId", ins.getProcessDefinitionId());
+		return variables;
+	}
 }

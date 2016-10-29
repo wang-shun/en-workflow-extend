@@ -22,4 +22,12 @@ public class FieldmgtController {
 		String businessKey = (String) params.get("businessKey");
 		return fps.getFieldPermissionData(sp, businessKey);
 	}
+	
+	@RequestMapping("savepermissiondata")
+	public int savePermissionData(@RequestBody() JSONObject jsonObject){
+		ServiceProduct sp = jsonObject.getObject("serviceProduct", ServiceProduct.class);
+		String businessKey = jsonObject.getString("businessKey");
+		Map map = jsonObject.getObject("data", Map.class);
+		return fps.saveFieldPermissionData(sp, businessKey, map);
+	}
 }

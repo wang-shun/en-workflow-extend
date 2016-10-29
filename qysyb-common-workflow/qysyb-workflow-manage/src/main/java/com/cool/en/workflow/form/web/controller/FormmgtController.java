@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.chinacreator.c2.qyb.workflow.form.entity.Form;
 import com.chinacreator.c2.qyb.workflow.form.entity.FormField;
 import com.chinacreator.c2.qyb.workflow.form.impl.FormService;
 
@@ -39,7 +40,7 @@ public class FormmgtController {
 	}
 
 	@RequestMapping(value = "getformfield", method = RequestMethod.POST)
-	public Map<String, List<FormField>> getFormFieldByType(@RequestBody() JSONObject jsonObject) {
+	public Map<String, List<Map>> getFormFieldByType(@RequestBody() JSONObject jsonObject) {
 		String formId = jsonObject.getString("formId");
 		JSONArray array = jsonObject.getJSONArray("fieldType");
 		String[] fieldType = null;
@@ -48,5 +49,10 @@ public class FormmgtController {
 		}
 		boolean isClassify = jsonObject.getBooleanValue("isClassify");
 		return formService.getFormField(formId, fieldType, isClassify);
+	}
+	
+	@RequestMapping(value = "getallform", method = RequestMethod.GET)	
+	public List<Form> getAllForm(){
+		return formService.getAllForm();
 	}
 }

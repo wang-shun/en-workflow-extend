@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getprocinfobyprocinsid" log="false" className="com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService" method="getProcInfoByProcInsId">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>根据流程实例获取流程信息</name>
+  <desc>根据流程实例id获取一些流程必要的信息如 formId businesskey ext..</desc>
+  <inputs>
+    <input collection="false" desc="" id="procInsId" required="true" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.Map"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.procInsId" name="procInsId" signature="QString;" type="String"/>
+  </params>
+  <return signature="QMap&lt;QString;QObject;>;" type="java.util.Map"/>
+</CustomRule>

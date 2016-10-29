@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
+import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowActivity;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowTransition;
 
 @RestController
@@ -20,4 +21,8 @@ public class WorkFlowServiceController {
 		return wfs.getOutTransition(null, procDefId, activitiId);
 	}
 	
+	@RequestMapping("getactivities")
+	public List<WorkFlowActivity> getProcessActivities(@RequestParam() String procDefId){
+		return wfs.getActivitiesFromProcessDef(procDefId);
+	}
 }
