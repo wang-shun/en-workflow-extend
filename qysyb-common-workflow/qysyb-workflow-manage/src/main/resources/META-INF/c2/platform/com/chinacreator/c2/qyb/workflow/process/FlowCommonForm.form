@@ -428,7 +428,7 @@
     </form:datasource>
   </form:datasources>
   <form:scripts>//提交
-commit:function($event){debugger
+commit:function($event){
 	console.log(&quot;$scope.formentity&quot;,$scope.formentity);
 	//func 为业务表单提交前验证函数
 	if(!angular.isUndefined($model.func)){
