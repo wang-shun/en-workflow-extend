@@ -694,7 +694,29 @@ page_afterDataSourceLoad:function(){
 	$model.activityName = $model.getOutTransition.result[0].src.name;
 
 	$model.formId = $model.serviceproduct.result.formId;
+
+//  businessKey processInstanceId不为null，表明是处理任务而不是提交
+//  formBusinessKey 一定有业务数据与其对应 $model.businessKey则有可能是新生成的Key
+	if($params.params.businessKey&amp;&amp;$params.params.processInstanceId!=null){
+		$model.businessKey =  $params.params.businessKey;	
+		$model.formBusinessKey = $model.businessKey;
+	//如果地址栏有businessKey，则是业务数据已保存过，或许是草稿 或许是因为快捷生成工单。需要拿出之前的业务数据
+	}else if(angular.isUndefined($params.params.businessKey)&amp;&amp;!angular.isUndefined($location.$$search.businessKey)){
+		$model.businessKey =  $location.$$search.businessKey;
+		$model.formBusinessKey = $model.businessKey;
+	}else{
+		$model.businessKey =  $params.params.moduleId+&quot;_&quot;+this.timeGenerator();
+	}
+	$params.params.formBusinessKey = $model.formBusinessKey;
+	if(angular.isUndefined($params.params.businessKey)){
+		$params.params.businessKey = $model.businessKey;
+	}
 	
+	$params.params.serviceproduct = $model.serviceproduct.result;
+
+	//取得地址栏中的参数
+	var locationparams = $location.$$search;
+		
     $q.all(
     		[
     		$http.post(&quot;ws/getformfiledpermissiondata&quot;,{&quot;serviceProduct&quot;:$model.serviceproduct.result,&quot;businessKey&quot;:$params.params.taskDefKey}), 		
@@ -739,28 +761,6 @@ page_afterDataSourceLoad:function(){
 			}  				
  		})
     })
-	
-//  businessKey processInstanceId不为null，表明是处理任务而不是提交
-//  formBusinessKey 一定有业务数据与其对应 $model.businessKey则有可能是新生成的Key
-	if($params.params.businessKey&amp;&amp;$params.params.processInstanceId!=null){
-		$model.businessKey =  $params.params.businessKey;	
-		$model.formBusinessKey = $model.businessKey;
-	//如果地址栏有businessKey，则是业务数据已保存过，或许是草稿 或许是因为快捷生成工单。需要拿出之前的业务数据
-	}else if(angular.isUndefined($params.params.businessKey)&amp;&amp;!angular.isUndefined($location.$$search.businessKey)){
-		$model.businessKey =  $location.$$search.businessKey;
-		$model.formBusinessKey = $model.businessKey;
-	}else{
-		$model.businessKey =  $params.params.moduleId+&quot;_&quot;+this.timeGenerator();
-	}
-	$params.params.formBusinessKey = $model.formBusinessKey;
-	if(angular.isUndefined($params.params.businessKey)){
-		$params.params.businessKey = $model.businessKey;
-	}
-	
-	$params.params.serviceproduct = $model.serviceproduct.result;
-
-	//取得地址栏中的参数
-	var locationparams = $location.$$search;
 
 	$model.handleway = &quot;处理完成&quot;;
 	
