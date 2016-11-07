@@ -90,7 +90,7 @@
     <form:control type="container/toolbar_modal_footer">
       <form:attributes source="container/toolbar_modal_footer"/>
     </form:control>
-    <form:child xsi:type="form:Field" id="btn_add1" name="新增">
+    <form:child xsi:type="form:Field" id="btn_add1" name="保存">
       <form:control type="widget/button">
         <form:attributes source="widget/button">
           <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check">
