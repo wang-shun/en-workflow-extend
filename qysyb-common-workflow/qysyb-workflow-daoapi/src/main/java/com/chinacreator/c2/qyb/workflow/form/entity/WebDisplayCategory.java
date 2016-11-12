@@ -11,7 +11,7 @@ import com.chinacreator.c2.annotation.Entity;
  * @author 
  * @generated
  */
-@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.form.entity.WebDisplayCategory", table = "WORKFLOW_WEBDISPLAY_CATEGORY", ds = "oracDB")
+@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.form.entity.WebDisplayCategory",sn="webdisplaycategory", table = "WORKFLOW_WEBDISPLAY_CATEGORY", ds = "oracDB")
 public class WebDisplayCategory implements Serializable {
 	private static final long serialVersionUID = 1625214065623040L;
 	@Column(id = "id_", type = ColumnType.uuid, datatype = "string128")
