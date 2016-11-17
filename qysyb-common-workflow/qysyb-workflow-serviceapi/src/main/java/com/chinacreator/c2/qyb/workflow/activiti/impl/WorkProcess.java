@@ -27,6 +27,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.asp.comp.sys.advanced.role.service.RoleService;
 import com.chinacreator.asp.comp.sys.advanced.user.service.UserService;
+import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.flow.WfApiFactory;
 import com.chinacreator.c2.flow.api.WfRuntimeService;
@@ -39,6 +40,8 @@ import com.chinacreator.c2.flow.util.LoggerManager;
 import com.chinacreator.c2.flow.util.LoggerManager.LoggerType;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.omp.common.exception.ServiceException;
+import com.chinacreator.c2.qyb.orgext.entity.Orgext;
+import com.chinacreator.c2.qyb.orgext.impl.OrgextService;
 import com.chinacreator.c2.qyb.workflow.activiti.cmd.DelTaskCandidatesCmd;
 import com.chinacreator.c2.qyb.workflow.activiti.cmd.FindTaskEntityCmd;
 import com.chinacreator.c2.qyb.workflow.activiti.cmd.JumpActivityByTakeTransitionCmd;
@@ -1097,7 +1100,7 @@ public class WorkProcess {
 					String category = (String) map.get("category");
 					if(category.equals("group")){
 						//执行组相关策略
-						doGroupFilter(filterType,taskId,(String) map.get("id"),curUserId);
+						doGroupFilter(filterType,taskId,(String) map.get("id"),curUserId,processVariables);
 					}else if(category.equals("user")){
 						taskService.addCandidateUser(taskId, (String) map.get("id"));
 					}
@@ -1130,7 +1133,8 @@ public class WorkProcess {
 		}
 
 	}
-	private void doGroupFilter(String filterType,String taskId,String groupId,String curUserId){
+	private void doGroupFilter(String filterType,String taskId,String groupId,String curUserId,
+			Map variables){
 		UserJobService userJobService = ApplicationContextManager.getContext()
 				.getBean(UserJobService.class);					
 		if(filterType==null){
@@ -1143,7 +1147,15 @@ public class WorkProcess {
 			}		
 		//TODO
 		}else if(filterType.equals("orgbossfilter")){
-			
+			String applyUserId = (String) variables.get(WorkFlowService.STARTER);
+			UserService userService = ApplicationContextManager.getContext().getBean(UserService.class);
+			OrgDTO org = userService.queryMainOrg(applyUserId);
+			OrgextService extService = ApplicationContextManager.getContext().getBean(OrgextService.class);
+			Orgext ext = extService.getOneOrgextByOrgId(org.getOrgId());
+			if(ext.getId() == null){
+				throw new RuntimeException("部门主管策略确没有设置部门主管");
+			}
+			taskService.addCandidateUser(taskId, ext.getOrgSuperviserId());
 		}		
 	}
 	/**

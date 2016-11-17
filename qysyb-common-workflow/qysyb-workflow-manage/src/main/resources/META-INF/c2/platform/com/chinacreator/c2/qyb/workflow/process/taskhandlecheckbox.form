@@ -383,12 +383,12 @@ newField6_change:function(value){
 	}else{
 		$model.isParallel = false;
 	}
-	
-	$http.get(&quot;ws/gethandlerformcandidatewithfilter&quot;,{
+	$http.get(&quot;ws/gethandlerfromcandidatewithfilter2&quot;,{
 		params:{
 			processDefinitionId:$params.params.processDefinitionId,
 			moduleId:$params.params.moduleId,
 			taskDefKey:$model.dest.id,
+			proInsId:$params.params.processInstanceId,
 			filterType:undefined,  //这个参数应该要后台去获取 而不是前台从后台get后又传回给后台
 			curUserId:$params.curUserId
 		}}).success(function(data){
