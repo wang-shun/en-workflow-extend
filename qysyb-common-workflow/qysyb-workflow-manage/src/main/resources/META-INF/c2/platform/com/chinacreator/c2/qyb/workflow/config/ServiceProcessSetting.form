@@ -89,7 +89,7 @@
         </dync:attribute>
       </form:attributes>
     </form:control>
-    <form:child xsi:type="form:Group" id="newGroupww" name="服务">
+    <form:child xsi:type="form:Group" id="newGroupww" name="事项">
       <form:control type="container/widgetbox">
         <form:attributes source="container/widgetbox">
           <dync:attribute default="12" group="布局配置" id="span" name="占位数" value="3">

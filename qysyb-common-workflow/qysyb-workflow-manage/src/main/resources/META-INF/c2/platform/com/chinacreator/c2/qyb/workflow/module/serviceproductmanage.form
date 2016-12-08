@@ -100,7 +100,7 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" group="基本配置" id="caption" name="表头" value="服务产品（事项）">
+          <dync:attribute default="" group="基本配置" id="caption" name="表头" value="事项管理">
             <dync:render/>
             <dync:children/>
           </dync:attribute>
