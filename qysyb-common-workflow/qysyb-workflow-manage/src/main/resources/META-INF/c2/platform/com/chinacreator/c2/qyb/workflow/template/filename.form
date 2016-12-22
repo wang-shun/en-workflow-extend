@@ -57,7 +57,7 @@
         </dync:attribute>
       </form:attributes>
     </form:control>
-    <form:child xsi:type="form:Field" binding="formentity[$params.fieldNo]" id="textinput" name="{{$params.fieldName}}" customize="true">
+    <form:child xsi:type="form:Field" binding="formentity[$params.fieldNo]" id="textinput" name="{{$params.fname}}" customize="true">
       <form:control type="widget/text">
         <form:attributes source="widget/text">
           <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
@@ -108,6 +108,7 @@ newField_change:function(){
 },
 
 page_onload:function(){
+	$params.fname = $params.field.displayName || $params.field.fieldName
 	console.log(&quot;view&quot;,$view);
 	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
 },

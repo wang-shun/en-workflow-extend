@@ -460,8 +460,8 @@ page_afterDataSourceLoad:function(){
 
 wfProcessdefid_customFormatter:function(cellvalue,options,rowObject){
 	var a = $model.allwfprodefbinded.result;
-	var r = '服务产品没有绑定任何流程定义！&lt;a href=&quot;#/f/servicemoduleprocessconfig&quot; class=&quot;ng-scope&quot;>点击绑定&lt;/a>';
-/*	var r = '服务产品没有绑定任何流程定义！&lt;a href=&quot;#/f/moduleBind&quot; class=&quot;ng-scope&quot;>点击绑定&lt;/a>';
+	var r = '事项没有绑定任何流程定义！&lt;a href=&quot;#/f/servicemoduleprocessconfig&quot; class=&quot;ng-scope&quot;>点击绑定&lt;/a>';
+/*	var r = '事项没有绑定任何流程定义！&lt;a href=&quot;#/f/moduleBind&quot; class=&quot;ng-scope&quot;>点击绑定&lt;/a>';
 	*/
 	if(!angular.isUndefined(a[rowObject.productId])){
 		r = a[rowObject.productId].name;
