@@ -115,6 +115,9 @@ public class FieldPermissionService {
 	public FieldPermission getFieldPermissionFromList(List<FieldPermission> listfp,FormField formField,String moduleId){
 		for(FieldPermission fp:listfp){
 			FormField fField = fp.getFieldId();
+			if(fField == null){
+				continue;
+			}
 			if(!fField.getFieldNo().equals(formField.getFieldNo())){
 				continue;
 			}
