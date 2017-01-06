@@ -120,6 +120,10 @@
   <form:scripts>
 
 newField_change:function(){
+/*	var a = $view.newField.getObjOptions($model.act)
+	var b = $view.newField.getOptionObj($model.act)
+	var c = $view.newField.getOptions($model.act)
+	var d = $view.newField.getInitOptions($model.act)*/
 	var actName = $view.newField.getOptionObj($model.act);
 	var con = $model.content==undefined?&quot;&quot;:$model.content;
 	$model.content = actName.dictdataValue;
@@ -152,11 +156,17 @@ page_afterDataSourceLoad:function(){
 	if(&quot;undefined&quot;!= $params.params.content){
 		$model.content = $params.params.content; 
 	}
+		//默认赋值
+	$model.act = &quot;TY&quot;
+	$model.content = &quot;同意&quot;
+/*	setTimeout(function(){
+				functions.newField_change()
+			})*/
+//	functions.newField_change()
 },
 
 page_onload:function(){
-//默认赋值
-	console.log(&quot;content&quot;, $params.params.content);
+
 	
 },
 //取消
