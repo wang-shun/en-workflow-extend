@@ -160,7 +160,7 @@
             <form:child xsi:type="form:Field" id="newField22" name="提交" res="" customize="true">
               <form:control type="widget/button">
                 <form:attributes source="widget/button">
-                  <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="commit($event)">
+                  <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="autoswitchcommit($event)">
                     <dync:render/>
                     <dync:children/>
                   </dync:attribute>
@@ -206,7 +206,7 @@
                     <dync:render/>
                     <dync:children/>
                   </dync:attribute>
-                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.actions.return!=undefined">
+                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="false">
                     <dync:render/>
                     <dync:children/>
                   </dync:attribute>
@@ -342,7 +342,7 @@
         <form:child xsi:type="form:Field" id="newField21" name="提交" res="" customize="true">
           <form:control type="widget/button">
             <form:attributes source="widget/button">
-              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="commit($event)">
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="autoswitchcommit($event)">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -388,7 +388,7 @@
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
-              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.actions.return!=undefined">
+              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="false">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -505,7 +505,27 @@
       <form:param id="id" name="新输入参数" value="$params.params.moduleId"/>
     </form:datasource>
   </form:datasources>
-  <form:scripts>//提交
+  <form:scripts>//提交 自动决定退回与流转
+autoswitchcommit:function($event){
+	//func 为业务表单提交前验证函数
+	if(!angular.isUndefined($model.func)){
+		var a = $model.func();
+		if(a==false){
+			Messenger.post({
+				'message': &quot;必填项为空！&quot;,
+	            'type': 'error',
+	            'hideAfter':4
+	        });	
+			return;
+		}	
+	}
+	if($scope.formentity.global.oppositive){ //积极意见 流转流程
+		functions.commit($event)
+	}else{ //否定意见 退回流程
+		functions.newField_click($event)
+	}
+},
+//提交
 commit:function($event){
 	console.log(&quot;$scope.formentity&quot;,$scope.formentity);
 	//func 为业务表单提交前验证函数
@@ -515,7 +535,7 @@ commit:function($event){
 			Messenger.post({
 				'message': &quot;必填项为空！&quot;,
 	            'type': 'error',
-	            'hideAfter':5
+	            'hideAfter':4
 	        });	
 			return;
 		}	
@@ -627,7 +647,7 @@ newField5_click:function($event){
 			 Messenger.post({
 				 'message': &quot;  操作成功！&quot;,
 				 'type': 'success',
-				 'hideAfter':5
+				 'hideAfter':4
 			 });
 			 
 			 TabOperator.closeTab(TabOperator.getCurrentTab());
@@ -635,7 +655,7 @@ newField5_click:function($event){
 			 Messenger.post({
 				 'message': &quot;  something wrong！&quot;,
 				 'type': 'error',
-				 'hideAfter':5
+				 'hideAfter':4
 			 });			
 		}
 	});		
@@ -656,6 +676,14 @@ page_onload:function(){
 },
 //回退
 newField_click:function($event){
+	if($model.actions.return == undefined){
+		Messenger.post({
+			'message': &quot;本环节没有退回配置，请联系系统维护人员！&quot;,
+            'type': 'error',
+            'hideAfter':4
+        });			
+        return
+	}
 	//退回 需不需要必填项验证？
 	if(!angular.isUndefined($model.func)){
 		var a = $model.func();
@@ -663,7 +691,7 @@ newField_click:function($event){
 			Messenger.post({
 				'message': &quot;必填项为空！&quot;,
 	            'type': 'error',
-	            'hideAfter':5
+	            'hideAfter':4
 	        });	
 			return;
 		}	
@@ -706,7 +734,7 @@ newField_click:function($event){
 			 Messenger.post({
 			    'message': &quot;退回成功&quot;,
 			    'type': 'success',
-			    'hideAfter':5
+			    'hideAfter':4
 			 });
 			 TabOperator.closeTab(TabOperator.getCurrentTab());
 		});		
@@ -808,6 +836,11 @@ page_afterDataSourceLoad:function(){
  		
 		$scope.formentity = {};
 		$scope.formentity = resps[1].data.result;
+		//全局 用来通信
+		$scope.formentity.global = {}
+		//默认积极意见 让流程可以流转
+		$scope.formentity.global.oppositive = true
+		
 //		console.log($scope.formentity.result);
 		//取得地址栏中的参数 赋值地址栏参数到实体
 		for(var a in locationparams){
@@ -950,7 +983,7 @@ start_flow:function($event){
 			Messenger.post({
 				'message': &quot;必填项为空或格式不正确！&quot;,
 	            'type': 'error',
-	            'hideAfter':5
+	            'hideAfter':4
 	        });	
 			return;
 		}	
@@ -959,7 +992,7 @@ start_flow:function($event){
 		Messenger.post({
 			'message': &quot;流程已提交，请勿重复提交！&quot;,
             'type': 'error',
-            'hideAfter':5
+            'hideAfter':4
         });	
         return;
 	}
@@ -972,7 +1005,7 @@ start_flow:function($event){
 		Messenger.post({
 			'message': checkresult.msg,
             'type': 'error',
-            'hideAfter':5
+            'hideAfter':4
         });		
         return;	
 	}
@@ -1052,14 +1085,14 @@ submitflow_click:function($event){
 							Messenger.post({
 								'message': &quot;操作成功!&quot;,
 				                'type': 'success',
-				                'hideAfter':5
+				                'hideAfter':4
 				            });
 							TabOperator.closeTab(TabOperator.getCurrentTab());
 					}else{
 							Messenger.post({
 								'message': &quot;流程提交失败，请关闭本页面后重试&quot;,
 				                'type': 'error',
-				                'hideAfter':5
+				                'hideAfter':4
 				            });				
 					}
 		  });	
@@ -1094,7 +1127,7 @@ newField4_click:function($event){
 			Messenger.post({
 				'message': &quot;必填项为空或格式不正确！&quot;,
 	            'type': 'error',
-	            'hideAfter':5
+	            'hideAfter':4
 	        });	
 			return;
 		}	
@@ -1117,7 +1150,7 @@ newField4_click:function($event){
 		Messenger.post({
 								'message': &quot;保存成功!&quot;,
 				                'type': 'success',
-				                'hideAfter':5
+				                'hideAfter':4
 				            });
 	});
 },
@@ -1146,7 +1179,7 @@ newField4_click:function($event){
  						Messenger.post({
  												'message': &quot;删除成功!&quot;,
  								                'type': 'success',
- 								                'hideAfter':5
+ 								                'hideAfter':4
  								            });					
  					});
  			});
