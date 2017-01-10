@@ -1158,10 +1158,9 @@ newField4_click:function($event){
  button_click:function($event){
  	Modal.openConfirm({message:&quot;确认删除流程实例？删除后将不可恢复！&quot;},
  			function(){
- 				$http.get(&quot;ws/deleteprocessins&quot;,
- 					{
-	
- 						params:{
+ 				$http.post(&quot;ws/deleteprocessins&quot;,
+ 					{					
+ 							json:$scope.formentity,
  							wfOperator:{
  								userId:$scope.subject.id,
  								businessData:{
@@ -1172,8 +1171,7 @@ newField4_click:function($event){
  						    deleteReason:&quot;用户删除&quot;,
  						    processInstanceId:$params.params.processInstanceId,
  						    formId:$model.formId,
- 						    deleteHistory:true		
- 						}
+ 						    deleteHistory:true				
  					}).success(function(){
  						TabOperator.closeTab(TabOperator.getCurrentTab());
  						Messenger.post({
