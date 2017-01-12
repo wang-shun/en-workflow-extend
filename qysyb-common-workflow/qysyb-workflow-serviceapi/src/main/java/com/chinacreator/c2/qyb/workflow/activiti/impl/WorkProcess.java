@@ -15,6 +15,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.bpmn.behavior.ParallelMultiInstanceBehavior;
+import org.activiti.engine.impl.bpmn.behavior.SequentialMultiInstanceBehavior;
 import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
@@ -793,7 +794,8 @@ public class WorkProcess {
 				.executeCommand(new FindTaskEntityCmd(currenTaskId));
 		ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
 		/* JumpActivityByTakeTransitionCmd 自由流时会签任务处理， */
-		if (activityImpl.getActivityBehavior() instanceof ParallelMultiInstanceBehavior) {
+		if (activityImpl.getActivityBehavior() instanceof ParallelMultiInstanceBehavior
+				|| activityImpl.getActivityBehavior() instanceof SequentialMultiInstanceBehavior) {
 			// 先声明接撿然后再走自由泿解决流程图处理人出现null的问頿,
 			// 声明后 assignee便有了值。
 			taskService.claim(currenTaskId, wfOperator.getUserId());
