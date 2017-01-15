@@ -7,7 +7,7 @@
 		  WORKFLOW_WEBDISPLAY_CATEGORY.category_no ,
 		  WORKFLOW_WEBDISPLAY_CATEGORY.category_name ,
 		  WORKFLOW_WEBDISPLAY_CATEGORY.url ,
-		  WORKFLOW_WEBDISPLAY_CATEGORY.describe ,
+		  WORKFLOW_WEBDISPLAY_CATEGORY.`describe` ,
 		  WORKFLOW_WEBDISPLAY_CATEGORY.remark1 ,
 		  WORKFLOW_WEBDISPLAY_CATEGORY.remark2 ,
 		  WORKFLOW_WEBDISPLAY_CATEGORY.mobile_url 
@@ -19,7 +19,7 @@
 	    <if test="categoryNo != null">and WORKFLOW_WEBDISPLAY_CATEGORY.category_no = #{categoryNo}</if>
 	    <if test="categoryName != null">and WORKFLOW_WEBDISPLAY_CATEGORY.category_name = #{categoryName}</if>
 	    <if test="url != null">and WORKFLOW_WEBDISPLAY_CATEGORY.url = #{url}</if>
-	    <if test="describe != null">and WORKFLOW_WEBDISPLAY_CATEGORY.describe = #{describe}</if>
+	    <if test="describe != null">and WORKFLOW_WEBDISPLAY_CATEGORY.`describe` = #{describe}</if>
 	    <if test="remark1 != null">and WORKFLOW_WEBDISPLAY_CATEGORY.remark1 = #{remark1}</if>
 	    <if test="remark2 != null">and WORKFLOW_WEBDISPLAY_CATEGORY.remark2 = #{remark2}</if>
 	    <if test="mobileUrl != null">and WORKFLOW_WEBDISPLAY_CATEGORY.mobile_url = #{mobileUrl}</if>
@@ -49,7 +49,7 @@
 	         <if test="categoryNo != null">,category_no</if>
 	         <if test="categoryName != null">,category_name</if>
 	         <if test="url != null">,url</if>
-	         <if test="describe != null">,describe</if>
+	         <if test="describe != null">,`describe`</if>
 	         <if test="remark1 != null">,remark1</if>
 	         <if test="remark2 != null">,remark2</if>
 	         <if test="mobileUrl != null">,mobile_url</if>
@@ -81,7 +81,7 @@
 	<if test="categoryNo != null">category_no=#{categoryNo,jdbcType=VARCHAR},</if>
 	<if test="categoryName != null">category_name=#{categoryName,jdbcType=VARCHAR},</if>
 	<if test="url != null">url=#{url,jdbcType=VARCHAR},</if>
-	<if test="describe != null">describe=#{describe,jdbcType=VARCHAR},</if>
+	<if test="describe != null">`describe`=#{describe,jdbcType=VARCHAR},</if>
 	<if test="remark1 != null">remark1=#{remark1,jdbcType=CHAR},</if>
 	<if test="remark2 != null">remark2=#{remark2,jdbcType=VARCHAR},</if>
 	<if test="mobileUrl != null">mobile_url=#{mobileUrl,jdbcType=VARCHAR}</if>
@@ -102,7 +102,7 @@
 		    <if test="categoryNo==null">category_no = null,</if>
 		    <if test="categoryName==null">category_name = null,</if>
 		    <if test="url==null">url = null,</if>
-		    <if test="describe==null">describe = null,</if>
+		    <if test="describe==null">`describe` = null,</if>
 		    <if test="remark1==null">remark1 = null,</if>
 		    <if test="remark2==null">remark2 = null,</if>
 		    <if test="mobileUrl==null">mobile_url = null,</if>
@@ -134,7 +134,7 @@
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into WORKFLOW_WEBDISPLAY_CATEGORY (id_,category_no,category_name,url,describe,remark1,remark2,mobile_url) 
+	insert into WORKFLOW_WEBDISPLAY_CATEGORY (id_,category_no,category_name,url,`describe`,remark1,remark2,mobile_url) 
 <foreach collection="list" item="entity" index="index" separator="union all">
 		select 
 		#{entity.id,jdbcType = VARCHAR},
@@ -167,7 +167,7 @@
 	<if test="entity.categoryNo != null">category_no= #{entity.categoryNo,jdbcType=VARCHAR},</if>
 	<if test="entity.categoryName != null">category_name= #{entity.categoryName,jdbcType=VARCHAR},</if>
 	<if test="entity.url != null">url= #{entity.url,jdbcType=VARCHAR},</if>
-	<if test="entity.describe != null">describe= #{entity.describe,jdbcType=VARCHAR},</if>
+	<if test="entity.describe != null">`describe`= #{entity.describe,jdbcType=VARCHAR},</if>
 	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=CHAR},</if>
 	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
 	<if test="entity.mobileUrl != null">mobile_url= #{entity.mobileUrl,jdbcType=VARCHAR}</if>
@@ -203,7 +203,7 @@ select
 	        <if test="entity.categoryNo != null">and WORKFLOW_WEBDISPLAY_CATEGORY.category_no = #{entity.categoryNo}</if>
 	        <if test="entity.categoryName != null">and WORKFLOW_WEBDISPLAY_CATEGORY.category_name = #{entity.categoryName}</if>
 	        <if test="entity.url != null">and WORKFLOW_WEBDISPLAY_CATEGORY.url = #{entity.url}</if>
-	        <if test="entity.describe != null">and WORKFLOW_WEBDISPLAY_CATEGORY.describe = #{entity.describe}</if>
+	        <if test="entity.describe != null">and WORKFLOW_WEBDISPLAY_CATEGORY.`describe` = #{entity.describe}</if>
 	        <if test="entity.remark1 != null">and WORKFLOW_WEBDISPLAY_CATEGORY.remark1 = #{entity.remark1}</if>
 	        <if test="entity.remark2 != null">and WORKFLOW_WEBDISPLAY_CATEGORY.remark2 = #{entity.remark2}</if>
 	        <if test="entity.mobileUrl != null">and WORKFLOW_WEBDISPLAY_CATEGORY.mobile_url = #{entity.mobileUrl}</if>

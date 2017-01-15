@@ -27,6 +27,11 @@
 				<scope>provided</scope>
 			</dependency> -->
 			
+ 		    <dependency>
+			 	<groupId>com.chinacreator.c2.qyb</groupId>
+				<artifactId>c2-qyb-sysext-manage</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+ 		    </dependency>	
 			
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
@@ -125,4 +130,20 @@
 			<url>http://172.16.25.142/nexus/content/repositories/business-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+	<build>
+		<plugins>
+			<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+					<id>attach-sources</id>
+					<goals>
+						<goal>jar</goal>
+					</goals>
+					</execution>
+				</executions>
+			</plugin>		
+		</plugins>
+	</build>	
 </project>

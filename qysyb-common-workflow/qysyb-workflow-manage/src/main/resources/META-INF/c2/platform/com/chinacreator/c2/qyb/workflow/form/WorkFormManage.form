@@ -511,7 +511,7 @@ buttonATable_click:function(rowId,rowData,tableData){
 				.success(function(data, status, headers, config){
 					//_this.getFieldListView().refresh()
 					Messenger.post({
-		                'message': &quot;字典数据排序保存成功！&quot;,
+		                'message': &quot;数据排序保存成功！&quot;,
 		                'type': 'success',
 		            });	            
 				});

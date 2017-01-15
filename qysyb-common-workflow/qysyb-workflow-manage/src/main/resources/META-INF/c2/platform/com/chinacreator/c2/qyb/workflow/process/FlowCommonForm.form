@@ -160,7 +160,7 @@
             <form:child xsi:type="form:Field" id="newField22" name="提交" res="" customize="true">
               <form:control type="widget/button">
                 <form:attributes source="widget/button">
-                  <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="commit($event)">
+                  <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="autoswitchcommit($event)">
                     <dync:render/>
                     <dync:children/>
                   </dync:attribute>
@@ -206,7 +206,7 @@
                     <dync:render/>
                     <dync:children/>
                   </dync:attribute>
-                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.actions.return!=undefined">
+                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="false">
                     <dync:render/>
                     <dync:children/>
                   </dync:attribute>
@@ -246,6 +246,45 @@
                   </dync:attribute>
                   <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
                     <dync:render/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
+              <form:validation/>
+            </form:child>
+            <form:child xsi:type="form:Field" id="button" name="结束" customize="true">
+              <form:control type="widget/button">
+                <form:attributes source="widget/button">
+                  <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                    <dync:render colSpan="1" height="0" multi="false" name="select">
+                      <dync:item name="很小" value="btn-xs"/>
+                      <dync:item name="小" value="btn-sm"/>
+                      <dync:item name="正常" value="btn-nl"/>
+                      <dync:item name="大" value="btn-lg"/>
+                    </dync:render>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-danger">
+                    <dync:render colSpan="1" height="0" multi="false" name="select">
+                      <dync:item name="默认" value="btn-default"/>
+                      <dync:item name="主要" value="btn-primary"/>
+                      <dync:item name="成功" value="btn-success"/>
+                      <dync:item name="信息" value="btn-info"/>
+                      <dync:item name="警告" value="btn-warning"/>
+                      <dync:item name="危险" value="btn-danger"/>
+                      <dync:item name="链接" value="btn-link"/>
+                      <dync:item name="通用" value="btn-white no-border"/>
+                    </dync:render>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="button_click($event)">
+                    <dync:render colSpan="1" height="0" multi="false" name="event">
+                      <dync:item name="params" value="$event"/>
+                    </dync:render>
+                    <dync:children/>
+                  </dync:attribute>
+                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.actions.endprocess!=undefined">
+                    <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
                     <dync:children/>
                   </dync:attribute>
                 </form:attributes>
@@ -303,7 +342,7 @@
         <form:child xsi:type="form:Field" id="newField21" name="提交" res="" customize="true">
           <form:control type="widget/button">
             <form:attributes source="widget/button">
-              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="commit($event)">
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="autoswitchcommit($event)">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -349,7 +388,7 @@
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
-              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.actions.return!=undefined">
+              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="false">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -395,6 +434,45 @@
           </form:control>
           <form:validation/>
         </form:child>
+        <form:child xsi:type="form:Field" id="button1" name="结束" customize="true">
+          <form:control type="widget/button">
+            <form:attributes source="widget/button">
+              <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                <dync:render colSpan="1" height="0" multi="false" name="select">
+                  <dync:item name="很小" value="btn-xs"/>
+                  <dync:item name="小" value="btn-sm"/>
+                  <dync:item name="正常" value="btn-nl"/>
+                  <dync:item name="大" value="btn-lg"/>
+                </dync:render>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-danger">
+                <dync:render colSpan="1" height="0" multi="false" name="select">
+                  <dync:item name="默认" value="btn-default"/>
+                  <dync:item name="主要" value="btn-primary"/>
+                  <dync:item name="成功" value="btn-success"/>
+                  <dync:item name="信息" value="btn-info"/>
+                  <dync:item name="警告" value="btn-warning"/>
+                  <dync:item name="危险" value="btn-danger"/>
+                  <dync:item name="链接" value="btn-link"/>
+                  <dync:item name="通用" value="btn-white no-border"/>
+                </dync:render>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="button_click($event)">
+                <dync:render colSpan="1" height="0" multi="false" name="event">
+                  <dync:item name="params" value="$event"/>
+                </dync:render>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.actions.endprocess!=undefined">
+                <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
       </form:child>
       <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
         <form:control type="container/div">
@@ -427,8 +505,28 @@
       <form:param id="id" name="新输入参数" value="$params.params.moduleId"/>
     </form:datasource>
   </form:datasources>
-  <form:scripts>//提交
-commit:function($event){debugger
+  <form:scripts>//提交 自动决定退回与流转
+autoswitchcommit:function($event){
+	//func 为业务表单提交前验证函数
+	if(!angular.isUndefined($model.func)){
+		var a = $model.func();
+		if(a==false){
+			Messenger.post({
+				'message': &quot;必填项为空！&quot;,
+	            'type': 'error',
+	            'hideAfter':4
+	        });	
+			return;
+		}	
+	}
+	if($scope.formentity.global.oppositive){ //积极意见 流转流程
+		functions.commit($event)
+	}else{ //否定意见 退回流程
+		functions.newField_click($event)
+	}
+},
+//提交
+commit:function($event){
 	console.log(&quot;$scope.formentity&quot;,$scope.formentity);
 	//func 为业务表单提交前验证函数
 	if(!angular.isUndefined($model.func)){
@@ -437,7 +535,7 @@ commit:function($event){debugger
 			Messenger.post({
 				'message': &quot;必填项为空！&quot;,
 	            'type': 'error',
-	            'hideAfter':5
+	            'hideAfter':4
 	        });	
 			return;
 		}	
@@ -549,7 +647,7 @@ newField5_click:function($event){
 			 Messenger.post({
 				 'message': &quot;  操作成功！&quot;,
 				 'type': 'success',
-				 'hideAfter':5
+				 'hideAfter':4
 			 });
 			 
 			 TabOperator.closeTab(TabOperator.getCurrentTab());
@@ -557,7 +655,7 @@ newField5_click:function($event){
 			 Messenger.post({
 				 'message': &quot;  something wrong！&quot;,
 				 'type': 'error',
-				 'hideAfter':5
+				 'hideAfter':4
 			 });			
 		}
 	});		
@@ -578,6 +676,14 @@ page_onload:function(){
 },
 //回退
 newField_click:function($event){
+	if($model.actions.return == undefined){
+		Messenger.post({
+			'message': &quot;本环节没有退回配置，请联系系统维护人员！&quot;,
+            'type': 'error',
+            'hideAfter':4
+        });			
+        return
+	}
 	//退回 需不需要必填项验证？
 	if(!angular.isUndefined($model.func)){
 		var a = $model.func();
@@ -585,7 +691,7 @@ newField_click:function($event){
 			Messenger.post({
 				'message': &quot;必填项为空！&quot;,
 	            'type': 'error',
-	            'hideAfter':5
+	            'hideAfter':4
 	        });	
 			return;
 		}	
@@ -628,7 +734,7 @@ newField_click:function($event){
 			 Messenger.post({
 			    'message': &quot;退回成功&quot;,
 			    'type': 'success',
-			    'hideAfter':5
+			    'hideAfter':4
 			 });
 			 TabOperator.closeTab(TabOperator.getCurrentTab());
 		});		
@@ -694,7 +800,29 @@ page_afterDataSourceLoad:function(){
 	$model.activityName = $model.getOutTransition.result[0].src.name;
 
 	$model.formId = $model.serviceproduct.result.formId;
+
+//  businessKey processInstanceId不为null，表明是处理任务而不是提交
+//  formBusinessKey 一定有业务数据与其对应 $model.businessKey则有可能是新生成的Key
+	if($params.params.businessKey&amp;&amp;$params.params.processInstanceId!=null){
+		$model.businessKey =  $params.params.businessKey;	
+		$model.formBusinessKey = $model.businessKey;
+	//如果地址栏有businessKey，则是业务数据已保存过，或许是草稿 或许是因为快捷生成工单。需要拿出之前的业务数据
+	}else if(angular.isUndefined($params.params.businessKey)&amp;&amp;!angular.isUndefined($location.$$search.businessKey)){
+		$model.businessKey =  $location.$$search.businessKey;
+		$model.formBusinessKey = $model.businessKey;
+	}else{
+		$model.businessKey =  $params.params.moduleId+&quot;_&quot;+this.timeGenerator();
+	}
+	$params.params.formBusinessKey = $model.formBusinessKey;
+	if(angular.isUndefined($params.params.businessKey)){
+		$params.params.businessKey = $model.businessKey;
+	}
 	
+	$params.params.serviceproduct = $model.serviceproduct.result;
+
+	//取得地址栏中的参数
+	var locationparams = $location.$$search;
+		
     $q.all(
     		[
     		$http.post(&quot;ws/getformfiledpermissiondata&quot;,{&quot;serviceProduct&quot;:$model.serviceproduct.result,&quot;businessKey&quot;:$params.params.taskDefKey}), 		
@@ -708,6 +836,11 @@ page_afterDataSourceLoad:function(){
  		
 		$scope.formentity = {};
 		$scope.formentity = resps[1].data.result;
+		//全局 用来通信
+		$scope.formentity.global = {}
+		//默认积极意见 让流程可以流转
+		$scope.formentity.global.oppositive = true
+		
 //		console.log($scope.formentity.result);
 		//取得地址栏中的参数 赋值地址栏参数到实体
 		for(var a in locationparams){
@@ -739,28 +872,6 @@ page_afterDataSourceLoad:function(){
 			}  				
  		})
     })
-	
-//  businessKey processInstanceId不为null，表明是处理任务而不是提交
-//  formBusinessKey 一定有业务数据与其对应 $model.businessKey则有可能是新生成的Key
-	if($params.params.businessKey&amp;&amp;$params.params.processInstanceId!=null){
-		$model.businessKey =  $params.params.businessKey;	
-		$model.formBusinessKey = $model.businessKey;
-	//如果地址栏有businessKey，则是业务数据已保存过，或许是草稿 或许是因为快捷生成工单。需要拿出之前的业务数据
-	}else if(angular.isUndefined($params.params.businessKey)&amp;&amp;!angular.isUndefined($location.$$search.businessKey)){
-		$model.businessKey =  $location.$$search.businessKey;
-		$model.formBusinessKey = $model.businessKey;
-	}else{
-		$model.businessKey =  $params.params.moduleId+&quot;_&quot;+this.timeGenerator();
-	}
-	$params.params.formBusinessKey = $model.formBusinessKey;
-	if(angular.isUndefined($params.params.businessKey)){
-		$params.params.businessKey = $model.businessKey;
-	}
-	
-	$params.params.serviceproduct = $model.serviceproduct.result;
-
-	//取得地址栏中的参数
-	var locationparams = $location.$$search;
 
 	$model.handleway = &quot;处理完成&quot;;
 	
@@ -872,7 +983,7 @@ start_flow:function($event){
 			Messenger.post({
 				'message': &quot;必填项为空或格式不正确！&quot;,
 	            'type': 'error',
-	            'hideAfter':5
+	            'hideAfter':4
 	        });	
 			return;
 		}	
@@ -881,7 +992,7 @@ start_flow:function($event){
 		Messenger.post({
 			'message': &quot;流程已提交，请勿重复提交！&quot;,
             'type': 'error',
-            'hideAfter':5
+            'hideAfter':4
         });	
         return;
 	}
@@ -894,7 +1005,7 @@ start_flow:function($event){
 		Messenger.post({
 			'message': checkresult.msg,
             'type': 'error',
-            'hideAfter':5
+            'hideAfter':4
         });		
         return;	
 	}
@@ -974,14 +1085,14 @@ submitflow_click:function($event){
 							Messenger.post({
 								'message': &quot;操作成功!&quot;,
 				                'type': 'success',
-				                'hideAfter':5
+				                'hideAfter':4
 				            });
 							TabOperator.closeTab(TabOperator.getCurrentTab());
 					}else{
 							Messenger.post({
 								'message': &quot;流程提交失败，请关闭本页面后重试&quot;,
 				                'type': 'error',
-				                'hideAfter':5
+				                'hideAfter':4
 				            });				
 					}
 		  });	
@@ -1016,7 +1127,7 @@ newField4_click:function($event){
 			Messenger.post({
 				'message': &quot;必填项为空或格式不正确！&quot;,
 	            'type': 'error',
-	            'hideAfter':5
+	            'hideAfter':4
 	        });	
 			return;
 		}	
@@ -1039,7 +1150,7 @@ newField4_click:function($event){
 		Messenger.post({
 								'message': &quot;保存成功!&quot;,
 				                'type': 'success',
-				                'hideAfter':5
+				                'hideAfter':4
 				            });
 	});
 },
@@ -1068,7 +1179,7 @@ newField4_click:function($event){
  						Messenger.post({
  												'message': &quot;删除成功!&quot;,
  								                'type': 'success',
- 								                'hideAfter':5
+ 								                'hideAfter':4
  								            });					
  					});
  			});

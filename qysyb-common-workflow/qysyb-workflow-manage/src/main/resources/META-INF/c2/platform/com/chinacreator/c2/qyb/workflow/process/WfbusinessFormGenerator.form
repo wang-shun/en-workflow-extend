@@ -79,7 +79,7 @@
           <dync:render/>
           <dync:children/>
         </dync:attribute>
-        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="margin-bottom:20px;">
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="margin-bottom:20px;padding-bottom: 20px !important;">
           <dync:render/>
           <dync:children/>
         </dync:attribute>

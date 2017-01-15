@@ -64,6 +64,21 @@
         <form:attributes source="widget/text"/>
       </form:control>
     </form:child>
+    <form:child xsi:type="form:Field" binding="$model.entity.remark1" id="remark1" name="属性1">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text"/>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.entity.remark2" id="remark2" name="属性2">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text"/>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.entity.remark3" id="remark3" name="属性3">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text"/>
+      </form:control>
+    </form:child>
     <form:child xsi:type="form:Field" binding="$model.entity.describe" id="describe1" name="描述" customize="true">
       <form:control type="widget/textarea">
         <form:attributes source="widget/textarea"/>
@@ -75,7 +90,7 @@
     <form:control type="container/toolbar_modal_footer">
       <form:attributes source="container/toolbar_modal_footer"/>
     </form:control>
-    <form:child xsi:type="form:Field" id="btn_add1" name="新增">
+    <form:child xsi:type="form:Field" id="btn_add1" name="保存">
       <form:control type="widget/button">
         <form:attributes source="widget/button">
           <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check">

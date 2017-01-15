@@ -53,7 +53,7 @@ public class MyExtendServiceImpl implements WfExtendService {
 		if(moduleId.equals("0")){
 			WfModuleBean wmBean = new WfModuleBean();
 			wmBean.setId(MyExtendServiceImpl.ROOTID);
-			wmBean.setName("服务产品");
+			wmBean.setName("所有事项");
 			wmBean.setParentId("0");
 			listmb.add(wmBean);		
 		}else{

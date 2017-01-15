@@ -41,6 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.asp.comp.sys.advanced.org.service.OrgService;
 import com.chinacreator.asp.comp.sys.advanced.user.service.UserService;
+import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
 import com.chinacreator.asp.comp.sys.core.security.service.AccessControlService;
 import com.chinacreator.asp.comp.sys.core.security.service.AccessControlServiceImpl;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
@@ -57,6 +58,8 @@ import com.chinacreator.c2.flow.util.WfUtils;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.omp.common.DictDataInfo;
 import com.chinacreator.c2.omp.common.DictTypeInfo;
+import com.chinacreator.c2.qyb.orgext.entity.Orgext;
+import com.chinacreator.c2.qyb.orgext.impl.OrgextService;
 import com.chinacreator.c2.qyb.workflow.activiti.query.impl.MTaskQueryImpl;
 import com.chinacreator.c2.qyb.workflow.activiti.taskquery.impl.TaskRetrievalService;
 import com.chinacreator.c2.qyb.workflow.activiti.taskquery.impl.TodoWorkService;
@@ -2617,6 +2620,97 @@ public class WorkFlowService {
 		}
 		return result;
 	}
+	
+	public List<Map> getHandlerFormCandidateWithFilter1(
+			String processDefinitionId, String proInsId, String moduleId, String taskDefKey,
+			String filterType, String curUserId) {
+		if(filterType==null){
+			Map actions = activityConfigService.getActivityActions(moduleId, taskDefKey);
+			if(actions.containsKey(ActivityConfigService.ACTION_FILTERTYPE)){
+				List filterTypes = (List) actions.get(ActivityConfigService.ACTION_FILTERTYPE);
+				//TODO
+				if(filterTypes.size()==1){
+					filterType = (String) filterTypes.get(0);
+				}
+			}
+		}
+		List<Map> result = new ArrayList<Map>();
+		List<Map> list = this.getActivityCandidates(processDefinitionId,
+				moduleId, taskDefKey);
+		String curOrgName = userService.queryMainOrg(curUserId).getOrgName();
+		for (Map map : list) {
+			String category = (String) map.get("category");
+			String id = (String) map.get("id");
+			if (category.equals("group")) {
+				//则不需要过滤  返回组内所有人还是返回组呢？？
+				if(filterType==null){
+					List<UserDTO> userList = userJobService.getAllUserJob(id);
+					for(UserDTO user:userList){
+						String orgName = userService.queryMainOrg(user.getUserId()).getOrgName();
+						Map map1 = new HashMap();
+						map1.put("id", user.getUserId());
+						map1.put("name", user.getUserRealname());
+						map1.put("type", "user");
+						map1.put("category", orgName);
+						result.add(map1);
+					}
+					return result;
+				}			
+				switch (filterType) {
+				case "orgfilter":
+
+					List<UserDTO> userList = userJobService
+							.getAllUserFromJobWithSameOrg(id, curUserId);
+					for (UserDTO user : userList) {
+						Map map1 = new HashMap();
+						map1.put("id", user.getUserId());
+						map1.put("name", user.getUserRealname());
+						map1.put("type", "user");
+						map1.put("category", curOrgName);
+						result.add(map1);
+					}
+					break;
+				case "orgbossfilter":
+					ProcessInstance ins = runtimeService
+							.createProcessInstanceQuery()
+							.processInstanceId(proInsId)
+							.includeProcessVariables().singleResult();
+					Map vmap = ins.getProcessVariables();
+					String startId = (String) vmap.get(STARTER);
+					UserService userService = ApplicationContextManager
+							.getContext().getBean(UserService.class);
+					OrgDTO org = userService.queryMainOrg(startId);
+					OrgextService extService = ApplicationContextManager
+							.getContext().getBean(OrgextService.class);
+					Orgext ext = extService.getOneOrgextByOrgId(org.getOrgId());
+					if(ext.getId() != null){
+						UserDTO user = userService.queryByPK(ext.getOrgSuperviserId());
+						OrgDTO orgSv = userService.queryMainOrg(ext.getOrgSuperviserId());
+						Map map1 = new HashMap();
+						map1.put("id", user.getUserId());
+						map1.put("name", user.getUserRealname());
+						map1.put("type", "user");
+						map1.put("category", orgSv.getOrgName());
+						result.add(map1);
+					}
+					break;
+				// default:
+				// Map map1 = new HashMap();
+				// map1.put("id", id);
+				// map1.put("name",(String) map.get("name"));
+				// map1.put("type", "group");
+				// map1.put("category", orgName);
+				// result.add(map1);
+				// break;
+				}
+
+			} else if (category.equals("user")) {
+
+			}
+		}
+		return result;
+	}	
+	
 	/**
 	 * 根据流程实例id获取一些流程必要的信息如 formId businesskey ext..
 	 * @param procInsId

@@ -89,7 +89,7 @@
         </dync:attribute>
       </form:attributes>
     </form:control>
-    <form:child xsi:type="form:Group" id="newGroupww" name="服务">
+    <form:child xsi:type="form:Group" id="newGroupww" name="事项">
       <form:control type="container/widgetbox">
         <form:attributes source="container/widgetbox">
           <dync:attribute default="12" group="布局配置" id="span" name="占位数" value="3">
@@ -809,13 +809,28 @@ newField_nodeClick:function(event,treeId,treeNode,clickFlag){
 	}else{
 		var moduleId = selectNode.id;
 		$scope.moduleId=moduleId;
-		$http.post(&quot;ws/getserviceproductbyid&quot;,{id:moduleId}).success(function(a){		
+		$http.post(&quot;ws/getserviceproductbyid&quot;,{id:moduleId}).success(function(a){	
 			$model.formId = a.result.formId;
 			$model.serviceProduct = a.result;
 //			console.log(&quot;product&quot;,$model.serviceProduct);
 		});
 		
 		$http.get(&quot;ws/getBindProcess&quot;,{params:{moduleId:moduleId}}).success(function(data){
+			var param = {};
+			if(!angular.isUndefined(data.result) &amp;&amp; !angular.isUndefined(data.result.key)){
+				param = {
+							key:data.result.key,
+						};
+				$view.newTab2.setDisabledState(false);
+				$view.newTab2.setActive();
+			}else{
+				param = {
+							key:'',
+						};
+				$view.newTab1.setActive();
+				$view.newTab2.setDisabledState(true);
+			}
+			$view.processTable.refresh(param);
 			$scope.bindProcessId=data.result.id;
 			$scope.bindProcess=data.result.key;			
 			 $(&quot;#activity_activityId&quot;).val('');
@@ -834,21 +849,6 @@ newField_nodeClick:function(event,treeId,treeNode,clickFlag){
 	            
 	            $(&quot;#activity_bindForm&quot;).val('');
 			
-			var param = {};
-			if(!angular.isUndefined(data.result.key)){
-				param = {
-							key:data.result.key,
-						};
-				$view.newTab2.setDisabledState(false);
-				$view.newTab2.setActive();
-			}else{
-				param = {
-							key:'',
-						};
-				$view.newTab1.setActive();
-				$view.newTab2.setDisabledState(true);
-			}
-			$view.processTable.refresh(param);
 		});
 	}
 },
