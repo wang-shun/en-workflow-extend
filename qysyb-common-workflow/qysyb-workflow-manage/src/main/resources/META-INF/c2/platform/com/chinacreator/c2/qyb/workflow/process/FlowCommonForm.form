@@ -953,9 +953,9 @@ page_beforeDataSourceLoad:function($params){
 newField3_change:function(){
 	
 },
-//生成时间戳
+//生成随机数
 timeGenerator:function(){
-	 var day=new Date();
+/*	 var day=new Date();
 	   var Year=0;
 	   var Month=0;
 	   var Day=0;
@@ -971,7 +971,10 @@ timeGenerator:function(){
 	   Minute     = day.getMinutes();
 	   Second     = day.getSeconds();
 	   CurrentDate = (Year+&quot;&quot;)+(&quot;&quot;+Month)+(Day+&quot;&quot;)+(&quot;&quot;+Hour)+(&quot;&quot;+Minute)+(Second+&quot;&quot;);
-	   return CurrentDate;
+*/
+	var a = Math.random()*(10000000000000)
+	var ran = Math.floor(a)
+	return ran;
 		
 },
 start_flow:function($event){
