@@ -56,8 +56,16 @@ public class HistoricProcInstanceQueryService {
 	public List<Map> getHistoricInstanceWithExternalStorage(String retrieveKey,Map con,Timestamp starttime,Timestamp endtime,int offset,int limit){
 		List<Map> list = manageService.executeCommand(new SelectHistoricProcessInstanceCmd(this.generateHistoricInstanceQuery(retrieveKey, con, starttime, endtime, offset, limit)));
 		for(Map map:list){
-			Timestamp time = (Timestamp) map.get("START_TIME_");
-			map.put("START_TIME_",time.toString());
+			//TODO dao层去处理
+			Object o = map.get("START_TIME_");
+			if(o instanceof Timestamp){
+				Timestamp time = (Timestamp) map.get("START_TIME_");
+				map.put("START_TIME_",time.toString());				
+			}else if(o instanceof TIMESTAMP){
+				TIMESTAMP time = (TIMESTAMP) map.get("START_TIME_");
+				map.put("START_TIME_",time.toString());	
+			}
+
 //			String procDefId = (String) map.get("PROC_DEF_ID_");
 			String procInstId = (String) map.get("PROC_INST_ID_");
 			HistoricProcessInstance hisProcessIns = historyService.createHistoricProcessInstanceQuery().includeProcessVariables().processInstanceId(procInstId).singleResult();
