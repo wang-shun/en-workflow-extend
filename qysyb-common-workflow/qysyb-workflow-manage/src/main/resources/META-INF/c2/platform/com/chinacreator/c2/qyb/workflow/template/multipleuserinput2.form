@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="部门多选输入" sn="multipleorginput" type="form">
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="用户多选输入2" sn="multipleuserinput2" type="form">
   <form:control type="page/normal">
     <form:attributes source="page/normal">
       <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
@@ -35,10 +35,6 @@
         <dync:children/>
       </dync:attribute>
       <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
-        <dync:render/>
-        <dync:children/>
-      </dync:attribute>
-      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -92,7 +88,7 @@
     <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
       <form:control type="container/div">
         <form:attributes source="container/div">
-          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="multipleorginput_html">
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="multipleuserinput_html">
             <dync:render/>
             <dync:children/>
           </dync:attribute>
@@ -114,42 +110,47 @@ page_afterDataSourceLoad:function(){
 	if($scope.formentity[$params.fieldNo]==undefined||$scope.formentity[$params.fieldNo]==&quot;&quot;){
 
 	}else{
-		$http.get(&quot;ws/getorgbyids&quot;,
-			{params:{ids:$scope.formentity[$params.fieldNo]}})
+		var userIds = $scope.formentity[$params.fieldNo].split(&quot;,&quot;);
+		$http.post(&quot;ws/getuserinfobyids&quot;,
+			{userIds:userIds})
 			.success(function(data){
 				data.result.forEach(function(item){
 					var choosed = {};
-					choosed.id = item.orgId;
-					choosed.name = item.orgName;
+					choosed.id = item.userId;
+					choosed.name = item.userRealname;
 					$model.choosed.push(choosed);
 				});
-			});
-	}
+			});	
+	}	
 	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
 },
 check:function(){
-	//必填
-	if($scope.permissionData[$params.fieldNo].fillnecessary){
-		var result = true;
-		var c = $scope.formentity[$params.fieldNo];
-		if(c==undefined||c.length==0){
-			result = false;
-		}
-		return result;	
+	var result = true;
+	var c = $scope.formentity[$params.fieldNo];
+	if(c==undefined||c.length==0){
+		result = false;
 	}
-	return true;
+	console.log(&quot;$scopezz&quot;,$params.fieldNo);
+	//会议的时候，作一个个数的限制
+/*	if($params.fieldNo==&quot;involvedUsersId&quot;){
+		if($model.choosed.length>100){
+			result = false;
+			Messenger.error(&quot;与会人员不能超过100个&quot;);
+		}
+	}*/
+	return result;
 },
 addContent:function(){
-	Modal.open(&quot;f/multipleorgchoose&quot;,{choosed:$model.choosed},function(data){
+	
+	Modal.open(&quot;f/multipleuserchoose4&quot;,{},function(data){
+//	Modal.open(&quot;f/multipleuserchoose2&quot;,{},function(data){
 //		console.log(&quot;returned data&quot;,data);
-		$model.choosed = data.orgs;
+//		$model.choosed = data.users;
+		$model.choosed = functions.removeuserorgtreeprefix(data.users);
 		functions.generateString();
 	});
 },
 removechoosed:function(choosed){
-	if(!$scope.permissionData[$params.fieldNo].writePermission){
-		return;
-	}
 	var a = $model.choosed;
 	var index;
 	for(var i=0;i&lt;a.length;i++){
@@ -176,20 +177,29 @@ generateString:function(){
 	});
 	$scope.formentity[$params.fieldNo] = s;
 	//猜测name属性 userId 则猜测userName
-	else if($params.fieldNo.length>=2){
+	if($params.fieldNo.length>=2){
 		$scope.formentity[$params.fieldNo.substring(0,$params.fieldNo.length-2)+'Name'] = nameStr;
 	}	
-},</form:scripts>
+},
+removeuserorgtreeprefix:function(users){
+	for(var i in users){
+		if(users[i].id.indexOf(&quot;user&quot;) !== -1){
+			users[i].id = users[i].id.substring(5)
+		}	
+	}
+	return users;
+}</form:scripts>
   <form:htmls>
-&lt;script type=&quot;text/ng-template&quot; id=&quot;multipleorginput_html&quot;>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;multipleuserinput_html&quot;>
 &lt;div class=&quot;form-group col-sm-12&quot; >
 	&lt;label class=&quot;control-label al-control-label  ng-binding&quot; style=&quot;width:75px;&quot; ng-class=&quot;{'required-label':permissionData[$params.fieldNo].fillnecessary}&quot;>{{$params.fieldName}}&lt;/label>
-	&lt;div id=&quot;auditOrgInput{{$params.fieldNo}}&quot; style=&quot;border-left: 2px solid #c5c5c5;margin-left:85px;&quot;>
+	&lt;div id=&quot;auditOrgInput{{$params.fieldNo}}&quot; style=&quot;border-left: 2px solid #c5c5c5;margin-left:85px;qx;&quot;>
 	&lt;div class=&quot;itemdiv commentdiv&quot; style=&quot;padding-top:10px;padding-left:10px;&quot; >
-			&lt;button ng-click=&quot;functions.removechoosed(temp)&quot; class=&quot;btn btn-xs btn-white btn-warning btn-bold&quot; style=&quot;margin-right:5px;margin-bottom:5px;&quot;ng-repeat=&quot;temp in $model.choosed&quot;>
+			&lt;button ng-click=&quot;functions.removechoosed(temp)&quot; ng-disabled=&quot;!permissionData[$params.fieldNo].writePermission&quot; class=&quot;btn btn-xs btn-white btn-warning btn-bold&quot; style=&quot;margin-right:5px;margin-bottom:5px;&quot; ng-repeat=&quot;temp in $model.choosed&quot; ng-if=&quot;$index&lt;100&quot;>
 				{{temp.category}} {{temp.name}}
 				&lt;i ng-if=&quot;permissionData[$params.fieldNo].writePermission&quot; class=&quot;ace-icon fa fa-trash-o bigger-120 orange&quot;>&lt;/i>
-			&lt;/button>			
+			&lt;/button>		
+			&lt;span ng-if=&quot;$model.choosed.length>100&quot;>......&lt;/span>	
 		&lt;div ng-if=&quot;permissionData[$params.fieldNo].writePermission&quot; class=&quot;left&quot; style=&quot;padding-left: 10px;padding-bottom: 5px;padding-top: 5px;min-height:72px&quot; ng-click=&quot;functions.addContent()&quot;>
 			&lt;span style=&quot;color:#bbb;&quot;>点击添加&lt;/span>
 		&lt;/div>	

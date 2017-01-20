@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.qyb.workflow.activiti.inf.IFormOperate;
-import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowTransition;
+import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowActivity;
 
 /** 
  * @author qiao.li 
@@ -351,7 +351,7 @@ public abstract class FormOperate implements IFormOperate {
  	 * @param wfTransition
  	 * @return
  	 */
- 	protected boolean isEndEventActivity(WorkFlowTransition wfTransition){
- 		return wfTransition.getDest().getPorperties().get("type").equals("endEvent");
+ 	protected boolean isEndEventActivity(WorkFlowActivity wfActivity){
+ 		return wfActivity.getPorperties().get("type").equals("endEvent");
  	}
 }
