@@ -369,17 +369,7 @@ public class FormService {
 			List<Map> list = new ArrayList<Map>();
 			for(FormFieldRel o:listffr){
 				if(o.getFieldId()!=null){
-					Map map = new HashMap();
-					ObjectMapper m = new ObjectMapper();
-					Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
-					if(props != null){
-						map.putAll(props);
-					}
-					Map<String,Object> relprops = m.convertValue(o, Map.class);		
-					if(relprops != null){
-						Map relpropstrimed = removeNullInMap(relprops);
-						map.putAll(relpropstrimed);
-					}					
+					Map map = assembleFieldConfig(o);					
 					list.add(map);
 				}		
 			}
@@ -405,17 +395,7 @@ public class FormService {
 				List<Map> list = new ArrayList<Map>();
 				for(FormFieldRel o:listffr){
 					if(o.getFieldId()!=null){
-						Map map = new HashMap();
-						ObjectMapper m = new ObjectMapper();
-						Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
-						if(props != null){
-							map.putAll(props);
-						}
-						Map<String,Object> relprops = m.convertValue(o, Map.class);		
-						if(relprops != null){
-							Map relpropstrimed = removeNullInMap(relprops);
-							map.putAll(relpropstrimed);
-						}					
+						Map map = assembleFieldConfig(o);				
 						list.add(map);
 					}		
 				}
@@ -432,17 +412,7 @@ public class FormService {
 				List<Map> list = new ArrayList<Map>();
 				for(FormFieldRel o:listffr){
 					if(o.getFieldId()!=null){
-						Map map = new HashMap();
-						ObjectMapper m = new ObjectMapper();
-						Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
-						if(props != null){
-							map.putAll(props);
-						}
-						Map<String,Object> relprops = m.convertValue(o, Map.class);		
-						if(relprops != null){
-							Map relpropstrimed = removeNullInMap(relprops);
-							map.putAll(relpropstrimed);
-						}					
+						Map map = assembleFieldConfig(o);				
 						list.add(map);
 					}		
 				}
@@ -452,6 +422,22 @@ public class FormService {
 			}
 		}
 		return mapresult;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private Map assembleFieldConfig(FormFieldRel o){
+		Map map = new HashMap();
+		ObjectMapper m = new ObjectMapper();
+		Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
+		if(props != null){
+			map.putAll(props);
+		}
+		Map<String,Object> relprops = m.convertValue(o, Map.class);		
+		if(relprops != null){
+			Map relpropstrimed = removeNullInMap(relprops);
+			map.putAll(relpropstrimed);
+		}	
+		return map;
 	}
 	/**
 	 * 
