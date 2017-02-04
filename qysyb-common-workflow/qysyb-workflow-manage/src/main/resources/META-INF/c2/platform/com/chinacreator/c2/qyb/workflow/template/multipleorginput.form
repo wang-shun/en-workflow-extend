@@ -38,7 +38,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -176,21 +176,25 @@ generateString:function(){
 	});
 	$scope.formentity[$params.fieldNo] = s;
 	//猜测name属性 userId 则猜测userName
-	else if($params.fieldNo.length>=2){
+	if($params.fieldNo.length>=2){
 		$scope.formentity[$params.fieldNo.substring(0,$params.fieldNo.length-2)+'Name'] = nameStr;
 	}	
-},</form:scripts>
+},
+page_onload:function(){
+	
+}</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;multipleorginput_html&quot;>
 &lt;div class=&quot;form-group col-sm-12&quot; >
 	&lt;label class=&quot;control-label al-control-label  ng-binding&quot; style=&quot;width:75px;&quot; ng-class=&quot;{'required-label':permissionData[$params.fieldNo].fillnecessary}&quot;>{{$params.fieldName}}&lt;/label>
-	&lt;div id=&quot;auditOrgInput{{$params.fieldNo}}&quot; style=&quot;border-left: 2px solid #c5c5c5;margin-left:85px;&quot;>
-	&lt;div class=&quot;itemdiv commentdiv&quot; style=&quot;padding-top:10px;padding-left:10px;&quot; >
-			&lt;button ng-click=&quot;functions.removechoosed(temp)&quot; class=&quot;btn btn-xs btn-white btn-warning btn-bold&quot; style=&quot;margin-right:5px;margin-bottom:5px;&quot;ng-repeat=&quot;temp in $model.choosed&quot;>
+	&lt;div id=&quot;auditOrgInput{{$params.fieldNo}}&quot; style=&quot;border-left: 1px solid red;margin-left:105px;&quot;>
+	&lt;div class=&quot;itemdiv commentdiv&quot; style=&quot;padding-top:10px;padding-left:10px;border-right:solid 1px red;cursor:pointer;&quot; ng-click=&quot;functions.addContent()&quot; >
+			&lt;label ng-click=&quot;functions.removechoosed(temp)&quot; style=&quot;margin-bottom:5px;font-size:18px&quot;ng-repeat=&quot;temp in $model.choosed&quot;>
 				{{temp.category}} {{temp.name}}
 				&lt;i ng-if=&quot;permissionData[$params.fieldNo].writePermission&quot; class=&quot;ace-icon fa fa-trash-o bigger-120 orange&quot;>&lt;/i>
-			&lt;/button>			
-		&lt;div ng-if=&quot;permissionData[$params.fieldNo].writePermission&quot; class=&quot;left&quot; style=&quot;padding-left: 10px;padding-bottom: 5px;padding-top: 5px;min-height:72px&quot; ng-click=&quot;functions.addContent()&quot;>
+				{{model.choosed.length-1==$index?&quot;&quot;:&quot;、&quot;}} 
+			&lt;/label>			
+		&lt;div ng-if=&quot;permissionData[$params.fieldNo].writePermission&quot; class=&quot;left&quot; style=&quot;padding-left: 10px;padding-bottom: 5px;padding-top: 5px;min-height:32px&quot;>
 			&lt;span style=&quot;color:#bbb;&quot;>点击添加&lt;/span>
 		&lt;/div>	
 	&lt;/div>
