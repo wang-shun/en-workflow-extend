@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="时间日期选择框" sn="wfdatetimepick" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="datetimepick_htmldiv" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="datetimepick_html">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+  </form:datasources>
+  <form:scripts>
+
+dateTimePicker_beforeInit:function(options){
+	
+},
+
+dateTimePicker_loadComplete:function(){
+	
+},
+
+dateTimePicker_onChange:function(date,oldDate){
+	
+},
+
+page_onload:function(){
+	$model.on = false
+	$model.format = ($params.field.remark1 != undefined &amp;&amp; $params.field.remark1 != &quot;&quot;)?
+						$params.field.remark1:&quot;YYYY-MM-DD HH:mm&quot;
+	$model.on = true
+	
+	var classStr = &quot;form-group&quot;
+	var span  = $params.field.displaySpan
+	var spanClassStr = (span != undefined&amp;&amp;span != &quot;&quot;)
+		?&quot;col-sm-&quot;+span.toString():&quot;col-sm-4&quot;
+	if(spanClassStr){
+		classStr = classStr + &quot; &quot; + spanClassStr
+	}
+	$scope.class = classStr
+	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
+},
+check:function(){
+	//不合法
+	if(!$scope.mainForm.$valid){
+		var fieldName = $params.field.displayName == undefined?$params.fieldName:$params.field.displayName
+		Messenger.error(fieldName+&quot; 为空或格式不正确&quot;) 
+	}
+	return $scope.mainForm.$valid
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;datetimepick_html&quot;>
+&lt;div id=&quot;dateTimePickerWrapper&quot; class=&quot;form-group col-sm-6&quot; ng-show=&quot;true&quot; ng-if=&quot;$model.on&quot;>
+	    &lt;label for=&quot;dateTimePicker&quot; class=&quot;control-label al-control-label &quot;
+			ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot; 
+			ng-class=&quot;{&amp;quot;required-label&amp;quot;:permissionData[$params.fieldNo].fillnecessary}&quot;>
+				{{$params.field.displayName == undefined?$params.fieldName:$params.field.displayName}}
+		&lt;/label>
+        &lt;div ng-style=&quot;{'margin-left':$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;>
+		&lt;div class=&quot;input-group&quot;>
+			&lt;input c2-date-time-picker class=&quot;form-control date-picker 
+				c2-date-time-picker ng-isolate-scope ng-pristine ng-valid ng-valid-required&quot; 
+				style=&quot;cursor:auto;&quot; type=&quot;text&quot; ng-model=&quot;formentity[$params.fieldNo]&quot; 
+				id=&quot;dateTimePicker&quot; name=&quot;dateTimePicker&quot; ng-readonly=&quot;false&quot; 
+				ng-required=&quot;permissionData[$params.fieldNo].fillnecessary&quot; 
+
+				format=&quot;{{$model.format}}&quot; datetimepick-readonly=&quot;false&quot; ng-required=&quot;false&quot; 
+				change-event=&quot;functions.dateTimePicker_onChange(date,oldDate)&quot; 
+				before-init=&quot;functions.dateTimePicker_beforeInit(options)&quot; 
+				load-complete=&quot;functions.dateTimePicker_loadComplete()&quot;>
+					&lt;span class=&quot;input-group-addon ng-scope&quot;>
+						&lt;i class=&quot;fa fa-calendar&quot; ng-click=&quot;addonEven()&quot; 
+							ng-class=&quot;{'fa-times':ngModel,'fa-calendar':!ngModel}&quot;>
+						&lt;/i>
+					&lt;/span> 
+			&lt;!-- 
+			&lt;span class=&quot;input-group-addon&quot; ng-click=&quot;formentity[$params.fieldNo] = null;&quot; ng-if=&quot;formentity[$params.fieldNo]&amp;&amp;!false&quot;>&lt;i class=&quot;fa fa-times&quot;>&lt;/i>&lt;/span>
+			&lt;span class=&quot;input-group-addon&quot; onClick=&quot;$(this).prev().prev().focus();&quot; ng-if=&quot;!formentity[$params.fieldNo]||false&quot;>&lt;i class=&quot;fa fa-calendar&quot;>&lt;/i>&lt;/span> 
+			-->
+		&lt;/div>
+    &lt;/div>
+&lt;/div>
+&lt;/script></form:htmls>
+</form:Form>
