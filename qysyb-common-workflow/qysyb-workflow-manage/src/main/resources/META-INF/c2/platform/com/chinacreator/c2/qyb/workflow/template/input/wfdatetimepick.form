@@ -109,10 +109,21 @@ dateTimePicker_onChange:function(date,oldDate){
 
 page_onload:function(){
 	$model.on = false
+	//属性1(remark1) 时间格式 
 	$model.format = ($params.field.remark1 != undefined &amp;&amp; $params.field.remark1 != &quot;&quot;)?
 						$params.field.remark1:&quot;YYYY-MM-DD HH:mm&quot;
 	$model.on = true
-	
+	//属性2(remark2) 是否默认当前时间
+	var isSetCurrentTimeStr = $params.field.remark2
+	var isSetCurrentTime = false
+	if(isSetCurrentTimeStr 
+			&amp;&amp; (isSetCurrentTimeStr == &quot;true&quot; || isSetCurrentTimeStr == &quot;1&quot;)){
+		isSetCurrentTime = true
+	}
+	if(isSetCurrentTime){
+		var cur = new Date()
+		$scope.formentity[$params.fieldNo] = cur.getTime()
+	}
 	var classStr = &quot;form-group&quot;
 	var span  = $params.field.displaySpan
 	var spanClassStr = (span != undefined&amp;&amp;span != &quot;&quot;)

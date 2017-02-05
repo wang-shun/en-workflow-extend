@@ -127,6 +127,7 @@ check:function(){
 				class=&quot;form-control c2Input  ng-isolate-scope ng-pristine ng-valid ng-valid-required&quot; type=&quot;text&quot; 
 				ng-required=&quot;permissionData[$params.fieldNo].fillnecessary&quot; ng-disabled=&quot;!permissionData[$params.fieldNo].writePermission&quot; 
 				ng-trim=&quot;true&quot; ng-change=&quot;functions.newField_change()&quot; input-group=&quot;false&quot; group-type=&quot;iconSelect&quot; hidden-input=&quot;false&quot; 
+				ng-minlength=&quot;{{$params.field.remark1}}&quot; ng-maxlength=&quot;{{$params.field.remark2}}&quot; 
 				custom-icon=&quot;fa-question&quot; custom-text=&quot;?&quot; data-placement=&quot;top&quot;>
     	&lt;/div>
 &lt;/div>

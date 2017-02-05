@@ -192,8 +192,9 @@ page_onload:function(){
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;multipleorginput_html&quot;>
 &lt;div class=&quot;form-group col-sm-12&quot; >
-	&lt;label class=&quot;control-label al-control-label  ng-binding&quot; style=&quot;width:75px;&quot; ng-class=&quot;{'required-label':permissionData[$params.fieldNo].fillnecessary}&quot;>{{$params.fieldName}}&lt;/label>
-	&lt;div id=&quot;auditOrgInput{{$params.fieldNo}}&quot; style=&quot;border-left: 1px solid red;margin-left:105px;&quot;>
+	&lt;label class=&quot;control-label al-control-label  ng-binding&quot; ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;
+		ng-class=&quot;{'required-label':permissionData[$params.fieldNo].fillnecessary}&quot;>{{$params.fieldName}}&lt;/label>
+	&lt;div id=&quot;auditOrgInput{{$params.fieldNo}}&quot; ng-style=&quot;{'border-left':'1px solid red','margin-left':$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;>
 	&lt;div class=&quot;itemdiv commentdiv&quot; style=&quot;padding-top:10px;padding-left:10px;border-right:solid 1px red;cursor:pointer;&quot; ng-click=&quot;functions.addContent()&quot; >
 			&lt;label ng-click=&quot;functions.removechoosed(temp)&quot; style=&quot;margin-bottom:5px;font-size:18px&quot;ng-repeat=&quot;temp in $model.choosed&quot;>
 				{{temp.category}} {{temp.name}}
