@@ -134,12 +134,18 @@ check:function(){
 		var c = $scope.formentity[$params.fieldNo];
 		if(c==undefined||c.length==0){
 			result = false;
+			var fieldName = $params.field.displayName == undefined?$params.fieldName:$params.field.displayName
+			Messenger.error(fieldName+&quot; 为空!&quot;) 
 		}
 		return result;	
 	}
 	return true;
 },
 addContent:function(){
+	//不可写
+	if(!$scope.permissionData[$params.fieldNo].writePermission){
+		return
+	}
 	Modal.open(&quot;f/multipleorgchoose&quot;,{choosed:$model.choosed},function(data){
 //		console.log(&quot;returned data&quot;,data);
 		$model.choosed = data.orgs;
