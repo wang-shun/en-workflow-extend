@@ -106,7 +106,7 @@ page_beforeDataSourceLoad:function($params){
 	$model.businessKey = $scope.formentity.id || $scope.formentity.projectId || $params.pParams.params.businessKey
 //	$model.businessKey1 = $params.pParams.params.businessKey;
 	$model.businessKey3 = $params.field.fieldNo
-	$model.page = 'f/attachmentinrow';		
+	$model.page = 'f/qybdir_uploadfileinrow';		
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
