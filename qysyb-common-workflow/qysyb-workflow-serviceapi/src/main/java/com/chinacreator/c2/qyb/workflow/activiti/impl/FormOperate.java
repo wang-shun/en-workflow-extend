@@ -352,6 +352,9 @@ public abstract class FormOperate implements IFormOperate {
  	 * @return
  	 */
  	protected boolean isEndEventActivity(WorkFlowActivity wfActivity){
+ 		if(wfActivity == null){
+ 			return false;
+ 		}
  		return wfActivity.getPorperties().get("type").equals("endEvent");
  	}
 }

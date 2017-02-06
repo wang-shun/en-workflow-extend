@@ -170,6 +170,11 @@ public class HistoricProcInstanceQueryService {
 		if(con!=null){
 			for(RetrieveItem item:itemlist){
 				FormField field = item.getFieldId();
+				//没有检索起项对应的字段了 删掉它
+				if(field == null){
+					retrieveItemService.deleteRetrieveItem(item.getItemId());
+					continue;
+				}
 				Object o = con.get(field.getFieldNo());
 				if(o!=null){
 					if(ffs.isFieldStorageEXT(field)){
