@@ -22,7 +22,8 @@
 		<module>qysyb-workflow-common</module>
 		<module>qysyb-workflow-manage</module>
 		<module>qysyb-workflow-resource</module>
-		<module>qysyb-workflow-console</module>
+		<!-- 避免部署到仓库中去 -->
+<!-- 		<module>qysyb-workflow-console</module> -->
 		<module>qysyb-workflow-dao-oracle</module>
 		<module>qysyb-workflow-dao-mysql</module>
 		<module>qysyb-workflow-daoapi</module>
