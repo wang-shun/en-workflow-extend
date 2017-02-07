@@ -355,6 +355,10 @@ public abstract class FormOperate implements IFormOperate {
  		if(wfActivity == null){
  			return false;
  		}
+ 		// 退回时 因为是一个简单的拼装 没有节点属性设置
+ 		if(wfActivity.getPorperties() == null){
+ 			return false;
+ 		}
  		return wfActivity.getPorperties().get("type").equals("endEvent");
  	}
 }
