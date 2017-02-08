@@ -508,7 +508,7 @@
   <form:scripts>//提交 自动决定退回与流转
 autoswitchcommit:function($event){
 	//func 为业务表单提交前验证函数
-	if(!angular.isUndefined($model.func)){
+/*	if(!angular.isUndefined($model.func)){
 		var a = $model.func();
 		if(a==false){
 			Messenger.post({
@@ -519,6 +519,7 @@ autoswitchcommit:function($event){
 			return;
 		}	
 	}
+*/
 	if($scope.formentity.global.oppositive){ //积极意见 流转流程
 		functions.commit($event)
 	}else{ //否定意见 退回流程
@@ -530,7 +531,7 @@ commit:function($event){
 	console.log(&quot;$scope.formentity&quot;,$scope.formentity);
 	//func 为业务表单提交前验证函数
 	if(!angular.isUndefined($model.func)){
-		var a = $model.func();
+		var a = $model.func(&quot;submit&quot;);
 		if(a==false){
 			Messenger.post({
 				'message': &quot;必填项为空！&quot;,
@@ -686,7 +687,7 @@ newField_click:function($event){
 	}
 	//退回 需不需要必填项验证？
 	if(!angular.isUndefined($model.func)){
-		var a = $model.func();
+		var a = $model.func(&quot;return&quot;);
 		if(a==false){
 			Messenger.post({
 				'message': &quot;必填项为空！&quot;,
@@ -981,7 +982,8 @@ start_flow:function($event){
 //func 为业务表单提交前验证函数
 //	console.log(&quot;transition to take&quot;,$model.transition);
 	if(!angular.isUndefined($model.func)){
-		var a = $model.func();
+		//提交前验证
+		var a = $model.func(&quot;submit&quot;);
 		if(a==false){
 			Messenger.post({
 				'message': &quot;必填项为空或格式不正确！&quot;,
@@ -1125,12 +1127,12 @@ newGroup17_onDynamicSelected:function(tab){
 // save draft
 newField4_click:function($event){
 	if(!angular.isUndefined($model.func)){
-		var a = $model.func();
+		var a = $model.func(&quot;draft&quot;);
 		if(a==false){
 			Messenger.post({
-				'message': &quot;必填项为空或格式不正确！&quot;,
+				'message': &quot;验证不通过！&quot;,
 	            'type': 'error',
-	            'hideAfter':4
+	            'hideAfter': 2
 	        });	
 			return;
 		}	
