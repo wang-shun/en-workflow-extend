@@ -58,5 +58,19 @@ app.service('qybWorkflowService',function(){
 			classStr = classStr + " " + spanClassStr
 		}	
 		return classStr	
-	}
+	},
+
+	//获取当前环节的actions 是一个数组
+	this.getProperties = function(params){
+		var theparams
+		if(params){
+			theparams = params
+		}else if(this.$params){
+			theparams = this.$params
+		}else{
+			console.error("params参数未初始化")
+			return
+		}
+		return theparams.pParams.pModel.actions
+	}	
 });
