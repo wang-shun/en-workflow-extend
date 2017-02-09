@@ -826,7 +826,7 @@ public class WorkProcess {
 						moduleId, wfTransition.getSrc(),wfTransition.getDest(), nextTaskId,
 						wfOperator.getUserId(),paramsMap);
  				setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
- 						processDefinitionId,proInsId, wfTransition.getDest().getId(), moduleId, entitymap);
+ 						processDefinitionId,proInsId, wfTransition, moduleId, entitymap);
 			}
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
@@ -865,7 +865,7 @@ public class WorkProcess {
 					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, wfOperator.getUserId(),
 					paramsMap);
  			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
- 					processDefinitionId,proInsId, wfTransition.getDest().getId(), moduleId, entitymap);
+ 					processDefinitionId,proInsId, wfTransition, moduleId, entitymap);
 		}
 
 		/* 通知处理 */
@@ -1027,7 +1027,7 @@ public class WorkProcess {
 					wfOperator.getUserId(),paramsMap);
 
  			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(),				
- 					processDefinitionId,null,wfTransition.getDest().getId(),moduleId,variables);
+ 					processDefinitionId,null,wfTransition,moduleId,variables);
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
 			informService.informDo(moduleId,mapentity);
@@ -1063,10 +1063,22 @@ public class WorkProcess {
 	 */
 	private void setTaskHandler(Map<String, String> valuemap, Map variables,
  			String taskId,String curUserId,String processDefinitionId,String processInsId,
-			String taskDefKey,String moduleId,Map processVariables) {
+ 			WorkFlowTransition wfTransition,String moduleId,Map processVariables) {
 		if (taskId == null) {
 			return;
-		}		
+		}	
+		String taskDefKey = null;
+		WorkFlowActivity wfActivity = wfTransition.getDest();
+		Map prop = wfActivity.getPorperties();
+		//排他网关是会自动流转的 那么路径的dest已不能代表下一步了
+		if(prop.get("type").equals("exclusiveGateway")){
+			TaskEntity taskEntity = managementService
+					.executeCommand(new FindTaskEntityCmd(taskId));	
+			taskDefKey = taskEntity.getTaskDefinitionKey();
+		}else{
+			taskDefKey = wfActivity.getId();
+		}
+	
 		//业务模块并没有制定处理人过来 则看前端是否有制定处理人过来
 		if (valuemap == null || valuemap.size() == 0) {
 			valuemap = new HashMap<String, String>();
