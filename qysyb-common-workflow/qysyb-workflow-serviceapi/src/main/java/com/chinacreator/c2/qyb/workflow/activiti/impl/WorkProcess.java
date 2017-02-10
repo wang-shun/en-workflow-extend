@@ -842,6 +842,13 @@ public class WorkProcess {
 		//设置last activity 信息
 		setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
 				, variables, wfTransition.getSrc());
+		//获取自定义会签list
+		List<String> assigneeList = formOperate.getAssigneeList(entity, bussinessKey , proInsId, moduleId, 
+				wfTransition.getSrc(), wfTransition.getDest(), wfTransition, 
+				wfOperator.getUserId(), paramsMap);
+		if(assigneeList != null && assigneeList.size() > 0){
+			variables.put(WorkFlowService.TYPE_ASSIGNEELIST, assigneeList);
+		}
 		
 		// JumpActivityByTakeTransitionCmd 自由流
 		wfresult = this.goAnyWhereTakeTransition(wfOperator,
@@ -998,7 +1005,13 @@ public class WorkProcess {
 			//设置last activity 信息
 			setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
 					, variables, wfTransition.getSrc());
-			
+			//获取自定义会签list
+			List<String> assigneeList = formOperate.getAssigneeList(entity, businessKey , null, moduleId, 
+					wfTransition.getSrc(), wfTransition.getDest(), wfTransition, 
+					wfOperator.getUserId(), paramsMap);
+			if(assigneeList != null && assigneeList.size() > 0){
+				variables.put(WorkFlowService.TYPE_ASSIGNEELIST, assigneeList);
+			}
 			wf = this.startFlow(wfOperator, businessKey, processDefinitionId,
 					variables);
 			if (form.isIsTableStorage() != null && form.isIsTableStorage()) { // 业务数据存储到外部表

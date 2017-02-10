@@ -556,6 +556,7 @@ public class FormService {
  			String procInsId,String entityjson,WorkFlowActivity curActivity,
  			Form form,String curUserId,WorkFlowActivity nextActivity, Map map)
  					throws Exception{
+		String moduleId = (String) map.get("moduleId");
 		//表示需要查数据库
 		if(form.getFormNo()==null){
 			form = this.getFormById((form.getFormId()));
@@ -566,7 +567,7 @@ public class FormService {
 				.getBean(beanName);
 		//TODO 把null值改掉
  		formOperate.addOrUpdateEntity(entityjson,businessKey,procInsId, 
- 				null, curActivity, curUserId, nextActivity, map);	}
+ 				moduleId, curActivity, curUserId, nextActivity, map);	}
 	/**
 	 * 务数据有自己的表时业务数据的获取
 	 * @param businessKey 这里是流程实例id 业务表吧流程实例id作为业务key
