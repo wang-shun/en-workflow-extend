@@ -48,6 +48,7 @@ import com.chinacreator.c2.qyb.workflow.activiti.cmd.FindTaskEntityCmd;
 import com.chinacreator.c2.qyb.workflow.activiti.cmd.JumpActivityByTakeTransitionCmd;
 import com.chinacreator.c2.qyb.workflow.activiti.cmd.RecoverTaskCmd;
 import com.chinacreator.c2.qyb.workflow.activiti.inf.IFormOperate;
+import com.chinacreator.c2.qyb.workflow.audit.impl.ArchhandleServiceImpl;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowActivity;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowTransition;
 import com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig;
@@ -94,10 +95,13 @@ public class WorkProcess {
 	private RepositoryService repositoryService;
 	@Autowired
 	private InformService informService;
+	@Autowired
+	ArchhandleServiceImpl archhandleServiceImpl;
 
 	public final static String HANDLE_TYPE_KEY = "handleKey";
 	public final static String HANDLE_VALUE_KEY = "handleValue";
 	public final static Boolean AUTORUN_FIRST_ACT = true;
+	public final static String INLINE_AUDIT_KEY = "inlineaudit";
 	/**
 	 * 流程启动
 	 * 
@@ -769,7 +773,14 @@ public class WorkProcess {
 			/* 业务数据作为流程变量保存  不再使用这种方法 */
 			variables.putAll(entitymap);
 		}
+		//保存inline的
+		Object o = entitymap.get(INLINE_AUDIT_KEY);
+		if(o != null){
+			archhandleServiceImpl.saveArchhandle((JSONObject) o, proInsId, 
+					wfTransition.getSrc().id, bussinessKey);			
+		}
 
+		
 		// 添加意见
 		if (opinion != null) {
 			Authentication.setAuthenticatedUserId(wfOperator.getUserId());
