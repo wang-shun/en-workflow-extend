@@ -122,7 +122,6 @@
   <form:scripts>
 
 page_afterDataSourceLoad:function(){
-	debugger
 	$model
 }</form:scripts>
   <form:htmls></form:htmls>
