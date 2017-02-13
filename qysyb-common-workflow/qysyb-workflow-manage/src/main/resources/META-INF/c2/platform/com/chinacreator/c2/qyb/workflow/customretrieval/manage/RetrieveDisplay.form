@@ -171,6 +171,7 @@ page_afterDataSourceLoad:function(){
 	$model.retrieveItems.result.forEach(function(e,i){
 		$scope.permissionData[e.fieldId.fieldNo] = {};
 		$scope.permissionData[e.fieldId.fieldNo].writePermission = true;
+		$scope.permissionData[e.fieldId.fieldNo].visible = true;
 	});
 	
 },
@@ -210,7 +211,7 @@ newField2_click:function($event){
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
 &lt;div ng-repeat=&quot;a in $model.retrieveItems.result&quot;>
-	&lt;div ng-switch=&quot;a.fieldId.webDisplayTypeId&quot;>
+	&lt;div ng-switch=&quot;a.fieldId.fieldType&quot;>
 		&lt;div ng-switch-when='JGXZS'>
 			&lt;div ng-include=&quot;'f/formorgchoose'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName,'dictName':a.fieldId.remark1}&quot;/>
 		&lt;/div>
@@ -220,8 +221,8 @@ newField2_click:function($event){
 		&lt;div ng-switch-when='SJRQXZ'>
 			&lt;div ng-include=&quot;'f/formdatatimePick'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
 		&lt;/div>
-		&lt;div ng-switch-when='RQXZK'>
-			&lt;div ng-include=&quot;'f/retrievedaterangefield'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
+		&lt;div ng-switch-when='TIME'>
+			&lt;div ng-include=&quot;'f/retrievedaterangefield'&quot; ng-init=&quot;$params={'field':a.fieldId,'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
 		&lt;/div>
 		&lt;div ng-switch-when='WBY'>
 			&lt;div ng-include=&quot;'f/retrievetextfield'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
@@ -233,7 +234,7 @@ newField2_click:function($event){
 			&lt;div ng-include=&quot;'f/formtextphone'&quot; ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
 		&lt;/div>
 		&lt;div ng-switch-default>
-			&lt;div ng-include=$model.categories.result[a.fieldId.webDisplayTypeId].url ng-init=&quot;$params={'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
+			&lt;div ng-include=$model.categories.result[a.fieldId.webDisplayTypeId].url ng-init=&quot;$params={'field':a.fieldId,'fieldNo':a.fieldId.fieldNo,'fieldName':a.fieldId.fieldName}&quot;/>
 		&lt;/div>
 	&lt;/div>
 &lt;/div>

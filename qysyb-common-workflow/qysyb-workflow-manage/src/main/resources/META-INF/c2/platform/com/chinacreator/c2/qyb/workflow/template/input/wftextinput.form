@@ -130,7 +130,7 @@ field_change:function(a,b,c){
   <form:htmls>&lt;script type=&quot;text/ng-template&quot; id=&quot;wftextinput_html&quot;>
 &lt;div id=&quot;textinputWrapper{{$params.fieldNo}}&quot; ng-class=&quot;class&quot; ng-if=&quot;permissionData[$params.fieldNo].visible&quot;>
 	    &lt;label class=&quot;control-label al-control-label  ng-binding&quot; 
-			ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot; 
+			ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth,'text-align': 'center'}&quot; 
 			ng-class=&quot;{&amp;quot;required-label&amp;quot;:permissionData[$params.fieldNo].fillnecessary}&quot;>
 				{{$params.field.displayName == undefined?$params.fieldName:$params.field.displayName}}
 		&lt;/label>
