@@ -87,13 +87,18 @@ check:function(){
 linkcallback:function(src,data){
 
 },
-
+reset:function(){
+	$model.bind = undefined;
+	$scope.formentity[$params.fieldNo] = undefined;
+},
 page_onload:function(){
 	qybWorkflowService.initC2FormParams($scope,$params)
 	qybWorkflowService.emitFormCheckFunc(this.check)
 	
 	$model.wrapperClass = qybWorkflowService.getWrapperClass()
 
+	$scope.$emit(&quot;resetfunc&quot;,{name:$params.fieldNo,func:this.reset});
+	
 //	this.dictdropdownlist_change();
 },
 
@@ -112,9 +117,9 @@ dictdropdownoption_customFilter:function(data){
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;wfdropdowndictdiv_html&quot;>
 &lt;div id=&quot;dictdropdownoptionWrapper{{$params.fieldNo}}&quot; ng-class=&quot;$model.wrapperClass&quot;>
-        &lt;label class=&quot;control-label al-control-label  ng-binding&quot; ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;
+        &lt;label class=&quot;control-label al-control-label  ng-binding&quot; ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth,'text-align': 'center'}&quot;
 			ng-class=&quot;{&amp;quot;required-label&amp;quot;:permissionData[$params.fieldNo].fillnecessary}&quot;>
-			红头
+			{{$params.field.displayName == undefined?$params.fieldName:$params.field.displayName}}
 		&lt;/label>
         &lt;div ng-style=&quot;{'margin-left':$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;>
     	&lt;div ng-options=&quot;selectOption.value as selectOption.key group by selectOption.group for selectOption in options&quot; 
