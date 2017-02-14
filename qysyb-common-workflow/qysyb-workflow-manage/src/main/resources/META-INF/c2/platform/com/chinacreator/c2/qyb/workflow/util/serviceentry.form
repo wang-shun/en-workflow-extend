@@ -194,31 +194,27 @@ createWorkOrder:function(tmp){
       &lt;div class=&quot;panel-heading&quot;>
         &lt;h3 class=&quot;panel-title&quot;>{{tmp.dictdataValue}}&lt;/h3>
       &lt;/div>
-      &lt;div class=&quot;panel-body&quot;>
-&lt;table id=&quot;productentry&quot; width=&quot;100%&quot; border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;>&lt;tbody>
-&lt;tr ng-repeat=&quot;a in $model.spsbytypes[tmp.dictdataName]&quot; style=&quot;padding-bottom:30px&quot;>
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot; width=&quot;33%&quot; style=&quot;line-height:110px;&quot; ng-repeat=&quot;tmp in a&quot;>
-	&lt;table width=&quot;95%&quot; border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;tab_chanpin&quot;>
-		&lt;tbody>
-			&lt;tr id=&quot;servic_icon&quot;>
-				
-					&lt;td width=&quot;30%&quot; rowspan=&quot;2&quot; style=&quot;text-align:right;padding-right:10px&quot;>       
-						&lt;a href=&quot;javascript:&quot; ng-click=&quot;functions.createWorkOrder(tmp)&quot;>             
-							&lt;img src={{tmp.ico}} width=&quot;64&quot; height=&quot;64&quot;>
-						&lt;/a>
-					&lt;/td>
-					&lt;th width=&quot;79%&quot; class=&quot;chapin_name&quot;>{{tmp.productName}}&lt;/th>
-				
-			&lt;/tr>
-			&lt;tr>
-				&lt;td title=&quot;&quot;>&lt;p>&lt;/p>&lt;/td>
-			&lt;/tr>
-	&lt;/tbody>
 
-	&lt;/table>
-	&lt;/td>
-&lt;/tr>
-&lt;/table>
+      &lt;div class=&quot;panel-body&quot;>
+		&lt;div id=&quot;productentry&quot; style=&quot;width:100%&quot;>
+			&lt;ul ng-repeat=&quot;a in $model.spsbytypes[tmp.dictdataName]&quot;>
+				&lt;li style=&quot;line-height:110px;width:33%;display:inline-block&quot; ng-repeat=&quot;tmp in a&quot;>
+					&lt;ul style=&quot;width:95%&quot;>
+			          &lt;li id=&quot;servic_icon&quot;>
+					    &lt;div style=&quot;text-align:right;padding-right:10px;width:30%;float:left&quot;>       
+						  &lt;a href=&quot;javascript:&quot; ng-click=&quot;functions.createWorkOrder(tmp)&quot;>             
+							&lt;img src={{tmp.ico}} width=&quot;64&quot; height=&quot;64&quot;>
+						  &lt;/a>
+					    &lt;/div>
+					    &lt;div style=&quot;width:79%;font-weight:bold&quot; class=&quot;chapin_name&quot;>{{tmp.productName}}&lt;/div>
+			         &lt;/li>
+			         &lt;li>
+				        &lt;div title=&quot;&quot;>&lt;p>&lt;/p>&lt;/div>
+			         &lt;/li>
+	               &lt;/ul>
+	            &lt;/li>
+             &lt;/ul>
+          &lt;/div>
     &lt;/div>
 &lt;/script></form:htmls>
 </form:Form>
