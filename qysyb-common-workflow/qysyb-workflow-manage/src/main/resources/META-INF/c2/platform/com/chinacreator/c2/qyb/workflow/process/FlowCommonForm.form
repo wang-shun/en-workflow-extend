@@ -1161,7 +1161,7 @@ newField4_click:function($event){
 	$scope.formentity.status = &quot;draft&quot;;
 	var form = {};
 	form.formId = $model.formId;
-	$http.post(&quot;ws/updateFormDataWithExternalTable&quot;,{&quot;businessKey&quot;:businessKey,&quot;entityjson&quot;:$scope.formentity,&quot;form&quot;:form,curUserId:$scope.subject.id}).success(function(){
+	$http.post(&quot;ws/updateFormDataWithExternalTable&quot;,{&quot;businessKey&quot;:businessKey,&quot;entityjson&quot;:$scope.formentity,&quot;form&quot;:form,curUserId:$scope.subject.id,map:{&quot;moduleId&quot;:$params.params.moduleId}}).success(function(){
 		TabOperator.closeTab(TabOperator.getCurrentTab());
 		Messenger.post({
 								'message': &quot;保存成功!&quot;,
