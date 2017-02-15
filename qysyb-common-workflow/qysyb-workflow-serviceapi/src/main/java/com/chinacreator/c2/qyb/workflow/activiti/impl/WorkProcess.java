@@ -380,7 +380,13 @@ public class WorkProcess {
 			/* 业务数据作为流程变量保存 */
 			variables.putAll(entitymap);
 		}
-
+		//保存inline的
+		Object o = entitymap.get(INLINE_AUDIT_KEY);
+		if(o != null){
+			archhandleServiceImpl.saveArchhandle((JSONObject) o, proInsId, 
+					curActivity.id, bussinessKey);			
+		}
+		
 		if (opinion != null) {
 			Authentication.setAuthenticatedUserId(wfOperator.getUserId());
 			taskService.addComment(currenTaskId, proInsId, opinion);
