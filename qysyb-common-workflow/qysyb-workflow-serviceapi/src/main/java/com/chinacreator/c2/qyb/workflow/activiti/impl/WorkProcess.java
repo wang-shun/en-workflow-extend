@@ -883,11 +883,7 @@ public class WorkProcess {
  		
 		Object multiInstancePor = wfTransition.getDest().getPorperties()
 				.get("multiInstance");
-		if (multiInstancePor != null
-				&& ((String) multiInstancePor).equals("parallel")) {// 下一步是并行会签
-			// 不要选择处理人
-
-		} else if (multiInstancePor == null) {// 下一步是普通任务
+		if (multiInstancePor == null) {// 下一步是普通任务
 			String nextTaskId = wfresult.getNextTaskId();
 			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
 					bussinessKey, wfresult.getProcessInstanceId(), moduleId,
@@ -895,6 +891,13 @@ public class WorkProcess {
 					paramsMap);
  			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
  					processDefinitionId,proInsId, wfTransition, moduleId, entitymap);
+		}else if (multiInstancePor != null
+				&& ((String) multiInstancePor).equals("parallel")) {// 下一步是并行会签
+			// 不要选择处理人
+
+		}else if(multiInstancePor != null
+				&& ((String) multiInstancePor).equals("sequential")){// 下一步是顺序会签
+			
 		}
 
 		/* 通知处理 */
@@ -1155,8 +1158,7 @@ public class WorkProcess {
 					}
 				}					
 			}				
-		}
-		if (valuemap != null && valuemap.size() == 1) {
+		}else if (valuemap != null && valuemap.size() == 1) {
 			// 先把之前的候选给去掉 有可能是平台赋的值
 			managementService.executeCommand(new DelTaskCandidatesCmd(taskId));
 			for (String key : valuemap.keySet()) {

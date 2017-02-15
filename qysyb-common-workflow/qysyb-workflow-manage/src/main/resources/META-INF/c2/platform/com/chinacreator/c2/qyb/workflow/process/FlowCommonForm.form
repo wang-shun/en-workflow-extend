@@ -570,7 +570,9 @@ commit:function($event){
 		functions.newField5_click($event);
 		return;		
 	}
-	if(!$scope.formentity.global.handleinline &amp;&amp; $model.actions.freechoose!=undefined){
+	if(!$scope.formentity.global.handleinline 
+			&amp;&amp; $model.actions.freechoose != undefined
+			&amp;&amp; $model.actions.freechoose != &quot;&quot;){
 		var url = $model.actions.freechoose.openUrl;
 		Modal.open(
 				url,
