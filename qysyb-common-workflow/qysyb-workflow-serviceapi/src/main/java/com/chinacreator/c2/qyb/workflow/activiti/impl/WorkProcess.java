@@ -729,14 +729,19 @@ public class WorkProcess {
 				WfOperator.class);
 		Map handlerVariables = JSONObject.parseObject(handlerVariablesStr, Map.class);
 		Map entitymap = JSONObject.parseObject(entity, Map.class);
-		
+		if(handlerVariables == null){
+			handlerVariables = new HashMap();
+		}
 		//任务处理人
  		chooseHandleTypeValue(handlerVariables);
  		//流程变量
  		Map variables = new HashMap();
  		//会签人信息得先于流程流转设置进去
- 		variables.put(WorkFlowService.TYPE_ASSIGNEELIST, 
- 				handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST));
+ 		if(handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST) != null){
+ 	 		variables.put(WorkFlowService.TYPE_ASSIGNEELIST, 
+ 	 				handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST));			
+ 		}
+
 		FormService formService = ApplicationContextManager.getContext()
 				.getBean(FormService.class);
 		Form form = formService.getFormById(formId);

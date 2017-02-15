@@ -900,8 +900,8 @@ page_afterDataSourceLoad:function(){
 
 //当前环节属性
 	var ac = $model.getOutTransition.result[0].src.porperties;
-
-	if(!angular.isUndefined(ac)&amp;&amp;ac.multiInstance == &quot;parallel&quot;){ //并行会签
+	if((!angular.isUndefined(ac)&amp;&amp;ac.multiInstance == &quot;parallel&quot;) 
+			|| (!angular.isUndefined(ac)&amp;&amp;ac.multiInstance == &quot;sequential&quot;)){ //会签
 		var item = $model.getOutTransition.result[0];
 		item.name = &quot;多人处理&quot;;
 		$model.isCountersign = true;
@@ -916,7 +916,7 @@ page_afterDataSourceLoad:function(){
 		$params.nextname = &quot;结束&quot;;
 	}
 	//如果下一步是会签事件
-	if($model.dest.porperties.multiInstance==&quot;parallel&quot;){
+	if($model.dest.porperties.multiInstance==&quot;parallel&quot; || $model.dest.porperties.multiInstance==&quot;sequential&quot;){
 		$model.isParallel = true;
 	}
 
