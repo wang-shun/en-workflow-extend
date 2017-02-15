@@ -275,7 +275,7 @@
         <form:child xsi:type="form:Field" binding="$model.filtertype" id="filtertypediv" name="处理人策略" customize="true">
           <form:control type="widget/radio_group">
             <form:attributes source="widget/radio_group">
-              <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;falsefilter&quot;:&quot;无过滤&quot;,&quot;orgfilter&quot;:&quot;按部门过滤&quot;,&quot;orgbossfilter&quot;:&quot;按部门&amp;领导过滤&quot;,&quot;starter&quot;:&quot;分派申请人&quot;,&quot;historyassign&quot;:&quot;历史处理人&quot;}">
+              <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;falsefilter&quot;:&quot;无过滤&quot;,&quot;orgfilter&quot;:&quot;按部门过滤&quot;,&quot;orgbossfilter&quot;:&quot;部门分管领导&quot;,&quot;starter&quot;:&quot;分派申请人&quot;,&quot;historyassign&quot;:&quot;历史处理人&quot;}">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -758,7 +758,7 @@ page_onload:function(){
 	$model.activity_Name = $params.activity_name;	
 },
 // save
-newField9_click:function($event){debugger
+newField9_click:function($event){
 	functions.assemble_customProperty()
 //infromType 字段取到，不同方式以逗号分隔
 	var result;
