@@ -281,6 +281,10 @@
             <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
             <dync:children/>
           </dync:attribute>
+          <dync:attribute default="true" group="表格设置" id="multiselect" name="多选" value="false">
+            <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+            <dync:children/>
+          </dync:attribute>
         </form:attributes>
       </form:control>
       <form:child xsi:type="form:Group" id="toolbar_table" name="toolbar_table">
@@ -477,7 +481,7 @@ button_click:function($event){
 check:function(){
 	return true
 },
-page_onload:function(){
+page_onload:function(){debugger
 	qybWorkflowService.initC2FormParams($scope,$params)
 	qybWorkflowService.emitFormCheckFunc(this.check)
 	$model.wfproperties = qybWorkflowService.getProperties()
@@ -535,6 +539,9 @@ page_onload:function(){
 	}	
 },
 isFreeChoose:function(wfproperties){
+	if(wfproperties == undefined){
+		return false
+	}
 	return wfproperties.freechoose == undefined?false:true
 },
 //此环节是否需要审核意见
