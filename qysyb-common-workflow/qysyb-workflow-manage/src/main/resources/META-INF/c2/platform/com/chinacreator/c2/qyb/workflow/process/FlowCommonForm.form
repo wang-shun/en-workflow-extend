@@ -1075,9 +1075,6 @@ newField4_click:function($event){
 	padding-top:7px;
 }
 
-.pull-left{
-	margin-left:143px;
-}
 &lt;/style>
 
 
