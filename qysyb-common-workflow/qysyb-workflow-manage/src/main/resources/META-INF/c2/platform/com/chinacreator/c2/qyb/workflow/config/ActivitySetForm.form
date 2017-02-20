@@ -816,7 +816,7 @@ newField9_click:function($event){
 	con.processDefId = $params.moduleId;
 	con.remark1 = &quot;activiyconfig&quot;;	
 	con.informType = concernInforms;
-	con.obseverId = $model.observerId;
+	con.observerId = $model.observerId;
 	con.catogory = $model.catogory;
 	con.remark2 = $model.observerStr;
 	console.log(&quot;concern config before submit&quot;,con);
@@ -828,9 +828,9 @@ newField10_click:function($event){
 },
 //选择人/组
 newField2_customEven:function(){
-	var selectedUserIds = $(&quot;#activity_performer_hidden&quot;).val();
-	var selectedGroupIds = $(&quot;#activity_performer_hidden_group&quot;).val();
-	Modal.open('f/chooseCandidate?selectedUserIds='+selectedUserIds+'&amp;selectedGroupIds='+selectedGroupIds
+	var selectedUserIds = $model.selectedUserIds
+	var selectedGroupIds = $model.selectedGroupIds
+	Modal.open('f/mychoosecandidate?selectedUserIds='+selectedUserIds+'&amp;selectedGroupIds='+selectedGroupIds
 			,{selectedUserIds:selectedUserIds, selectedGroupIds:selectedGroupIds},function(data){
 				console.log(&quot;choosed user group&quot;,data);
 				if(data){
@@ -857,6 +857,8 @@ newField2_customEven:function(){
 						}
 					/*	$(&quot;#activity_performer&quot;).val(&quot;用户【&quot;+str+&quot;】&quot;);*/
 						$model.observerStr = &quot;用户【&quot;+str+&quot;】&quot;;
+						$model.selectedUserIds = strId
+						
 /*						$(&quot;#activity_performer_hidden_group&quot;).val('');
 						$(&quot;#activity_performer_hidden&quot;).val(strId);*/
 						
@@ -879,6 +881,7 @@ newField2_customEven:function(){
 							strId = strId.substring(0,strId.length-1);
 						}
 						$model.observerId = strId;
+						$model.selectedGroupIds = strId
 						$model.catogory = &quot;group&quot;;
 /*						$(&quot;#activity_performer_hidden&quot;).val('');
 						$(&quot;#activity_performer_hidden_group&quot;).val(strId);*/
@@ -919,6 +922,12 @@ newField3_clickEvent:function(value){
 do_view:function(a){
 //	console.log(&quot;do view in&quot;,a);
 	var observerStr = a.remark2;
+	$model.catogory = a.catogory
+	if($model.catogory == &quot;user&quot;){
+		$model.selectedUserIds = a.observerId
+	}else if($model.catogory == &quot;group&quot;){
+		$model.selectedGroupIds = a.observerId
+	}
 	$model.observerStr = observerStr;
 	if(!angular.isUndefined(a.informType)){
 		var informs = a.informType.split(&quot;,&quot;);
@@ -956,6 +965,9 @@ get_action:function(action){
 	}
 },
 has_action:function(action){
+	if(!$model.entityactivityconfig.includeActions){
+		return undefined
+	}
 	var a = $model.entityactivityconfig.includeActions.split(&quot;,&quot;);
 	var index = undefined;
 	for(var i=0;i&lt;a.length;i++){

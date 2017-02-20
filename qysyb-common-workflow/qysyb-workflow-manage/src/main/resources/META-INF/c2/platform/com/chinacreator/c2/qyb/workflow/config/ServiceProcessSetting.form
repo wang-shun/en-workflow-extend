@@ -950,7 +950,7 @@ getModuleTree:function(){
 chooseAssignee:function(dom){
 	var selectedUserIds = $(&quot;#activity_performer_hidden&quot;).val();
 	var selectedGroupIds = $(&quot;#activity_performer_hidden_group&quot;).val();
-	Modal.open('f/chooseCandidate?selectedUserIds='+selectedUserIds+'&amp;selectedGroupIds='+selectedGroupIds,{selectedUserIds:selectedUserIds, selectedGroupIds:selectedGroupIds},function(data){
+	Modal.open('f/mychoosecandidate?selectedUserIds='+selectedUserIds+'&amp;selectedGroupIds='+selectedGroupIds,{selectedUserIds:selectedUserIds, selectedGroupIds:selectedGroupIds},function(data){
 		if(data){
 			if(data.userIds){
 				var strId =&quot;&quot;;

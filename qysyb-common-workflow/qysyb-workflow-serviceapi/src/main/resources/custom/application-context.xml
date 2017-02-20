@@ -25,7 +25,7 @@
  		<property name="groupTypes">
  		    <list>
  		        <ref bean="jobGroupType"/>
- <!-- 		        <ref bean="orgGroupType"/> -->
+ 		        <ref bean="orgGroupType"/>
  <!-- 		        <ref bean="roleGroupType"/> -->
  		    </list>
  		</property>
