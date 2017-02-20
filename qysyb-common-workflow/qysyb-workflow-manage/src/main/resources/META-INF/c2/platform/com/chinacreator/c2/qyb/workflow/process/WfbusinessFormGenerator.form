@@ -158,11 +158,11 @@ page_beforeDataSourceLoad:function($params){
 //	console.log(&quot;generateform params&quot;,$params);
 },
 
-callback:function(){
+callback:function(type){
 	var a = $model.checkfuncs;
 	var result = true;
 	for(var aa in a){
-		if(a[aa].func()==false){
+		if(a[aa].func(type)==false){
 			console.log(a[aa]);
 			result = false;
 		}

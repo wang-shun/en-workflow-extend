@@ -26,7 +26,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="qybWorkflowService UIDirectiveService">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -96,29 +96,41 @@
   <form:scripts>
 
 page_onload:function(){
-	var classStr = &quot;form-group&quot;
-	var span  = $params.field.displaySpan
-	var spanClassStr = (span != undefined&amp;&amp;span != &quot;&quot;)
-		?&quot;col-sm-&quot;+span.toString():&quot;col-sm-4&quot;
-	if(spanClassStr){
-		classStr = classStr + &quot; &quot; + spanClassStr
-	}
-	$scope.class = classStr
-	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
+	qybWorkflowService.initC2FormParams($scope,$params)
+	qybWorkflowService.emitFormCheckFunc(this.check)
+	
+	$scope.class = qybWorkflowService.getWrapperClass()	
 },
 check:function(){
+	return $view.mainForm.check()
+	
+/*	var ele = $(&quot;#textinputWrapper&quot;+$params.fieldNo)
 	//不合法
 	if(!$scope.mainForm.$valid){
 		var fieldName = $params.field.displayName == undefined?$params.fieldName:$params.field.displayName
+		UIDirectiveService.setTipMessage(ele,&quot;为空或格式不正确&quot;)		
 		Messenger.error(fieldName+&quot; 为空或格式不正确&quot;) 
+	}else{
+		UIDirectiveService.removeTipMessage(ele)			
 	}
 	return $scope.mainForm.$valid
+*/
+},
+field_change:function(a,b,c){
+/*	var ele = $(&quot;#textinputWrapper&quot;+$params.fieldNo)
+	//不合法
+	if(!$scope.mainForm.$valid){
+
+	}else{
+		UIDirectiveService.removeTipMessage(ele)			
+	}
+*/
 }
 </form:scripts>
   <form:htmls>&lt;script type=&quot;text/ng-template&quot; id=&quot;wftextinput_html&quot;>
-&lt;div id=&quot;textinputWrapper&quot; ng-class=&quot;class&quot; ng-if=&quot;permissionData[$params.fieldNo].visible&quot;>
+&lt;div id=&quot;textinputWrapper{{$params.fieldNo}}&quot; ng-class=&quot;class&quot; ng-if=&quot;permissionData[$params.fieldNo].visible&quot;>
 	    &lt;label class=&quot;control-label al-control-label  ng-binding&quot; 
-			ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot; 
+			ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth,'text-align': 'center'}&quot; 
 			ng-class=&quot;{&amp;quot;required-label&amp;quot;:permissionData[$params.fieldNo].fillnecessary}&quot;>
 				{{$params.field.displayName == undefined?$params.fieldName:$params.field.displayName}}
 		&lt;/label>
@@ -126,7 +138,7 @@ check:function(){
     	    &lt;input c2-input=&quot;&quot; id=&quot;textinput&quot; name=&quot;textinput&quot; ng-model=&quot;formentity[$params.fieldNo]&quot; 
 				class=&quot;form-control c2Input  ng-isolate-scope ng-pristine ng-valid ng-valid-required&quot; type=&quot;text&quot; 
 				ng-required=&quot;permissionData[$params.fieldNo].fillnecessary&quot; ng-disabled=&quot;!permissionData[$params.fieldNo].writePermission&quot; 
-				ng-trim=&quot;true&quot; ng-change=&quot;functions.newField_change()&quot; input-group=&quot;false&quot; group-type=&quot;iconSelect&quot; hidden-input=&quot;false&quot; 
+				ng-trim=&quot;true&quot; ng-change=&quot;functions.field_change()&quot; input-group=&quot;false&quot; group-type=&quot;iconSelect&quot; hidden-input=&quot;false&quot; 
 				ng-minlength=&quot;{{$params.field.remark1}}&quot; ng-maxlength=&quot;{{$params.field.remark2}}&quot; 
 				custom-icon=&quot;fa-question&quot; custom-text=&quot;?&quot; data-placement=&quot;top&quot;>
     	&lt;/div>

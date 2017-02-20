@@ -146,7 +146,7 @@ public class WorkFlowService {
 	private RuntimeService runtimeService;
 	@Autowired
 	private WfManagerService wfManagerService;
-
+	@Autowired
 	private ServiceProductService sps;
 	private InformService informService;
 	@Autowired
@@ -2735,4 +2735,18 @@ public class WorkFlowService {
 		variables.put("processDefinitionId", ins.getProcessDefinitionId());
 		return variables;
 	}
+	    
+	public Form getFormByServiceType(String ServiceTypeId) {
+		List<ServiceProduct> list = sps.getSPByserviceType(ServiceTypeId);
+		if (list.size() == 1) {
+			ServiceProduct sp = list.get(0);
+			String formId = sp.getFormId();
+			FormService formService = ApplicationContextManager.getContext()
+					.getBean(FormService.class);
+			Form form = formService.getFormById(formId);
+			return form;
+		}
+		return null;
+	}
+	
 }

@@ -26,7 +26,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="UIDirectiveService qybWorkflowService">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -104,7 +104,14 @@ dateTimePicker_loadComplete:function(){
 },
 
 dateTimePicker_onChange:function(date,oldDate){
-	
+/*	var ele = $(&quot;#dateTimePickerWrapper&quot;+$params.fieldNo)
+	//不合法
+	if(!$scope.mainForm.$valid){
+
+	}else{
+		UIDirectiveService.removeTipMessage(ele)			
+	}	
+*/
 },
 
 page_onload:function(){
@@ -124,27 +131,30 @@ page_onload:function(){
 		var cur = new Date()
 		$scope.formentity[$params.fieldNo] = cur.getTime()
 	}
-	var classStr = &quot;form-group&quot;
-	var span  = $params.field.displaySpan
-	var spanClassStr = (span != undefined&amp;&amp;span != &quot;&quot;)
-		?&quot;col-sm-&quot;+span.toString():&quot;col-sm-4&quot;
-	if(spanClassStr){
-		classStr = classStr + &quot; &quot; + spanClassStr
-	}
-	$scope.class = classStr
-	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
+	
+	qybWorkflowService.initC2FormParams($scope,$params)
+	qybWorkflowService.emitFormCheckFunc(this.check)
+	
+	$scope.class = qybWorkflowService.getWrapperClass()		
 },
 check:function(){
+	return $view.mainForm.check()
+
+/*	var ele = $(&quot;#dateTimePickerWrapper&quot;+$params.fieldNo)
 	//不合法
 	if(!$scope.mainForm.$valid){
 		var fieldName = $params.field.displayName == undefined?$params.fieldName:$params.field.displayName
+		UIDirectiveService.setTipMessage(ele,&quot;为空或格式不正确&quot;)			
 		Messenger.error(fieldName+&quot; 为空或格式不正确&quot;) 
+	}else{
+		UIDirectiveService.removeTipMessage(ele)			
 	}
 	return $scope.mainForm.$valid
+*/
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;datetimepick_html&quot;>
-&lt;div id=&quot;dateTimePickerWrapper&quot; class=&quot;form-group col-sm-6&quot; ng-show=&quot;true&quot; ng-if=&quot;$model.on&quot;>
+&lt;div id=&quot;dateTimePickerWrapper{{$params.fieldNo}}&quot; class=&quot;form-group col-sm-6&quot; ng-show=&quot;true&quot; ng-if=&quot;$model.on&quot;>
 	    &lt;label for=&quot;dateTimePicker&quot; class=&quot;control-label al-control-label &quot;
 			ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot; 
 			ng-class=&quot;{&amp;quot;required-label&amp;quot;:permissionData[$params.fieldNo].fillnecessary}&quot;>

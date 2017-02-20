@@ -961,6 +961,8 @@ page_afterDataSourceLoad:function(){
 			$model.in = 'f/wfbusinessformgenerate';
 		}
 		$scope.formentity = $model.formentity.result;
+		//全局 用来通信
+		$scope.formentity.global = {}
 	});
 
 
