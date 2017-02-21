@@ -93,12 +93,19 @@
       <form:control type="widget/date_time_range_picker">
         <form:attributes source="widget/date_time_range_picker">
           <dync:attribute default="6" group="基本设置" id="span" name="空间宽度" value="12">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="时间设置" id="startBind" name="开始时间数据绑定" value="search[$params.fieldNo].startTime">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="时间设置" id="endBind" name="结束时间数据绑定" value="search[$params.fieldNo].endTime">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="基本设置" id="lableWidth" name="文字宽度" value="90">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
