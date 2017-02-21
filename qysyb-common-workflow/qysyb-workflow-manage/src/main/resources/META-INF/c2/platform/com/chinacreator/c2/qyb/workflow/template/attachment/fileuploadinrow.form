@@ -26,7 +26,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="qybWorkflowService">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -38,7 +38,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -102,14 +102,27 @@ page_beforeDataSourceLoad:function($params){
 	}else if(!permission.writePermission){
 		$model.viewtype = &quot;view_view&quot;;
 	}
-//	$model.type = $params.pParams.params.serviceproduct.productNo
+	$model.type = $params.pParams.params.serviceproduct.productNo
 	$model.businessKey = $scope.formentity.id || $scope.formentity.projectId || $params.pParams.params.businessKey
 //	$model.businessKey1 = $params.pParams.params.businessKey;
 	$model.businessKey3 = $params.field.fieldNo
+	
+	qybWorkflowService.initC2FormParams($scope,$params)
+	qybWorkflowService.emitFormCheckFunc(this.check)	
+	//属性1为支持格式
+	$model.allow = ($params.field.remark1 == undefined || $params.field.remark1 == &quot;&quot;)?'[]':$params.field.remark1
+		
 	$model.page = 'f/qybdir_uploadfileinrow';		
+},
+
+page_onload:function(){
+
+},
+check:function(){
+	return true
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
-	&lt;div ng-include=$model.page  ng-init=&quot;$params={'field':$params.field,'businessType':$model.type,'businessKey':$model.businessKey,'businessKey1':$model.businessKey1,'businessKey2':$model.businessKey2,'businessKey3':$model.businessKey3,'viewtype':$model.viewtype}&quot;>&lt;/div>
+	&lt;div ng-include=$model.page  ng-init=&quot;$params={'allow':$model.allow,'field':$params.field,'businessType':$model.type,'businessKey':$model.businessKey,'businessKey1':$model.businessKey1,'businessKey2':$model.businessKey2,'businessKey3':$model.businessKey3,'viewtype':$model.viewtype}&quot;>&lt;/div>
 &lt;/script></form:htmls>
 </form:Form>
