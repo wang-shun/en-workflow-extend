@@ -108,6 +108,12 @@
             <dync:render colSpan="1" height="0" multi="false" name="text"/>
             <dync:children/>
           </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="endOnChange" name="结束时间改变" value="newField_endOnChange(date,oldDate)">
+            <dync:render colSpan="2" height="0" multi="false" name="event">
+              <dync:item name="params" value="date,oldDate"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
         </form:attributes>
       </form:control>
       <form:validation/>
@@ -116,4 +122,15 @@
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
   </form:datasources>
+  <form:scripts>
+
+newField_endOnChange:function(date,oldDate){
+	//选到一天最后的时刻
+	var hours = date.hours()
+	if(hours != &quot;23&quot;){
+		$scope.$apply(function(){
+			$scope.search[$params.fieldNo].endTime = $scope.search[$params.fieldNo].endTime + 86399999
+		})
+	}
+}</form:scripts>
 </form:Form>
