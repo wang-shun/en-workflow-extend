@@ -1062,15 +1062,27 @@ public class WorkProcess {
  					wf.getProcessInstanceId(), moduleId,wfTransition.getSrc(),
  					wfOperator.getUserId(),wfTransition.getDest(),paramsMap);
 //			taskService.complete(wf.getNextTaskId());
-			String nextTaskId = wf.getNextTaskId();
-			//业务模块自定义处理人
-			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
-					businessKey, wf.getProcessInstanceId(), moduleId,
-					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, 
-					wfOperator.getUserId(),paramsMap);
 
- 			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(),				
- 					processDefinitionId,null,wfTransition,moduleId,variables);
+			Object multiInstancePor = wfTransition.getDest().getPorperties()
+					.get("multiInstance");
+			if (multiInstancePor == null) {// 下一步是普通任务
+				String nextTaskId = wf.getNextTaskId();
+				//业务模块自定义处理人
+				Map<String, String> valuemap = formOperate.getTaskHandler(entity,
+						businessKey, wf.getProcessInstanceId(), moduleId,
+						wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, 
+						wfOperator.getUserId(),paramsMap);
+	 			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
+	 					processDefinitionId,wf.getProcessInstanceId(), wfTransition, moduleId, variables);
+			}else if (multiInstancePor != null
+					&& ((String) multiInstancePor).equals("parallel")) {// 下一步是并行会签
+				// 不要选择处理人
+
+			}else if(multiInstancePor != null
+					&& ((String) multiInstancePor).equals("sequential")){// 下一步是顺序会签
+				
+			}			
+			
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
 			informService.informDo(moduleId,mapentity);
