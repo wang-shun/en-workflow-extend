@@ -953,6 +953,11 @@ public class WorkProcess {
 		variables.put(WorkFlowService.HAPPENEDTIMEL,
  				String.valueOf(System.currentTimeMillis()));	
  		variables.put(WorkFlowService.STARTER, wfOperator.getUserId());
+ 		//会签人信息得先于流程流转设置进去
+ 		if(handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST) != null){
+ 	 		variables.put(WorkFlowService.TYPE_ASSIGNEELIST, 
+ 	 				handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST));			
+ 		} 		
 		try {
 			Map<String, Object> mapentity = JSONObject.parseObject(entity,
 					Map.class);
