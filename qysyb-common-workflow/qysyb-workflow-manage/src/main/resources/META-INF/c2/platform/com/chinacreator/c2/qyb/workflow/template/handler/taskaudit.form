@@ -564,8 +564,19 @@ selectSimple_change:function(transi){
 		$model.isParallel = true;
 	}else{
 		$model.isParallel = false;
-	}	
-	$http.get(&quot;ws/getactivitycandidates&quot;,{
+	}debugger
+	$http.get(&quot;ws/gethandlerfromcandidatewithfilter2&quot;,{
+		params:{
+			processDefinitionId:$model.pParams.processDefinitionId,
+			proInsId:$model.pParams.processInstanceId,
+			moduleId:$model.pParams.moduleId,
+			taskDefKey:$model.transition.destId,
+			filterType:undefined,  //这个参数应该要后台去获取 而不是前台从后台get后又传回给后台
+			curUserId:$scope.subject.id
+		}}).success(function(data){
+			debugger
+		})
+/*	$http.get(&quot;ws/getactivitycandidates&quot;,{
 		params:{
 			processDefinitionId:$model.pParams.processDefinitionId,
 			moduleId:$model.pParams.moduleId,
@@ -580,13 +591,10 @@ selectSimple_change:function(transi){
 					}}).success(function(data){
 						$model.candidates = data.result
 						$model.nextHandler = $model.candidates[0].userId;
-/*						var choosed = {}
-						choosed.id = $model.nextHandler
-						choosed.name = $model.candidates[0].userRealname
-						$model.choosed.push(choosed)*/
 						functions.selectSimple1_change()
 					});
-		});		
+		});	
+*/	
 },
 //提交
 button2_click:function($event){
