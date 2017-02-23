@@ -222,14 +222,6 @@
               <dync:render colSpan="1" height="0" multi="false" name="text"/>
               <dync:children/>
             </dync:attribute>
-            <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="userRealname">
-              <dync:render colSpan="1" height="0" multi="false" name="text"/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="userId">
-              <dync:render colSpan="1" height="0" multi="false" name="text"/>
-              <dync:children/>
-            </dync:attribute>
             <dync:attribute default="" group="事件设置" id="change" name="值变换事件" value="selectSimple1_change()">
               <dync:render colSpan="2" height="0" multi="false" name="event">
                 <dync:item name="params" value=""/>
@@ -564,7 +556,7 @@ selectSimple_change:function(transi){
 		$model.isParallel = true;
 	}else{
 		$model.isParallel = false;
-	}debugger
+	}
 	$http.get(&quot;ws/gethandlerfromcandidatewithfilter2&quot;,{
 		params:{
 			processDefinitionId:$model.pParams.processDefinitionId,
@@ -574,7 +566,9 @@ selectSimple_change:function(transi){
 			filterType:undefined,  //这个参数应该要后台去获取 而不是前台从后台get后又传回给后台
 			curUserId:$scope.subject.id
 		}}).success(function(data){
-			debugger
+			$model.candidates = data.result
+			$model.nextHandler = $model.candidates[0].id;
+			functions.selectSimple1_change()
 		})
 /*	$http.get(&quot;ws/getactivitycandidates&quot;,{
 		params:{
@@ -616,7 +610,7 @@ button2_click:function($event){
 		result.variables.assigneeList = candidateUsersStr;
 	}else{
 		result.variables.candidateUsers = candidateUsersStr;
-	}debugger
+	}
 //下一步普通任务 验证是否选人
 	if($model.freechoose &amp;&amp;　result.transition.dest.porperties.type !=&quot;endEvent&quot; 
 		&amp;&amp; &quot;&quot; == result.variables.candidateUsers &amp;&amp; result.variables.assigneeList == undefined){

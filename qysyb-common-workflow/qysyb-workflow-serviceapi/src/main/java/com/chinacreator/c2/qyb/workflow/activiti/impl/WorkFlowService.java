@@ -2680,12 +2680,17 @@ public class WorkFlowService {
 					}
 					break;
 				case "orgbossfilter":
-					ProcessInstance ins = runtimeService
-							.createProcessInstanceQuery()
-							.processInstanceId(proInsId)
-							.includeProcessVariables().singleResult();
-					Map vmap = ins.getProcessVariables();
-					String startId = (String) vmap.get(STARTER);
+					String startId = null;
+					if(proInsId == null || "".equals(proInsId)){
+						startId = curUserId;
+					}else{
+						ProcessInstance ins = runtimeService
+								.createProcessInstanceQuery()
+								.processInstanceId(proInsId)
+								.includeProcessVariables().singleResult();
+						Map vmap = ins.getProcessVariables();
+						startId = (String) vmap.get(STARTER);						
+					}
 					UserService userService = ApplicationContextManager
 							.getContext().getBean(UserService.class);
 					OrgDTO org = userService.queryMainOrg(startId);
