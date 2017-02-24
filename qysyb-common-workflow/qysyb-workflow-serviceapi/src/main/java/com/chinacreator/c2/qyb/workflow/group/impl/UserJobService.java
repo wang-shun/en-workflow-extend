@@ -10,6 +10,7 @@ import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
+import com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdGroup;
 import com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdMembership;
 import com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdUser;
 import com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdUserMapper;
@@ -44,7 +45,7 @@ public class UserJobService {
 	@Autowired
 	UserService userService;
 	/**
-	 * 
+	 * 获取组中与指定人相同机构的用户
 	 * @param jobId 需要过滤的岗位
 	 * @param curUserId  过滤条件
 	 * @return
@@ -69,5 +70,21 @@ public class UserJobService {
 			}
 		}
 		return result;
+	}
+	/**
+	 * 获取所有组
+	 * @return
+	 */
+	public List<ActIdGroup> getAllGroups(){
+		Dao<ActIdGroup> dao = DaoFactory.create(ActIdGroup.class);
+		List<ActIdGroup> list = dao.selectAll();
+		for(ActIdGroup actIdGroup:list){
+			if("org".equals(actIdGroup.getType())){
+				actIdGroup.setName("【机构】" + actIdGroup.getName());
+			}else if("job".equals(actIdGroup.getType())){
+				actIdGroup.setName("【岗位】" + actIdGroup.getName());
+			}
+		}
+		return list;
 	}
 }
