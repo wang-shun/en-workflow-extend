@@ -550,6 +550,7 @@ page_onload:function(){
 	$scope.operatefuncs = {}
 	$scope.operatefuncs.startFlow = functions.start_flow
 	$scope.operatefuncs.submit = functions.autoswitchcommit
+	$scope.operatefuncs.processmonitor = functions.newField2_click
 },
 //回退
 newField_click:function($event){
@@ -653,10 +654,6 @@ page_afterDataSourceLoad:function(){
 		$model.selectfuncs.push(msg);
 	});
 
-/*	$scope.$on('entity',function(event,msg){
-		$model.entity = msg.entity;
-		$scope.entity = msg.entity;
-	});	*/
 	//字段页面验证函数
 	$scope.$on('func',function(event,msg){
 		$model.func = msg;
