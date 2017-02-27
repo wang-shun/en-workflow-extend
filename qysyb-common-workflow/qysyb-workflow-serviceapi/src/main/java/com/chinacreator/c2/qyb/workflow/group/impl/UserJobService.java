@@ -28,9 +28,7 @@ public class UserJobService {
 	 * @return
 	 */
 	public List<UserDTO> getAllUserJob(String jobid){
-		Dao<Object> dao = DaoFactory.create(Object.class);
-		ActIdUserMapper mapper = dao.getSession().getMapper(ActIdUserMapper.class);
-		List<ActIdUser> list = mapper.getActIdUsersByGroup(jobid);
+		List<ActIdUser> list = this.getAllUserFromGroup(jobid);
 		List<UserDTO> result = new ArrayList<UserDTO>();
  		for(ActIdUser actIdUser:list){
  			UserDTO ud = new UserDTO();
@@ -42,6 +40,35 @@ public class UserJobService {
  		}		
 		return result;
 	}
+	
+	/**
+	 * 获取工作组用户
+	 * @param groupId
+	 * @return
+	 */	
+	public List<ActIdUser> getAllUserFromGroup(String groupId){
+		Dao<Object> dao = DaoFactory.create(Object.class);
+		ActIdUserMapper mapper = dao.getSession().getMapper(ActIdUserMapper.class);
+		List<ActIdUser> list = mapper.getActIdUsersByGroup(groupId);	
+		return list;
+	}
+	
+	/**
+	 * 判断用户是否在组中
+	 * @param userId
+	 * @param groupId
+	 * @return
+	 */
+	public boolean existInGroup(String userId,String groupId){
+		List<ActIdUser> list = this.getAllUserFromGroup(groupId);
+		for(ActIdUser actIdUser:list){
+			if(actIdUser.getId().equals(userId)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Autowired
 	UserService userService;
 	/**
