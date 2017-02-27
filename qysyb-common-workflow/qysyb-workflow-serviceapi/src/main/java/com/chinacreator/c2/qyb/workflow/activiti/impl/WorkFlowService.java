@@ -2595,7 +2595,7 @@ public class WorkFlowService {
 						map1.put("category", orgName);
 						result.add(map1);
 					}
-					return result;
+					continue;
 				}			
 				switch(filterType){
 				case "orgfilter":
@@ -2624,7 +2624,14 @@ public class WorkFlowService {
 				}
 
 			} else if (category.equals("user")) {
-
+				UserDTO user = userService.queryByPK(id);
+				Map map1 = new HashMap();
+				map1.put("id", user.getUserId());
+				map1.put("name", user.getUserRealname());
+				map1.put("type", "user");
+				map1.put("category", curOrgName);
+				result.add(map1);
+				continue;
 			}
 		}
 		return result;
@@ -2663,7 +2670,7 @@ public class WorkFlowService {
 						map1.put("category", orgName);
 						result.add(map1);
 					}
-					return result;
+					continue;
 				}			
 				switch (filterType) {
 				case "orgfilter":
@@ -2719,7 +2726,14 @@ public class WorkFlowService {
 				}
 
 			} else if (category.equals("user")) {
-
+				UserDTO user = userService.queryByPK(id);
+				Map map1 = new HashMap();
+				map1.put("id", user.getUserId());
+				map1.put("name", user.getUserRealname());
+				map1.put("type", "user");
+				map1.put("category", curOrgName);
+				result.add(map1);
+				continue;
 			}
 		}
 		return result;
