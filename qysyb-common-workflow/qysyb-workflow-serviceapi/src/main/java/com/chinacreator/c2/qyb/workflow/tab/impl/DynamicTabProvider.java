@@ -89,6 +89,24 @@ public class DynamicTabProvider {
 
 		return result;
 	}
+	
+	/**
+	 * 获取查看页面的tab标签页
+	 * @param moduleId
+	 * @param params
+	 * @param activityId
+	 * @return
+	 */
+	public List<TabDescriptionWithTabId> generateProductTabForView(String moduleId,Map params,String activityId){	
+		if(activityId == null){
+			WorkFlowService wfs = ApplicationContextManager.getContext().getBean(WorkFlowService.class);
+			activityId = wfs.getEndActivityByModuleId(moduleId).getId();
+			return generateProductTabForActivity(moduleId, params, activityId);
+		}else{
+			return null;
+		}
+	}
+	
 	/**
 	 * 获取查看页面的tab标签页
 	 * @param productId

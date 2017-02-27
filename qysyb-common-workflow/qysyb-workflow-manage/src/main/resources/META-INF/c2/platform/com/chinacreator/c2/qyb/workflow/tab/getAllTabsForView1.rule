@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getalltabsforview1" log="false" className="com.chinacreator.c2.qyb.workflow.tab.impl.DynamicTabProvider" method="generateProductTabForView">
+  <name>获取事项查看页面的tabs1</name>
+  <desc>获取查看页面的tab标签页</desc>
+  <inputs>
+    <input collection="false" desc="" id="moduleId" required="true" type="String"/>
+    <input collection="false" desc="" id="params" required="false" type="java.util.Map"/>
+    <input collection="false" desc="" id="activityId" required="false" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.List"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.moduleId" name="moduleId" signature="QString;" type="String"/>
+    <param autoValue="Input.params" name="params" signature="QMap;" type="java.util.Map"/>
+    <param autoValue="Input.activityId" name="activityId" signature="QString;" type="String"/>
+  </params>
+  <return signature="QList&lt;QTabDescriptionWithTabId;>;" type="java.util.List"/>
+</CustomRule>
