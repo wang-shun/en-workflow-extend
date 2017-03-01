@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.read.entity.ProcInsReadRecordMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  SERVICE_PROC_READING.id ,
+		  SERVICE_PROC_READING.send_user_id ,
+		  SERVICE_PROC_READING.send_user_name ,
+		  SERVICE_PROC_READING.receive_user_id ,
+		  SERVICE_PROC_READING.receive_user_name ,
+		  SERVICE_PROC_READING.receive_org_id ,
+		  SERVICE_PROC_READING.receive_org_name ,
+		  SERVICE_PROC_READING.proc_inst_id ,
+		  SERVICE_PROC_READING.business_key ,
+		  SERVICE_PROC_READING.read_status ,
+		  SERVICE_PROC_READING.sign_status ,
+		  SERVICE_PROC_READING.receipt_status ,
+		  SERVICE_PROC_READING.read_time ,
+		  SERVICE_PROC_READING.sign_time ,
+		  SERVICE_PROC_READING.receipt_time ,
+		  SERVICE_PROC_READING.remark1 ,
+		  SERVICE_PROC_READING.remark2 ,
+		  SERVICE_PROC_READING.remark3 ,
+		  SERVICE_PROC_READING.remark4 ,
+		  SERVICE_PROC_READING.remark5 ,
+		  SERVICE_PROC_READING.send_activity_id ,
+		  SERVICE_PROC_READING.send_activity_name ,
+		  SERVICE_PROC_READING.send_module_id ,
+		  SERVICE_PROC_READING.send_module_name 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="id != null">and SERVICE_PROC_READING.id = #{id}</if>
+	    <if test="sendUserId != null">and SERVICE_PROC_READING.send_user_id = #{sendUserId}</if>
+	    <if test="sendUserName != null">and SERVICE_PROC_READING.send_user_name = #{sendUserName}</if>
+	    <if test="receiveUserId != null">and SERVICE_PROC_READING.receive_user_id = #{receiveUserId}</if>
+	    <if test="receiveUserName != null">and SERVICE_PROC_READING.receive_user_name = #{receiveUserName}</if>
+	    <if test="receiveOrgId != null">and SERVICE_PROC_READING.receive_org_id = #{receiveOrgId}</if>
+	    <if test="receiveOrgName != null">and SERVICE_PROC_READING.receive_org_name = #{receiveOrgName}</if>
+	    <if test="procInstId != null">and SERVICE_PROC_READING.proc_inst_id = #{procInstId}</if>
+	    <if test="businessKey != null">and SERVICE_PROC_READING.business_key = #{businessKey}</if>
+	    <if test="readStatus != null">and SERVICE_PROC_READING.read_status = #{readStatus}</if>
+	    <if test="signStatus != null">and SERVICE_PROC_READING.sign_status = #{signStatus}</if>
+	    <if test="receiptStatus != null">and SERVICE_PROC_READING.receipt_status = #{receiptStatus}</if>
+	    <if test="readTime != null">and SERVICE_PROC_READING.read_time = #{readTime}</if>
+	    <if test="signTime != null">and SERVICE_PROC_READING.sign_time = #{signTime}</if>
+	    <if test="receiptTime != null">and SERVICE_PROC_READING.receipt_time = #{receiptTime}</if>
+	    <if test="remark1 != null">and SERVICE_PROC_READING.remark1 = #{remark1}</if>
+	    <if test="remark2 != null">and SERVICE_PROC_READING.remark2 = #{remark2}</if>
+	    <if test="remark3 != null">and SERVICE_PROC_READING.remark3 = #{remark3}</if>
+	    <if test="remark4 != null">and SERVICE_PROC_READING.remark4 = #{remark4}</if>
+	    <if test="remark5 != null">and SERVICE_PROC_READING.remark5 = #{remark5}</if>
+	    <if test="sendActivityId != null">and SERVICE_PROC_READING.send_activity_id = #{sendActivityId}</if>
+	    <if test="sendActivityName != null">and SERVICE_PROC_READING.send_activity_name = #{sendActivityName}</if>
+	    <if test="sendModuleId != null">and SERVICE_PROC_READING.send_module_id = #{sendModuleId}</if>
+	    <if test="sendModuleName != null">and SERVICE_PROC_READING.send_module_name = #{sendModuleName}</if>
+</sql>
+
+
+<!-- ElementID:ProcInsReadRecordResult,Generated=true -->
+<resultMap id="ProcInsReadRecordResult" type="com.chinacreator.c2.qyb.workflow.read.entity.ProcInsReadRecord">
+	<id property="id" column="id"/>
+	<result property="sendUserId" column="send_user_id"/>
+	<result property="sendUserName" column="send_user_name"/>
+	<result property="receiveUserId" column="receive_user_id"/>
+	<result property="receiveUserName" column="receive_user_name"/>
+	<result property="receiveOrgId" column="receive_org_id"/>
+	<result property="receiveOrgName" column="receive_org_name"/>
+	<result property="procInstId" column="proc_inst_id"/>
+	<result property="businessKey" column="business_key"/>
+	<result property="readStatus" column="read_status"/>
+	<result property="signStatus" column="sign_status"/>
+	<result property="receiptStatus" column="receipt_status"/>
+	<result property="readTime" column="read_time"/>
+	<result property="signTime" column="sign_time"/>
+	<result property="receiptTime" column="receipt_time"/>
+	<result property="remark1" column="remark1"/>
+	<result property="remark2" column="remark2"/>
+	<result property="remark3" column="remark3"/>
+	<result property="remark4" column="remark4"/>
+	<result property="remark5" column="remark5"/>
+	<result property="sendActivityId" column="send_activity_id"/>
+	<result property="sendActivityName" column="send_activity_name"/>
+	<result property="sendModuleId" column="send_module_id"/>
+	<result property="sendModuleName" column="send_module_name"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache type="C2_Default_Dao_Cache"/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.read.entity.ProcInsReadRecord">
+	insert into SERVICE_PROC_READING(
+	         <if test="id != null">id</if>
+	         <if test="sendUserId != null">,send_user_id</if>
+	         <if test="sendUserName != null">,send_user_name</if>
+	         <if test="receiveUserId != null">,receive_user_id</if>
+	         <if test="receiveUserName != null">,receive_user_name</if>
+	         <if test="receiveOrgId != null">,receive_org_id</if>
+	         <if test="receiveOrgName != null">,receive_org_name</if>
+	         <if test="procInstId != null">,proc_inst_id</if>
+	         <if test="businessKey != null">,business_key</if>
+	         <if test="readStatus != null">,read_status</if>
+	         <if test="signStatus != null">,sign_status</if>
+	         <if test="receiptStatus != null">,receipt_status</if>
+	         <if test="readTime != null">,read_time</if>
+	         <if test="signTime != null">,sign_time</if>
+	         <if test="receiptTime != null">,receipt_time</if>
+	         <if test="remark1 != null">,remark1</if>
+	         <if test="remark2 != null">,remark2</if>
+	         <if test="remark3 != null">,remark3</if>
+	         <if test="remark4 != null">,remark4</if>
+	         <if test="remark5 != null">,remark5</if>
+	         <if test="sendActivityId != null">,send_activity_id</if>
+	         <if test="sendActivityName != null">,send_activity_name</if>
+	         <if test="sendModuleId != null">,send_module_id</if>
+	         <if test="sendModuleName != null">,send_module_name</if>
+	 	 	 )
+	 values (
+	         <if test="id != null">#{id,jdbcType=VARCHAR}</if>
+	         <if test="sendUserId != null">,#{sendUserId,jdbcType=VARCHAR}</if>
+	         <if test="sendUserName != null">,#{sendUserName,jdbcType=VARCHAR}</if>
+	         <if test="receiveUserId != null">,#{receiveUserId,jdbcType=VARCHAR}</if>
+	         <if test="receiveUserName != null">,#{receiveUserName,jdbcType=VARCHAR}</if>
+	         <if test="receiveOrgId != null">,#{receiveOrgId,jdbcType=VARCHAR}</if>
+	         <if test="receiveOrgName != null">,#{receiveOrgName,jdbcType=VARCHAR}</if>
+	         <if test="procInstId != null">,#{procInstId,jdbcType=VARCHAR}</if>
+	         <if test="businessKey != null">,#{businessKey,jdbcType=VARCHAR}</if>
+	         <if test="readStatus != null">,#{readStatus,jdbcType=NUMERIC}</if>
+	         <if test="signStatus != null">,#{signStatus,jdbcType=NUMERIC}</if>
+	         <if test="receiptStatus != null">,#{receiptStatus,jdbcType=NUMERIC}</if>
+	         <if test="readTime != null">,#{readTime,jdbcType=NUMERIC}</if>
+	         <if test="signTime != null">,#{signTime,jdbcType=NUMERIC}</if>
+	         <if test="receiptTime != null">,#{receiptTime,jdbcType=NUMERIC}</if>
+	         <if test="remark1 != null">,#{remark1,jdbcType=VARCHAR}</if>
+	         <if test="remark2 != null">,#{remark2,jdbcType=VARCHAR}</if>
+	         <if test="remark3 != null">,#{remark3,jdbcType=VARCHAR}</if>
+	         <if test="remark4 != null">,#{remark4,jdbcType=VARCHAR}</if>
+	         <if test="remark5 != null">,#{remark5,jdbcType=VARCHAR}</if>
+	         <if test="sendActivityId != null">,#{sendActivityId,jdbcType=VARCHAR}</if>
+	         <if test="sendActivityName != null">,#{sendActivityName,jdbcType=VARCHAR}</if>
+	         <if test="sendModuleId != null">,#{sendModuleId,jdbcType=VARCHAR}</if>
+	         <if test="sendModuleName != null">,#{sendModuleName,jdbcType=VARCHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.read.entity.ProcInsReadRecord" resultType="int">
+	select count(*) from SERVICE_PROC_READING 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.read.entity.ProcInsReadRecord">
+	update SERVICE_PROC_READING
+<set>
+	<if test="sendUserId != null">send_user_id=#{sendUserId,jdbcType=VARCHAR},</if>
+	<if test="sendUserName != null">send_user_name=#{sendUserName,jdbcType=VARCHAR},</if>
+	<if test="receiveUserId != null">receive_user_id=#{receiveUserId,jdbcType=VARCHAR},</if>
+	<if test="receiveUserName != null">receive_user_name=#{receiveUserName,jdbcType=VARCHAR},</if>
+	<if test="receiveOrgId != null">receive_org_id=#{receiveOrgId,jdbcType=VARCHAR},</if>
+	<if test="receiveOrgName != null">receive_org_name=#{receiveOrgName,jdbcType=VARCHAR},</if>
+	<if test="procInstId != null">proc_inst_id=#{procInstId,jdbcType=VARCHAR},</if>
+	<if test="businessKey != null">business_key=#{businessKey,jdbcType=VARCHAR},</if>
+	<if test="readStatus != null">read_status=#{readStatus,jdbcType=NUMERIC},</if>
+	<if test="signStatus != null">sign_status=#{signStatus,jdbcType=NUMERIC},</if>
+	<if test="receiptStatus != null">receipt_status=#{receiptStatus,jdbcType=NUMERIC},</if>
+	<if test="readTime != null">read_time=#{readTime,jdbcType=NUMERIC},</if>
+	<if test="signTime != null">sign_time=#{signTime,jdbcType=NUMERIC},</if>
+	<if test="receiptTime != null">receipt_time=#{receiptTime,jdbcType=NUMERIC},</if>
+	<if test="remark1 != null">remark1=#{remark1,jdbcType=VARCHAR},</if>
+	<if test="remark2 != null">remark2=#{remark2,jdbcType=VARCHAR},</if>
+	<if test="remark3 != null">remark3=#{remark3,jdbcType=VARCHAR},</if>
+	<if test="remark4 != null">remark4=#{remark4,jdbcType=VARCHAR},</if>
+	<if test="remark5 != null">remark5=#{remark5,jdbcType=VARCHAR},</if>
+	<if test="sendActivityId != null">send_activity_id=#{sendActivityId,jdbcType=VARCHAR},</if>
+	<if test="sendActivityName != null">send_activity_name=#{sendActivityName,jdbcType=VARCHAR},</if>
+	<if test="sendModuleId != null">send_module_id=#{sendModuleId,jdbcType=VARCHAR},</if>
+	<if test="sendModuleName != null">send_module_name=#{sendModuleName,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="id != null">and id = #{id}</when>
+        <otherwise>and id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update SERVICE_PROC_READING
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="sendUserId==null">send_user_id = null,</if>
+		    <if test="sendUserName==null">send_user_name = null,</if>
+		    <if test="receiveUserId==null">receive_user_id = null,</if>
+		    <if test="receiveUserName==null">receive_user_name = null,</if>
+		    <if test="receiveOrgId==null">receive_org_id = null,</if>
+		    <if test="receiveOrgName==null">receive_org_name = null,</if>
+		    <if test="procInstId==null">proc_inst_id = null,</if>
+		    <if test="businessKey==null">business_key = null,</if>
+		    <if test="readStatus==null">read_status = null,</if>
+		    <if test="signStatus==null">sign_status = null,</if>
+		    <if test="receiptStatus==null">receipt_status = null,</if>
+		    <if test="readTime==null">read_time = null,</if>
+		    <if test="signTime==null">sign_time = null,</if>
+		    <if test="receiptTime==null">receipt_time = null,</if>
+		    <if test="remark1==null">remark1 = null,</if>
+		    <if test="remark2==null">remark2 = null,</if>
+		    <if test="remark3==null">remark3 = null,</if>
+		    <if test="remark4==null">remark4 = null,</if>
+		    <if test="remark5==null">remark5 = null,</if>
+		    <if test="sendActivityId==null">send_activity_id = null,</if>
+		    <if test="sendActivityName==null">send_activity_name = null,</if>
+		    <if test="sendModuleId==null">send_module_id = null,</if>
+		    <if test="sendModuleName==null">send_module_name = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="id != null">and id = #{id}</when>
+			<otherwise>and id = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.read.entity.ProcInsReadRecord">
+    delete from SERVICE_PROC_READING where 1=1 and id = #{id}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.read.entity.ProcInsReadRecord" resultMap="ProcInsReadRecordResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_PROC_READING 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into SERVICE_PROC_READING (id,send_user_id,send_user_name,receive_user_id,receive_user_name,receive_org_id,receive_org_name,proc_inst_id,business_key,read_status,sign_status,receipt_status,read_time,sign_time,receipt_time,remark1,remark2,remark3,remark4,remark5,send_activity_id,send_activity_name,send_module_id,send_module_name) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.id,jdbcType = VARCHAR},
+				#{entity.sendUserId,jdbcType = VARCHAR},
+				#{entity.sendUserName,jdbcType = VARCHAR},
+				#{entity.receiveUserId,jdbcType = VARCHAR},
+				#{entity.receiveUserName,jdbcType = VARCHAR},
+				#{entity.receiveOrgId,jdbcType = VARCHAR},
+				#{entity.receiveOrgName,jdbcType = VARCHAR},
+				#{entity.procInstId,jdbcType = VARCHAR},
+				#{entity.businessKey,jdbcType = VARCHAR},
+				#{entity.readStatus,jdbcType = NUMERIC},
+				#{entity.signStatus,jdbcType = NUMERIC},
+				#{entity.receiptStatus,jdbcType = NUMERIC},
+				#{entity.readTime,jdbcType = NUMERIC},
+				#{entity.signTime,jdbcType = NUMERIC},
+				#{entity.receiptTime,jdbcType = NUMERIC},
+				#{entity.remark1,jdbcType = VARCHAR},
+				#{entity.remark2,jdbcType = VARCHAR},
+				#{entity.remark3,jdbcType = VARCHAR},
+				#{entity.remark4,jdbcType = VARCHAR},
+				#{entity.remark5,jdbcType = VARCHAR},
+				#{entity.sendActivityId,jdbcType = VARCHAR},
+				#{entity.sendActivityName,jdbcType = VARCHAR},
+				#{entity.sendModuleId,jdbcType = VARCHAR},
+				#{entity.sendModuleName,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from SERVICE_PROC_READING where id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.id}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update SERVICE_PROC_READING
+	<set>
+	<if test="entity.sendUserId != null">send_user_id= #{entity.sendUserId,jdbcType=VARCHAR},</if>
+	<if test="entity.sendUserName != null">send_user_name= #{entity.sendUserName,jdbcType=VARCHAR},</if>
+	<if test="entity.receiveUserId != null">receive_user_id= #{entity.receiveUserId,jdbcType=VARCHAR},</if>
+	<if test="entity.receiveUserName != null">receive_user_name= #{entity.receiveUserName,jdbcType=VARCHAR},</if>
+	<if test="entity.receiveOrgId != null">receive_org_id= #{entity.receiveOrgId,jdbcType=VARCHAR},</if>
+	<if test="entity.receiveOrgName != null">receive_org_name= #{entity.receiveOrgName,jdbcType=VARCHAR},</if>
+	<if test="entity.procInstId != null">proc_inst_id= #{entity.procInstId,jdbcType=VARCHAR},</if>
+	<if test="entity.businessKey != null">business_key= #{entity.businessKey,jdbcType=VARCHAR},</if>
+	<if test="entity.readStatus != null">read_status= #{entity.readStatus,jdbcType=NUMERIC},</if>
+	<if test="entity.signStatus != null">sign_status= #{entity.signStatus,jdbcType=NUMERIC},</if>
+	<if test="entity.receiptStatus != null">receipt_status= #{entity.receiptStatus,jdbcType=NUMERIC},</if>
+	<if test="entity.readTime != null">read_time= #{entity.readTime,jdbcType=NUMERIC},</if>
+	<if test="entity.signTime != null">sign_time= #{entity.signTime,jdbcType=NUMERIC},</if>
+	<if test="entity.receiptTime != null">receipt_time= #{entity.receiptTime,jdbcType=NUMERIC},</if>
+	<if test="entity.remark1 != null">remark1= #{entity.remark1,jdbcType=VARCHAR},</if>
+	<if test="entity.remark2 != null">remark2= #{entity.remark2,jdbcType=VARCHAR},</if>
+	<if test="entity.remark3 != null">remark3= #{entity.remark3,jdbcType=VARCHAR},</if>
+	<if test="entity.remark4 != null">remark4= #{entity.remark4,jdbcType=VARCHAR},</if>
+	<if test="entity.remark5 != null">remark5= #{entity.remark5,jdbcType=VARCHAR},</if>
+	<if test="entity.sendActivityId != null">send_activity_id= #{entity.sendActivityId,jdbcType=VARCHAR},</if>
+	<if test="entity.sendActivityName != null">send_activity_name= #{entity.sendActivityName,jdbcType=VARCHAR},</if>
+	<if test="entity.sendModuleId != null">send_module_id= #{entity.sendModuleId,jdbcType=VARCHAR},</if>
+	<if test="entity.sendModuleName != null">send_module_name= #{entity.sendModuleName,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.id != null">and id = #{entity.id}</when>
+				<otherwise>and id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="ProcInsReadRecordResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_PROC_READING 
+</select>
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="ProcInsReadRecordResult">
+select 
+	<include refid="column_sql"/> 
+	from SERVICE_PROC_READING 
+	where SERVICE_PROC_READING.id in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		SERVICE_PROC_READING.id
+	    from SERVICE_PROC_READING 
+		 <where>
+	        <if test="entity.id != null">and SERVICE_PROC_READING.id = #{entity.id}</if>
+	        <if test="entity.sendUserId != null">and SERVICE_PROC_READING.send_user_id = #{entity.sendUserId}</if>
+	        <if test="entity.sendUserName != null">and SERVICE_PROC_READING.send_user_name = #{entity.sendUserName}</if>
+	        <if test="entity.receiveUserId != null">and SERVICE_PROC_READING.receive_user_id = #{entity.receiveUserId}</if>
+	        <if test="entity.receiveUserName != null">and SERVICE_PROC_READING.receive_user_name = #{entity.receiveUserName}</if>
+	        <if test="entity.receiveOrgId != null">and SERVICE_PROC_READING.receive_org_id = #{entity.receiveOrgId}</if>
+	        <if test="entity.receiveOrgName != null">and SERVICE_PROC_READING.receive_org_name = #{entity.receiveOrgName}</if>
+	        <if test="entity.procInstId != null">and SERVICE_PROC_READING.proc_inst_id = #{entity.procInstId}</if>
+	        <if test="entity.businessKey != null">and SERVICE_PROC_READING.business_key = #{entity.businessKey}</if>
+	        <if test="entity.readStatus != null">and SERVICE_PROC_READING.read_status = #{entity.readStatus}</if>
+	        <if test="entity.signStatus != null">and SERVICE_PROC_READING.sign_status = #{entity.signStatus}</if>
+	        <if test="entity.receiptStatus != null">and SERVICE_PROC_READING.receipt_status = #{entity.receiptStatus}</if>
+	        <if test="entity.readTime != null">and SERVICE_PROC_READING.read_time = #{entity.readTime}</if>
+	        <if test="entity.signTime != null">and SERVICE_PROC_READING.sign_time = #{entity.signTime}</if>
+	        <if test="entity.receiptTime != null">and SERVICE_PROC_READING.receipt_time = #{entity.receiptTime}</if>
+	        <if test="entity.remark1 != null">and SERVICE_PROC_READING.remark1 = #{entity.remark1}</if>
+	        <if test="entity.remark2 != null">and SERVICE_PROC_READING.remark2 = #{entity.remark2}</if>
+	        <if test="entity.remark3 != null">and SERVICE_PROC_READING.remark3 = #{entity.remark3}</if>
+	        <if test="entity.remark4 != null">and SERVICE_PROC_READING.remark4 = #{entity.remark4}</if>
+	        <if test="entity.remark5 != null">and SERVICE_PROC_READING.remark5 = #{entity.remark5}</if>
+	        <if test="entity.sendActivityId != null">and SERVICE_PROC_READING.send_activity_id = #{entity.sendActivityId}</if>
+	        <if test="entity.sendActivityName != null">and SERVICE_PROC_READING.send_activity_name = #{entity.sendActivityName}</if>
+	        <if test="entity.sendModuleId != null">and SERVICE_PROC_READING.send_module_id = #{entity.sendModuleId}</if>
+	        <if test="entity.sendModuleName != null">and SERVICE_PROC_READING.send_module_name = #{entity.sendModuleName}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="ProcInsReadRecordResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_PROC_READING 
+		 where SERVICE_PROC_READING.id = #{id,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.read.entity.ProcInsReadRecord" resultMap="ProcInsReadRecordResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_PROC_READING 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:selectByPage,Generated=false -->
+<select id="getMyPages" resultType="map">
+		SELECT
+			*
+		FROM
+			SERVICE_PROC_READING 
+		LEFT JOIN WF_UNION_TODO on SERVICE_PROC_READING.PROC_INST_ID = WF_UNION_TODO.BUSINESS_KEY
+		 <where>
+			<include refid="mywhereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:whereClause_sql,Generated=false -->
+<sql id="mywhereClause_sql">
+	    <if test="id != null">and SERVICE_PROC_READING.id = #{id}</if>
+	    <if test="sendUserId != null">and SERVICE_PROC_READING.send_user_id = #{sendUserId}</if>
+	    <if test="sendUserName != null">and SERVICE_PROC_READING.send_user_name = #{sendUserName}</if>
+	    <if test="receiveUserId != null">and SERVICE_PROC_READING.receive_user_id = #{receiveUserId}</if>
+	    <if test="receiveUserName != null">and SERVICE_PROC_READING.receive_user_name = #{receiveUserName}</if>
+	    <if test="receiveOrgId != null">and SERVICE_PROC_READING.receive_org_id = #{receiveOrgId}</if>
+	    <if test="receiveOrgName != null">and SERVICE_PROC_READING.receive_org_name = #{receiveOrgName}</if>
+	    <if test="procInstId != null">and SERVICE_PROC_READING.proc_inst_id = #{procInstId}</if>
+	    <if test="businessKey != null">and SERVICE_PROC_READING.business_key = #{businessKey}</if>
+	    <if test="readStatus != null">and SERVICE_PROC_READING.read_status = #{readStatus}</if>
+	    <if test="signStatus != null">and SERVICE_PROC_READING.sign_status = #{signStatus}</if>
+	    <if test="receiptStatus != null">and SERVICE_PROC_READING.receipt_status = #{receiptStatus}</if>
+	    <if test="readTime != null">and SERVICE_PROC_READING.read_time = #{readTime}</if>
+	    <if test="signTime != null">and SERVICE_PROC_READING.sign_time = #{signTime}</if>
+	    <if test="receiptTime != null">and SERVICE_PROC_READING.receipt_time = #{receiptTime}</if>
+	    <if test="remark1 != null">and SERVICE_PROC_READING.remark1 = #{remark1}</if>
+	    <if test="remark2 != null">and SERVICE_PROC_READING.remark2 = #{remark2}</if>
+	    <if test="remark3 != null">and SERVICE_PROC_READING.remark3 = #{remark3}</if>
+	    <if test="remark4 != null">and SERVICE_PROC_READING.remark4 = #{remark4}</if>
+	    <if test="remark5 != null">and SERVICE_PROC_READING.remark5 = #{remark5}</if>
+	    <if test="sendActivityId != null">and SERVICE_PROC_READING.send_activity_id = #{sendActivityId}</if>
+	    <if test="sendActivityName != null">and SERVICE_PROC_READING.send_activity_name = #{sendActivityName}</if>
+	    <if test="sendModuleId != null">and SERVICE_PROC_READING.send_module_id = #{sendModuleId}</if>
+	    <if test="sendModuleName != null">and SERVICE_PROC_READING.send_module_name like CONCAT(CONCAT('%',#{sendModuleName}),'%')</if>
+	    <if test="title != null">and WF_UNION_TODO.title like CONCAT(CONCAT('%',#{title}),'%')</if>
+</sql>
+
+</mapper>

@@ -61,6 +61,7 @@ import com.chinacreator.c2.qyb.workflow.group.impl.UserJobService;
 import com.chinacreator.c2.qyb.workflow.inform.impl.InformService;
 import com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct;
 import com.chinacreator.c2.qyb.workflow.module.impl.ServiceProductService;
+import com.chinacreator.c2.qyb.workflow.read.impl.ProcInstReadService;
 import com.chinacreator.c2.qyb.workflow.sla.entity.ServiceAgreement;
 import com.chinacreator.c2.qyb.workflow.sla.impl.ServiceAgreementService;
 import com.chinacreator.c2.web.controller.ResponseFactory;
@@ -804,6 +805,12 @@ public class WorkProcess {
 			variables.put(WorkFlowService.ACCEPTTIMEL,
 					String.valueOf(System.currentTimeMillis()));
 		}
+		//传阅到人处理
+		if(entitymap.get(ProcInstReadService.SENDUSER_READ_KEY) != null){
+			ProcInstReadService procInstReadService = ApplicationContextManager.getContext().getBean(ProcInstReadService.class);
+			procInstReadService.saveUserRecord(wfOperator.getUserId(), bussinessKey, proInsId, moduleId, wfTransition.getSrc(), entitymap);
+		}
+		
 		// 业务模块流程变量设置
 		Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(
 				entity, bussinessKey, null, moduleId, variables,

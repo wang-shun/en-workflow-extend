@@ -408,72 +408,19 @@
       </form:child>
     </form:child>
   </form:child>
-  <form:child xsi:type="form:Group" id="toolbar" name="普通工具条">
-    <form:control type="container/toolbar">
-      <form:attributes source="container/toolbar"/>
+  <form:child xsi:type="form:Group" id="wfinlinehandlertoolbar" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="wfinlinehandlertoolbar_html">
+          <dync:render colSpan="2" height="0" multi="false" name="html"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
     </form:control>
-    <form:child xsi:type="form:Field" id="button" name="提交流程" customize="true">
-      <form:control type="widget/button">
-        <form:attributes source="widget/button">
-          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="button_click($event)">
-            <dync:render colSpan="1" height="0" multi="false" name="event">
-              <dync:item name="params" value="$event"/>
-            </dync:render>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.isStart &amp;&amp; !$model.isviewpage">
-            <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-      <form:validation/>
-    </form:child>
-    <form:child xsi:type="form:Field" id="button2" name="提交" customize="true">
-      <form:control type="widget/button">
-        <form:attributes source="widget/button">
-          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="button2_click($event)">
-            <dync:render colSpan="1" height="0" multi="false" name="event">
-              <dync:item name="params" value="$event"/>
-            </dync:render>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="!$model.isStart &amp;&amp; !$model.isviewpage">
-            <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-      <form:validation/>
-    </form:child>
-    <form:child xsi:type="form:Field" id="button1" name="保存" customize="true">
-      <form:control type="widget/button">
-        <form:attributes source="widget/button">
-          <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.isStart &amp;&amp; !$model.isviewpage">
-            <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-      <form:validation/>
-    </form:child>
-    <form:child xsi:type="form:Field" id="button3" name="流程监控" customize="true">
-      <form:control type="widget/button">
-        <form:attributes source="widget/button">
-          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="button3_click($event)">
-            <dync:render colSpan="1" height="0" multi="false" name="event">
-              <dync:item name="params" value="$event"/>
-            </dync:render>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="!$model.isStart">
-            <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-      <form:validation/>
-    </form:child>
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
@@ -681,6 +628,42 @@ button3_click:function($event){
 &lt;script type=&quot;text/ng-template&quot; id=&quot;wftaskhandleheader_html&quot;>
 &lt;div class=&quot;page-header col-sm-12&quot; style=&quot;margin-top:0px;margin-right: 0px; margin-bottom: 0px;margin-left: 0px;&quot;>
   &lt;h1>审核信息&lt;/h1>
+&lt;/div>
+&lt;/script>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;wfinlinehandlertoolbar_html&quot;>
+&lt;div class=&quot;col-sm-12 form-actions compact-form-acitons clearfix&quot;>
+    &lt;div class=&quot;center&quot;>
+        &lt;button c2-button=&quot;&quot; id=&quot;button&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-sm no-border ng-hide&quot; 
+            ng-init=&quot;$state.button.disabled = false;$state.button.visible=$model.isStart &amp;amp;&amp;amp; !$model.isviewpage&quot;
+            ng-show=&quot;$state.button.visible&quot; ng-disabled=&quot;$state.button.disabled&quot; show-default=&quot;$model.isStart &amp;amp;&amp;amp; !$model.isviewpage&quot;
+            disabled-default=&quot;false&quot; ng-click=&quot;functions.button_click($event)&quot;>
+		提交流程
+        &lt;/button>
+        &lt;button c2-button=&quot;&quot; id=&quot;button2&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-sm no-border&quot; 
+            ng-init=&quot;$state.button2.disabled = false;$state.button2.visible=!$model.isStart &amp;amp;&amp;amp; !$model.isviewpage&quot;
+            ng-show=&quot;$state.button2.visible&quot; ng-disabled=&quot;$state.button2.disabled&quot; show-default=&quot;!$model.isStart &amp;amp;&amp;amp; !$model.isviewpage&quot;
+            disabled-default=&quot;false&quot; ng-click=&quot;functions.button2_click($event)&quot;>
+		提交
+        &lt;/button>
+        &lt;button c2-button=&quot;&quot; id=&quot;button1&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-sm no-border ng-hide&quot; 
+            ng-init=&quot;$state.button1.disabled = false;$state.button1.visible=$model.isStart &amp;amp;&amp;amp; !$model.isviewpage&quot;
+            ng-show=&quot;$state.button1.visible&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;$model.isStart &amp;amp;&amp;amp; !$model.isviewpage&quot;
+            disabled-default=&quot;false&quot;>
+		保存
+        &lt;/button>
+        &lt;button c2-button=&quot;&quot; id=&quot;button3&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-sm no-border&quot; 
+            ng-init=&quot;$state.button3.disabled = false;$state.button3.visible=!$model.isStart&quot;
+            ng-show=&quot;$state.button3.visible&quot; ng-disabled=&quot;$state.button3.disabled&quot; show-default=&quot;!$model.isStart&quot; disabled-default=&quot;false&quot;
+            ng-click=&quot;functions.button3_click($event)&quot;>
+		流程监控
+        &lt;/button>
+
+        &lt;button c2-button=&quot;&quot; ng-repeat=&quot;button in formentity.global.buttons&quot; id=&quot;{{button.id}}&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-sm no-border&quot; 
+            ng-show=&quot;!button.hide&quot; ng-disabled=&quot;button.disabled&quot; 
+            disabled-default=&quot;false&quot; ng-click=&quot;button.click()&quot;>
+                 {{button.name}}
+        &lt;/button>
+    &lt;/div>
 &lt;/div>
 &lt;/script></form:htmls>
 </form:Form>

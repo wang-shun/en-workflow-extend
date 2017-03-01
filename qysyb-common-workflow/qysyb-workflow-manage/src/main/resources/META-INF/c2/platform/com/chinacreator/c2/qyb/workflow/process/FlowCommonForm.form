@@ -422,6 +422,7 @@ commit:function($event){
 		functions.newField5_click($event);
 		return;		
 	}
+	//没有集成那个处理模板
 	if(!$scope.formentity.global.handleinline 
 			&amp;&amp; $model.actions.freechoose != undefined
 			&amp;&amp; $model.actions.freechoose != &quot;&quot;){
@@ -468,7 +469,7 @@ commit:function($event){
 			assigneeList:$model.assigneeList,
 			wfComment:$model.opinion
 		}	
-	}else{
+	}else{  //集成处理页面模板了 一些参数用模板设置到全局中的值
 		$model.variables = $scope.formentity.global.handleinline.variables
 		$model.transition = $scope.formentity.global.handleinline.transition
 		$model.transitionId = $model.transition.id
@@ -536,7 +537,7 @@ newField5_click:function($event){
 		}
 	});		
 },
-
+//流程监控
 newField2_click:function($event){
 	var paramsjson = {
 		processInstanceId:$params.params.processInstanceId,
@@ -707,11 +708,8 @@ page_afterDataSourceLoad:function(){
  		
 		$scope.formentity = {};
 		$scope.formentity = resps[1].data.result;
-		//全局 用来通信
-		$scope.formentity.global = {}
-		//默认积极意见 让流程可以流转
-		$scope.formentity.global.oppositive = true
-		
+		//初始化全局的用来交换信息的变量
+		functions.initGlobalParam()
 //		console.log($scope.formentity.result);
 		//取得地址栏中的参数 赋值地址栏参数到实体
 		for(var a in locationparams){
@@ -1048,7 +1046,55 @@ newField4_click:function($event){
  								            });					
  					});
  			});
- }</form:scripts>
+ },
+ initGlobalParam(){
+ 	//全局 用来通信
+	$scope.formentity.global = {}
+	//默认积极意见 让流程可以流转
+	$scope.formentity.global.oppositive = true
+	var actions = $model.activityactions.result
+	if(actions.sendviewuser){
+		if(!$scope.formentity.global.buttons){
+			$scope.formentity.global.buttons = new Array()
+		}
+		var sendbutton = {
+				id:&quot;senduser&quot;,
+				name:&quot;传阅&quot;,
+				click:function(){
+					Modal.open(&quot;f/multipleuserchoose4&quot;,{choosed:$model.senduserchoosed},function(data){
+						$model.senduserchoosed = functions.removeuserorgtreeprefix(data.users);
+						functions.generateString();
+					});				
+					
+				}
+				}
+		$scope.formentity.global.buttons.push(sendbutton)
+		
+	}
+ },
+ //生成以逗号分隔多个id的一个字符串
+generateString:function(){
+	var s = undefined;
+	var nameStr = undefined;
+	$model.senduserchoosed.forEach(function(e,i){
+		if(s==undefined){
+			s = e.id;
+			nameStr = e.name;
+		}else{
+			s = s + &quot;,&quot;+e.id;
+			nameStr = nameStr + &quot;,&quot; + e.name;
+		}
+	});
+	$scope.formentity.wfsendUserRead = s;
+},
+removeuserorgtreeprefix:function(users){
+	for(var i in users){
+		if(users[i].id.indexOf(&quot;user&quot;) !== -1){
+			users[i].id = users[i].id.substring(5)
+		}	
+	}
+	return users;
+}</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>
 	&lt;div ng-include=$model.tabUrl  ng-init=&quot;$params={'pModel':$model,'params':$params.params,'isAccordian':false}&quot;>&lt;/div>
