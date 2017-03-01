@@ -304,7 +304,7 @@
     delete from TA_OFFICE_ARCHHANDLE where 1=1 and oid = #{oid}
 </delete>
 
-<!-- ElementID:select,Generated=true -->
+<!-- ElementID:select,Generated=false -->
 <select id="select" parameterType="com.chinacreator.c2.qyb.workflow.audit.entity.Archhandle" resultMap="ArchhandleResult">
 	select 
 		<include refid="column_sql"/>
@@ -313,6 +313,7 @@
 		 <where>
 			<include refid="whereClause_sql"/>
 		</where>
+		order by audit_time asc
 </select>
 
 
@@ -363,7 +364,7 @@
 		 where TA_OFFICE_ARCHHANDLE.oid = #{oid,jdbcType=VARCHAR}
 </select>
 
-<!-- ElementID:selectByPage,Generated=true -->
+<!-- ElementID:selectByPage,Generated=false -->
 <select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.audit.entity.Archhandle" resultMap="ArchhandleResult">
 	select 
 		<include refid="column_sql"/>
@@ -372,6 +373,7 @@
 		 <where>
 			<include refid="whereClause_sql"/>
 		</where>
+		order by audit_time asc
 </select>
 
 

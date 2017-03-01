@@ -905,7 +905,7 @@ start_flow:function($event){
 	functions.submitflow_click($event);
 },
 //提交流程
-submitflow_click:function($event){	
+submitflow_click:function($event){
 	var processDefinitionId = $params.params.processDefinitionId;
 	var moduleId =  $params.params.moduleId;
 	var taskDefKey =  $params.params.taskDefKey;
@@ -924,7 +924,7 @@ submitflow_click:function($event){
 	$scope.formentity.businessKey = $model.businessKey;
 	$scope.formentity.moduleId = moduleId;
 //	console.log(&quot;formId&quot;,$model.formId);
-	$model.formId = $location.search().formId;
+//	$model.formId = $location.search().formId;
 	$http.post(&quot;flow/startflow&quot;,
 			{
 						ccInform:$model.ccInform,
