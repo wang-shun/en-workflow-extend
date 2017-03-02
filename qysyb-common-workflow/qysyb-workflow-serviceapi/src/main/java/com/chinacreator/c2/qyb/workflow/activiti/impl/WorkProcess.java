@@ -857,8 +857,8 @@ public class WorkProcess {
 				runtimeService.setVariables(taskEntity.getProcessInstanceId(), wfVariable);
 				// 设置下一步处理人等信息 不包括结束节点 以及下一步是会签
 				if (!wfTransition.getDest().getPorperties().get("type").equals("endEvent")
-						&& (!wfTransition.getDest().getPorperties().get("multiInstance").equals("parallel") 
-								|| !wfTransition.getDest().getPorperties().get("multiInstance").equals("sequential"))) {
+						&& !wfTransition.getDest().getPorperties().get("multiInstance").equals("parallel") 
+						&& !wfTransition.getDest().getPorperties().get("multiInstance").equals("sequential")) {
 					String nextTaskId = wfRuntimeService.getCurrentActiveTaskIds(proInsId);
 					Map<String, String> valuemap = formOperate.getTaskHandler(entity, bussinessKey,
 							wfresult.getProcessInstanceId(), moduleId, wfTransition.getSrc(), wfTransition.getDest(),
