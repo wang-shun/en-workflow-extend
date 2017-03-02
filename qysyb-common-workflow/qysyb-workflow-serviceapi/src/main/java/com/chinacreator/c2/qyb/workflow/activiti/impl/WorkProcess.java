@@ -857,17 +857,15 @@ public class WorkProcess {
 				runtimeService.setVariables(taskEntity.getProcessInstanceId(), wfVariable);
 				// 设置下一步处理人等信息 不包括结束节点 以及下一步是会签
 				if (!wfTransition.getDest().getPorperties().get("type").equals("endEvent")
-						&& (!wfTransition.getDest().getPorperties().get("type").equals("parallel") || !wfTransition
-								.getDest().getPorperties().get("type").equals("sequential"))) {
-					String nextTaskId = wfRuntimeService
-							.getCurrentActiveTaskIds(proInsId);
-					Map<String, String> valuemap = formOperate.getTaskHandler(
-							entity, bussinessKey, wfresult.getProcessInstanceId(),
-							moduleId, wfTransition.getSrc(),wfTransition.getDest(), nextTaskId,
-							wfOperator.getUserId(),paramsMap);
-	 				setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
-	 						processDefinitionId,proInsId, wfTransition, moduleId, entitymap);
-				}				
+						&& (!wfTransition.getDest().getPorperties().get("multiInstance").equals("parallel") 
+								|| !wfTransition.getDest().getPorperties().get("multiInstance").equals("sequential"))) {
+					String nextTaskId = wfRuntimeService.getCurrentActiveTaskIds(proInsId);
+					Map<String, String> valuemap = formOperate.getTaskHandler(entity, bussinessKey,
+							wfresult.getProcessInstanceId(), moduleId, wfTransition.getSrc(), wfTransition.getDest(),
+							nextTaskId, wfOperator.getUserId(), paramsMap);
+					setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), processDefinitionId,
+							proInsId, wfTransition, moduleId, entitymap);
+				}			
 			}
 
 			/* 通知处理 */
