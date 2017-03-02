@@ -819,6 +819,15 @@ public class WorkProcess {
 		if (businessVariable != null && businessVariable.size() > 0) {
 			variables.putAll(businessVariable);
 		}
+		
+		//获取自定义会签list
+		List<String> assigneeList = formOperate.getAssigneeList(entity, bussinessKey , proInsId, moduleId, 
+				wfTransition.getSrc(), wfTransition.getDest(), wfTransition, 
+				wfOperator.getUserId(), paramsMap);
+		if(assigneeList != null && assigneeList.size() > 0){
+			variables.put(WorkFlowService.TYPE_ASSIGNEELIST, assigneeList);
+		}		
+		
 		TaskEntity taskEntity = managementService
 				.executeCommand(new FindTaskEntityCmd(currenTaskId));
 		ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
@@ -839,24 +848,28 @@ public class WorkProcess {
 					"nrOfCompletedInstances");
 			int nrOfInstances = (int) taskEntity.getVariables().get(
 					"nrOfInstances");
- 			// 表示会签完成 设置下一步处理人等信息 不包括结束节点
- 			if (nrOfCompletedInstances == nrOfInstances - 1 
- 					&& !wfTransition.getDest().getPorperties().get("type").equals("endEvent")) {		
+ 			// 表示会签完成 设置last activity 信息
+ 			if (nrOfCompletedInstances == nrOfInstances - 1) {		
 				//设置last activity 信息
 				Map wfVariable = new HashMap();
 				setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
 						, wfVariable, wfTransition.getSrc());
 				runtimeService.setVariables(taskEntity.getProcessInstanceId(), wfVariable);
-				
-				String nextTaskId = wfRuntimeService
-						.getCurrentActiveTaskIds(proInsId);
-				Map<String, String> valuemap = formOperate.getTaskHandler(
-						entity, bussinessKey, wfresult.getProcessInstanceId(),
-						moduleId, wfTransition.getSrc(),wfTransition.getDest(), nextTaskId,
-						wfOperator.getUserId(),paramsMap);
- 				setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
- 						processDefinitionId,proInsId, wfTransition, moduleId, entitymap);
+				// 设置下一步处理人等信息 不包括结束节点 以及下一步是会签
+				if (!wfTransition.getDest().getPorperties().get("type").equals("endEvent")
+						&& (!wfTransition.getDest().getPorperties().get("type").equals("parallel") || !wfTransition
+								.getDest().getPorperties().get("type").equals("sequential"))) {
+					String nextTaskId = wfRuntimeService
+							.getCurrentActiveTaskIds(proInsId);
+					Map<String, String> valuemap = formOperate.getTaskHandler(
+							entity, bussinessKey, wfresult.getProcessInstanceId(),
+							moduleId, wfTransition.getSrc(),wfTransition.getDest(), nextTaskId,
+							wfOperator.getUserId(),paramsMap);
+	 				setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
+	 						processDefinitionId,proInsId, wfTransition, moduleId, entitymap);
+				}				
 			}
+
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
 			informService.informDo(moduleId,entitymap);
@@ -871,13 +884,6 @@ public class WorkProcess {
 		//设置last activity 信息
 		setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
 				, variables, wfTransition.getSrc());
-		//获取自定义会签list
-		List<String> assigneeList = formOperate.getAssigneeList(entity, bussinessKey , proInsId, moduleId, 
-				wfTransition.getSrc(), wfTransition.getDest(), wfTransition, 
-				wfOperator.getUserId(), paramsMap);
-		if(assigneeList != null && assigneeList.size() > 0){
-			variables.put(WorkFlowService.TYPE_ASSIGNEELIST, assigneeList);
-		}
 		
 		// JumpActivityByTakeTransitionCmd 自由流
 		wfresult = this.goAnyWhereTakeTransition(wfOperator,
