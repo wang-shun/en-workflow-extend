@@ -818,6 +818,7 @@ public class WorkProcess {
 				wfOperator.getUserId(),paramsMap);
 		if (businessVariable != null && businessVariable.size() > 0) {
 			variables.putAll(businessVariable);
+			runtimeService.setVariables(proInsId, variables);
 		}
 		
 		//获取自定义会签list
@@ -826,6 +827,7 @@ public class WorkProcess {
 				wfOperator.getUserId(), paramsMap);
 		if(assigneeList != null && assigneeList.size() > 0){
 			variables.put(WorkFlowService.TYPE_ASSIGNEELIST, assigneeList);
+			runtimeService.setVariables(proInsId, variables);
 		}		
 		
 		TaskEntity taskEntity = managementService
@@ -855,10 +857,13 @@ public class WorkProcess {
 				setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
 						, wfVariable, wfTransition.getSrc());
 				runtimeService.setVariables(taskEntity.getProcessInstanceId(), wfVariable);
+				
 				// 设置下一步处理人等信息 不包括结束节点 以及下一步是会签
-				if (!wfTransition.getDest().getPorperties().get("type").equals("endEvent")
-						&& !wfTransition.getDest().getPorperties().get("multiInstance").equals("parallel") 
-						&& !wfTransition.getDest().getPorperties().get("multiInstance").equals("sequential")) {
+				boolean isNextEnd = wfTransition.getDest().getPorperties().get("type").equals("endEvent");
+				boolean isNextMultiInstance = (wfTransition.getDest().getPorperties().get("multiInstance") != null);
+//				wfTransition.getDest().getPorperties().get("multiInstance").equals("parallel") 
+//				wfTransition.getDest().getPorperties().get("multiInstance").equals("sequential")
+				if (!isNextEnd && !isNextMultiInstance) {
 					String nextTaskId = wfRuntimeService.getCurrentActiveTaskIds(proInsId);
 					Map<String, String> valuemap = formOperate.getTaskHandler(entity, bussinessKey,
 							wfresult.getProcessInstanceId(), moduleId, wfTransition.getSrc(), wfTransition.getDest(),
