@@ -199,7 +199,8 @@ public class UserConcernedConfigService {
 			con.setTaskDefId(u.getTaskDefId());
 			con.setProcessDefId(u.getProcessDefId());
 			con = dao.selectOne(con);
-			if(con==null){
+			//有配置才会保存
+			if(con==null && u.getObserverId() != null && u.getCatogory() != null){
 				dao.insert(u);
 			}else{
 				con.setCatogory(u.getCatogory()==null?"":u.getCatogory());
@@ -216,7 +217,22 @@ public class UserConcernedConfigService {
 			UserConcernedConfig con1 = new UserConcernedConfig();
 			con1.setRemark1(ACTIVITY_CONCERN_CONFIG);
 			con1.setProcessDefId(u.getProcessDefId());
-			//会把环节的关注配置选出来 需要过滤
+			//如果是关注产品 则把taskDefId字段设置为 流程定义 方便过滤筛选
+			con1.setTaskDefId(u.getProcessDefId());
+			con1 = dao.selectOne(con1);
+			//有配置才会保存
+			if(con1==null && u.getObserverId() != null && u.getCatogory() != null){
+				u.setTaskDefId(u.getProcessDefId());
+				dao.insert(u);
+			}else{
+				con1.setCatogory(u.getCatogory()==null?"":u.getCatogory());
+				con1.setObserverId(u.getObserverId()==null?"":u.getObserverId());
+				con1.setRemark2(u.getRemark2()==null?"":u.getRemark2());
+				con1.setInformType(u.getInformType()==null?"":u.getInformType());
+				dao.update(con1);
+			}
+			return u;			
+/*			//会把环节的关注配置选出来 需要过滤
 			List<UserConcernedConfig> list = dao.select(con1);
 			boolean insert = true;
 			for(UserConcernedConfig ucc:list){
@@ -239,12 +255,16 @@ public class UserConcernedConfigService {
 				con1.setRemark2(u.getRemark2()==null?"":u.getRemark2());
 				con1.setInformType(u.getInformType()==null?"":u.getInformType());
 				dao.update(con1);
-			}
+			}*/
 		}
 		return null;
 		
 	}
-	
+	/**
+	 * 获取环节的关注 或 产品的关注 u.getTaskDefId() == null 则会选出产品的关注 ugly //TODO
+	 * @param u
+	 * @return
+	 */
 	public UserConcernedConfig getUserconcernInfoForActivity(UserConcernedConfig u){
 		Dao<UserConcernedConfig> dao = DaoFactory.create(UserConcernedConfig.class);
 		//通过节点设置 设置的用户关注，与用户主动点击关注区分开来
@@ -254,34 +274,64 @@ public class UserConcernedConfigService {
 		UserConcernedConfig con = new UserConcernedConfig();
 		con.setRemark1(ACTIVITY_CONCERN_CONFIG);
 		
-		if(u.getTaskDefId()!=null){
+		if(u.getTaskDefId() != null && u.getProcessDefId() != null){
 			con.setTaskDefId(u.getTaskDefId());
-		}
-		if(u.getProcessDefId()!=null){
 			con.setProcessDefId(u.getProcessDefId());
+		}else if(u.getTaskDefId() == null && u.getProcessDefId() != null){ //获取关注产品配置 产品配置 会把taskDefId设置为 processDefId
+			con.setTaskDefId(u.getProcessDefId());
+			con.setProcessDefId(u.getProcessDefId());
+		}else{
+			return null;
 		}
 		//会把环节的关注配置选出来 需要过滤
 		List<UserConcernedConfig> list = dao.select(con);
-		if(list.size()>1){
-			for(UserConcernedConfig ucc:list){
+		if(list.size()>1){//should not happen delete all
+			dao.deleteBatch(list);
+			return null;
+/*			for(UserConcernedConfig ucc:list){
 				if(ucc==null||(ucc!=null&&ucc.getTaskDefId()!=null)){
 					continue;
 				}
-				//表示有记录了
+				//表示有产品关注的记录了
 				if(ucc!=null&&ucc.getTaskDefId()==null){
 					return ucc;
 				}
 			}
 			//走到这里说明 还没有产品关注的配置
 			u.setInformType(null);
-			return u;			
+			return u;	*/		
 		}else if(list.size()==1){
 			return list.get(0);
 		}else{
 			u.setInformType(null);
 			return u;	
 		}
-
-
+	}
+	
+	/**
+	 * 获取用户的关注设置
+	 * @param procDefId
+	 * @param taskDefId
+	 * @return
+	 */
+	public List<UserConcernedConfig> getUserconcerns(String procDefId,String taskDefId){
+		UserConcernedConfig con = new UserConcernedConfig();
+		con.setProcessDefId(procDefId);
+		con.setTaskDefId(taskDefId);
+		List<UserConcernedConfig> list = getUserConcernedConfig(con);
+		//用户关注事项
+		UserConcernedConfig con1 = new UserConcernedConfig();
+		con1.setProcessDefId(procDefId);
+		con1.setTaskDefId(procDefId);
+		List<UserConcernedConfig> listModules = getUserConcernedConfig(con1);	
+		list.addAll(listModules);
+		List<UserConcernedConfig> result = new ArrayList<UserConcernedConfig>();
+		for(UserConcernedConfig ucc:list){
+			//之前的bug 会对每一个环节插入一个空的配置
+			if(ucc.getObserverId() != null){
+				result.add(ucc);
+			}
+		}
+		return result;
 	}
 }

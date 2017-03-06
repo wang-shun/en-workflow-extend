@@ -922,6 +922,7 @@ newField3_clickEvent:function(value){
 do_view:function(a){
 //	console.log(&quot;do view in&quot;,a);
 	var observerStr = a.remark2;
+	$model.observerId = a.observerId
 	$model.catogory = a.catogory
 	if($model.catogory == &quot;user&quot;){
 		$model.selectedUserIds = a.observerId

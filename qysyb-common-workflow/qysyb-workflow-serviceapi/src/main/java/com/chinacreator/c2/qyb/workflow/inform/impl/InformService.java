@@ -14,6 +14,7 @@ import org.activiti.engine.impl.persistence.entity.CommentEntity;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.IdentityLink;
+import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -127,15 +128,14 @@ public class InformService {
 					if (ac != null) {
 						informDo.setAc(ac);
 					}
-					UserConcernedConfig ucc = new UserConcernedConfig();
-					ucc.setProcessDefId(sp.getProductId());
+
 					List<UserConcernedConfig> uccs = userConcernedConfigService
-							.getUserConcernedConfig(ucc);
+							.getUserconcerns(sp.getProductId(), entity.getTaskDefinitionKey());
 					if (uccs != null) {
 						informDo.setUccs(uccs);
 					}
 					informDo.beforeDo();
-					informDo.TaskInformDo(sp, e, busientity);
+					informDo.TaskInformDo(sp, e, ac, uccs, busientity);
 					informDo.afterDo();
 				}
 				// informCcInformsTask(e);
@@ -148,23 +148,24 @@ public class InformService {
 					if (ccInformJsonStr != null) {
 						informDo.setCcInformStr(ccInformJsonStr);
 					}
-					// ActivityConfig con = new ActivityConfig();
-					// con.setModuleId(sp.getProductId());
-					// con.setTaskDefId(entity.getTaskDefinitionKey());
-					// ActivityConfig ac =
-					// activityConfigService.getActivityConfigOne(con);
-					// if(ac != null){
-					// informDo.setAc(ac);
-					// }
+					String taskId = entity.getTaskId();
+					Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+					ActivityConfig con = new ActivityConfig();
+					con.setModuleId(sp.getProductId());
+					con.setTaskDefId(task.getTaskDefinitionKey());
+					ActivityConfig ac = activityConfigService.getActivityConfigOne(con);
+					if (ac != null) {
+						informDo.setAc(ac);
+					}
 					UserConcernedConfig ucc = new UserConcernedConfig();
 					ucc.setProcessDefId(sp.getProductId());
-					List<UserConcernedConfig> uccs = userConcernedConfigService
-							.getUserConcernedConfig(ucc);
+					List<UserConcernedConfig> uccs = userConcernedConfigService.getUserconcerns(sp.getProductId(),
+							task.getTaskDefinitionKey());
 					if (uccs != null) {
 						informDo.setUccs(uccs);
 					}
 					informDo.beforeDo();
-					informDo.CommentInformDo(sp, e, busientity);
+					informDo.CommentInformDo(sp, e, ac, uccs, busientity);
 					informDo.afterDo();
 				}
 				// informActivityConfigComment(e);
