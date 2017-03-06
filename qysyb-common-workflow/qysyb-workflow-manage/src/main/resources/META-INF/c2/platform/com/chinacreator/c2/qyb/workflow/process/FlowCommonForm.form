@@ -552,6 +552,7 @@ page_onload:function(){
 	$scope.operatefuncs.startFlow = functions.start_flow
 	$scope.operatefuncs.submit = functions.autoswitchcommit
 	$scope.operatefuncs.processmonitor = functions.newField2_click
+	$scope.operatefuncs.save = functions.newField4_click
 },
 //回退
 newField_click:function($event){

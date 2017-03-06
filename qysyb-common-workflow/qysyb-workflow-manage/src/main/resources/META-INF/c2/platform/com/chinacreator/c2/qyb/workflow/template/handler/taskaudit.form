@@ -623,6 +623,9 @@ selectSimpleDict_change:function(){
 //流程监控
 button3_click:function($event){
 	$scope.operatefuncs.processmonitor($event)
+},
+save_click:function($event){
+	$scope.operatefuncs.save($event)
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;wftaskhandleheader_html&quot;>
@@ -648,7 +651,7 @@ button3_click:function($event){
         &lt;button c2-button=&quot;&quot; id=&quot;button1&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-sm no-border ng-hide&quot; 
             ng-init=&quot;$state.button1.disabled = false;$state.button1.visible=$model.isStart &amp;amp;&amp;amp; !$model.isviewpage&quot;
             ng-show=&quot;$state.button1.visible&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;$model.isStart &amp;amp;&amp;amp; !$model.isviewpage&quot;
-            disabled-default=&quot;false&quot;>
+            disabled-default=&quot;false&quot; ng-click=&quot;functions.save_click($event)&quot;>
 		保存
         &lt;/button>
         &lt;button c2-button=&quot;&quot; id=&quot;button3&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-sm no-border&quot; 
