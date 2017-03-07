@@ -18,6 +18,9 @@ import com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig;
  */
 @Service
 public class UserConcernedConfigService {
+	final static String TYPE_GROUP = "group";
+	final static String TYPE_USER = "user";
+	
 	final static String CONCERNTHISWORK = "已关注此工单";
 	final static String CONCERNTHISSP = "已关注此服务";
 	
@@ -333,5 +336,21 @@ public class UserConcernedConfigService {
 			}
 		}
 		return result;
+	}
+	
+	public Map getConcernedObservers(List<UserConcernedConfig> uccs){
+		Map map = new HashMap();
+		for(UserConcernedConfig ucc:uccs){
+			if(TYPE_GROUP.equals(ucc.getCatogory())){
+				String groups = map.get(TYPE_GROUP) == null?"":(String)map.get(TYPE_GROUP);
+				groups =  groups + "," + ucc.getObserverId();
+				map.put(TYPE_GROUP, groups);
+			}else if(TYPE_USER.equals(ucc.getCatogory())){
+				String users = map.get(TYPE_USER) == null?"":(String)map.get(TYPE_USER);
+				users =  users + "," + ucc.getObserverId();	
+				map.put(TYPE_USER, users);
+			}			
+		}
+		return map;
 	}
 }
