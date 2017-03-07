@@ -205,7 +205,7 @@ public class UserConcernedConfigService {
 			//有配置才会保存
 			if(con==null && u.getObserverId() != null && u.getCatogory() != null){
 				dao.insert(u);
-			}else{
+			}else if(con != null){
 				con.setCatogory(u.getCatogory()==null?"":u.getCatogory());
 				con.setObserverId(u.getObserverId()==null?"":u.getObserverId());
 				con.setRemark2(u.getRemark2()==null?"":u.getRemark2());
@@ -227,7 +227,7 @@ public class UserConcernedConfigService {
 			if(con1==null && u.getObserverId() != null && u.getCatogory() != null){
 				u.setTaskDefId(u.getProcessDefId());
 				dao.insert(u);
-			}else{
+			}else if(con1 != null){
 				con1.setCatogory(u.getCatogory()==null?"":u.getCatogory());
 				con1.setObserverId(u.getObserverId()==null?"":u.getObserverId());
 				con1.setRemark2(u.getRemark2()==null?"":u.getRemark2());
