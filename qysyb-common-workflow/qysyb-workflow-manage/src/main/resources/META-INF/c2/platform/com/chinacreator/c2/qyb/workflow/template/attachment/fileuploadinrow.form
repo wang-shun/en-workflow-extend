@@ -111,7 +111,14 @@ page_beforeDataSourceLoad:function($params){
 	qybWorkflowService.emitFormCheckFunc(this.check)	
 	//属性1为支持格式
 	$model.allow = ($params.field.remark1 == undefined || $params.field.remark1 == &quot;&quot;)?'[]':$params.field.remark1
+	$model.filenums = 0
+/*	$scope.$on(&quot;fstatus&quot;,function(e,data){
+		if(data.status == &quot;success&quot;){
+			$model.filenums = $model.filenums + data.num
+		}else if(data.status == &quot;error&quot;){
 		
+		}
+	})	*/
 	$model.page = 'f/qybdir_uploadfileinrow';		
 },
 
@@ -119,10 +126,25 @@ page_onload:function(){
 
 },
 check:function(){
+	if($scope.permissionData[$params.fieldNo].fillnecessary){
+		if($model.filenums &lt; 1){
+			Messenger.post({
+			    'message': &quot;请上传附件！&quot;,
+			    'type': 'error',
+			});		
+			return false
+		}
+	}
 	return true
+},
+onFileSuccess(data){
+	$model.filenums = $model.filenums + 1
+},
+onFileDel(data){
+	$model.filenums = $model.filenums - 1
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
-	&lt;div ng-include=$model.page  ng-init=&quot;$params={'allow':$model.allow,'field':$params.field,'businessType':$model.type,'businessKey':$model.businessKey,'businessKey1':$model.businessKey1,'businessKey2':$model.businessKey2,'businessKey3':$model.businessKey3,'viewtype':$model.viewtype}&quot;>&lt;/div>
+	&lt;div ng-include=$model.page ng-init=&quot;$params={onDelete:functions.onFileDel,onSuccess:functions.onFileSuccess,'allow':$model.allow,'field':$params.field,'businessType':$model.type,'businessKey':$model.businessKey,'businessKey1':$model.businessKey1,'businessKey2':$model.businessKey2,'businessKey3':$model.businessKey3,'viewtype':$model.viewtype}&quot;>&lt;/div>
 &lt;/script></form:htmls>
 </form:Form>
