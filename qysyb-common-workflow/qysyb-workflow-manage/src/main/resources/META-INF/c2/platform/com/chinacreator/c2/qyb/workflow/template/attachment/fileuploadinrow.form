@@ -112,13 +112,9 @@ page_beforeDataSourceLoad:function($params){
 	//属性1为支持格式
 	$model.allow = ($params.field.remark1 == undefined || $params.field.remark1 == &quot;&quot;)?'[]':$params.field.remark1
 	$model.filenums = 0
-/*	$scope.$on(&quot;fstatus&quot;,function(e,data){
-		if(data.status == &quot;success&quot;){
-			$model.filenums = $model.filenums + data.num
-		}else if(data.status == &quot;error&quot;){
-		
-		}
-	})	*/
+	$scope.$on(&quot;fstatus&quot;,function(e,data){
+		$model.filenums = data.num
+	})	
 	$model.page = 'f/qybdir_uploadfileinrow';		
 },
 
@@ -138,10 +134,10 @@ check:function(){
 	return true
 },
 onFileSuccess(data){
-	$model.filenums = $model.filenums + 1
+
 },
 onFileDel(data){
-	$model.filenums = $model.filenums - 1
+
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
