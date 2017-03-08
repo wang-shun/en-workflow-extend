@@ -114,4 +114,13 @@ public class UserJobService {
 		}
 		return list;
 	}
+	
+	/**
+	 * 获取所有组
+	 * @return
+	 */
+	public ActIdGroup getGroupById(String groupId){
+		Dao<ActIdGroup> dao = DaoFactory.create(ActIdGroup.class);
+		return dao.selectByID(groupId);
+	}	
 }
