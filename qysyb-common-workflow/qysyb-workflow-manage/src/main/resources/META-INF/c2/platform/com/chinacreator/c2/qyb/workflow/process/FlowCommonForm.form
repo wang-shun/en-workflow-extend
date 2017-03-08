@@ -1048,7 +1048,7 @@ newField4_click:function($event){
  					});
  			});
  },
- initGlobalParam(){
+ initGlobalParam:function(){
  	//全局 用来通信
 	$scope.formentity.global = {}
 	//默认积极意见 让流程可以流转
