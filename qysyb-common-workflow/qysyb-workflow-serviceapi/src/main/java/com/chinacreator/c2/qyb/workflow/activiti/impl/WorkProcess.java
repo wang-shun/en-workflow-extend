@@ -405,6 +405,7 @@ public class WorkProcess {
 		informService = ApplicationContextManager.getContext().getBean(
 				InformService.class);
 		informService.informDo(moduleId,entitymap);
+		formOperate.addOrUpdateEntityAfterTaskExcu(entity, bussinessKey, proInsId, moduleId, curActivity, wfOperator.getUserId(), nextActivity, null);
 		formOperate.onTaskReject(entity, bussinessKey, proInsId, moduleId, curActivity, wfOperator.getUserId(), nextActivity, null);
 		return new ResponseFactory().createResponseBodyJSONObject(JSON
 				.toJSONString(wfresult));
