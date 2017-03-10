@@ -2578,7 +2578,9 @@ public class WorkFlowService {
 		List<Map> result = new ArrayList<Map>();
 		List<Map> list = this.getActivityCandidates(processDefinitionId,
 				moduleId, taskDefKey);
-		String curOrgName = userService.queryMainOrg(curUserId).getOrgName();
+		OrgDTO orgDTO = userService.queryMainOrg(curUserId);
+		String curOrgName = orgDTO == null?"系统":orgDTO.getOrgName();
+//		String curOrgName = userService.queryMainOrg(curUserId).getOrgName();
 		for (Map map : list) {
 			String category = (String) map.get("category");
 			String id = (String) map.get("id");
@@ -2587,7 +2589,9 @@ public class WorkFlowService {
 				if(filterType==null){
 					List<UserDTO> userList = userJobService.getAllUserJob(id);
 					for(UserDTO user:userList){
-						String orgName = userService.queryMainOrg(user.getUserId()).getOrgName();
+						OrgDTO uorgDTO = userService.queryMainOrg(user.getUserId());
+						String orgName = orgDTO == null?"系统":uorgDTO.getOrgName();						
+//						String orgName = userService.queryMainOrg(user.getUserId()).getOrgName();
 						Map map1 = new HashMap();
 						map1.put("id", user.getUserId());
 						map1.put("name", user.getUserRealname());
@@ -2653,7 +2657,8 @@ public class WorkFlowService {
 		List<Map> result = new ArrayList<Map>();
 		List<Map> list = this.getActivityCandidates(processDefinitionId,
 				moduleId, taskDefKey);
-		String curOrgName = userService.queryMainOrg(curUserId).getOrgName();
+		OrgDTO orgDTO = userService.queryMainOrg(curUserId);
+		String curOrgName = orgDTO == null?"系统":orgDTO.getOrgName();
 		for (Map map : list) {
 			String category = (String) map.get("category");
 			String id = (String) map.get("id");
@@ -2662,7 +2667,9 @@ public class WorkFlowService {
 				if(filterType==null){
 					List<UserDTO> userList = userJobService.getAllUserJob(id);
 					for(UserDTO user:userList){
-						String orgName = userService.queryMainOrg(user.getUserId()).getOrgName();
+						OrgDTO uorgDTO = userService.queryMainOrg(user.getUserId());
+						String orgName = orgDTO == null?"系统":uorgDTO.getOrgName();
+//						String orgName = userService.queryMainOrg(user.getUserId()).getOrgName();
 						Map map1 = new HashMap();
 						map1.put("id", user.getUserId());
 						map1.put("name", user.getUserRealname());
