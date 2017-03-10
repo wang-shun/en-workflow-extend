@@ -161,7 +161,7 @@ public class HistoricProcInstanceQueryService {
 			historicInstanceQuery.setPage(offset, limit);
 		}
  		//默认未完成工单在前
- 		historicInstanceQuery.orderByProcessInstanceEndTime().desc();
+ 		//historicInstanceQuery.orderByProcessInstanceEndTime().desc();
 		//默认开始时间排序
 		historicInstanceQuery.orderByProcessInstanceStartTime().desc();
 		RetrieveItemService retrieveItemService = ApplicationContextManager.getContext().getBean(RetrieveItemService.class);
