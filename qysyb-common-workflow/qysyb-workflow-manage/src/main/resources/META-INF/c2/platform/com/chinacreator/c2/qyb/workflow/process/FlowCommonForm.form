@@ -387,37 +387,65 @@ autoswitchcommit:function($event){
 	}
 */
 	if($scope.formentity.global.oppositive){ //积极意见 流转流程
-		functions.commit($event)
-	}else{ //否定意见 退回流程
-		functions.newField_click($event)
+	
+		//func 为业务表单提交前验证函数
+		if(!angular.isUndefined($model.func)){
+			var a = $model.func(&quot;submit&quot;);
+			if(a==false){
+				Messenger.post({
+					'message': &quot;必填项为空！&quot;,
+		            'type': 'error',
+		            'hideAfter':3
+		        });	
+				return;
+			}	
+		}	
+		//如果有下一步选人页面弹出就不用 确认页面了？
+		var hasSelectPage = !$scope.formentity.global.handleinline 
+			&amp;&amp; $model.actions.freechoose != undefined
+			&amp;&amp; $model.actions.freechoose != &quot;&quot;;
+		if(!hasSelectPage){
+			Modal.openConfirm({message:'确定提交？'},function(){
+				functions.commit($event)
+			})
+		}else{
+			functions.commit($event)
+		}
+	}else{
+		if($model.actions.return == undefined){
+			Messenger.post({
+				'message': &quot;本环节没有退回配置，请联系系统维护人员！&quot;,
+	            'type': 'error',
+	            'hideAfter':4
+	        });			
+	        return
+		}
+		//退回 需不需要必填项验证？
+		if(!angular.isUndefined($model.func)){
+			var a = $model.func(&quot;return&quot;);
+			if(a==false){
+				Messenger.post({
+					'message': &quot;必填项为空！&quot;,
+		            'type': 'error',
+		            'hideAfter':4
+		        });	
+				return;
+			}	
+		}		
+		//否定意见 退回流程
+		Modal.openConfirm({message:'确定提交？'},function(){
+			functions.newField_click($event)
+		})	
 	}
 },
 //提交
 commit:function($event){
-	console.log(&quot;$scope.formentity&quot;,$scope.formentity);
-	//func 为业务表单提交前验证函数
-	if(!angular.isUndefined($model.func)){
-		var a = $model.func(&quot;submit&quot;);
-		if(a==false){
-			Messenger.post({
-				'message': &quot;必填项为空！&quot;,
-	            'type': 'error',
-	            'hideAfter':4
-	        });	
-			return;
-		}	
-	}
+	console.log(&quot;submited $scope.formentity&quot;,$scope.formentity);
+
 //	console.log(&quot;$model.funcsbeforsubmit&quot;,$model.funcsbeforsubmit);
 	//必填项等验证通过才执行 字段页面提交前函数
 	$model.funcsbeforsubmit();
-/*	if(angular.isUndefined($model.opinion)){
-		Messenger.post({
-		    'message': &quot;请填写处理意见！&quot;,
-		    'type': 'error',
-		});		
-		return;
-	}*/
-	
+
 	if($model.isCountersign){  //会签环节 不选人，下一步处理人用环节外围配置
 		functions.newField5_click($event);
 		return;		
@@ -556,26 +584,7 @@ page_onload:function(){
 },
 //回退
 newField_click:function($event){
-	if($model.actions.return == undefined){
-		Messenger.post({
-			'message': &quot;本环节没有退回配置，请联系系统维护人员！&quot;,
-            'type': 'error',
-            'hideAfter':4
-        });			
-        return
-	}
-	//退回 需不需要必填项验证？
-	if(!angular.isUndefined($model.func)){
-		var a = $model.func(&quot;return&quot;);
-		if(a==false){
-			Messenger.post({
-				'message': &quot;必填项为空！&quot;,
-	            'type': 'error',
-	            'hideAfter':4
-	        });	
-			return;
-		}	
-	}
+
 	//提交前函数 各字段可以在这里把自己的数据放入业务js对象
 	$model.funcsbeforsubmit();	
 	
@@ -842,8 +851,7 @@ timeGenerator:function(){
 		
 },
 start_flow:function($event){
-//func 为业务表单提交前验证函数
-//	console.log(&quot;transition to take&quot;,$model.transition);
+	//	func 为业务表单提交前验证函数
 	if(!angular.isUndefined($model.func)){
 		//提交前验证
 		var a = $model.func(&quot;submit&quot;);
@@ -864,7 +872,17 @@ start_flow:function($event){
         });	
         return;
 	}
- 	
+	//如果有下一步选人页面弹出就不用 确认页面了？
+	var hasSelectPage = $model.actions.freechoose != undefined;
+	if(!hasSelectPage){
+		Modal.openConfirm({message:'确定提交？'},function(){
+			functions.start_flowdo($event)
+		})		
+	}else{
+		functions.start_flowdo($event)
+	}
+},
+start_flowdo:function($event){
  	//提交前函数 各字段可以在这里把自己的数据放入业务js对象
  	$model.funcsbeforsubmit();
  		
