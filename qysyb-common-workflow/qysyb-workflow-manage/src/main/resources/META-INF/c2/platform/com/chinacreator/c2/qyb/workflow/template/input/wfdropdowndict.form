@@ -103,7 +103,9 @@ page_onload:function(){
 },
 
 dictdropdownoption_customFilter:function(data){
-	if($scope.formentity[$params.fieldNo]==undefined||$scope.formentity[$params.fieldNo]==&quot;&quot;){
+	var value = $scope.formentity[$params.fieldNo]
+	var b = angular.isUndefined(value)
+	if(b){
 		//属性1 remark1为是否选择第一个
 		var selectFirst = qybWorkflowService.getBooleanFromRemark($params.field.remark1);
 		if(selectFirst){
