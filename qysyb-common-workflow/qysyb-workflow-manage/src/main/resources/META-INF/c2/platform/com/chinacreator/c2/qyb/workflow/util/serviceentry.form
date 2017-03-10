@@ -189,7 +189,7 @@ createWorkOrder:function(tmp){
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
 
-	&lt;div class=&quot;panel panel-primary&quot; ng-repeat=&quot;tmp in $model.types&quot;>
+	&lt;div class=&quot;panel panel-primary&quot; ng-repeat=&quot;tmp in $model.types&quot; ng-if=&quot;$model.spsbytypes[tmp.dictdataName].length > 0&quot;>
       &lt;div class=&quot;panel-heading&quot;>
         &lt;h3 class=&quot;panel-title&quot;>{{tmp.dictdataValue}}&lt;/h3>
       &lt;/div>
@@ -213,7 +213,6 @@ createWorkOrder:function(tmp){
 						&lt;td title=&quot;&quot;>&lt;p>&lt;/p>&lt;/td>
 					&lt;/li>
 				&lt;/ul>
-
 			 &lt;/li>
 	  	&lt;/ul>
 	 &lt;/div>
