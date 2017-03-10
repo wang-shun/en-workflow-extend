@@ -27,7 +27,8 @@ public class ActGroupForMessage implements GroupDefinition {
 		List<ActIdUser> userList = userJobService.getAllUserFromGroup(groupId);
 		List<String> userNameList = new ArrayList<String>();
 		for (ActIdUser actIdUser : userList) {
-			userNameList.add(actIdUser.getId());
+			//first username
+			userNameList.add(actIdUser.getFirst());
 		}
 		return ((String[]) userNameList.toArray(new String[userNameList.size()]));
 	}
