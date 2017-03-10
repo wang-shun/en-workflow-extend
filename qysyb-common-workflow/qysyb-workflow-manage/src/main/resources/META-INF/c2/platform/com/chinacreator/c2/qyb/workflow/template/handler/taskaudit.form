@@ -502,7 +502,7 @@ isFreeChoose:function(wfproperties){
 },
 //此环节是否需要审核意见
 needAudit:function(){
-	return !$model.isStart
+	return !$model.isStart &amp;&amp; $model.writePermission
 },
 //是否查看
 writePermission:function(){
