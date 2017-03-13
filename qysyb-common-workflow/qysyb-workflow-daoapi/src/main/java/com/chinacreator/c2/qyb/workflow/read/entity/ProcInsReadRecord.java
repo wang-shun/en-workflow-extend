@@ -86,20 +86,20 @@ public class ProcInsReadRecord implements Serializable {
 	/**
 	 *阅读时间
 	 */
-	@Column(id = "read_time", datatype = "double")
-	private java.lang.Double readTime;
+	@Column(id = "read_time", datatype = "long")
+	private long readTime;
 
 	/**
 	 *签收时间
 	 */
-	@Column(id = "sign_time", datatype = "double")
-	private java.lang.Double signTime;
+	@Column(id = "sign_time", datatype = "long")
+	private long signTime;
 
 	/**
 	 *回执时间
 	 */
-	@Column(id = "receipt_time", datatype = "double")
-	private java.lang.Double receiptTime;
+	@Column(id = "receipt_time", datatype = "long")
+	private long receiptTime;
 
 	@Column(id = "remark1", datatype = "string256")
 	private java.lang.String remark1;
@@ -311,42 +311,42 @@ public class ProcInsReadRecord implements Serializable {
 	/**
 	 * 设置阅读时间
 	 */
-	public void setReadTime(java.lang.Double readTime) {
+	public void setReadTime(long readTime) {
 		this.readTime = readTime;
 	}
 
 	/**
 	 * 获取阅读时间
 	 */
-	public java.lang.Double getReadTime() {
+	public long getReadTime() {
 		return readTime;
 	}
 
 	/**
 	 * 设置签收时间
 	 */
-	public void setSignTime(java.lang.Double signTime) {
+	public void setSignTime(long signTime) {
 		this.signTime = signTime;
 	}
 
 	/**
 	 * 获取签收时间
 	 */
-	public java.lang.Double getSignTime() {
+	public long getSignTime() {
 		return signTime;
 	}
 
 	/**
 	 * 设置回执时间
 	 */
-	public void setReceiptTime(java.lang.Double receiptTime) {
+	public void setReceiptTime(long receiptTime) {
 		this.receiptTime = receiptTime;
 	}
 
 	/**
 	 * 获取回执时间
 	 */
-	public java.lang.Double getReceiptTime() {
+	public long getReceiptTime() {
 		return receiptTime;
 	}
 

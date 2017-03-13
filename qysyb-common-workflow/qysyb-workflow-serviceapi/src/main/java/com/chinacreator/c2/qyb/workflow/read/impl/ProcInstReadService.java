@@ -1,6 +1,7 @@
 package com.chinacreator.c2.qyb.workflow.read.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -152,6 +153,10 @@ public class ProcInstReadService {
 			r.setSendActivityName(activityName);
 			r.setSendModuleId(moduleId);
 			r.setSendModuleName(moduleName);
+			//状态初始化
+			r.setReadStatus(0);
+			r.setSignStatus(0);
+			r.setReceiptStatus(0);
 			pirrs.add(r);
 		}
 		return saveRecords(pirrs);
@@ -167,6 +172,9 @@ public class ProcInstReadService {
 		ProcInsReadRecord con = new ProcInsReadRecord();
 		con.setId(id);
 		con.setReadStatus(status);
+		if(status == 1){
+			con.setReadTime(Calendar.getInstance().getTimeInMillis());
+		}
 		dao.update(con);
 	}
 	
