@@ -34,7 +34,7 @@ public class FormmgtController {
 
 	@RequestMapping(value = "getformdata", method = RequestMethod.GET)
 	public Map<String, Object> getFormData(@RequestParam() String formId,
-			@RequestParam(required = false) boolean filter, @RequestParam() String businessKey,
+			@RequestParam(required = false) boolean filter, @RequestParam(required = false) String businessKey,
 			@RequestParam(required = false) String proInsId) {
 		return formService.getFormDataByFkFromProcessVariable(formId, filter ? false : filter, businessKey, proInsId);
 	}
