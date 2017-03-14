@@ -7,9 +7,15 @@
         <dync:children/>
       </dync:attribute>
       <dync:attribute default="" group="HTML" id="title" name="标题" value="机构选择">
+        <dync:render/>
         <dync:children/>
       </dync:attribute>
       <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="680px">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
         <dync:children/>
       </dync:attribute>
     </form:attributes>
@@ -177,7 +183,9 @@ doremovechoosed:function(choosed){
 			break;
 		}
 	}
-	$model.choosed.splice(index,1);
+	if(index != undefined){
+		$model.choosed.splice(index,1);
+	}
 },
 //需要先把树节点去勾选
 removechoosed:function(choosed){
@@ -190,20 +198,24 @@ removechoosed:function(choosed){
 	functions.doremovechoosed(choosed);
 },
 
-page_afterDataSourceLoad:function(){
-	$model.choosed = new Array();
+page_afterDataSourceLoad:function(){	 
+	//$model.choosed = new Array();
+	
 },
 addorg:function(org){
 	var a = $model.choosed;
+	console.log(&quot;aaa$model.choosed&quot;,$model.choosed);
+	console.log(&quot;org$model.choosed&quot;,org);
 	var ischoosed = false;
 	for(var i=0;i&lt;a.length;i++){
-		if(a[i].id == org.id){
+		if(a[i].id == org.id){		
 			ischoosed = true;
 			console.log(&quot;hey ischoosed!&quot;);
 			break;
 		}
 	}
-	if(!ischoosed){
+	if(org.level != 0){
+	if(!ischoosed){	
 		var choosed ={};
 		choosed.id = org.id;
 		choosed.name = org.name
@@ -211,12 +223,13 @@ addorg:function(org){
 	}else{
 		Messenger.error(&quot;机构已被选择！&quot;);
 	}
+	}
 },
 
 orgtree_nodeCheck:function(event,treeId,treeNode){
 	var selectednode = treeNode;
 	var checked = selectednode.checked;
-//	console.log(&quot;checked status&quot;,selectednode.checked);
+	console.log(&quot;checked status&quot;,selectednode);
 	//由非选中变为选中 注意和nodeselect逻辑不同
 	if(checked){
 		functions.addorg(selectednode);
@@ -225,12 +238,24 @@ orgtree_nodeCheck:function(event,treeId,treeNode){
 	}
 },
 //ok
-newField_click:function($event){
+newField_click:function($event){  
 	Modal.instance.close({orgs:$model.choosed});
 },
 //dismiss
 newField1_click:function($event){
 	Modal.instance.dismiss();
+},
+
+page_onload:function(){
+	 $model.choosed = new Array();
+	 $model.choosed = $params.choosed; 
+	var lc = $params.choosed;
+	for(var t=0;t&lt;lc.length;t++){		
+	var tree = $view.orgtree.getNodesByParam(&quot;id&quot;,lc[t].id,null);
+	console.log('cs',tree);
+	$view.orgtree.checkNode(tree[0],true,false,false);
+	}
+	
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>

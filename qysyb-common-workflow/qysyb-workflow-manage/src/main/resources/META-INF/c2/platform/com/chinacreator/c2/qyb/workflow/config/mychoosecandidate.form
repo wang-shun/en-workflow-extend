@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" xmlns:template="http://www.chinacreator.com/c2/ui/template" name="选择外围配置的参与者" sn="chooseRunCandidate" type="form">
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" xmlns:template="http://www.chinacreator.com/c2/ui/template" name="选择外围配置的参与者" sn="mychoosecandidate" type="form">
   <form:control type="page/modal">
     <form:attributes source="page/modal">
       <dync:attribute default="" desc="页面头部的标题" group="HTML" hidden="false" id="title" name="标题" required="false" value="选择参与者">
@@ -62,7 +62,7 @@
               </template:case>
             </dync:onChange>
           </dync:attribute>
-          <dync:attribute default="" desc="加载数据成功后展开节点的层级;注意：赋值后”异步加载成功“的事件无效。" group="显示设置" hidden="false" id="expendLevel" name="默认展开级数" required="false" value="5">
+          <dync:attribute default="" desc="加载数据成功后展开节点的层级;注意：赋值后”异步加载成功“的事件无效。" group="显示设置" hidden="false" id="expendLevel" name="默认展开级数" required="false" value="1">
             <dync:render colSpan="1" height="0" multi="false" name="text"/>
             <dync:children/>
           </dync:attribute>
@@ -71,6 +71,10 @@
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="{ &quot;Y&quot;: &quot;ps&quot;, &quot;N&quot;: &quot;ps&quot; }" desc="勾选 checkbox 对于父子节点的关联关系。只有checkbox类型有效。默认值：{ &quot;Y&quot;: &quot;ps&quot;, &quot;N&quot;: &quot;ps&quot; }。Y 属性定义 checkbox 被勾选后的情况；N 属性定义 checkbox 取消勾选后的情况； &quot;p&quot; 表示操作会影响父级节点； &quot;s&quot; 表示操作会影响子级节点。" group="显示设置" hidden="false" id="chkboxType" name="父子节点关联" required="true" value="{ &quot;Y&quot;: &quot;&quot;, &quot;N&quot;: &quot;&quot; }">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据设置" id="otherParam" name="初始化参数" value="{&quot;selectedUserIds&quot;:$params.selectedUserIds, &quot;selectedGroupIds&quot;:$params.selectedGroupIds}">
             <dync:render colSpan="1" height="0" multi="false" name="text"/>
             <dync:children/>
           </dync:attribute>
@@ -129,7 +133,7 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
-    <form:datasource xsi:type="form:TreeDataSource" id="chooseCandidateTree" name="树型数据源" impl="com.chinacreator.c2.workflow.workflowManage.ds.CandidateChooseTreeContentProvider" type="custom"/>
+    <form:datasource xsi:type="form:TreeDataSource" id="chooseCandidateTree" name="树型数据源" impl="com.chinacreator.c2.qyb.workflow.config.provider.MyChooseCandidateTreeProvider" type="custom"/>
   </form:datasources>
   <form:scripts>
 

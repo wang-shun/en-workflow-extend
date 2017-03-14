@@ -95,10 +95,15 @@
     <form:datasource xsi:type="form:LogicDataSource" id="allserviceproduct" name="绑定了流程的事项" logic="rule:com.chinacreator.c2.qyb.workflow.module.getAllServiceProductWithModule" sn="getAllServiceProductWithModule">
       <form:param id="consp" name="新输入参数"/>
     </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="dictdata" name="字典" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
+      <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;工作流_事项分类&quot;]"/>
+    </form:datasource>
   </form:datasources>
   <form:scripts>
 
 page_afterDataSourceLoad:function(){
+	$model.types = $model.dictdata.result[&quot;工作流_事项分类&quot;]
+	$model.spsbytypes = {}
 	var sp = {};
 	var serviceTypeId = $location.$$search.serviceTypeId;
 	if(angular.isUndefined(serviceTypeId)){
@@ -107,23 +112,59 @@ page_afterDataSourceLoad:function(){
 	sp.serviceTypeId = $location.$$search.serviceTypeId;
 	$model.allserviceproduct.$load({consp:sp}).then(function(){
 		var r = $model.allserviceproduct.result;
-		var size = $model.allserviceproduct.result.length;
-		var a=new Array();
-		var col = 3;
-		for(var i=0;i&lt;size;i=i+3){
-			var b = new Array();
-			var j = i;
-			var m = col;
-			while(j&lt;size&amp;&amp;m>0){
-				b.push(r[j]);
-				j++;
-				m--;
-			}
-			a.push(b);
+		functions.typeSP(r)
+		for(var i in $model.spsbytypes){
+			$model.spsbytypes[i] = functions.convertRow($model.spsbytypes[i])
 		}
-		$model.a = a;	
 	});
-
+},
+convertRow:function(array){
+	var size = array.length;
+	var a=new Array();
+	var col = 5;
+	for(var i=0;i&lt;size;i=i+5){
+		var b = new Array();
+		var j = i;
+		var m = col;
+		while(j&lt;size&amp;&amp;m>0){
+			b.push(array[j]);
+			j++;
+			m--;
+		}
+		a.push(b);
+	}
+	return a
+},
+typeSP:function(sps){
+	sps.forEach(function(sp){
+		if(functions.isLegalType(sp.serviceTypeId)){
+			functions.addSpToType(sp,sp.serviceTypeId)
+		}else{
+			functions.addSpToType(sp,&quot;OTHER&quot;)
+			if(!$model.types.other){
+				$model.types.push({dictdataName:&quot;OTHER&quot;,dictdataValue:&quot;其他&quot;})
+				$model.types.other = true
+			}
+		}
+	})
+},
+addSpToType:function(sp,type){
+	if(!$model.spsbytypes[type]){
+		$model.spsbytypes[type] = new Array()
+	}
+	$model.spsbytypes[type].push(sp)
+},
+isLegalType:function(type){
+	if(type == undefined){
+		return false
+	}
+	var result = false
+	$model.types.forEach(function(t){
+		if(t.dictdataName == type){
+			result = true
+		}
+	})
+	return result
 },
 createWorkOrder:function(tmp){
 	var resourceIds = $location.$$search.resourceId==null?null:$location.$$search.resourceId.split(&quot;,&quot;);
@@ -147,25 +188,35 @@ createWorkOrder:function(tmp){
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
-&lt;table id=&quot;productentry&quot; width=&quot;100%&quot; border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;>&lt;tbody>
-&lt;tr ng-repeat=&quot;a in $model.a&quot; style=&quot;padding-bottom:30px&quot;>
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot; width=&quot;33%&quot; style=&quot;line-height:110px;&quot; ng-repeat=&quot;tmp in a&quot;>
-	&lt;table width=&quot;95%&quot; border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;tab_chanpin&quot;>
-		&lt;tbody>
-			&lt;tr id=&quot;servic_icon&quot;>
-				&lt;td width=&quot;21%&quot; rowspan=&quot;2&quot; style=&quot;text-align:right;padding-right:10px&quot;>
-                    &lt;a href=&quot;javascript:&quot; ng-click=&quot;functions.createWorkOrder(tmp)&quot;>
-					&lt;img src={{tmp.ico}} width=&quot;64&quot; height=&quot;64&quot;>&lt;/a>&lt;/td>
-					&lt;th width=&quot;79%&quot; class=&quot;chapin_name&quot;>{{tmp.productName}}&lt;/th>
-			&lt;/tr>
-			&lt;tr>
-				&lt;td title=&quot;&quot;>&lt;p>&lt;/p>&lt;/td>
-			&lt;/tr>
-	&lt;/tbody>
 
-	&lt;/table>
-	&lt;/td>
-&lt;/tr>
-&lt;/table>
+	&lt;div class=&quot;panel panel-primary&quot; ng-repeat=&quot;tmp in $model.types&quot;>
+      &lt;div class=&quot;panel-heading&quot;>
+        &lt;h3 class=&quot;panel-title&quot;>{{tmp.dictdataValue}}&lt;/h3>
+      &lt;/div>
+
+      &lt;div class=&quot;panel-body&quot;>
+
+	 &lt;div id=&quot;productentry&quot; >
+		&lt;ul ng-repeat=&quot;a in $model.spsbytypes[tmp.dictdataName]&quot; style=&quot;width:100%;margin-left:0&quot;>
+			&lt;li style=&quot;width:20%;display:inline-block&quot; ng-repeat=&quot;tmp in a&quot;>
+
+				&lt;ul class=&quot;tab_chanpin&quot;>
+					&lt;li id=&quot;servic_icon&quot; style=&quot;text-align:center;&quot;>
+						&lt;div style=&quot;line-height:80px&quot;>       
+							&lt;a href=&quot;javascript:&quot; ng-click=&quot;functions.createWorkOrder(tmp)&quot;>             
+								&lt;img src={{tmp.ico}} width=&quot;64&quot; height=&quot;64&quot;>
+							&lt;/a>
+						&lt;/div>
+						&lt;div  class=&quot;chapin_name&quot; style=&quot;font-size:14px;font-weight:bold&quot;>{{tmp.productName}}&lt;/div>
+			        &lt;/li>
+					&lt;li>
+						&lt;td title=&quot;&quot;>&lt;p>&lt;/p>&lt;/td>
+					&lt;/li>
+				&lt;/ul>
+
+			 &lt;/li>
+	  	&lt;/ul>
+	 &lt;/div>
+&lt;/div>
 &lt;/script></form:htmls>
 </form:Form>

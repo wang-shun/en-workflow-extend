@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="文本输入框" sn="wftextinput" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="qybWorkflowService UIDirectiveService">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="wftextinput" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="wftextinput_html">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+  </form:datasources>
+  <form:scripts>
+
+page_onload:function(){
+	qybWorkflowService.initC2FormParams($scope,$params)
+	qybWorkflowService.emitFormCheckFunc(this.check)
+	
+	$scope.class = qybWorkflowService.getWrapperClass()	
+},
+check:function(){
+	return $view.mainForm.check()
+	
+/*	var ele = $(&quot;#textinputWrapper&quot;+$params.fieldNo)
+	//不合法
+	if(!$scope.mainForm.$valid){
+		var fieldName = $params.field.displayName == undefined?$params.fieldName:$params.field.displayName
+		UIDirectiveService.setTipMessage(ele,&quot;为空或格式不正确&quot;)		
+		Messenger.error(fieldName+&quot; 为空或格式不正确&quot;) 
+	}else{
+		UIDirectiveService.removeTipMessage(ele)			
+	}
+	return $scope.mainForm.$valid
+*/
+},
+field_change:function(a,b,c){
+/*	var ele = $(&quot;#textinputWrapper&quot;+$params.fieldNo)
+	//不合法
+	if(!$scope.mainForm.$valid){
+
+	}else{
+		UIDirectiveService.removeTipMessage(ele)			
+	}
+*/
+}
+</form:scripts>
+  <form:htmls>&lt;script type=&quot;text/ng-template&quot; id=&quot;wftextinput_html&quot;>
+&lt;div id=&quot;textinputWrapper{{$params.fieldNo}}&quot; ng-class=&quot;class&quot; ng-if=&quot;permissionData[$params.fieldNo].visible&quot;>
+	    &lt;label class=&quot;control-label al-control-label  ng-binding&quot; 
+			ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth,'text-align': 'center'}&quot; 
+			ng-class=&quot;{&amp;quot;required-label&amp;quot;:permissionData[$params.fieldNo].fillnecessary}&quot;>
+				{{$params.field.displayName == undefined?$params.fieldName:$params.field.displayName}}
+		&lt;/label>
+        &lt;div ng-style=&quot;{'margin-left':$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;>
+    	    &lt;input c2-input=&quot;&quot; id=&quot;textinput&quot; name=&quot;textinput&quot; ng-model=&quot;formentity[$params.fieldNo]&quot; 
+				class=&quot;form-control c2Input  ng-isolate-scope ng-pristine ng-valid ng-valid-required&quot; type=&quot;text&quot; 
+				ng-required=&quot;permissionData[$params.fieldNo].fillnecessary&quot; ng-disabled=&quot;!permissionData[$params.fieldNo].writePermission&quot; 
+				ng-trim=&quot;true&quot; ng-change=&quot;functions.field_change()&quot; input-group=&quot;false&quot; group-type=&quot;iconSelect&quot; hidden-input=&quot;false&quot; 
+				ng-minlength=&quot;{{$params.field.remark1}}&quot; ng-maxlength=&quot;{{$params.field.remark2}}&quot; 
+				custom-icon=&quot;fa-question&quot; custom-text=&quot;?&quot; data-placement=&quot;top&quot;>
+    	&lt;/div>
+&lt;/div>
+&lt;/script></form:htmls>
+</form:Form>

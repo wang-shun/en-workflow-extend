@@ -87,6 +87,32 @@ public class ArchhandleServiceImpl  {
 		}
 		return r;
 	}
+	
+	/**
+	 * 存入审核意见 
+	 * @param jsonArray
+	 * @param businessKey
+	 * @param businessKey2
+	 * @return
+	 */
+	public int saveArchhandle(JSONObject jsonObject,String proInsId,String activityId,String businessKey){
+		List<Archhandle> archhandleDel = new ArrayList<Archhandle>();
+		List<Archhandle> archhandleAdd = new ArrayList<Archhandle>();
+
+		jsonObject.put("auditTime", null);
+		Archhandle archhandle = JSONObject.toJavaObject(jsonObject, Archhandle.class);
+		archhandle.setActivityId(activityId);
+		archhandle.setBusinessKey(businessKey);
+		archhandle.setProcInsId(proInsId);
+		archhandleAdd.add(archhandle);				
+
+		int r = 0;
+		for(Archhandle arc:archhandleAdd){
+			r = r + addArchhandle(arc);
+		}
+		return r;
+	}	
+	
 	public int deleteArchhandleById(String id) {
 		Dao<Archhandle> dao = DaoFactory.create(Archhandle.class);
 		Archhandle archhandle = new Archhandle();

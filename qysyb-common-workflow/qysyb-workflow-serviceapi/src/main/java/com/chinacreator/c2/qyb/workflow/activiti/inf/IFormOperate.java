@@ -38,7 +38,7 @@ public interface IFormOperate {
 			throws Exception;
 
 	/**
-	 * 
+	 * 此方法发生在流程流转之后
 	 * @param json
 	 * @param businessKey
 	 * @param proInsId
@@ -94,7 +94,7 @@ public interface IFormOperate {
 			WorkFlowActivity curActivity, WorkFlowActivity nextActivity,
 			WorkFlowTransition workFlowTransition, String curUserId, Map map);
 
-	/**
+	/**获取自定义的任务处理人
 	 * 
 	 * @param businessJson
 	 *            业务数据字符串
@@ -115,7 +115,7 @@ public interface IFormOperate {
 			String curTaskId, String curUserId, Map map);
 
 	/**
-	 * 
+	 * 设置流程变量 一般用来控制网关路径
 	 * @param businessJson
 	 *            业务数据字符串
 	 * @param businessKey
@@ -141,7 +141,7 @@ public interface IFormOperate {
 			WorkFlowTransition workFlowTransition, String curUserId, Map map);
 
 	/**
-	 * 此方法发生在流程任务执行之前
+	 * 任务回退回调
 	 * 
 	 * @param json
 	 *            业务字符串
@@ -163,7 +163,7 @@ public interface IFormOperate {
 			WorkFlowActivity nextActivity, Map map);
 
 	/**
-	 * 
+	 * 流程删除回调
 	 * @param json 业务字符串
 	 * @param businessKey 流程业务key
 	 * @param proInsId 流程实例id

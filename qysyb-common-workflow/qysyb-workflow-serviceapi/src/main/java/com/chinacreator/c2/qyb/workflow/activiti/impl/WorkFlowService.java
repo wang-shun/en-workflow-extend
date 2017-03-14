@@ -71,6 +71,7 @@ import com.chinacreator.c2.qyb.workflow.config.impl.ActivityConfigService;
 import com.chinacreator.c2.qyb.workflow.config.impl.UserConcernedConfigService;
 import com.chinacreator.c2.qyb.workflow.customretrieval.entity.RetrieveItem;
 import com.chinacreator.c2.qyb.workflow.customretrieval.impl.RetrieveItemService;
+import com.chinacreator.c2.qyb.workflow.form.entity.Form;
 import com.chinacreator.c2.qyb.workflow.form.entity.FormField;
 import com.chinacreator.c2.qyb.workflow.form.impl.FormFieldService;
 import com.chinacreator.c2.qyb.workflow.form.impl.FormService;
@@ -145,7 +146,7 @@ public class WorkFlowService {
 	private RuntimeService runtimeService;
 	@Autowired
 	private WfManagerService wfManagerService;
-
+	@Autowired
 	private ServiceProductService sps;
 	private InformService informService;
 	@Autowired
@@ -1329,7 +1330,7 @@ public class WorkFlowService {
 
 	/**
 	 * 根据流程实例id删除流程实例
-	 * 
+	 * @param json 业务数据
 	 * @param wfOperator
 	 *            操作者信息，必须参数
 	 * @param deleteReason
@@ -1342,14 +1343,22 @@ public class WorkFlowService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public String deleteProcessInstancesById(WfOperator wfOperator,
+	public String deleteProcessInstancesById(String json,WfOperator wfOperator,
  			String deleteReason, String processInstanceId, String formId, boolean deleteHistory)
 			throws Exception {
 		String result = WfApiFactory.getWfRuntimeService()
 				.deleteProcessInstancesById(wfOperator, deleteReason,
 						processInstanceId);
  		//TODO 处理业务数据
- 
+		FormService formService = ApplicationContextManager.getContext()
+				.getBean(FormService.class);
+		Form form = formService.getFormById(formId);
+		String beanName = form.getOperateBean();
+		FormOperate formOperate = (FormOperate) ApplicationContextManager
+				.getContext().getBean(beanName);
+		formOperate.onProcessDelete(json, wfOperator.getBusinessData().getBusinessKey(), processInstanceId, 
+				wfOperator.getBusinessData().getModuleId(), null, 
+				null, deleteReason, new HashMap());
  		if(deleteHistory){
  			historyService.deleteHistoricProcessInstance(processInstanceId);
  		}
@@ -2726,4 +2735,18 @@ public class WorkFlowService {
 		variables.put("processDefinitionId", ins.getProcessDefinitionId());
 		return variables;
 	}
+	    
+	public Form getFormByServiceType(String ServiceTypeId) {
+		List<ServiceProduct> list = sps.getSPByserviceType(ServiceTypeId);
+		if (list.size() == 1) {
+			ServiceProduct sp = list.get(0);
+			String formId = sp.getFormId();
+			FormService formService = ApplicationContextManager.getContext()
+					.getBean(FormService.class);
+			Form form = formService.getFormById(formId);
+			return form;
+		}
+		return null;
+	}
+	
 }

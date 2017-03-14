@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="字典下拉框" sn="wfdropdowndict" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="qybWorkflowService UIDirectiveService">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="wfdropdowndictdiv" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
+          <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="wfdropdowndictdiv_html">
+          <dync:render colSpan="2" height="0" multi="false" name="html"/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+  </form:datasources>
+  <form:scripts>
+
+page_afterDataSourceLoad:function(){
+	
+},
+
+dictdropdownlist_change:function(){
+	$scope.formentity[$params.fieldNo] = $model.bind;
+//	$scope.update_obervable($params.fieldNo,$scope.formentity);
+},
+check:function(){
+	return $view.mainForm.check()
+/*	//不合法
+	if(!$scope.mainForm.$valid){
+		var fieldName = $params.field.displayName == undefined?$params.fieldName:$params.field.displayName
+		UIDirectiveService.setTipMessage($(&quot;#dictdropdownoptionWrapper&quot;+$params.fieldNo),&quot;为空或格式不正确&quot;)
+		Messenger.error(fieldName+&quot; 为空或格式不正确&quot;) 
+	}else{
+		UIDirectiveService.removeTipMessage($(&quot;#dictdropdownoptionWrapper&quot;+$params.fieldNo))
+	}
+	return $scope.mainForm.$valid
+*/	
+},
+linkcallback:function(src,data){
+
+},
+reset:function(){
+	$model.bind = undefined;
+	$scope.formentity[$params.fieldNo] = undefined;
+},
+page_onload:function(){
+	qybWorkflowService.initC2FormParams($scope,$params)
+	qybWorkflowService.emitFormCheckFunc(this.check)
+	
+	$model.wrapperClass = qybWorkflowService.getWrapperClass()
+
+	$scope.$emit(&quot;resetfunc&quot;,{name:$params.fieldNo,func:this.reset});
+	
+//	this.dictdropdownlist_change();
+},
+
+dictdropdownoption_customFilter:function(data){
+	if($scope.formentity[$params.fieldNo]==undefined||$scope.formentity[$params.fieldNo]==&quot;&quot;){
+		//属性1 remark1为是否选择第一个
+		var selectFirst = qybWorkflowService.getBooleanFromRemark($params.field.remark1);
+		if(selectFirst){
+			$model.bind = data[0].dictdataName;
+			$scope.formentity[$params.fieldNo] = data[0].dictdataName;	
+		}	
+	}else{
+		$model.bind = $scope.formentity[$params.fieldNo]
+	}
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;wfdropdowndictdiv_html&quot;>
+&lt;div id=&quot;dictdropdownoptionWrapper{{$params.fieldNo}}&quot; ng-class=&quot;$model.wrapperClass&quot;>
+        &lt;label class=&quot;control-label al-control-label  ng-binding&quot; ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth,'text-align': 'center'}&quot;
+			ng-class=&quot;{&amp;quot;required-label&amp;quot;:permissionData[$params.fieldNo].fillnecessary}&quot;>
+			{{$params.field.displayName == undefined?$params.fieldName:$params.field.displayName}}
+		&lt;/label>
+        &lt;div ng-style=&quot;{'margin-left':$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;>
+    	&lt;div ng-options=&quot;selectOption.value as selectOption.key group by selectOption.group for selectOption in options&quot; 
+			c2-simple-select-dict id=&quot;dictdropdownoption1&quot; name=&quot;dictdropdownoption1&quot; ng-model=&quot;$model.bind&quot; 
+			class=&quot;form-control c2-simple-select ng-isolate-scope ng-pristine ng-valid ng-valid-required&quot; 
+			select-options=&quot;{{$params.field.dictName}}&quot; option-id=&quot;dictdataName&quot; option-name=&quot;dictdataValue&quot; 
+			option-selected=&quot;dictdataIsdefault&quot; null-value=&quot;请选择&quot; null-value-select=&quot;emptyString&quot; 
+			first-selected=&quot;false&quot; ng-change=&quot;functions.dictdropdownlist_change()&quot; 
+			ng-required=&quot;permissionData[$params.fieldNo].fillnecessary&quot; 
+			ng-disabled=&quot;!permissionData[$params.fieldNo].writePermission&quot; 
+			filter-type=&quot;custom&quot; custom-filter=&quot;functions.dictdropdownoption_customFilter(data)&quot; 
+			data-original-title=&quot;&quot; title=&quot;&quot;>
+		&lt;/div>
+    &lt;/div>
+&lt;/div>
+&lt;/script></form:htmls>
+</form:Form>

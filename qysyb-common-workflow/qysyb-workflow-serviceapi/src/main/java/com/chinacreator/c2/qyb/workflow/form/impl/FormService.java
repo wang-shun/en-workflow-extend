@@ -369,17 +369,7 @@ public class FormService {
 			List<Map> list = new ArrayList<Map>();
 			for(FormFieldRel o:listffr){
 				if(o.getFieldId()!=null){
-					Map map = new HashMap();
-					ObjectMapper m = new ObjectMapper();
-					Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
-					if(props != null){
-						map.putAll(props);
-					}
-					Map<String,Object> relprops = m.convertValue(o, Map.class);		
-					if(relprops != null){
-						Map relpropstrimed = removeNullInMap(relprops);
-						map.putAll(relpropstrimed);
-					}					
+					Map map = assembleFieldConfig(o);					
 					list.add(map);
 				}		
 			}
@@ -405,17 +395,7 @@ public class FormService {
 				List<Map> list = new ArrayList<Map>();
 				for(FormFieldRel o:listffr){
 					if(o.getFieldId()!=null){
-						Map map = new HashMap();
-						ObjectMapper m = new ObjectMapper();
-						Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
-						if(props != null){
-							map.putAll(props);
-						}
-						Map<String,Object> relprops = m.convertValue(o, Map.class);		
-						if(relprops != null){
-							Map relpropstrimed = removeNullInMap(relprops);
-							map.putAll(relpropstrimed);
-						}					
+						Map map = assembleFieldConfig(o);				
 						list.add(map);
 					}		
 				}
@@ -432,17 +412,7 @@ public class FormService {
 				List<Map> list = new ArrayList<Map>();
 				for(FormFieldRel o:listffr){
 					if(o.getFieldId()!=null){
-						Map map = new HashMap();
-						ObjectMapper m = new ObjectMapper();
-						Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
-						if(props != null){
-							map.putAll(props);
-						}
-						Map<String,Object> relprops = m.convertValue(o, Map.class);		
-						if(relprops != null){
-							Map relpropstrimed = removeNullInMap(relprops);
-							map.putAll(relpropstrimed);
-						}					
+						Map map = assembleFieldConfig(o);				
 						list.add(map);
 					}		
 				}
@@ -452,6 +422,22 @@ public class FormService {
 			}
 		}
 		return mapresult;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private Map assembleFieldConfig(FormFieldRel o){
+		Map map = new HashMap();
+		ObjectMapper m = new ObjectMapper();
+		Map<String,Object> props = m.convertValue(o.getFieldId(), Map.class);
+		if(props != null){
+			map.putAll(props);
+		}
+		Map<String,Object> relprops = m.convertValue(o, Map.class);		
+		if(relprops != null){
+			Map relpropstrimed = removeNullInMap(relprops);
+			map.putAll(relpropstrimed);
+		}	
+		return map;
 	}
 	/**
 	 * 
@@ -570,6 +556,7 @@ public class FormService {
  			String procInsId,String entityjson,WorkFlowActivity curActivity,
  			Form form,String curUserId,WorkFlowActivity nextActivity, Map map)
  					throws Exception{
+		String moduleId = (String) map.get("moduleId");
 		//表示需要查数据库
 		if(form.getFormNo()==null){
 			form = this.getFormById((form.getFormId()));
@@ -580,7 +567,7 @@ public class FormService {
 				.getBean(beanName);
 		//TODO 把null值改掉
  		formOperate.addOrUpdateEntity(entityjson,businessKey,procInsId, 
- 				null, curActivity, curUserId, nextActivity, map);	}
+ 				moduleId, curActivity, curUserId, nextActivity, map);	}
 	/**
 	 * 务数据有自己的表时业务数据的获取
 	 * @param businessKey 这里是流程实例id 业务表吧流程实例id作为业务key

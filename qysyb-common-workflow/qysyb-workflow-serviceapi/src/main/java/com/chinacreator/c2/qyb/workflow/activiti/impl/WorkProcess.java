@@ -15,6 +15,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.bpmn.behavior.ParallelMultiInstanceBehavior;
+import org.activiti.engine.impl.bpmn.behavior.SequentialMultiInstanceBehavior;
 import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
@@ -47,6 +48,7 @@ import com.chinacreator.c2.qyb.workflow.activiti.cmd.FindTaskEntityCmd;
 import com.chinacreator.c2.qyb.workflow.activiti.cmd.JumpActivityByTakeTransitionCmd;
 import com.chinacreator.c2.qyb.workflow.activiti.cmd.RecoverTaskCmd;
 import com.chinacreator.c2.qyb.workflow.activiti.inf.IFormOperate;
+import com.chinacreator.c2.qyb.workflow.audit.impl.ArchhandleServiceImpl;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowActivity;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowTransition;
 import com.chinacreator.c2.qyb.workflow.config.entity.ActivityConfig;
@@ -93,10 +95,13 @@ public class WorkProcess {
 	private RepositoryService repositoryService;
 	@Autowired
 	private InformService informService;
+	@Autowired
+	ArchhandleServiceImpl archhandleServiceImpl;
 
 	public final static String HANDLE_TYPE_KEY = "handleKey";
 	public final static String HANDLE_VALUE_KEY = "handleValue";
 	public final static Boolean AUTORUN_FIRST_ACT = true;
+	public final static String INLINE_AUDIT_KEY = "inlineaudit";
 	/**
 	 * 流程启动
 	 * 
@@ -375,7 +380,13 @@ public class WorkProcess {
 			/* 业务数据作为流程变量保存 */
 			variables.putAll(entitymap);
 		}
-
+		//保存inline的
+		Object o = entitymap.get(INLINE_AUDIT_KEY);
+		if(o != null){
+			archhandleServiceImpl.saveArchhandle((JSONObject) o, proInsId, 
+					curActivity.id, bussinessKey);			
+		}
+		
 		if (opinion != null) {
 			Authentication.setAuthenticatedUserId(wfOperator.getUserId());
 			taskService.addComment(currenTaskId, proInsId, opinion);
@@ -718,14 +729,19 @@ public class WorkProcess {
 				WfOperator.class);
 		Map handlerVariables = JSONObject.parseObject(handlerVariablesStr, Map.class);
 		Map entitymap = JSONObject.parseObject(entity, Map.class);
-		
+		if(handlerVariables == null){
+			handlerVariables = new HashMap();
+		}
 		//任务处理人
  		chooseHandleTypeValue(handlerVariables);
  		//流程变量
  		Map variables = new HashMap();
  		//会签人信息得先于流程流转设置进去
- 		variables.put(WorkFlowService.TYPE_ASSIGNEELIST, 
- 				handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST));
+ 		if(handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST) != null){
+ 	 		variables.put(WorkFlowService.TYPE_ASSIGNEELIST, 
+ 	 				handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST));			
+ 		}
+
 		FormService formService = ApplicationContextManager.getContext()
 				.getBean(FormService.class);
 		Form form = formService.getFormById(formId);
@@ -768,7 +784,14 @@ public class WorkProcess {
 			/* 业务数据作为流程变量保存  不再使用这种方法 */
 			variables.putAll(entitymap);
 		}
+		//保存inline的
+		Object o = entitymap.get(INLINE_AUDIT_KEY);
+		if(o != null){
+			archhandleServiceImpl.saveArchhandle((JSONObject) o, proInsId, 
+					wfTransition.getSrc().id, bussinessKey);			
+		}
 
+		
 		// 添加意见
 		if (opinion != null) {
 			Authentication.setAuthenticatedUserId(wfOperator.getUserId());
@@ -793,7 +816,8 @@ public class WorkProcess {
 				.executeCommand(new FindTaskEntityCmd(currenTaskId));
 		ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
 		/* JumpActivityByTakeTransitionCmd 自由流时会签任务处理， */
-		if (activityImpl.getActivityBehavior() instanceof ParallelMultiInstanceBehavior) {
+		if (activityImpl.getActivityBehavior() instanceof ParallelMultiInstanceBehavior
+				|| activityImpl.getActivityBehavior() instanceof SequentialMultiInstanceBehavior) {
 			// 先声明接撿然后再走自由泿解决流程图处理人出现null的问頿,
 			// 声明后 assignee便有了值。
 			taskService.claim(currenTaskId, wfOperator.getUserId());
@@ -824,7 +848,7 @@ public class WorkProcess {
 						moduleId, wfTransition.getSrc(),wfTransition.getDest(), nextTaskId,
 						wfOperator.getUserId(),paramsMap);
  				setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
- 						processDefinitionId,proInsId, wfTransition.getDest().getId(), moduleId, entitymap);
+ 						processDefinitionId,proInsId, wfTransition, moduleId, entitymap);
 			}
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
@@ -840,6 +864,13 @@ public class WorkProcess {
 		//设置last activity 信息
 		setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
 				, variables, wfTransition.getSrc());
+		//获取自定义会签list
+		List<String> assigneeList = formOperate.getAssigneeList(entity, bussinessKey , proInsId, moduleId, 
+				wfTransition.getSrc(), wfTransition.getDest(), wfTransition, 
+				wfOperator.getUserId(), paramsMap);
+		if(assigneeList != null && assigneeList.size() > 0){
+			variables.put(WorkFlowService.TYPE_ASSIGNEELIST, assigneeList);
+		}
 		
 		// JumpActivityByTakeTransitionCmd 自由流
 		wfresult = this.goAnyWhereTakeTransition(wfOperator,
@@ -852,18 +883,21 @@ public class WorkProcess {
  		
 		Object multiInstancePor = wfTransition.getDest().getPorperties()
 				.get("multiInstance");
-		if (multiInstancePor != null
-				&& ((String) multiInstancePor).equals("parallel")) {// 下一步是并行会签
-			// 不要选择处理人
-
-		} else if (multiInstancePor == null) {// 下一步是普通任务
+		if (multiInstancePor == null) {// 下一步是普通任务
 			String nextTaskId = wfresult.getNextTaskId();
 			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
 					bussinessKey, wfresult.getProcessInstanceId(), moduleId,
 					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, wfOperator.getUserId(),
 					paramsMap);
  			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
- 					processDefinitionId,proInsId, wfTransition.getDest().getId(), moduleId, entitymap);
+ 					processDefinitionId,proInsId, wfTransition, moduleId, entitymap);
+		}else if (multiInstancePor != null
+				&& ((String) multiInstancePor).equals("parallel")) {// 下一步是并行会签
+			// 不要选择处理人
+
+		}else if(multiInstancePor != null
+				&& ((String) multiInstancePor).equals("sequential")){// 下一步是顺序会签
+			
 		}
 
 		/* 通知处理 */
@@ -996,7 +1030,13 @@ public class WorkProcess {
 			//设置last activity 信息
 			setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
 					, variables, wfTransition.getSrc());
-			
+			//获取自定义会签list
+			List<String> assigneeList = formOperate.getAssigneeList(entity, businessKey , null, moduleId, 
+					wfTransition.getSrc(), wfTransition.getDest(), wfTransition, 
+					wfOperator.getUserId(), paramsMap);
+			if(assigneeList != null && assigneeList.size() > 0){
+				variables.put(WorkFlowService.TYPE_ASSIGNEELIST, assigneeList);
+			}
 			wf = this.startFlow(wfOperator, businessKey, processDefinitionId,
 					variables);
 			if (form.isIsTableStorage() != null && form.isIsTableStorage()) { // 业务数据存储到外部表
@@ -1025,7 +1065,7 @@ public class WorkProcess {
 					wfOperator.getUserId(),paramsMap);
 
  			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(),				
- 					processDefinitionId,null,wfTransition.getDest().getId(),moduleId,variables);
+ 					processDefinitionId,null,wfTransition,moduleId,variables);
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
 			informService.informDo(moduleId,mapentity);
@@ -1061,10 +1101,22 @@ public class WorkProcess {
 	 */
 	private void setTaskHandler(Map<String, String> valuemap, Map variables,
  			String taskId,String curUserId,String processDefinitionId,String processInsId,
-			String taskDefKey,String moduleId,Map processVariables) {
+ 			WorkFlowTransition wfTransition,String moduleId,Map processVariables) {
 		if (taskId == null) {
 			return;
-		}		
+		}	
+		String taskDefKey = null;
+		WorkFlowActivity wfActivity = wfTransition.getDest();
+		Map prop = wfActivity.getPorperties();
+		//排他网关是会自动流转的 那么路径的dest已不能代表下一步了
+		if(prop.get("type").equals("exclusiveGateway")){
+			TaskEntity taskEntity = managementService
+					.executeCommand(new FindTaskEntityCmd(taskId));	
+			taskDefKey = taskEntity.getTaskDefinitionKey();
+		}else{
+			taskDefKey = wfActivity.getId();
+		}
+	
 		//业务模块并没有制定处理人过来 则看前端是否有制定处理人过来
 		if (valuemap == null || valuemap.size() == 0) {
 			valuemap = new HashMap<String, String>();
@@ -1106,8 +1158,7 @@ public class WorkProcess {
 					}
 				}					
 			}				
-		}
-		if (valuemap != null && valuemap.size() == 1) {
+		}else if (valuemap != null && valuemap.size() == 1) {
 			// 先把之前的候选给去掉 有可能是平台赋的值
 			managementService.executeCommand(new DelTaskCandidatesCmd(taskId));
 			for (String key : valuemap.keySet()) {

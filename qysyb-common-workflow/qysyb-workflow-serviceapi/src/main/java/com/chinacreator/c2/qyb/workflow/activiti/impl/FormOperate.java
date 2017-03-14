@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.qyb.workflow.activiti.inf.IFormOperate;
+import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowActivity;
 
 /** 
  * @author qiao.li 
@@ -344,5 +345,20 @@ public abstract class FormOperate implements IFormOperate {
  	protected <T> T parseObjectFromJson(Class<T> clazz,String jsonStr){
  		T t = JSONObject.parseObject(jsonStr, clazz);
  		return t;
+ 	}
+ 	/**
+ 	 * 判断是不是结束节点
+ 	 * @param wfTransition
+ 	 * @return
+ 	 */
+ 	protected boolean isEndEventActivity(WorkFlowActivity wfActivity){
+ 		if(wfActivity == null){
+ 			return false;
+ 		}
+ 		// 退回时 因为是一个简单的拼装 没有节点属性设置
+ 		if(wfActivity.getPorperties() == null){
+ 			return false;
+ 		}
+ 		return wfActivity.getPorperties().get("type").equals("endEvent");
  	}
 }

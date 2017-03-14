@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="文本域" sn="wftextarea" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="qybWorkflowService">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="wftextareadiv" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="wftextareadiv_html">
+          <dync:render colSpan="2" height="0" multi="false" name="html"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+  </form:datasources>
+  <form:scripts>
+
+page_onload:function(){ 
+	qybWorkflowService.initC2FormParams($scope,$params)
+	qybWorkflowService.emitFormCheckFunc(this.check)
+	
+	$model.classstr = qybWorkflowService.getWrapperClass()	
+},
+check:function(){
+	return $view.mainForm.check();
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;wftextareadiv_html&quot;>
+&lt;div id=&quot;textareadivWrapper&quot; ng-class=&quot;$model.classstr&quot; ng-show=&quot;permissionData[$params.fieldNo].visible&quot;>
+        &lt;label class=&quot;control-label al-control-label  ng-binding&quot; ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot; 
+			ng-class=&quot;{&amp;quot;required-label&amp;quot;:permissionData[$params.fieldNo].fillnecessary}&quot;>
+				{{$params.field.displayName == undefined?$params.fieldName:$params.field.displayName}}
+		&lt;/label>
+        &lt;div ng-style=&quot;{'margin-left':$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;>
+        &lt;textarea c2-textarea=&quot;&quot; id=&quot;textareadiv&quot; name=&quot;textareadiv&quot; ng-model=&quot;formentity[$params.fieldNo]&quot; 
+			class=&quot;form-control c2-textarea ng-isolate-scope ng-pristine ng-valid ng-valid-required&quot; rows=&quot;3&quot; ng-trim=&quot;&quot; 
+			ng-required=&quot;permissionData[$params.fieldNo].fillnecessary&quot; 
+			ng-disabled=&quot;!permissionData[$params.fieldNo].writePermission&quot; data-placement=&quot;top&quot; data-rel=&quot;tooltip&quot;>
+		&lt;/textarea>
+    &lt;/div>
+&lt;/div>
+&lt;/script></form:htmls>
+</form:Form>

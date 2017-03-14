@@ -23,6 +23,13 @@ public class RetrieveItemService {
 		item.setRetrieveKey(retrieveKey);
 		return dao.select(item);
 	}
+
+	public int deleteRetrieveItem(String itemId){
+		Dao<RetrieveItem> dao = DaoFactory.create(RetrieveItem.class);
+		RetrieveItem item = new RetrieveItem();
+		item.setItemId(itemId);
+		return dao.delete(item);		
+	}
 	
 	public void addRetrieveItemOnRetrieve(String retrieveKey,List items){
 		Dao<RetrieveItem> dao = DaoFactory.create(RetrieveItem.class);
