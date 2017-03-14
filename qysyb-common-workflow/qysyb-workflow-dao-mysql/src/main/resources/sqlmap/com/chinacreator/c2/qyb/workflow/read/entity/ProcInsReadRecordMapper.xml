@@ -26,7 +26,8 @@
 		  SERVICE_PROC_READING.send_activity_id ,
 		  SERVICE_PROC_READING.send_activity_name ,
 		  SERVICE_PROC_READING.send_module_id ,
-		  SERVICE_PROC_READING.send_module_name 
+		  SERVICE_PROC_READING.send_module_name ,
+		  SERVICE_PROC_READING.send_time 
 </sql>
 
 <!-- ElementID:whereClause_sql,Generated=true -->
@@ -55,6 +56,7 @@
 	    <if test="sendActivityName != null">and SERVICE_PROC_READING.send_activity_name = #{sendActivityName}</if>
 	    <if test="sendModuleId != null">and SERVICE_PROC_READING.send_module_id = #{sendModuleId}</if>
 	    <if test="sendModuleName != null">and SERVICE_PROC_READING.send_module_name = #{sendModuleName}</if>
+	    <if test="sendTime != null">and SERVICE_PROC_READING.send_time = #{sendTime}</if>
 </sql>
 
 
@@ -84,6 +86,7 @@
 	<result property="sendActivityName" column="send_activity_name"/>
 	<result property="sendModuleId" column="send_module_id"/>
 	<result property="sendModuleName" column="send_module_name"/>
+	<result property="sendTime" column="send_time"/>
 </resultMap>
 
 
@@ -117,6 +120,7 @@
 	         <if test="sendActivityName != null">,send_activity_name</if>
 	         <if test="sendModuleId != null">,send_module_id</if>
 	         <if test="sendModuleName != null">,send_module_name</if>
+	         <if test="sendTime != null">,send_time</if>
 	 	 	 )
 	 values (
 	         <if test="id != null">#{id,jdbcType=VARCHAR}</if>
@@ -143,6 +147,7 @@
 	         <if test="sendActivityName != null">,#{sendActivityName,jdbcType=VARCHAR}</if>
 	         <if test="sendModuleId != null">,#{sendModuleId,jdbcType=VARCHAR}</if>
 	         <if test="sendModuleName != null">,#{sendModuleName,jdbcType=VARCHAR}</if>
+	         <if test="sendTime != null">,#{sendTime,jdbcType=TIMESTAMP}</if>
 	 	 	 )
 </insert>
 
@@ -180,7 +185,8 @@
 	<if test="sendActivityId != null">send_activity_id=#{sendActivityId,jdbcType=VARCHAR},</if>
 	<if test="sendActivityName != null">send_activity_name=#{sendActivityName,jdbcType=VARCHAR},</if>
 	<if test="sendModuleId != null">send_module_id=#{sendModuleId,jdbcType=VARCHAR},</if>
-	<if test="sendModuleName != null">send_module_name=#{sendModuleName,jdbcType=VARCHAR}</if>
+	<if test="sendModuleName != null">send_module_name=#{sendModuleName,jdbcType=VARCHAR},</if>
+	<if test="sendTime != null">send_time=#{sendTime,jdbcType=TIMESTAMP}</if>
 </set>
 <where>
 	<choose>
@@ -218,6 +224,7 @@
 		    <if test="sendActivityName==null">send_activity_name = null,</if>
 		    <if test="sendModuleId==null">send_module_id = null,</if>
 		    <if test="sendModuleName==null">send_module_name = null,</if>
+		    <if test="sendTime==null">send_time = null,</if>
 		</trim>
 	</set>
 	<where>
@@ -241,12 +248,14 @@
 		 <where>
 			<include refid="whereClause_sql"/>
 		</where>
+	order by 
+			send_time desc
 </select>
 
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into SERVICE_PROC_READING (id,send_user_id,send_user_name,receive_user_id,receive_user_name,receive_org_id,receive_org_name,proc_inst_id,business_key,read_status,sign_status,receipt_status,read_time,sign_time,receipt_time,remark1,remark2,remark3,remark4,remark5,send_activity_id,send_activity_name,send_module_id,send_module_name) 
+	insert into SERVICE_PROC_READING (id,send_user_id,send_user_name,receive_user_id,receive_user_name,receive_org_id,receive_org_name,proc_inst_id,business_key,read_status,sign_status,receipt_status,read_time,sign_time,receipt_time,remark1,remark2,remark3,remark4,remark5,send_activity_id,send_activity_name,send_module_id,send_module_name,send_time) 
 <foreach collection="list" item="entity" index="index" separator="union all">
 		select 
 		#{entity.id,jdbcType = VARCHAR},
@@ -272,7 +281,8 @@
 				#{entity.sendActivityId,jdbcType = VARCHAR},
 				#{entity.sendActivityName,jdbcType = VARCHAR},
 				#{entity.sendModuleId,jdbcType = VARCHAR},
-				#{entity.sendModuleName,jdbcType = VARCHAR}
+				#{entity.sendModuleName,jdbcType = VARCHAR},
+				#{entity.sendTime,jdbcType = TIMESTAMP}
 		from dual
 </foreach>
 </insert>
@@ -314,7 +324,8 @@
 	<if test="entity.sendActivityId != null">send_activity_id= #{entity.sendActivityId,jdbcType=VARCHAR},</if>
 	<if test="entity.sendActivityName != null">send_activity_name= #{entity.sendActivityName,jdbcType=VARCHAR},</if>
 	<if test="entity.sendModuleId != null">send_module_id= #{entity.sendModuleId,jdbcType=VARCHAR},</if>
-	<if test="entity.sendModuleName != null">send_module_name= #{entity.sendModuleName,jdbcType=VARCHAR}</if>
+	<if test="entity.sendModuleName != null">send_module_name= #{entity.sendModuleName,jdbcType=VARCHAR},</if>
+	<if test="entity.sendTime != null">send_time= #{entity.sendTime,jdbcType=TIMESTAMP}</if>
 	</set>
 		<where>
 			<choose>
@@ -367,6 +378,7 @@ select
 	        <if test="entity.sendActivityName != null">and SERVICE_PROC_READING.send_activity_name = #{entity.sendActivityName}</if>
 	        <if test="entity.sendModuleId != null">and SERVICE_PROC_READING.send_module_id = #{entity.sendModuleId}</if>
 	        <if test="entity.sendModuleName != null">and SERVICE_PROC_READING.send_module_name = #{entity.sendModuleName}</if>
+	        <if test="entity.sendTime != null">and SERVICE_PROC_READING.send_time = #{entity.sendTime}</if>
 		</where>
 </foreach>
 )
@@ -388,10 +400,12 @@ select
 		 <where>
 			<include refid="whereClause_sql"/>
 		</where>
+	order by 
+			send_time desc
 </select>
 
 <!-- ElementID:selectByPage,Generated=false -->
-<select id="getMyPages" resultType="map">
+<select id="getMyPages" resultMap="myResultMap">
 		SELECT
 			*
 		FROM
@@ -400,6 +414,8 @@ select
 		 <where>
 			<include refid="mywhereClause_sql"/>
 		</where>
+		order by 
+		send_time desc		
 </select>
 
 <!-- ElementID:whereClause_sql,Generated=false -->
@@ -430,5 +446,9 @@ select
 	    <if test="sendModuleName != null">and SERVICE_PROC_READING.send_module_name like CONCAT(CONCAT('%',#{sendModuleName}),'%')</if>
 	    <if test="title != null">and WF_UNION_TODO.title like CONCAT(CONCAT('%',#{title}),'%')</if>
 </sql>
-
+<!-- ElementID:ProcInsReadRecordResult,Generated=false -->
+<resultMap id="myResultMap" type="java.util.HashMap">
+	<id property="id" column="id"/>
+	<result property="sendTime" column="send_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+</resultMap>
 </mapper>

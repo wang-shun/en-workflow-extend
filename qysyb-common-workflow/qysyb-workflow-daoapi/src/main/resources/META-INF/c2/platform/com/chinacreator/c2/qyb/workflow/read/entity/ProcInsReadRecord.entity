@@ -42,16 +42,16 @@
     <docket:attribute code="receipt_status" length="1" name="0 未回执 1 已发回执" nullable="true" type="tinyint" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="read_time" length="13" name="阅读时间" nullable="true" type="double" default="">
+    <docket:attribute code="read_time" length="64" name="阅读时间" nullable="true" type="long" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="sign_time" length="13" name="签收时间" nullable="true" type="double" default="">
+    <docket:attribute code="sign_time" length="64" name="签收时间" nullable="true" type="long" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="receipt_time" length="13" name="回执时间" nullable="true" type="double" default="">
+    <docket:attribute code="receipt_time" length="64" name="回执时间" nullable="true" type="long" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark1" length="255" nullable="true" type="string256" default="">
+    <docket:attribute code="remark1" length="255" name="" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="remark2" length="255" nullable="true" type="string256" default="">
@@ -76,6 +76,9 @@
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="send_module_name" length="255" name="事项名称" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="send_time" length="0" name="传阅时间" nullable="true" type="timestamp" sortType="降序">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
   </docket:attributes>

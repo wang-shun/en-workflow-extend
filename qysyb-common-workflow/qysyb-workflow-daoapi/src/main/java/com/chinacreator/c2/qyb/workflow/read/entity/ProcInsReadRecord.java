@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.chinacreator.c2.annotation.Column;
 import com.chinacreator.c2.annotation.ColumnType;
 import com.chinacreator.c2.annotation.Entity;
+import com.chinacreator.c2.annotation.SortType;
 
 /**
  * 实例阅读记录
@@ -87,20 +88,23 @@ public class ProcInsReadRecord implements Serializable {
 	 *阅读时间
 	 */
 	@Column(id = "read_time", datatype = "long")
-	private long readTime;
+	private java.lang.Long readTime;
 
 	/**
 	 *签收时间
 	 */
 	@Column(id = "sign_time", datatype = "long")
-	private long signTime;
+	private java.lang.Long signTime;
 
 	/**
 	 *回执时间
 	 */
 	@Column(id = "receipt_time", datatype = "long")
-	private long receiptTime;
+	private java.lang.Long receiptTime;
 
+	/**
+	 *
+	 */
 	@Column(id = "remark1", datatype = "string256")
 	private java.lang.String remark1;
 
@@ -139,6 +143,12 @@ public class ProcInsReadRecord implements Serializable {
 	 */
 	@Column(id = "send_module_name", datatype = "string256")
 	private java.lang.String sendModuleName;
+
+	/**
+	 *传阅时间
+	 */
+	@Column(id = "send_time", datatype = "timestamp", sort = SortType.desc)
+	private java.sql.Timestamp sendTime;
 
 	/**
 	 * 设置${field.desc}
@@ -311,54 +321,54 @@ public class ProcInsReadRecord implements Serializable {
 	/**
 	 * 设置阅读时间
 	 */
-	public void setReadTime(long readTime) {
+	public void setReadTime(java.lang.Long readTime) {
 		this.readTime = readTime;
 	}
 
 	/**
 	 * 获取阅读时间
 	 */
-	public long getReadTime() {
+	public java.lang.Long getReadTime() {
 		return readTime;
 	}
 
 	/**
 	 * 设置签收时间
 	 */
-	public void setSignTime(long signTime) {
+	public void setSignTime(java.lang.Long signTime) {
 		this.signTime = signTime;
 	}
 
 	/**
 	 * 获取签收时间
 	 */
-	public long getSignTime() {
+	public java.lang.Long getSignTime() {
 		return signTime;
 	}
 
 	/**
 	 * 设置回执时间
 	 */
-	public void setReceiptTime(long receiptTime) {
+	public void setReceiptTime(java.lang.Long receiptTime) {
 		this.receiptTime = receiptTime;
 	}
 
 	/**
 	 * 获取回执时间
 	 */
-	public long getReceiptTime() {
+	public java.lang.Long getReceiptTime() {
 		return receiptTime;
 	}
 
 	/**
-	 * 设置${field.desc}
+	 * 设置
 	 */
 	public void setRemark1(java.lang.String remark1) {
 		this.remark1 = remark1;
 	}
 
 	/**
-	 * 获取${field.desc}
+	 * 获取
 	 */
 	public java.lang.String getRemark1() {
 		return remark1;
@@ -474,5 +484,19 @@ public class ProcInsReadRecord implements Serializable {
 	 */
 	public java.lang.String getSendModuleName() {
 		return sendModuleName;
+	}
+
+	/**
+	 * 设置传阅时间
+	 */
+	public void setSendTime(java.sql.Timestamp sendTime) {
+		this.sendTime = sendTime;
+	}
+
+	/**
+	 * 获取传阅时间
+	 */
+	public java.sql.Timestamp getSendTime() {
+		return sendTime;
 	}
 }

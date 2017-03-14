@@ -1,5 +1,6 @@
 package com.chinacreator.c2.qyb.workflow.read.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -62,6 +63,7 @@ public class ProcInstReadService {
 					procInsReadRecord.setId(exist.getId());
 					updates.add(procInsReadRecord);
 				} else {
+					procInsReadRecord.setSendTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 					adds.add(procInsReadRecord);
 				}
 			}
