@@ -5,9 +5,9 @@ import java.util.Map;
 import com.chinacreator.asp.comp.sys.advanced.user.service.UserService;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.message.MessageRequest;
-import com.chinacreator.c2.message.MessageRequestBuilder;
-import com.chinacreator.c2.message.MessageSender;
+//import com.chinacreator.c2.message.MessageRequest;
+//import com.chinacreator.c2.message.MessageRequestBuilder;
+//import com.chinacreator.c2.message.MessageSender;
 import com.chinacreator.c2.omp.common.service.message.MessageService;
 import com.chinacreator.c2.qyb.workflow.inform.inf.InformTask;
 
@@ -62,8 +62,8 @@ public class MwebInnerTask extends InformTask {
 			String title ="【" + contentMap.get(InformService.COMMENT_MODULE_KEY)
 					+ "】有新动向了" ;
 			boolean isSave=true;           //非持久化的消息不会在消息菜单中显示
-			MessageRequest messageRequest=new MessageRequestBuilder().channel(channel).from(fromUser).to(toUser).category(category).content(content).title(title).persistent(isSave).build();
-			MessageSender.getInstance().send(messageRequest); //发送消息
+//			MessageRequest messageRequest=new MessageRequestBuilder().channel(channel).from(fromUser).to(toUser).category(category).content(content).title(title).persistent(isSave).build();
+//			MessageSender.getInstance().send(messageRequest); //发送消息
 		}catch(Exception e){
 			e.getLocalizedMessage();
 		}

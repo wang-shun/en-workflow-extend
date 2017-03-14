@@ -11,7 +11,7 @@ import com.chinacreator.c2.annotation.Entity;
  * @author 
  * @generated
  */
-@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct", table = "SERVICE_SERVICEPRODUCT", ds = "oracDB")
+@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct", sn="workflowserviceproduct", table = "SERVICE_SERVICEPRODUCT", ds = "oracDB")
 public class ServiceProduct implements Serializable {
 	private static final long serialVersionUID = 1398697341452288L;
 	@Column(id = "product_id", type = ColumnType.uuid, datatype = "string128")

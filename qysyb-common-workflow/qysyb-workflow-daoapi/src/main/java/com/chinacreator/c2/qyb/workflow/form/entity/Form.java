@@ -11,7 +11,7 @@ import com.chinacreator.c2.annotation.Entity;
  * @author 
  * @generated
  */
-@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.form.entity.Form", table = "WORKFLOW_FORM", ds = "oracDB")
+@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.form.entity.Form", sn = "workflowform", table = "WORKFLOW_FORM", ds = "oracDB")
 public class Form implements Serializable {
 	private static final long serialVersionUID = 1407413776711680L;
 	@Column(id = "form_id", type = ColumnType.uuid, datatype = "string128")

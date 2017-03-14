@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.chinacreator.c2.calendar.entity.CalendarEvent;
-import com.chinacreator.c2.calendar.impl.CalendarEventService;
+//import com.chinacreator.c2.calendar.entity.CalendarEvent;
+//import com.chinacreator.c2.calendar.impl.CalendarEventService;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.jp.car.apply.entity.Carapply;
@@ -32,8 +32,8 @@ public class ApplyCarService extends FormOperate {
 	final static String AUDIT_OPINION_KEY = "auditOpinion"; 
 	final static String OFFICE_PRINCIPAL_AUDIT_KEY = "officePrincipalComment";
 	final static String PRINCIPAL_AUDIT_OPINION_KEY= "principalAudit";
-	@Autowired
-	CalendarEventService calendarEventService;
+//	@Autowired
+//	CalendarEventService calendarEventService;
 	@Override
 	public int addOrUpdateEntity(String json, String businessKey,
 			String proInsId, String moduleId, WorkFlowActivity curActivity,
@@ -41,9 +41,9 @@ public class ApplyCarService extends FormOperate {
 			throws Exception {
 		JSONObject jsonObject = JSON.parseObject(json);
 		//存储日历事件
-		if(jsonObject.getObject(CALENDAR_EVENT, CalendarEvent.class)!=null){
-			calendarEventService.saveResourceEventByBusinesskey(jsonObject.getObject(CALENDAR_EVENT, CalendarEvent.class));
-		}
+//		if(jsonObject.getObject(CALENDAR_EVENT, CalendarEvent.class)!=null){
+//			calendarEventService.saveResourceEventByBusinesskey(jsonObject.getObject(CALENDAR_EVENT, CalendarEvent.class));
+//		}
 		//审核意见存储
 		archhandleServiceImpl.saveArchhandles(jsonObject, 
 				new String[]{AUDIT_OPINION_KEY,OFFICE_PRINCIPAL_AUDIT_KEY,PRINCIPAL_AUDIT_OPINION_KEY}, 
@@ -72,7 +72,10 @@ public class ApplyCarService extends FormOperate {
 			String curUserId, Map map) {
 		Map<String,Object> result = new HashMap<String,Object>();
 		Map eMap = this.getEntity(Carapply.class, businessKey, proInsId);
-		result.putAll(eMap);
+		if(eMap != null){
+			result.putAll(eMap);
+		}
+		
 		Map<String, Object> aMap = archhandleServiceImpl
 				.getArchhandle(new String[]{AUDIT_OPINION_KEY,OFFICE_PRINCIPAL_AUDIT_KEY,PRINCIPAL_AUDIT_OPINION_KEY}, 
 				businessKey, proInsId, curActivity==null?null:curActivity.getId());	

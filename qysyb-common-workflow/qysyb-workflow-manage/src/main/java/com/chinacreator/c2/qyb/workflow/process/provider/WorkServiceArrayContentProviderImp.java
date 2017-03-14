@@ -3,6 +3,9 @@ package com.chinacreator.c2.qyb.workflow.process.provider;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.chinacreator.asp.comp.sys.core.security.service.AccessControlService;
 import com.chinacreator.asp.comp.sys.core.security.service.AccessControlServiceImpl;
 import com.chinacreator.c2.dao.mybatis.enhance.Page;
@@ -19,15 +22,14 @@ import com.chinacreator.c2.web.ds.ArrayContext;
  * @version 1.0
  * @date 2015-10-10
  */
+@Service("tasktodo")
 public class WorkServiceArrayContentProviderImp implements
 		ArrayContentProvider {
 	final static String VIEWTYPEKEY = "viewType";
 	final static String VIEWTYPEALL = "viewAll";
+	@Autowired
 	WorkFlowService wfs;
 	AuthenticationProvider authenticationProvider;
-	public WorkServiceArrayContentProviderImp() {
-		wfs = ApplicationContextManager.getContext().getBean(WorkFlowService.class);
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override

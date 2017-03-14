@@ -33,9 +33,9 @@ public class DynamicTabProvider {
 		List<RelToTab> list = dao.select(rel);
 		for(RelToTab r:list){
 			TabDescriptionWithTabId tab = new TabDescriptionWithTabId();
-			tab.setTitle(r.getTab().getTitle());
-			tab.setUrl(r.getTab().getUrl());
-			tab.setParams(params);
+//			tab.setTitle(r.getTab().getTitle());
+//			tab.setUrl(r.getTab().getUrl());
+//			tab.setParams(params);
 			tab.setTabId(r.getTab().getTabId());
 			tabList.add(tab);
 		}
