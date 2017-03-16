@@ -133,10 +133,10 @@ check:function(){
 	}
 	return true
 },
-onFileSuccess(data){
+onFileSuccess:function(data){
 
 },
-onFileDel(data){
+onFileDel:function(data){
 
 }</form:scripts>
   <form:htmls>
