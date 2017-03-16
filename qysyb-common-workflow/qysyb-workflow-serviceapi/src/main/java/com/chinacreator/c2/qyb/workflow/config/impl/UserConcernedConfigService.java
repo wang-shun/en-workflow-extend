@@ -18,8 +18,8 @@ import com.chinacreator.c2.qyb.workflow.config.entity.UserConcernedConfig;
  */
 @Service
 public class UserConcernedConfigService {
-	final static String TYPE_GROUP = "group";
-	final static String TYPE_USER = "user";
+	public final static String TYPE_GROUP = "group";
+	public final static String TYPE_USER = "user";
 	
 	final static String CONCERNTHISWORK = "已关注此工单";
 	final static String CONCERNTHISSP = "已关注此服务";

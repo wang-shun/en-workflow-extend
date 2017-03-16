@@ -855,12 +855,10 @@ newField2_customEven:function(){
 						if(str!=&quot;&quot;){
 							str = str.substring(0,str.length-1);
 						}
-					/*	$(&quot;#activity_performer&quot;).val(&quot;用户【&quot;+str+&quot;】&quot;);*/
 						$model.observerStr = &quot;用户【&quot;+str+&quot;】&quot;;
 						$model.selectedUserIds = strId
 						
-/*						$(&quot;#activity_performer_hidden_group&quot;).val('');
-						$(&quot;#activity_performer_hidden&quot;).val(strId);*/
+
 						
 					}
 					if(data.groupIds){
@@ -871,7 +869,6 @@ newField2_customEven:function(){
 						if(str!=&quot;&quot;){
 							str = str.substring(0,str.length-1);
 						}
-/*						$(&quot;#activity_performer&quot;).val(&quot;组【&quot;+str+&quot;】&quot;);*/
 						$model.observerStr = &quot;组【&quot;+str+&quot;】&quot;;
 						var strId =&quot;&quot;;
 						for(var i in data.groupIds){
@@ -883,8 +880,7 @@ newField2_customEven:function(){
 						$model.observerId = strId;
 						$model.selectedGroupIds = strId
 						$model.catogory = &quot;group&quot;;
-/*						$(&quot;#activity_performer_hidden&quot;).val('');
-						$(&quot;#activity_performer_hidden_group&quot;).val(strId);*/
+
 					}
 				}else{
 /*					$(&quot;#activity_performer&quot;).val('');
@@ -1105,8 +1101,19 @@ expand_customProperty(value){
 		o.value = value
 		$model.customProperty.push(o)
 	});
-}
-</form:scripts>
+},
+array_unique:function(array){
+	
+	var n = []; //一个新的临时数组
+	for(var i = 0; i &lt; array.length; i++) //遍历当前数组
+	{
+		//如果当前数组的第i已经保存进了临时数组，那么跳过，
+		//否则把当前项push到临时数组里面
+		if (n.indexOf(array[i]) == -1) n.push(array[i]);
+	}
+	return n;
+
+},</form:scripts>
   <form:htmls>
 </form:htmls>
 </form:Form>
