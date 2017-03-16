@@ -298,7 +298,7 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="activityName" id="activityName" name="流程节点">
+      <form:child xsi:type="form:Field" binding="activityName" id="activityName" name="流程环节">
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid"/>
         </form:control>
