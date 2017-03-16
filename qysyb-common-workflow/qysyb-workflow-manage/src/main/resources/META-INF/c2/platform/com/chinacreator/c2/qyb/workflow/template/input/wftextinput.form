@@ -102,8 +102,28 @@ page_onload:function(){
 	$scope.class = qybWorkflowService.getWrapperClass()	
 },
 check:function(){
-	return $view.mainForm.check()
-	
+	var result = $view.mainForm.check()
+	var v = $(&quot;#textinputWrapper&quot; + $params.fieldNo +&quot; input&quot;).val()
+//	var v = $scope.formentity[$params.fieldNo]
+	var fielName = ($params.field.displayName == undefined)?
+						$params.fieldName:$params.field.displayName
+	//最大长度 有值采取验证 没值就交给必填验证去做吧
+	if($params.field.remark2 &amp;&amp; v){
+		var vl = v.length
+		var max = parseInt($params.field.remark2)
+		if(vl > max){
+			Messenger.error(fielName + &quot;大于最大长度&quot; + max + &quot;!&quot;) 
+		}	
+	}
+	//最小长度
+	if($params.field.remark1 &amp;&amp; v){
+		var vl = v.length
+		var mix = parseInt($params.field.remark1)
+		if(vl &lt; min){
+			Messenger.error(fielName + &quot;小于最大长度&quot; + min + &quot;!&quot;) 
+		}	
+	}
+	return result
 /*	var ele = $(&quot;#textinputWrapper&quot;+$params.fieldNo)
 	//不合法
 	if(!$scope.mainForm.$valid){
