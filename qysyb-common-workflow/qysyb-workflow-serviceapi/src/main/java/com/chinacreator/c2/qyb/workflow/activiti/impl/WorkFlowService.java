@@ -2538,9 +2538,21 @@ public class WorkFlowService {
 				.createHistoricActivityInstanceQuery();
 		List<HistoricActivityInstance> htiList = htiQuery
 				.processInstanceId(proInsId).finished()
-				.orderByHistoricActivityInstanceEndTime().desc().listPage(0, 1);
-		HistoricActivityInstance lastActivity = htiList.get(0);
-		
+				.orderByHistoricActivityInstanceEndTime().desc().listPage(0, 5);
+		HistoricActivityInstance lastActivity = null;
+		//处理网关的情形
+		for(int i=0; i<htiList.size(); i++){
+			HistoricActivityInstance activity = htiList.get(i);
+			if(activity.getActivityType() != null
+					&& activity.getActivityType().equals("userTask")){
+				//找到最后一个 userTask 就好了 
+				lastActivity = activity;
+				break;
+			}
+		}
+		if(lastActivity == null){
+			return null;
+		}
 		String processDefinitionId = lastActivity.getProcessDefinitionId();
 		ProcessDefinitionImpl processDefinition = (ProcessDefinitionImpl) repositoryService.getProcessDefinition(processDefinitionId);
 		ActivityImpl activity = processDefinition.findActivity(lastActivity.getActivityId());	
