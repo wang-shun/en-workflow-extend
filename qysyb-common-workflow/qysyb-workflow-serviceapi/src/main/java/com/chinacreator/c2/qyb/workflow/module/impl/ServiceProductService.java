@@ -156,6 +156,36 @@ public class ServiceProductService {
 		}
 		return listr;
 	}
+	
+	/**
+	 * 获取已经绑定了流程定义的服务产品
+	 * @param consp 过滤条件
+	 * @param needPermission 是否要权限过滤
+	 * @return
+	 */
+	public List<ServiceProduct> getAllServiceProductWithModule(ServiceProduct consp,boolean needPermission){
+		List<ServiceProduct> listr = new ArrayList<ServiceProduct>();
+		WorkFlowService sps = ApplicationContextManager.getContext().getBean(WorkFlowService.class);
+		Dao<ServiceProduct> dao = DaoFactory.create(ServiceProduct.class);
+		List<ServiceProduct> list;
+		if(consp==null){
+			list = dao.selectAll();
+		}else{
+			list = dao.select(consp);
+		}
+		for(ServiceProduct sp:list){
+			if(hasAuthority(sp) || !needPermission){
+				WfProcessDefinition wfp = sps.getBindProcessByModuleId(sp.getProductId());
+				if(wfp != null && wfp.getId()!=null && sp.getFormId() != null){
+					String ico=sp.getIco();
+					sp.setIco(ico);
+					listr.add(sp);
+				}				
+			}
+		}
+		return listr;
+	}	
+	
 	/**
 	 * 判断是否有权限
 	 * @param serviceProduct

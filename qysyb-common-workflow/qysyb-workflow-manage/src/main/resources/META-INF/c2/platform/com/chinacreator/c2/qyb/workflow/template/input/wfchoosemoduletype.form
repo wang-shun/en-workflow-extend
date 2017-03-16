@@ -115,8 +115,9 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="allmodules" name="所有事项类型" logic="rule:com.chinacreator.c2.qyb.workflow.module.getAllServiceProductWithModule" sn="getAllServiceProductWithModule">
+    <form:datasource xsi:type="form:LogicDataSource" id="allmodules" name="所有事项类型" logic="rule:com.chinacreator.c2.qyb.workflow.module.getAllServiceProductWithModule1" sn="getallserviceproductwithmodule1">
       <form:param id="consp" name="新输入参数"/>
+      <form:param id="needPermission" name="新输入参数" value="false"/>
     </form:datasource>
   </form:datasources>
   <form:scripts>
