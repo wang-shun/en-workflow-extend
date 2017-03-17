@@ -88,8 +88,8 @@ linkcallback:function(src,data){
 
 },
 reset:function(){
-	$model.bind = undefined;
-	$scope.formentity[$params.fieldNo] = undefined;
+	$model.bind = &quot;&quot;;
+	$scope.formentity[$params.fieldNo] = &quot;&quot;;
 },
 page_onload:function(){
 	qybWorkflowService.initC2FormParams($scope,$params)
