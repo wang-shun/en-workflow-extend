@@ -331,7 +331,10 @@ public class WorkProcess {
 		WfOperator wfOperator = JSONObject.parseObject(wfOperatorStr,
 				WfOperator.class);
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
-		
+		if(variables == null){
+			Map m = new HashMap();
+			variables = m;
+		}		
 		String moduleId = wfOperator.getBusinessData().getModuleId();
 		
 		WorkFlowActivity nextActivity = new WorkFlowActivity();
