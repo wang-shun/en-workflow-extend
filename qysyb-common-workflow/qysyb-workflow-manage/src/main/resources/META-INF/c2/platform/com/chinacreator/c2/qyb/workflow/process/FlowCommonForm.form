@@ -386,7 +386,11 @@ autoswitchcommit:function($event){
 		}	
 	}
 */
-	if($scope.formentity.global.oppositive){ //积极意见 流转流程
+	if($scope.formentity.global.oppositive || $model.actions.return == undefined){ //积极意见或者流程没有退回配置 流转流程
+
+		if($model.actions.return == undefined){
+			console.warn(&quot;本环节没有退回配置，但是是否定意见。默认继续走流程！&quot;)
+		}
 	
 		//func 为业务表单提交前验证函数
 		if(!angular.isUndefined($model.func)){
