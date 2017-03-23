@@ -1171,6 +1171,12 @@ public class WorkProcess {
 			}
 			TaskEntity taskEntity = managementService
 					.executeCommand(new FindTaskEntityCmd(taskId));	
+			ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
+			//虽然只有一个任务 但其实是会签 会签不要设置处理人
+			if(activityImpl.getActivityBehavior() instanceof ParallelMultiInstanceBehavior
+					|| activityImpl.getActivityBehavior() instanceof SequentialMultiInstanceBehavior){
+				return;
+			}
 			taskDefKey = taskEntity.getTaskDefinitionKey();
 		}else{
 			taskDefKey = wfActivity.getId();
