@@ -867,7 +867,7 @@ public class WorkProcess {
 				boolean isNextMultiInstance = (wfTransition.getDest().getPorperties().get("multiInstance") != null);
 //				wfTransition.getDest().getPorperties().get("multiInstance").equals("parallel") 
 //				wfTransition.getDest().getPorperties().get("multiInstance").equals("sequential")
-				if (!isNextEnd && !isNextMultiInstance) {
+				if (!isNextEnd && !isNextMultiInstance) { // 下一步是普通任务  TODO 如果下一步是个网关 网关又流入了 会签的话 就不是普通任务了！！
 					String nextTaskId = wfRuntimeService.getCurrentActiveTaskIds(proInsId);
 					Map<String, String> valuemap = formOperate.getTaskHandler(entity, bussinessKey,
 							wfresult.getProcessInstanceId(), moduleId, wfTransition.getSrc(), wfTransition.getDest(),
@@ -903,7 +903,7 @@ public class WorkProcess {
  		
 		Object multiInstancePor = wfTransition.getDest().getPorperties()
 				.get("multiInstance");
-		if (multiInstancePor == null) {// 下一步是普通任务
+		if (multiInstancePor == null) {// 下一步是普通任务  TODO 如果下一步是个网关 网关又流入了 会签的话 就不是普通任务了！！
 			String nextTaskId = wfresult.getNextTaskId();
 			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
 					bussinessKey, wfresult.getProcessInstanceId(), moduleId,
@@ -1087,13 +1087,21 @@ public class WorkProcess {
 					.get("multiInstance");
 			if (multiInstancePor == null) {// 下一步是普通任务  TODO 如果下一步是个网关 网关又流入了 会签的话 就不是普通任务了！！
 				String nextTaskId = wf.getNextTaskId();
-				//业务模块自定义处理人
-				Map<String, String> valuemap = formOperate.getTaskHandler(entity,
-						businessKey, wf.getProcessInstanceId(), moduleId,
-						wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, 
-						wfOperator.getUserId(),paramsMap);
-	 			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
-	 					processDefinitionId,wf.getProcessInstanceId(), wfTransition, moduleId, variables);
+				String[] taskIds = nextTaskId.split(",");
+				if(taskIds.length == 1){
+					//业务模块自定义处理人
+					Map<String, String> valuemap = formOperate.getTaskHandler(entity,
+							businessKey, wf.getProcessInstanceId(), moduleId,
+							wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, 
+							wfOperator.getUserId(),paramsMap);
+		 			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
+		 					processDefinitionId,wf.getProcessInstanceId(), wfTransition, moduleId, variables);		
+		 		//TODO  如果 有多个存在的任务 那么极大的可能是会签后的结果 不需要去设置处理人了 。
+		 		// 如何处理 应该 根据每个taskId查出任务的属性 同时业务模块获取自定义处理人 应该把处理人信息与taskId对应起来 如此
+				}else {
+					
+				}
+
 			}else if (multiInstancePor != null
 					&& ((String) multiInstancePor).equals("parallel")) {// 下一步是并行会签
 				// 不要选择处理人
@@ -1147,17 +1155,19 @@ public class WorkProcess {
 		Map prop = wfActivity.getPorperties();
 		//排他网关是会自动流转的 那么路径的dest已不能代表下一步了
 		if(prop.get("type").equals("exclusiveGateway")){
-			//会签特殊情况处理
+			//会签会产生的特殊情况处理 应该在外面调用的时候却定taskId是唯一的
 			String[] taskIds = taskId.split(",");
-			//多个任务逗号分隔的情况
-			if(taskIds.length >0 ){
+			//多个任务逗号分隔的情况. TODO
+			if(taskIds.length > 1){
 /*				for(String id:taskIds){
 					setTaskHandler(valuemap, variables, id, curUserId, processDefinitionId,
 							processInsId, wfTransition, moduleId, processVariables);
 				}
-*/
+
 				//取其中一个任务 TODO
 				taskId = taskIds[0];
+*/				
+				return;
 			}
 			TaskEntity taskEntity = managementService
 					.executeCommand(new FindTaskEntityCmd(taskId));	
