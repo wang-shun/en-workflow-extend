@@ -186,6 +186,23 @@ newField_nodeClick:function(event,treeId,treeNode,clickFlag){
 		functions.doremovechoosed(selectednode);
 	}
 },
+
+isOrgId:function(id){
+	var prefix = id.substring(0,4)
+	if(prefix == &quot;$org&quot;){
+		return true
+	}
+	return false
+},
+
+isJobId:function(id){
+	var prefix = id.substring(0,4)
+	if(prefix == &quot;$job&quot;){
+		return true
+	}
+	return false
+},
+
 doremovechoosed:function(choosed){
 //	$model.choosed.pop(choosed);
 	var a = $model.choosed;
@@ -232,6 +249,11 @@ addorg:function(org){
 			var choosed ={};
 			choosed.id = org.id;
 			choosed.name = org.name
+			if(functions.isOrgId(org.id)){
+				choosed.category = &quot;机构&quot;
+			}else if(functions.isJobId(org.id)){
+				choosed.category = &quot;岗位&quot;
+			}
 			$model.choosed.push(choosed);
 		}else{
 			Messenger.error(org.name+&quot;机构已被选择！&quot;);
@@ -274,11 +296,11 @@ page_onload:function(){
 	$model.tree = $view.orgtree.getZtree();
 },
 
-existInChoosed:function(org){
+existInChoosed:function(orgId){
 	var a = $model.choosed;
 	var ischoosed = false;
 	for(var i=0;i&lt;a.length;i++){
-		if(a[i].id == org.id){		
+		if(a[i].id == orgId){		
 			ischoosed = true;
 			break;
 		}
@@ -288,9 +310,16 @@ existInChoosed:function(org){
 
 orgtree_onAsyncSuccess:function(event,treeId,treeNode,msg){
 	var tree = $view.orgtree.getZtree();
-//	var nodes = tree.getNodesByParam(&quot;pid&quot;,treeNode.id)
-	
-//	debugger
+	if(treeNode){
+		var nodes = tree.getNodesByParam(&quot;pid&quot;,treeNode.id)
+		for(var i in nodes){
+			var node = nodes[i]
+			var b = functions.existInChoosed(node.id)
+			if(b){
+				tree.checkNode(node,true,false,false);
+			}
+		}
+	}	
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>
