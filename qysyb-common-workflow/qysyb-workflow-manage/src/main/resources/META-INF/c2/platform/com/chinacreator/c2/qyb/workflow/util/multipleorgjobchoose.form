@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="多机构和岗位选择" sn="multipleorgjobchoose" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="机构组与岗位组选择">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="680px">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="6">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Field" binding="$model.orgtree" id="orgtree" name="树" customize="true">
+        <form:control type="widget/tree">
+          <form:attributes source="widget/tree">
+            <dync:attribute default="6" group="显示设置" id="span" name="占位数" value="12">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="nodeClick" name="单击" value="newField_nodeClick(event,treeId,treeNode,clickFlag)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="nodeCheck" name="勾选" value="orgtree_nodeCheck(event,treeId,treeNode)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="勾选设置" id="autoCheckTrigger" name="关联触发" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="{ &quot;Y&quot;: &quot;ps&quot;, &quot;N&quot;: &quot;ps&quot; }" group="勾选设置" id="chkboxType" name="父子节点关联" value="{ &quot;Y&quot;: &quot;s&quot;, &quot;N&quot;: &quot;s&quot; }">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据设置" id="otherParam" name="初始化参数" value="{&quot;needUser&quot;:false}">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="auto" group="显示设置" id="height" name="高度" value="520px">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="勾选设置" id="checkEnable" name="勾选框" value="true">
+              <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="onAsyncSuccess" name="异步加载成功" value="orgtree_onAsyncSuccess(event,treeId,treeNode,msg)">
+              <dync:render colSpan="1" height="0" multi="false" name="event">
+                <dync:item name="params" value="event,treeId,treeNode,msg"/>
+              </dync:render>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="6">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup1_html">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup2" name="对话框工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField" name="确定" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField1" name="取消" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField1_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:TreeDataSource" id="orgtree" name="树型数据源" impl="com.chinacreator.c2.qyb.workflow.group.provider.OrgJobGroupsProvider" type="custom"/>
+  </form:datasources>
+  <form:scripts>
+
+newField_nodeClick:function(event,treeId,treeNode,clickFlag){
+	if(treeNode.id == &quot;$org&quot; || treeNode.id == &quot;$job&quot;){
+		return
+	}
+	var tree = $view.orgtree.getZtree();
+//	console.log(&quot;org tree&quot;,tree);
+	var selectednodes = tree.getSelectedNodes();
+	var selectednode = selectednodes[0];
+//	console.log(&quot;checked status&quot;,selectednode.checked);
+	var checked = selectednode.checked;
+	tree.checkNode(selectednode,!checked,false,false);
+	//由非选中变为选中 当然是添加了
+	if(!checked){
+		functions.addorg(selectednode);
+	}else{
+		functions.doremovechoosed(selectednode);
+	}
+},
+doremovechoosed:function(choosed){
+//	$model.choosed.pop(choosed);
+	var a = $model.choosed;
+	var index;
+	for(var i=0;i&lt;a.length;i++){
+		if(a[i].id == choosed.id){
+			index = i;
+			break;
+		}
+	}
+	if(index != undefined){
+		$model.choosed.splice(index,1);
+	}
+},
+//需要先把树节点去勾选
+removechoosed:function(choosed){
+	var tree = $view.orgtree.getZtree();
+	var node = tree.getNodesByParam(&quot;id&quot;,choosed.id);
+	var checked = node[0].checked;
+	console.log(&quot;node&quot;,node);
+	console.log(&quot;checked&quot;,checked);
+	tree.checkNode(node[0],!checked,false,false);
+	functions.doremovechoosed(choosed);
+},
+
+page_afterDataSourceLoad:function(){	 
+	//$model.choosed = new Array();
+	
+},
+addorg:function(org){
+	var a = $model.choosed;
+	console.log(&quot;aaa$model.choosed&quot;,$model.choosed);
+	console.log(&quot;org$model.choosed&quot;,org);
+	var ischoosed = false;
+	for(var i=0;i&lt;a.length;i++){
+		if(a[i].id == org.id){		
+			ischoosed = true;
+			console.log(&quot;hey ischoosed!&quot;);
+			break;
+		}
+	}
+	if(org.level != 0){
+		if(!ischoosed){	
+			var choosed ={};
+			choosed.id = org.id;
+			choosed.name = org.name
+			$model.choosed.push(choosed);
+		}else{
+			Messenger.error(org.name+&quot;机构已被选择！&quot;);
+		}
+	}
+},
+
+orgtree_nodeCheck:function(event,treeId,treeNode){
+	var selectednode = treeNode;
+	var checked = selectednode.checked;
+	console.log(&quot;checked status&quot;,selectednode);
+	//由非选中变为选中 注意和nodeselect逻辑不同
+	if(checked){
+		functions.addorg(selectednode);
+	}else{
+		functions.doremovechoosed(selectednode);
+	}
+},
+//ok
+newField_click:function($event){  
+	Modal.instance.close({groups:$model.choosed});
+},
+//dismiss
+newField1_click:function($event){
+	Modal.instance.dismiss();
+},
+
+page_onload:function(){
+	if($params.choosed){
+		$model.choosed = $params.choosed; 
+	}else{
+		$model.choosed = new Array();
+	}
+	var lc = $model.choosed;
+	for(var t=0;t&lt;lc.length;t++){		
+		var tree = $view.orgtree.getNodesByParam(&quot;id&quot;,lc[t].id,null);
+		console.log('cs',tree);
+		$view.orgtree.checkNode(tree[0],true,false,false);
+	}
+	$model.tree = $view.orgtree.getZtree();
+},
+
+existInChoosed:function(org){
+	var a = $model.choosed;
+	var ischoosed = false;
+	for(var i=0;i&lt;a.length;i++){
+		if(a[i].id == org.id){		
+			ischoosed = true;
+			break;
+		}
+	}
+	return ischoosed
+},
+
+orgtree_onAsyncSuccess:function(event,treeId,treeNode,msg){
+	var tree = $view.orgtree.getZtree();
+//	var nodes = tree.getNodesByParam(&quot;pid&quot;,treeNode.id)
+	
+//	debugger
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>
+&lt;div class=&quot;well well-sm&quot; style=&quot;height:520px&quot;>
+	&lt;button ng-click=&quot;functions.removechoosed(temp)&quot; class=&quot;btn btn-xs btn-white btn-warning btn-bold&quot; style=&quot;margin-right:5px;margin-bottom:5px;&quot;ng-repeat=&quot;temp in $model.choosed&quot;>
+	{{temp.category}} {{temp.name}}
+	&lt;i class=&quot;ace-icon fa fa-trash-o bigger-120 orange&quot;>&lt;/i>
+	&lt;/button>	
+&lt;/div>
+&lt;/script></form:htmls>
+</form:Form>
