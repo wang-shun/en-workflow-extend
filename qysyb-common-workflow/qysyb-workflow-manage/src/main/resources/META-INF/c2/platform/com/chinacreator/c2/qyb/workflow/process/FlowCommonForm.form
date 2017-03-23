@@ -1094,6 +1094,21 @@ newField4_click:function($event){
 		$scope.formentity.global.buttons.push(sendbutton)
 		
 	}
+	//观察者
+	var subject = {}
+	subject.obs = new Array()
+	subject.changed = function(fieldNo,data){
+		this.obs.forEach(function(ob){
+			ob.func(fieldNo,data)
+		})
+	}
+	subject.regist = function(fieldNo,func){debugger
+		var ob = {}
+		ob.fieldNo = fieldNo
+		ob.func = func
+		this.obs.push(ob)
+	}
+	$scope.formentity.global.subject = subject
  },
  //生成以逗号分隔多个id的一个字符串
 generateString:function(){

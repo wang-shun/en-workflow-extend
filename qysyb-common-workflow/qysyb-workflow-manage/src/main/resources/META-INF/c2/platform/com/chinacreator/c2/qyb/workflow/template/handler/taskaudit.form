@@ -619,6 +619,7 @@ selectSimpleDict_change:function(){
 		//否定意见
 		$scope.formentity.global.oppositive = false					
 	}
+	qybWorkflowService.getSubject().changed($params.fieldNo,$model.ad)
 },
 //流程监控
 button3_click:function($event){
