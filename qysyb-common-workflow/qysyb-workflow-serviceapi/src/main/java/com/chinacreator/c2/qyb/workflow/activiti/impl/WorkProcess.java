@@ -1085,7 +1085,7 @@ public class WorkProcess {
 
 			Object multiInstancePor = wfTransition.getDest().getPorperties()
 					.get("multiInstance");
-			if (multiInstancePor == null) {// 下一步是普通任务
+			if (multiInstancePor == null) {// 下一步是普通任务  TODO 如果下一步是个网关 网关又流入了 会签的话 就不是普通任务了！！
 				String nextTaskId = wf.getNextTaskId();
 				//业务模块自定义处理人
 				Map<String, String> valuemap = formOperate.getTaskHandler(entity,
@@ -1147,6 +1147,18 @@ public class WorkProcess {
 		Map prop = wfActivity.getPorperties();
 		//排他网关是会自动流转的 那么路径的dest已不能代表下一步了
 		if(prop.get("type").equals("exclusiveGateway")){
+			//会签特殊情况处理
+			String[] taskIds = taskId.split(",");
+			//多个任务逗号分隔的情况
+			if(taskIds.length >0 ){
+/*				for(String id:taskIds){
+					setTaskHandler(valuemap, variables, id, curUserId, processDefinitionId,
+							processInsId, wfTransition, moduleId, processVariables);
+				}
+*/
+				//取其中一个任务 TODO
+				taskId = taskIds[0];
+			}
 			TaskEntity taskEntity = managementService
 					.executeCommand(new FindTaskEntityCmd(taskId));	
 			taskDefKey = taskEntity.getTaskDefinitionKey();
