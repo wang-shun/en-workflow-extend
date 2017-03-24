@@ -334,7 +334,7 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="auditState" id="auditState" name="审核操作">
+      <form:child xsi:type="form:Field" binding="auditState" id="auditState" name="审核结论">
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="auditState_customFormatter(cellvalue,options,rowObject)">
@@ -346,7 +346,7 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="opinionContent" id="opinionContent" name="审核意见">
+      <form:child xsi:type="form:Field" binding="opinionContent" id="opinionContent" name="处理意见">
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">

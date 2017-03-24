@@ -1102,7 +1102,7 @@ newField4_click:function($event){
 			ob.func(fieldNo,data)
 		})
 	}
-	subject.regist = function(fieldNo,func){debugger
+	subject.regist = function(fieldNo,func){
 		var ob = {}
 		ob.fieldNo = fieldNo
 		ob.func = func

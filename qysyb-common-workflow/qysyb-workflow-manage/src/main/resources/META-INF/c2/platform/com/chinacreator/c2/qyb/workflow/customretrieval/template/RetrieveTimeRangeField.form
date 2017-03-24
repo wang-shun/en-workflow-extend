@@ -125,12 +125,14 @@
   <form:scripts>
 
 newField_endOnChange:function(date,oldDate){
-	//选到一天最后的时刻
-	var hours = date.hours()
-	if(hours != &quot;23&quot;){
-		$scope.$apply(function(){
-			$scope.search[$params.fieldNo].endTime = $scope.search[$params.fieldNo].endTime + 86399999
-		})
+	if(date){
+		//选到一天最后的时刻
+		var hours = date.hours()
+		if(hours != &quot;23&quot;){
+			$scope.$apply(function(){
+				$scope.search[$params.fieldNo].endTime = $scope.search[$params.fieldNo].endTime + 86399999
+			})
+		}	
 	}
 }</form:scripts>
 </form:Form>
