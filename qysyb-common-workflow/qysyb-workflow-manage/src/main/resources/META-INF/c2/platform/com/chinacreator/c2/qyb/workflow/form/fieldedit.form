@@ -64,11 +64,11 @@
         </form:control>
         <form:validation/>
       </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.fieldType" id="fieldType2" name="字段类型">
-        <form:control type="widget/select_simple">
-          <form:attributes source="widget/select_simple">
-            <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;STR&quot;:&quot;文本&quot;,&quot;INT&quot;:&quot;数字&quot;,&quot;TIME&quot;:&quot;时间&quot;}">
-              <dync:render/>
+      <form:child xsi:type="form:Field" binding="$model.entity.fieldType" id="fieldType2" name="持久类型">
+        <form:control type="widget/select_simple_dict">
+          <form:attributes source="widget/select_simple_dict">
+            <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="工作流_持久化类型">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>

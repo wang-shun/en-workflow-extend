@@ -14,6 +14,7 @@ import com.chinacreator.asp.comp.sys.core.security.service.AccessControlServiceI
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.flow.detail.WfBusinessData;
+import com.chinacreator.c2.flow.detail.WfConstants;
 import com.chinacreator.c2.flow.detail.WfOperator;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowActivity;
@@ -27,6 +28,11 @@ import com.chinacreator.c2.qyb.workflow.module.impl.ServiceProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class WorkProcessEasy {
+	
+	public final static String PERSIST_KEY = "persistKey";
+	public final static String PERSIST_TYPE = "persistType";
+	public final static String UI_TYPE_AUDIT_NO = "taskaudit";
+	
 	@Autowired
 	TaskService taskService;
 	@Autowired
@@ -59,32 +65,16 @@ public class WorkProcessEasy {
 		Task task = taskService.createTaskQuery().taskId(taskId)
 				.includeProcessVariables().singleResult();
 		Map processVariables = task.getProcessVariables();
-		// String entity = (String) paramsMap.get("entity");
-		// String isStart = paramsMap.get("isStart").toString();
-		// String formId = (String) paramsMap.get("formId");
-		// String wfOperatorStr = (String) paramsMap.get("wfOperator");
-		// String bussinessKey = (String) paramsMap.get("businessKey");
-		// String currenTaskId = (String) paramsMap.get("currenTaskId");
-		// String destTaskDefinitionKey = (String) paramsMap
-		// .get("destTaskDefinitionKey");
-		// String taskDefKey = paramsMap.get("taskDefKey");
-		// String processDefinitionId = (String) paramsMap
-		// .get("processDefinitionId");
-		// String handlerVariablesStr = (String) paramsMap.get("variables");
-		// String opinion = (String) paramsMap.get("opinion");
-		// String proInsId = (String) paramsMap.get("proInsId");
-		// String moduleId = (String) paramsMap.get("moduleId");
-		// String transitionId = (String) paramsMap.get("transitionId");
-		// String transitionStr = (String) paramsMap.get("transition");
-		// String ccInformJsonStr = (String) paramsMap.get("ccInform");
+
 		if(userId == null){
 			AccessControlServiceImpl access = ApplicationContextManager.getContext().getBean(AccessControlServiceImpl.class);
 			userId = access.getUserID();
 		}
+		WfBusinessData wfData = (WfBusinessData) processVariables.get(WfConstants.WF_BUSINESS_DATA_KEY);
 		
 		Map entitymap = JSONObject.parseObject(entity, Map.class);
 		String formId = (String) processVariables.get("formId");
-		String businessKey = (String) processVariables.get("businessKey");
+		String businessKey = wfData.getBusinessKey();
 		String moduleId = (String) processVariables.get("moduleId");
 		ServiceProduct serviceProduct = serviceProductService
 				.getServiceProductById(moduleId);
@@ -93,10 +83,8 @@ public class WorkProcessEasy {
 		}		
 		WfOperator wfOperator = new WfOperator();
 		wfOperator.setUserId(userId);
-		WfBusinessData businessData = new WfBusinessData();
-		businessData.setBusinessKey(businessKey);
-		businessData.setModuleId(moduleId);
-		wfOperator.setBusinessData(businessData);
+		wfOperator.setBusinessData(wfData);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		String wfOperatorStr = mapper.writeValueAsString(wfOperator);
 		String currenTaskId = taskId;
@@ -105,6 +93,9 @@ public class WorkProcessEasy {
 		String destTaskDefinitionKey = wfTransition.getDest().getId();
 		String processDefinitionId = task.getProcessDefinitionId();
 		String handlerVariablesStr = handler;
+		if(entitymap == null){
+			entitymap = new HashMap();
+		}
 		String opinion = entitymap.get("opinion") == null ? ""
 				: (String) entitymap.get("opinion");
 		String proInsId = task.getProcessInstanceId();
@@ -160,7 +151,7 @@ public class WorkProcessEasy {
 		Map entity = formService.getFormDataByFkFromProcessVariable(formId,
 				null, businessKey, proInsId);
 		result.put("entity", entity);
-		List<FormField> fields = this.getFields(serviceProduct, taskDefId);
+		List<Map> fields = this.getFields(serviceProduct, taskDefId);
 		result.put("fields", fields);
 		List<WorkFlowTransition> transitions = workFlowService
 				.getOutTransition(null, processDefinitionId, taskDefId);
@@ -186,41 +177,56 @@ public class WorkProcessEasy {
 	 * @param businessKey
 	 * @return
 	 */
-	private List<FormField> getFields(ServiceProduct serviceProduct,
+	private List<Map> getFields(ServiceProduct serviceProduct,
 			String businessKey) {
 		Dao<FieldPermission> daofp = DaoFactory.create(FieldPermission.class);
 		FormService fs = ApplicationContextManager.getContext().getBean(
 				FormService.class);
-		Map<String, Map<String, Object>> mapresult = new HashMap<String, Map<String, Object>>();
+		List<Map> mapresult = new ArrayList<Map>();
 		List<FormField> listff = fs.getFormField(serviceProduct.getFormId());
-		List<FormField> listffresult = new ArrayList<FormField>();
 		// 此处的逻辑是不是有点可以优化的意思？
 		for (FormField ff : listff) {
-			HashMap<String, Object> hm = new HashMap<String, Object>();
-			hm.put("fieldNo", ff.getFieldNo());
 			FieldPermission fp = new FieldPermission();
 			fp.setFieldId(ff);
 			fp.setModuleId(serviceProduct.getProductId());
 			fp.setBusinessKey(businessKey);
 			fp = daofp.selectOne(fp);
-			if (fp != null && fp.isFillNecessary()
-					&& (ff.getWebDisplayTypeId().equals("AUDIT_OPINION")
-					|| ff.getWebDisplayTypeId().equals("FW_COUNTERSIGN")
-					|| ff.getWebDisplayTypeId().equals("FW_SHYJ"))) {
-				listffresult.add(ff);
-			}
-			/*
-			 * if(fp!=null){ hm.put("readPermission", fp.isReadPermission());
-			 * hm.put("writePermission", fp.isWritePermission());
-			 * hm.put("visible", fp.isVisible()); hm.put("fillnecessary",
-			 * fp.isFillNecessary()); }else{ hm.put("readPermission", true);
-			 * hm.put("writePermission", true); hm.put("visible", true);
-			 * hm.put("fillnecessary", false); }
-			 */
-			mapresult.put(ff.getFieldNo(), hm);
+			if (fp != null && fp.isWritePermission() && fp.isFillNecessary()) {
+				Map hm = getMapField(ff, fp);
+				if(hm != null){
+					mapresult.add(hm);
+				}			
+			}	
 		}
-		return listffresult;
+		return mapresult;
 	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private Map getMapField(FormField f, FieldPermission fp){
+		if(fp == null || !fp.isFillNecessary()){
+			return null;
+		}
+		Map hm = new HashMap();
+		hm.put("fieldNo", f.getFieldNo());
+		hm.put("fieldName", f.getFieldName());
+		hm.put("readPermission", fp.isReadPermission());
+		hm.put("writePermission", fp.isWritePermission());
+		hm.put("visible", fp.isVisible());
+		hm.put("fillnecessary", fp.isFillNecessary());
+		// 放入entity对象的 key 通用审核对象约定处理
+		if(UI_TYPE_AUDIT_NO.equals(f.getWebDisplayTypeId())){
+			hm.put(PERSIST_KEY, WorkProcess.INLINE_AUDIT_KEY);
+		}else{
+			hm.put(PERSIST_KEY,f.getFieldNo());
+		}
+		String pType = f.getFieldType();
+		if(pType == null){
+			pType = "STR";
+		}
+		hm.put(PERSIST_TYPE,pType);	
+		return hm;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void goAnyWhere(String userId, String taskId, String entity,
 			String destTaskDefinitionKey, boolean useHisassigne,
@@ -338,5 +344,12 @@ public class WorkProcessEasy {
 		//paramsMap.put("ccInform", ccInformJsonStr);
 		
 		return workProcess.goAnyWhere(paramsMap);
+	}
+	/**
+	 * 获取统一待办的formId
+	 * @return
+	 */
+	public String getUnionFormId(){
+		return "PAqyQdT0SmKJ9Cj2O9-elA";
 	}
 }
