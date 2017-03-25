@@ -3,7 +3,7 @@
    <parent>
     <groupId>com.chinacreator.c2.qyb</groupId>
     <artifactId>qysyb-workflow-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0.1</version>
   </parent> 
   <artifactId>qysyb-workflow-common</artifactId>
   <packaging>jar</packaging>
