@@ -37,15 +37,9 @@ public class WorkServiceArrayContentProviderImp implements
 		map.put("sortable", arraycontext.getSortable());
 		Pageable pageable = arraycontext.getPageable();
 		String retrieveId = (String) map.get(WorkFlowService.RETRIEVE_KEY);
-		String viewType = (String) map.get(WorkServiceArrayContentProviderImp.VIEWTYPEKEY);
 		AccessControlService acc=new AccessControlServiceImpl();
 		String userId = acc.getUserID();
-		if(viewType!=null&&viewType.equals(WorkServiceArrayContentProviderImp.VIEWTYPEALL)){
-			userId = null;
-		}
-//		if(ServiceType==null){
-//			ServiceType = "-1";//没有值 不让查出东西来。
-//		}
+
 		List<Map> list = wfs.getTodoWorkByST(retrieveId,map,userId,pageable.getOffset(),pageable.getPageSize());
 		int total = wfs.getTodoWorkTotalByST(retrieveId,map,userId);						
 		Page<Map> page = new Page<Map>(pageable.getPageIndex(), pageable.getPageSize(), total, list);
