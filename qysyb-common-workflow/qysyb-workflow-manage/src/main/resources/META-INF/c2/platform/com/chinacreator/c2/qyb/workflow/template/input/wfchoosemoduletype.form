@@ -108,6 +108,10 @@
             <dync:render colSpan="1" height="0" multi="false" name="text"/>
             <dync:children/>
           </dync:attribute>
+          <dync:attribute default="" group="下拉框设置" id="nullValue" name="空值选项名" value="全部">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
         </form:attributes>
       </form:control>
       <form:validation/>
