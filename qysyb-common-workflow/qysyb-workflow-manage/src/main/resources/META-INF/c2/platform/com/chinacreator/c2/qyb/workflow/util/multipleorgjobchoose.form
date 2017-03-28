@@ -323,7 +323,7 @@ orgtree_onAsyncSuccess:function(event,treeId,treeNode,msg){
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>
-&lt;div class=&quot;well well-sm&quot; style=&quot;height:520px&quot;>
+&lt;div class=&quot;well well-sm&quot; style=&quot;height:520px;overflow: scroll;&quot;>
 	&lt;button ng-click=&quot;functions.removechoosed(temp)&quot; class=&quot;btn btn-xs btn-white btn-warning btn-bold&quot; style=&quot;margin-right:5px;margin-bottom:5px;&quot;ng-repeat=&quot;temp in $model.choosed&quot;>
 	{{temp.category}} {{temp.name}}
 	&lt;i class=&quot;ace-icon fa fa-trash-o bigger-120 orange&quot;>&lt;/i>
