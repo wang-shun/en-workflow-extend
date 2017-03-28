@@ -95,13 +95,14 @@ public class ArchhandleServiceImpl  {
 	 * @param businessKey2
 	 * @return
 	 */
-	public int saveArchhandle(JSONObject jsonObject,String proInsId,String activityId,String businessKey){
+	public int saveArchhandle(JSONObject jsonObject,String proInsId,String activityId,String activityName,String businessKey){
 		List<Archhandle> archhandleDel = new ArrayList<Archhandle>();
 		List<Archhandle> archhandleAdd = new ArrayList<Archhandle>();
 
 		jsonObject.put("auditTime", null);
 		Archhandle archhandle = JSONObject.toJavaObject(jsonObject, Archhandle.class);
 		archhandle.setActivityId(activityId);
+		archhandle.setActivityName(activityName);
 		archhandle.setBusinessKey(businessKey);
 		archhandle.setProcInsId(proInsId);
 		archhandleAdd.add(archhandle);				

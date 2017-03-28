@@ -504,7 +504,7 @@ isFreeChoose:function(wfproperties){
 needAudit:function(){
 	return !$model.isStart &amp;&amp; $model.writePermission
 },
-//是否查看
+//是否查看 查看
 writePermission:function(){
 	return $scope.permissionData[$params.fieldNo].writePermission
 },

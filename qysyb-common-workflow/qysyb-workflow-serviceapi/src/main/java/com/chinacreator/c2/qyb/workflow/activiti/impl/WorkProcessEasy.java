@@ -1,6 +1,7 @@
 package com.chinacreator.c2.qyb.workflow.activiti.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.asp.comp.sys.core.security.service.AccessControlServiceImpl;
 import com.chinacreator.c2.dao.Dao;
@@ -17,6 +19,8 @@ import com.chinacreator.c2.flow.detail.WfBusinessData;
 import com.chinacreator.c2.flow.detail.WfConstants;
 import com.chinacreator.c2.flow.detail.WfOperator;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
+import com.chinacreator.c2.message.channal.MessageChannel;
+import com.chinacreator.c2.qyb.workflow.activiti.inf.IPersistType;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowActivity;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowTransition;
 import com.chinacreator.c2.qyb.workflow.config.impl.ActivityConfigService;
@@ -59,7 +63,7 @@ public class WorkProcessEasy {
 	 */
 	@SuppressWarnings("unchecked")
 	public Object goAnyWhereTakeTransition(String userId, String taskId,
-			String entity, String transition, String handler,
+			Object entity, String transition, String handler,
 			String ccInformJsonStr) throws Exception {
 		Map paramsMap = new HashMap();
 		Task task = taskService.createTaskQuery().taskId(taskId)
@@ -72,7 +76,7 @@ public class WorkProcessEasy {
 		}
 		WfBusinessData wfData = (WfBusinessData) processVariables.get(WfConstants.WF_BUSINESS_DATA_KEY);
 		
-		Map entitymap = JSONObject.parseObject(entity, Map.class);
+		
 		String formId = (String) processVariables.get("formId");
 		String businessKey = wfData.getBusinessKey();
 		String moduleId = (String) processVariables.get("moduleId");
@@ -93,11 +97,7 @@ public class WorkProcessEasy {
 		String destTaskDefinitionKey = wfTransition.getDest().getId();
 		String processDefinitionId = task.getProcessDefinitionId();
 		String handlerVariablesStr = handler;
-		if(entitymap == null){
-			entitymap = new HashMap();
-		}
-		String opinion = entitymap.get("opinion") == null ? ""
-				: (String) entitymap.get("opinion");
+
 		String proInsId = task.getProcessInstanceId();
 		String transitionId = wfTransition.getId();
 		if (ccInformJsonStr == null) {
@@ -105,6 +105,12 @@ public class WorkProcessEasy {
 		}
 		Map entityold = formService.getFormDataByFkFromProcessVariable(formId,
 				null, businessKey, proInsId);
+		Map entitymap = parseEntityFromType(entity, task, entityold);
+		if(entitymap == null){
+			entitymap = new HashMap();
+		}
+		String opinion = entitymap.get("opinion") == null ? ""
+				: (String) entitymap.get("opinion");
 		entityold.putAll(entitymap);
 		entity = new JSONObject(entityold).toString();
 		paramsMap.put("entity", entity);
@@ -120,10 +126,38 @@ public class WorkProcessEasy {
 		paramsMap.put("proInsId", proInsId);
 		paramsMap.put("moduleId", moduleId);
 		paramsMap.put("transitionId", transitionId);
-		paramsMap.put("transition", transition);
+		paramsMap.put("transition", JSON.toJSONString(wfTransition));
 		paramsMap.put("ccInform", ccInformJsonStr);
 		return workProcess.goAnyWhereTakeTransition(paramsMap);
 	}
+	
+	private Map parseEntityFromType(Object o, Task task, Map entityOld){
+		if(o == null){
+			return null;
+		}
+		if(o instanceof Map){
+			return (Map) o;
+		}else if(o instanceof List){
+			List list = (List) o;
+			for(int i=0;i<list.size();i++){
+				Map jo = (Map) list.get(i);
+				Map field = (Map) jo.get("field");
+				Object value = jo.get("value");
+				String type = (String) field.get("persistType");
+				Map<String, IPersistType> types = ApplicationContextManager
+						.getContext().getBeansOfType(IPersistType.class);
+				for (IPersistType persistType : types.values()) {
+					String name = persistType.getName();
+					if (type.equals(name)) {
+						Map map = persistType.parseTypeValue(value, field, task, entityOld);
+						return map;
+					} 
+				}			
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * 获取一个任务处理前置信息
 	 * 
@@ -140,12 +174,15 @@ public class WorkProcessEasy {
 		String productNo = (String) processVariables.get("productNo");
 		String moduleId = (String) processVariables.get("moduleId");
 		String formId = (String) processVariables.get("formId");
+		WfBusinessData wfData = (WfBusinessData) processVariables.get(WfConstants.WF_BUSINESS_DATA_KEY);
+
+		
 		ServiceProduct serviceProduct = serviceProductService
 				.getServiceProductById(moduleId);
 		if( formId == null){
 			formId = serviceProduct.getFormId();
 		}
-		String businessKey = (String) processVariables.get("businessKey");
+		String businessKey = wfData.getBusinessKey();
 		String processDefinitionId = task.getProcessDefinitionId();
 		String taskDefId = task.getTaskDefinitionKey();
 		Map entity = formService.getFormDataByFkFromProcessVariable(formId,
@@ -191,40 +228,51 @@ public class WorkProcessEasy {
 			fp.setModuleId(serviceProduct.getProductId());
 			fp.setBusinessKey(businessKey);
 			fp = daofp.selectOne(fp);
-			if (fp != null && fp.isWritePermission() && fp.isFillNecessary()) {
-				Map hm = getMapField(ff, fp);
-				if(hm != null){
-					mapresult.add(hm);
-				}			
-			}	
+			Map hm = getMapField(ff, fp);
+			if(hm != null){
+				mapresult.add(hm);
+				continue;
+			}			
+
 		}
 		return mapresult;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private Map getMapField(FormField f, FieldPermission fp){
-		if(fp == null || !fp.isFillNecessary()){
+		if(fp == null){
 			return null;
 		}
-		Map hm = new HashMap();
-		hm.put("fieldNo", f.getFieldNo());
-		hm.put("fieldName", f.getFieldName());
-		hm.put("readPermission", fp.isReadPermission());
-		hm.put("writePermission", fp.isWritePermission());
-		hm.put("visible", fp.isVisible());
-		hm.put("fillnecessary", fp.isFillNecessary());
-		// 放入entity对象的 key 通用审核对象约定处理
-		if(UI_TYPE_AUDIT_NO.equals(f.getWebDisplayTypeId())){
-			hm.put(PERSIST_KEY, WorkProcess.INLINE_AUDIT_KEY);
-		}else{
-			hm.put(PERSIST_KEY,f.getFieldNo());
+		
+		if(fp.isWritePermission() && fp.isFillNecessary() 
+				&& !f.getWebDisplayTypeId().equals(UI_TYPE_AUDIT_NO)){
+			return null;
 		}
-		String pType = f.getFieldType();
-		if(pType == null){
-			pType = "STR";
+		//通用审核表单  可写 就表示需要填写意见 --历史问题
+		if(fp.isWritePermission() && f.getWebDisplayTypeId().equals(UI_TYPE_AUDIT_NO)){
+			Map hm = new HashMap();
+			hm.put("fieldNo", f.getFieldNo());
+			hm.put("fieldName", f.getFieldName());
+//			hm.put("readPermission", fp.isReadPermission());
+//			hm.put("writePermission", fp.isWritePermission());
+//			hm.put("visible", fp.isVisible());
+//			hm.put("fillnecessary", fp.isFillNecessary());
+			hm.put("webDisplayType",f.getWebDisplayTypeId());
+			//  
+			// 放入IPersistType处理
+//			if(UI_TYPE_AUDIT_NO.equals(f.getWebDisplayTypeId())){
+//				hm.put(PERSIST_KEY, WorkProcess.INLINE_AUDIT_KEY);
+//			}else{
+//				hm.put(PERSIST_KEY,f.getFieldNo());
+//			}
+			String pType = f.getFieldType();
+			if(pType == null){
+				pType = "STR";
+			}
+			hm.put(PERSIST_TYPE,pType);	
+			return hm;			
 		}
-		hm.put(PERSIST_TYPE,pType);	
-		return hm;
+		return null;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -350,6 +398,7 @@ public class WorkProcessEasy {
 	 * @return
 	 */
 	public String getUnionFormId(){
+		//TODO 配置化
 		return "PAqyQdT0SmKJ9Cj2O9-elA";
 	}
 }

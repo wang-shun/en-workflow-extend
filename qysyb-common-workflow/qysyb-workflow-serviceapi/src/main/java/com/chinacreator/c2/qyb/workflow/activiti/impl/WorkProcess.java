@@ -388,7 +388,7 @@ public class WorkProcess {
 		Object o = entitymap.get(INLINE_AUDIT_KEY);
 		if(o != null){
 			archhandleServiceImpl.saveArchhandle((JSONObject) o, proInsId, 
-					curActivity.id, bussinessKey);			
+					curActivity.id,curActivity.name, bussinessKey);			
 		}
 		
 		if (opinion != null) {
@@ -793,7 +793,7 @@ public class WorkProcess {
 		Object o = entitymap.get(INLINE_AUDIT_KEY);
 		if(o != null){
 			archhandleServiceImpl.saveArchhandle((JSONObject) o, proInsId, 
-					wfTransition.getSrc().id, bussinessKey);			
+					wfTransition.getSrc().id, wfTransition.getSrc().name, bussinessKey);			
 		}
 
 		
