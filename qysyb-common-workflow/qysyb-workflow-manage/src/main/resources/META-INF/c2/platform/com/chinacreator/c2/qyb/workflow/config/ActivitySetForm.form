@@ -886,6 +886,10 @@ newField2_customEven:function(){
 /*					$(&quot;#activity_performer&quot;).val('');
 					$(&quot;#activity_performer_hidden_group&quot;).val('');
 					$(&quot;#activity_performer_hidden&quot;).val('');*/
+					$model.selectedUserIds = &quot;&quot;;
+	                $model.selectedGroupIds = &quot;&quot;;
+	                $model.observerId = &quot;&quot;;
+	                $model.observerStr = &quot;&quot;;
 				}			
 			});
 },
