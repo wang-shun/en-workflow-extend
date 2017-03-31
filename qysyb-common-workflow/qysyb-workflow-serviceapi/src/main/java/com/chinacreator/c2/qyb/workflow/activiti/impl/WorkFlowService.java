@@ -629,7 +629,7 @@ public class WorkFlowService {
  		if(serviceType!=null&&serviceType.length==1&&serviceType[0].equals("all")){
  			con.remove(SERVICETYPEKEY);
  			map.put("all",
- 					todoWorkService.getTodoWorkTotalByST(null, con, userId));
+ 					todoWorkService.getTodoWorkTotalByCon(null, con, userId));
  			return map;
  		}
 		if (serviceType == null) {
@@ -649,7 +649,7 @@ public class WorkFlowService {
 					con.put(WorkFlowService.SERVICETYPEKEY, d.getDictdataName());
 				}
 				map.put(d.getDictdataName(),
-						todoWorkService.getTodoWorkTotalByST(null, con, userId));
+						todoWorkService.getTodoWorkTotalByCon(null, con, userId));
 			}
 			return map;
 		} else {
@@ -660,7 +660,7 @@ public class WorkFlowService {
 				} else {
 					con.put(WorkFlowService.SERVICETYPEKEY, s);
 				}
-				map.put(s, todoWorkService.getTodoWorkTotalByST(null, con, userId));
+				map.put(s, todoWorkService.getTodoWorkTotalByCon(null, con, userId));
 			}
 			return map;
 		}
@@ -682,7 +682,7 @@ public class WorkFlowService {
  			con.put("isExternalStorage", true);
  			con.put("formId", formId);
  			map.put("all",
- 					todoWorkService.getTodoWorkTotalByST(null, con, userId));
+ 					todoWorkService.getTodoWorkTotalByCon(null, con, userId));
  			return map;
  	
  	}	

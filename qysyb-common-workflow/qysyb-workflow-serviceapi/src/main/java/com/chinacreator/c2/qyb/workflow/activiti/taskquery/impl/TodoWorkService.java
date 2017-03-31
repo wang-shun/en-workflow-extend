@@ -310,7 +310,7 @@ public class TodoWorkService {
 	 * @param userId
 	 * @return
 	 */
-	public int getTodoWorkTotalByST(String retrieveKey, Map con, String userId) {
+	public int getTodoWorkTotalByCon(String retrieveKey, Map con, String userId) {
 
 		if (con != null
 				&& con.get(WorkFlowService.IS_EXTERNAL_STORAGE_KEY) != null) {
@@ -410,7 +410,7 @@ public class TodoWorkService {
 	 * 
 	 * @return
 	 */
-	public List<Map> getTodoWorkByST(String retrieveKey, Map con,
+	public List<Map> getTodoWorkByCon(String retrieveKey, Map con,
 			String userId, int offset, int limit) {
 		List<Map> content1 = new ArrayList<Map>();
 

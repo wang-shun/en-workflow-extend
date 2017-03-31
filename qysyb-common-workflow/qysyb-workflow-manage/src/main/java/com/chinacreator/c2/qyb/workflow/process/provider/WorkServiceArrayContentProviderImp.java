@@ -42,8 +42,8 @@ public class WorkServiceArrayContentProviderImp implements
 		AccessControlService acc=new AccessControlServiceImpl();
 		String userId = acc.getUserID();
 
-		List<Map> list = todoWorkService.getTodoWorkByST(retrieveId,map,userId,pageable.getOffset(),pageable.getPageSize());
-		int total = todoWorkService.getTodoWorkTotalByST(retrieveId,map,userId);						
+		List<Map> list = todoWorkService.getTodoWorkByCon(retrieveId,map,userId,pageable.getOffset(),pageable.getPageSize());
+		int total = todoWorkService.getTodoWorkTotalByCon(retrieveId,map,userId);						
 		Page<Map> page = new Page<Map>(pageable.getPageIndex(), pageable.getPageSize(), total, list);
 		return page;
 	}
