@@ -9,6 +9,7 @@ import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
+import com.chinacreator.c2.qyb.workflow.activiti.taskquery.impl.TodoWorkService;
 import com.chinacreator.c2.sysmgr.AuthenticationProvider;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
@@ -21,12 +22,13 @@ import com.chinacreator.c2.web.ds.ArrayContext;
  */
 public class WorkServiceArrayContentProviderImp implements
 		ArrayContentProvider {
-	final static String VIEWTYPEKEY = "viewType";
-	final static String VIEWTYPEALL = "viewAll";
+	
 	WorkFlowService wfs;
+	TodoWorkService todoWorkService;
 	AuthenticationProvider authenticationProvider;
 	public WorkServiceArrayContentProviderImp() {
 		wfs = ApplicationContextManager.getContext().getBean(WorkFlowService.class);
+		todoWorkService = ApplicationContextManager.getContext().getBean(TodoWorkService.class);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -40,8 +42,8 @@ public class WorkServiceArrayContentProviderImp implements
 		AccessControlService acc=new AccessControlServiceImpl();
 		String userId = acc.getUserID();
 
-		List<Map> list = wfs.getTodoWorkByST(retrieveId,map,userId,pageable.getOffset(),pageable.getPageSize());
-		int total = wfs.getTodoWorkTotalByST(retrieveId,map,userId);						
+		List<Map> list = todoWorkService.getTodoWorkByST(retrieveId,map,userId,pageable.getOffset(),pageable.getPageSize());
+		int total = todoWorkService.getTodoWorkTotalByST(retrieveId,map,userId);						
 		Page<Map> page = new Page<Map>(pageable.getPageIndex(), pageable.getPageSize(), total, list);
 		return page;
 	}
