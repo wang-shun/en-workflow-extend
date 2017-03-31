@@ -388,7 +388,7 @@ autoswitchcommit:function($event){
 */
 	if($scope.formentity.global.oppositive || $model.actions.return == undefined){ //积极意见或者流程没有退回配置 流转流程
 
-		if($model.actions.return == undefined){
+		if(!$scope.formentity.global.oppositive &amp;&amp; $model.actions.return == undefined){
 			console.warn(&quot;本环节没有退回配置，但是是否定意见。默认继续走流程！&quot;)
 		}
 	
