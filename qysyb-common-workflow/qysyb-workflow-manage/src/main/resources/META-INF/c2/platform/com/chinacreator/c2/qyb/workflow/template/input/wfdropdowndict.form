@@ -61,8 +61,8 @@
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
   </form:datasources>
-  <form:scripts>
-
+  <form:scripts>//属性1 remark1为是否选择第一个
+//属性3 自定义class
 page_afterDataSourceLoad:function(){
 	
 },
@@ -96,6 +96,11 @@ page_onload:function(){
 	qybWorkflowService.emitFormCheckFunc(this.check)
 	
 	$model.wrapperClass = qybWorkflowService.getWrapperClass()
+	//属性3 自定义class
+	var r3 = $params.field.remark3
+	if(r3){
+		$model.wrapperClass = $model.wrapperClass + &quot; &quot; + r3
+	}
 
 	$scope.$emit(&quot;resetfunc&quot;,{name:$params.fieldNo,func:this.reset});
 	

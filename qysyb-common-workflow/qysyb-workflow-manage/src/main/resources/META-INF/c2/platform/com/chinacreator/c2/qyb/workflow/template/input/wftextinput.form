@@ -93,13 +93,18 @@
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
   </form:datasources>
-  <form:scripts>
-
+  <form:scripts>//最大长度 remark2
+//最小长度 remark1
+//自定义class remark3
 page_onload:function(){
 	qybWorkflowService.initC2FormParams($scope,$params)
 	qybWorkflowService.emitFormCheckFunc(this.check)
 	
 	$scope.class = qybWorkflowService.getWrapperClass()	
+	var r3 = $params.field.remark3
+	if(r3){
+		$scope.class = $scope.class + &quot; &quot; + r3
+	}
 },
 check:function(){
 	var result = $view.mainForm.check()

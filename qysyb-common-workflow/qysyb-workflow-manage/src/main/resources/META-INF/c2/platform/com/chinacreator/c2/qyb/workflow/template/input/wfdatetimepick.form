@@ -93,7 +93,8 @@
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
   </form:datasources>
-  <form:scripts>
+  <form:scripts>//属性1为时间格式，如 YYYY-MM-DD。
+//属性2为是否默认当前时间（true/false）
 
 dateTimePicker_beforeInit:function(options){
 	
@@ -135,6 +136,11 @@ page_onload:function(){
 	qybWorkflowService.emitFormCheckFunc(this.check)
 	
 	$scope.class = qybWorkflowService.getWrapperClass()		
+	var r3 = $params.field.remark3
+	if(r3){
+		$scope.class = $scope.class + &quot; &quot; + r3
+	}	
+	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});	
 },
 check:function(){
 	return $view.mainForm.check()
@@ -153,7 +159,7 @@ check:function(){
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;datetimepick_html&quot;>
-&lt;div id=&quot;dateTimePickerWrapper{{$params.fieldNo}}&quot; class=&quot;form-group col-sm-6&quot; ng-show=&quot;true&quot; ng-if=&quot;$model.on&quot;>
+&lt;div id=&quot;dateTimePickerWrapper{{$params.fieldNo}}&quot; ng-class=&quot;class&quot; ng-show=&quot;true&quot; ng-if=&quot;$model.on&quot;>
 	    &lt;label for=&quot;dateTimePicker&quot; class=&quot;control-label al-control-label &quot;
 			ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot; 
 			ng-class=&quot;{&amp;quot;required-label&amp;quot;:permissionData[$params.fieldNo].fillnecessary}&quot;>
