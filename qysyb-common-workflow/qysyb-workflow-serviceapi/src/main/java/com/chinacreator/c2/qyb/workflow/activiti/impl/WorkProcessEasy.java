@@ -1,34 +1,46 @@
 package com.chinacreator.c2.qyb.workflow.activiti.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.activiti.engine.TaskService;
+import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.asp.comp.sys.core.security.service.AccessControlServiceImpl;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
+import com.chinacreator.c2.flow.Exception.C2FlowRuntimeException;
+import com.chinacreator.c2.flow.api.WfFormService;
+import com.chinacreator.c2.flow.api.WfManagerService;
+import com.chinacreator.c2.flow.api.WfRepositoryService;
+import com.chinacreator.c2.flow.detail.WfActivity;
 import com.chinacreator.c2.flow.detail.WfBusinessData;
 import com.chinacreator.c2.flow.detail.WfConstants;
+import com.chinacreator.c2.flow.detail.WfModuleBean;
 import com.chinacreator.c2.flow.detail.WfOperator;
+import com.chinacreator.c2.flow.detail.WfProcessConfigProperty;
+import com.chinacreator.c2.flow.detail.WfProcessDefinition;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.message.channal.MessageChannel;
 import com.chinacreator.c2.qyb.workflow.activiti.inf.IPersistType;
+import com.chinacreator.c2.qyb.workflow.common.bean.TabDescriptionWithTabId;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowActivity;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowTransition;
 import com.chinacreator.c2.qyb.workflow.config.impl.ActivityConfigService;
 import com.chinacreator.c2.qyb.workflow.form.entity.FieldPermission;
 import com.chinacreator.c2.qyb.workflow.form.entity.FormField;
+import com.chinacreator.c2.qyb.workflow.form.impl.FieldPermissionService;
 import com.chinacreator.c2.qyb.workflow.form.impl.FormService;
 import com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct;
 import com.chinacreator.c2.qyb.workflow.module.impl.ServiceProductService;
+import com.chinacreator.c2.qyb.workflow.tab.impl.DynamicTabProvider;
+import com.chinacreator.c2.workflow.api.WfExtendService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class WorkProcessEasy {
@@ -49,6 +61,10 @@ public class WorkProcessEasy {
 	ServiceProductService serviceProductService;
 	@Autowired
 	ActivityConfigService acfs;
+	@Autowired
+	FieldPermissionService fps;
+	@Autowired
+	DynamicTabProvider dynamicTabProvider;
 	/**
 	 * 流程流转
 	 * 
@@ -157,6 +173,163 @@ public class WorkProcessEasy {
 		}
 		return null;
 	}
+
+	public Map<String, Object> taskHandle(String moduleId, String formBusinessKey, String taskId) throws Exception {
+		//发起
+		if(taskId == null){
+			return getModuleStartInfo(moduleId, formBusinessKey);
+		}else{
+			return getTaskHandleInfo(taskId);
+		}
+	}
+
+	@Autowired
+	WfExtendService wfExtendService;
+	@Autowired
+	WfManagerService wfManagerService;
+	private Map<String, Object> getModuleStartInfo(String moduleId, String formBusinessKey) throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		// 启动流程
+		Map<String, String> body = new HashMap<String, String>();
+		body.put("moduleId",moduleId);
+		
+		WfModuleBean wfModuleBean = wfExtendService.queryByMenuCode(moduleId);
+		if(null==wfModuleBean)  throw new C2FlowRuntimeException("不存在流程事项菜单["+moduleId+"]");
+		
+		WfProcessDefinition wfProcessDefinition = wfManagerService.getBindProcessByModuleId(moduleId);
+		if(null==wfProcessDefinition) throw new C2FlowRuntimeException("事项菜单["+wfModuleBean.getName()+"]还未和任何流程定义进行绑定！");
+		String processDefinitionId = wfProcessDefinition.getId();
+		
+		String taskDefKey = null;
+		ActivityImpl act = workFlowService.getStartActivityByModuleId(moduleId);
+		if(act != null){
+			taskDefKey = act.getId();
+		}		
+		
+		ServiceProduct serviceProduct = serviceProductService
+				.getServiceProductById(moduleId);
+		result.put("serviceProduct", serviceProduct);		
+
+		Map params = new HashMap();
+		params.put("moduleId", moduleId);
+		params.put("formId", serviceProduct.getFormId());
+		params.put("processDefinitionId", processDefinitionId);
+		params.put("taskDefId", taskDefKey);
+		result.put("params",params);		
+		
+		Map permissonData = fps.getFieldPermissionData(serviceProduct, taskDefKey);
+		result.put("permissonData",permissonData);
+		
+		List<TabDescriptionWithTabId> tabs = dynamicTabProvider.generateProductTabForActivity(moduleId, params, taskDefKey);
+		result.put("tabs",tabs);
+		
+		Map entity = formService.getFormDataByFkFromProcessVariable(serviceProduct.getFormId(),
+				null, formBusinessKey, null);
+		result.put("entity", entity);
+		List<Map> fields = this.getFields(serviceProduct, taskDefKey);
+		result.put("fields", fields);
+		List<WorkFlowTransition> transitions = workFlowService
+				.getOutTransition(null, processDefinitionId, taskDefKey);
+		//获取下一步的节点的一些属性
+		for(int i=0;i<transitions.size();i++){
+			WorkFlowTransition wft = transitions.get(i);
+			WorkFlowActivity destActivity = wft.getDest();
+			String destActId = destActivity.getId();
+			Map destActions = acfs.getActivityActions(moduleId, destActId);
+			Map proper = destActivity.getPorperties();
+			proper.put("actions", destActions);
+			destActivity.setPorperties(proper);
+		}
+		result.put("transitions", transitions);
+		Map actions = acfs.getActivityActions(moduleId, taskDefKey);
+		result.put("actions", actions);		
+		
+		return result;
+/*		WfProcessConfigProperty wfProcessConfigProperty=findProcessStartConfig(moduleId, processDefinitionId);
+//		if(null==wfProcessConfigProperty||StringUtils.isEmpty(wfProcessConfigProperty.getBindForm())) throw new C2FlowRuntimeException("事项["+wfModuleBean.getName()+"]起始节点表单配置为空，无法自动进入启动表单！");
+		
+		String alias = wfProcessConfigProperty.getAlias();
+		String bindForm = wfProcessConfigProperty.getBindForm();
+		String configId = wfProcessConfigProperty.getConfigId();
+		Integer duration = wfProcessConfigProperty.getDuration();
+		String durationUnit = wfProcessConfigProperty.getDurationUnit();
+		String performer = wfProcessConfigProperty.getPerformer();
+		String taskDefKey = wfProcessConfigProperty.getTaskDefKey();
+		String groupPerformer = wfProcessConfigProperty.getGroupPerformer();
+		if (!StringUtils.isEmpty(bindForm)) {
+			paramMap.put("bindForm",bindForm);
+		}
+		
+		if (!StringUtils.isEmpty(taskDefKey)) {
+			paramMap.put("taskDefKey", taskDefKey);
+		}
+		
+		if (!StringUtils.isEmpty(groupPerformer)) {
+			paramMap.put("groupPerformer", groupPerformer);
+		}
+		
+		if (!StringUtils.isEmpty(configId)) {
+			paramMap.put("configId", configId);
+		}
+		
+		if (!StringUtils.isEmpty(alias)) {
+			paramMap.put("alias", alias);
+		}
+		if (!StringUtils.isEmpty(duration)) {
+			paramMap.put("duration", duration);
+		}
+		if (!StringUtils.isEmpty(durationUnit)) {
+			paramMap.put("durationUnit", durationUnit);
+		}
+		if (!StringUtils.isEmpty(performer)) {
+			paramMap.put("performer", performer);
+		}
+		if (!StringUtils.isEmpty(processDefinitionId)) {
+			paramMap.put("processDefinitionId", processDefinitionId);
+		}
+		
+		if (!StringUtils.isEmpty(moduleId)) {
+			paramMap.put("moduleId", moduleId);
+		}
+		
+		return paramMap;	
+*/			
+	}
+	
+	@Autowired
+	WfRepositoryService wfRepositoryService;
+	@Autowired
+	WfFormService wfFormService;
+	/**
+	 * 获取开始节点流程配置
+	 * @param moduleId
+	 * @param processDefinitionId
+	 * @return
+	 * @throws Exception
+	 */
+	private WfProcessConfigProperty findProcessStartConfig(String moduleId,String processDefinitionId) throws Exception {
+		
+		WfProcessConfigProperty wfProcessConfigProperty = null;
+		List<WfActivity> wfActivityList = wfRepositoryService.getActivitiesByDefinition(processDefinitionId);
+		for (WfActivity wfActivity : wfActivityList) {
+			if ("startEvent".equals(wfActivity.getProperties().get("type"))){
+				wfProcessConfigProperty = wfManagerService.findProcessConfigProperty(processDefinitionId, moduleId,wfActivity.getId());
+			}
+		}
+		
+		// 如果流程定义图中配置了表单，如果外围配置没配置表单，可以用流程定义中的表单，但是外围配置表单优先级>流程定义的表单
+		if (null==wfProcessConfigProperty){
+			wfProcessConfigProperty = new WfProcessConfigProperty();
+		}
+		
+		if(StringUtils.isEmpty(wfProcessConfigProperty.getBindForm())){
+			// 以流程定义中的表单为准
+			String bindFormInDefinition = wfFormService.getStartFormKey(processDefinitionId);
+			wfProcessConfigProperty.setBindForm(bindFormInDefinition);
+		}
+		return wfProcessConfigProperty;
+	}	
 	
 	/**
 	 * 获取一个任务处理前置信息
@@ -179,12 +352,29 @@ public class WorkProcessEasy {
 		
 		ServiceProduct serviceProduct = serviceProductService
 				.getServiceProductById(moduleId);
+		result.put("serviceProduct", serviceProduct);
 		if( formId == null){
 			formId = serviceProduct.getFormId();
 		}
 		String businessKey = wfData.getBusinessKey();
 		String processDefinitionId = task.getProcessDefinitionId();
 		String taskDefId = task.getTaskDefinitionKey();
+		
+		Map params = new HashMap();
+		params.put("moduleId", moduleId);
+		params.put("formId", formId);
+		params.put("businessKey", businessKey);
+		params.put("proInsId", proInsId);
+		params.put("processDefinitionId", processDefinitionId);
+		params.put("taskDefId", taskDefId);
+		result.put("params",params);		
+		
+		Map permissonData = fps.getFieldPermissionData(serviceProduct, taskDefId);
+		result.put("permissonData",permissonData);
+		
+		List<TabDescriptionWithTabId> tabs = dynamicTabProvider.generateProductTabForActivity(moduleId, params, taskDefId);
+		result.put("tabs",tabs);
+		
 		Map entity = formService.getFormDataByFkFromProcessVariable(formId,
 				null, businessKey, proInsId);
 		result.put("entity", entity);

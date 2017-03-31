@@ -202,6 +202,34 @@ public class WorkFlowService {
 	}
 
 	/**
+	 * 获取一个开始节点
+	 * 
+	 * @param sp
+	 * @return
+	 */
+	public ActivityImpl getStartActivityByModuleId(String moduleId) {
+
+		try {
+			WfProcessDefinition wfProDef = wfManagerService
+					.getBindProcessByModuleId(moduleId);
+			ProcessDefinitionEntity def = (ProcessDefinitionEntity) ((RepositoryServiceImpl) repositoryService)
+					.getDeployedProcessDefinition(wfProDef.getId());
+			List<ActivityImpl> activitiList = def.getActivities();
+			for (ActivityImpl activityImpl : activitiList) {
+				String activityType = (String) activityImpl.getProperty("type");
+				if (activityType.equals("startEvent")) {
+					return activityImpl;
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}	
+	
+	/**
 	 * 获取节点的出去分撿
 	 * 
 	 * @param procInstanceId

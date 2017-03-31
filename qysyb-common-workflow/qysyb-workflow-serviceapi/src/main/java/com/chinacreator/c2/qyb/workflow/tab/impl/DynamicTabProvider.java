@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
@@ -18,6 +20,7 @@ import com.chinacreator.c2.qyb.workflow.tab.entity.Tab;
  * @author l
  *
  */
+@Service
 public class DynamicTabProvider {
 	/**
 	 * 获取产品关联到的tab页 TabDescriptionWithTabId

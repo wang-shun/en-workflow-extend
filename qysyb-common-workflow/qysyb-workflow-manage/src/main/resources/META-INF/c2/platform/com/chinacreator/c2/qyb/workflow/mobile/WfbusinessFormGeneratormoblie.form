@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="业务表单生成" sn="WfbusinessFormGeneratormoblie" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad($params)">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="formentitydiv" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroupId_html">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="margin-bottom:20px;padding-bottom: 20px !important;">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="a4_border">
+          <dync:render colSpan="2" height="0" multi="false" name="text"/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="dictdatalist" name="字典list" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
+      <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;工作流_字段类别&quot;]"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="formfields" name="字段数据" logic="rule:com.chinacreator.c2.qyb.workflow.form.getFormFieldsByTypes" sn="getformfieldsbytypes">
+      <form:param id="formId" name="新输入参数" value="$params.pModel.formId"/>
+      <form:param id="fieldType" name="新输入参数"/>
+      <form:param id="isClassify" name="新输入参数" value="$params.isAccordian"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="allcategory" name="模板" logic="rule:com.chinacreator.c2.qyb.workflow.template.getAllWebDisplayCategoryMap" sn="getAllWebDisplayCategoryMap"/>
+  </form:datasources>
+  <form:scripts>
+
+page_afterDataSourceLoad:function(){
+ 	//为特定事项加入特定的样式
+ 	var productNo = $params.params.serviceproduct.productNo
+ 	var serviceTypeId = $params.params.serviceproduct.serviceTypeId
+ 	$scope.productClass = &quot;a4_list &quot;+&quot;product_&quot;+productNo+&quot; serviceType_&quot;+serviceTypeId;
+ 	 
+	$model.categories = $model.allcategory.result;
+//	$scope.formentity = $params.pModel.formentity.result;
+//	$scope.permissionData = $model.permissiondata.result;
+//	console.log(&quot;youmeiyou permissiondata?&quot;,$scope.permissionData);
+	$scope.$emit('entity',{entity:$scope.formentity});
+	$scope.$emit('func',this.callback);
+	$scope.$emit('funcsbeforsubmit',this.funcsbeforsubmit_callback);
+	$model.checkfuncs = {};
+	$model.funcsbeforsubmit = {};
+	$scope.$on('formcheckfunc',function(event,msg){
+		$model.checkfuncs[msg.name] = {};
+		$model.checkfuncs[msg.name].fieldname = msg.name;
+		$model.checkfuncs[msg.name].func = msg.func;
+	});	
+	$scope.$on('myfuncbeforsubmit',function(event,msg){
+		$model.funcsbeforsubmit[msg.name] = {};
+		$model.funcsbeforsubmit[msg.name].fieldname = msg.name;
+		$model.funcsbeforsubmit[msg.name].func = msg.func;
+	});	
+	$scope.check = {};
+	//手风琴展示
+	if($params.isAccordian){
+		$model.a = $model.dictdatalist.result[&quot;工作流_字段类别&quot;];
+		console.log(&quot;corect fields&quot;,$model.formfields.result);
+	}else{
+//		$model.d = true;
+		$model.fields = $model.formfields.result.all;
+		console.log(&quot;fields&quot;,$model.fields);
+	}
+/*	$model.a.shift();
+	$model.a.pop();*/
+/*	console.log(&quot;dictlist&quot;,$model.a);
+	console.log(&quot;permissiondata&quot;,$model.permissiondata.result);
+	console.log(&quot;formfields&quot;,$model.formfields.result);*/
+//	console.log(&quot;控件类型&quot;,$model.allcategory.result);
+	
+},
+funcsbeforsubmit_callback:function(){
+	var a = $model.funcsbeforsubmit;
+	var result = true;
+	for(var aa in a){
+		if(a[aa].func()==false){
+			console.log(a[aa]);
+			result = false;
+		}
+	}
+	return result;	
+},
+page_beforeDataSourceLoad:function($params){
+//	console.log(&quot;generateform params&quot;,$params);
+},
+
+callback:function(type){
+	var a = $model.checkfuncs;
+	var result = true;
+	for(var aa in a){
+		if(a[aa].func(type)==false){
+			console.log(a[aa]);
+			result = false;
+		}
+	}
+	return result;
+//	console.log(&quot;formcheckfuncs&quot;,$model.checkfuncs);
+},
+
+page_onload:function(){
+	$model.observedfields = {};
+	$scope.add_observedfield = this.add_observedfield;
+	$scope.update_obervable = this.update;
+},
+/*TODO 如下是为了实现字段之间的级联互动*/
+add_observedfield:function(observerfieldNo,observesrc,changecallbackfunc){
+	if(angular.isUndefined($model.observedfields[observerfieldNo])){
+		$model.observedfields[observerfieldNo] = new Array();
+	}
+	var a = {};
+	a.observesrc = observesrc;
+	a.changecallbackfunc = changecallbackfunc;
+	$model.observedfields[observerfieldNo].push(a);
+},
+update:function(triggersrc,data){
+	var a = $model.observedfields[triggersrc];
+//	console.log($model.observedfields);
+	for(var tmp in a){
+		a[tmp].changecallbackfunc(triggersrc,data);
+	}
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
+&lt;div>
+&lt;div ng-if=&quot;$params.isAccordian&quot;>
+&lt;div  ng-repeat=&quot;aa in $model.a&quot;>
+	&lt;div ng-if=&quot;$model.formfields.result[aa.dictdataName]&quot;>
+        &lt;div ng-include=&quot;'f/fieldtypestab'&quot; ng-init=&quot;$params={'typeName':aa.dictdataValue,'fieldList':$model.formfields.result[aa.dictdataName] }&quot;/>
+	&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div ng-if=&quot;!$params.isAccordian&quot; class={{productClass}}>
+&lt;div ng-repeat=&quot;a in $model.fields&quot; class=&quot;a4&quot;>
+	&lt;div ng-if=&quot;permissionData[a.fieldNo].visible&quot;>
+
+		&lt;div ng-include=$model.categories[a.webDisplayTypeId].url ng-init=&quot;$params={'pParams':$params,'field':a,'fieldNo':a.fieldNo,'fieldName':a.fieldName,'dictName':a.dictName,'span':a.displaySpan}&quot;/>
+
+	&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/script>
+</form:htmls>
+</form:Form>
