@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="移动todolist" sn="WfTodolistH5" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="dirtyCheck" name="脏检查" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="$q ">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="wftodolisth5div" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="wftodolisth5div_html">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="todos" name="待办" logic="rule:com.chinacreator.c2.qyb.workflow.process.getWfTodolist" sn="getwftodolist">
+      <form:param id="retrieveKey" name="新输入参数"/>
+      <form:param id="con" name="新输入参数" value="{isExternalStorage:true,formId:&quot;PAqyQdT0SmKJ9Cj2O9-elA&quot;}"/>
+      <form:param id="userId" name="新输入参数"/>
+      <form:param id="offset" name="新输入参数" value="0"/>
+      <form:param id="limit" name="新输入参数" value="7"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="todostotal" name="待办总数" logic="rule:com.chinacreator.c2.qyb.workflow.process.getWfTodoCount" sn="getwftodocount">
+      <form:param id="retrieveKey" name="新输入参数"/>
+      <form:param id="con" name="新输入参数" value="{isExternalStorage:true,formId:&quot;PAqyQdT0SmKJ9Cj2O9-elA&quot;}"/>
+      <form:param id="userId" name="新输入参数"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>
+
+page_afterDataSourceLoad:function(){
+	console.log(&quot;todos&quot;,$model.todos.result)
+	$model.currentIndex = 1; //第一页
+	$model.pageSize = 7
+	functions.dopagefootview()
+},
+todoClick:function(todo){
+	var url = &quot;workflow/mobile/taskHandle.html?&quot;
+	var params = &quot;moduleId=&quot; + todo.moduleId + &quot;&amp;taskId=&quot; +  todo.taskId
+	location.href = url+params
+},
+dopagefootview:function(){	
+	$model.total = $model.todostotal.result
+	$model.pages = Math.floor($model.total / $model.pageSize) + 1
+	$model.pagesArray = new Array()
+	for(var i=1;i&lt;$model.pages;i++){
+		$model.pagesArray.push(i)
+	}
+},
+pageClick:function(index){
+	functions.loadPage(index,$model.pageSize)
+},
+prev:function(){
+
+},
+next:function(){
+
+},
+loadPage:function(realpageIndex,pageSize){
+	var offset = realpageIndex * pageSize
+	var limit = pageSize
+	var promises = [
+	                $model.todos.$load(
+	                		{
+	                			con:{isExternalStorage:true,formId:&quot;PAqyQdT0SmKJ9Cj2O9-elA&quot;},
+	                			offset:offset,
+	                			limit:limit,
+	                		}
+	                ),
+	                $model.todostotal.$load(),
+	]
+	$q.all(promises).then(function(rep){
+		$model.currentIndex = realpageIndex
+		functions.dopagefootview()
+	})
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;wftodolisth5div_html&quot;>
+&lt;div class=&quot;list-group&quot; style=&quot;margin-bottom: 0px;&quot;>
+  &lt;a ng-click=&quot;functions.todoClick(todo)&quot; class=&quot;list-group-item&quot; ng-repeat=&quot;todo in $model.todos.result&quot;>
+    &lt;h4 class=&quot;list-group-item-heading&quot;>{{todo.TITLE}}&lt;/h4>
+    &lt;p class=&quot;list-group-item-text&quot;>{{todo.productName}}&lt;/p>
+  &lt;/a>
+&lt;/div>
+&lt;ul class=&quot;pagination pagination-lg&quot;>
+        &lt;li>&lt;a ng-click=&quot;functions.prev()&quot;>«&lt;/a>&lt;/li>
+        &lt;li ng-class=&quot;{active:($index + 1) == $model.currentIndex}&quot; ng-repeat=&quot;i in $model.pagesArray&quot;>
+			&lt;a ng-click=&quot;functions.pageClick($index + 1)&quot;>{{$index + 1}}&lt;/a>
+		&lt;/li>
+        &lt;li>&lt;a ng-click=&quot;functions.next()&quot;>»&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/script></form:htmls>
+</form:Form>
