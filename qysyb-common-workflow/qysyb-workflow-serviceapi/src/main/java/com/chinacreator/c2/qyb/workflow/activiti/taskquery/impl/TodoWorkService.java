@@ -405,6 +405,8 @@ public class TodoWorkService {
 	
 	@Autowired
 	HistoryService historyService;
+	@Autowired
+	AccessControlService acc;
 	/**
 	 * 1.22，把第一个参数 由serviceTypeId服务分类 改成了 检索器key。服务分类id由 con参数传递
 	 * 
@@ -412,6 +414,9 @@ public class TodoWorkService {
 	 */
 	public List<Map> getTodoWorkByCon(String retrieveKey, Map con,
 			String userId, int offset, int limit) {
+		if(userId == null){
+			userId = acc.getUserID();
+		}
 		List<Map> content1 = new ArrayList<Map>();
 
 		if (con != null

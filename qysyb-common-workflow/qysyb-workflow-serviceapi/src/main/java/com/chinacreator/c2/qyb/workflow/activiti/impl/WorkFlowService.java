@@ -137,12 +137,13 @@ public class WorkFlowService {
 	@Autowired
 	private ManagementService managementService;
 	private org.activiti.engine.FormService activitiFormService;
-
+	@Autowired
 	private WfHistoryService wfHistoryService;
 
 	private WfRuntimeService wfRuntimeService;
 	@Autowired
 	private UserService userService;
+	@Autowired
 	private RuntimeService runtimeService;
 	@Autowired
 	private WfManagerService wfManagerService;
