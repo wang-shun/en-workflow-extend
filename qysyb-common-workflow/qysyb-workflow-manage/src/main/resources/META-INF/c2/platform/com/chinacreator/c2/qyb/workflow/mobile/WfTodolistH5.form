@@ -118,11 +118,11 @@ todoClick:function(todo){
 	var params = &quot;moduleId=&quot; + todo.moduleId + &quot;&amp;taskId=&quot; +  todo.taskId
 	location.href = url+params
 },
-dopagefootview:function(){	
+dopagefootview:function(){
 	$model.total = $model.todostotal.result
 	$model.pages = Math.floor($model.total / $model.pageSize) + 1
 	$model.pagesArray = new Array()
-	for(var i=1;i&lt;$model.pages;i++){
+	for(var i=0;i&lt;$model.pages;i++){
 		$model.pagesArray.push(i)
 	}
 },
@@ -136,7 +136,7 @@ next:function(){
 
 },
 loadPage:function(realpageIndex,pageSize){
-	var offset = realpageIndex * pageSize
+	var offset = (realpageIndex - 1)* pageSize
 	var limit = pageSize
 	var promises = [
 	                $model.todos.$load(
