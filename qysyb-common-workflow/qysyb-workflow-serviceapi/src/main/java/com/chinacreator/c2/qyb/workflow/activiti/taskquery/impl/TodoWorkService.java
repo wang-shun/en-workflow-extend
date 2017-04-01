@@ -311,7 +311,9 @@ public class TodoWorkService {
 	 * @return
 	 */
 	public int getTodoWorkTotalByCon(String retrieveKey, Map con, String userId) {
-
+		if(userId == null){
+			userId = acc.getUserID();
+		}
 		if (con != null
 				&& con.get(WorkFlowService.IS_EXTERNAL_STORAGE_KEY) != null) {
 			boolean isExternalStorage = (boolean) con
