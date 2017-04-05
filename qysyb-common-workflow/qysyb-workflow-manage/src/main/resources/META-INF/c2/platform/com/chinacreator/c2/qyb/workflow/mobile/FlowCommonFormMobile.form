@@ -376,7 +376,7 @@ autoswitchcommit:function($event){
 */
 	if($scope.formentity.global.oppositive || $model.actions.return == undefined){ //积极意见或者流程没有退回配置 流转流程
 
-		if($model.actions.return == undefined){
+		if(!$scope.formentity.global.oppositive &amp;&amp; $model.actions.return == undefined){
 			console.warn(&quot;本环节没有退回配置，但是是否定意见。默认继续走流程！&quot;)
 		}
 	
@@ -512,7 +512,6 @@ newField5_click:function($event){
 	var processDefinitionId = $params.params.processDefinitionId;
 	var moduleId =  $params.params.moduleId;
 	var taskDefKey =  $params.params.taskDefKey;
-	
 	$http.post(&quot;flow/goanywhere&quot;,
 		{
 			ccInform:$model.ccInform,
@@ -523,7 +522,7 @@ newField5_click:function($event){
 				userId:userId,
 				businessData:{
 					moduleId:moduleId,
-					businessKey:$params.businessKey
+					businessKey:$model.businessKey
 				}
 		    },
 		    businessKey:$params.params.businessKey,
@@ -541,12 +540,12 @@ newField5_click:function($event){
 		
 	}).success(function(data){
 		if(data.result == &quot;200&quot;){
-			 Messenger.post({
+/*			 Messenger.post({
 				 'message': &quot;  操作成功！&quot;,
 				 'type': 'success',
 				 'hideAfter':4
-			 });
-			 
+			 });*/
+			 functions.jumpSuccess()
 //			 TabOperator.closeTab(TabOperator.getCurrentTab());
 		}else{
 			 Messenger.post({
@@ -612,11 +611,12 @@ newField_click:function($event){
 			taskDefKey:$params.params.taskDefKey,
 			opinion:$model.opinion		
 	}).success(function(data){
-			 Messenger.post({
+/*			 Messenger.post({
 			    'message': &quot;退回成功&quot;,
 			    'type': 'success',
 			    'hideAfter':4
-			 });
+			 });*/
+			 functions.jumpSuccess()
 //			 TabOperator.closeTab(TabOperator.getCurrentTab());
 		});		
 },
@@ -639,21 +639,23 @@ newField2_clickEvent:function(value,checked,checkboxObj){
 	}); 
 },
 page_afterDataSourceLoad:function(){
-
 	//开始流程
 	if($params.params.taskId == null){
-		//地址栏有 草稿
-		if(!angular.isUndefined($location.$$search.businessKey)){
-			$model.formBusinessKey = $location.$$search.businessKey
+		//地址栏有 草稿， $params.params.businessKey 这个值在befordatasourceload里面 从地址栏把值拿了过来
+		if(!angular.isUndefined($params.params.businessKey)){
+			$model.formBusinessKey = $params.params.businessKey
 			$model.businessKey = $model.formBusinessKey
 		}else{
 			$model.businessKey =  $params.params.moduleId+&quot;_&quot;+this.timeGenerator()
 		}
+		
+		if(angular.isUndefined($params.params.businessKey)){
+			$params.params.businessKey = $model.businessKey;
+		}		
 	}
 	
-	if(angular.isUndefined($params.params.businessKey)){
-		$params.params.businessKey = $model.businessKey;
-	}
+
+
 	
 	$params.params.formBusinessKey = $model.formBusinessKey;
 	$http.post(&quot;ws/taskHandleInfo&quot;,{&quot;moduleId&quot;:$params.params.moduleId,formBusinessKey:$model.formBusinessKey,&quot;taskId&quot;:$params.params.taskId}).success(function(data){
@@ -937,7 +939,7 @@ start_flowdo:function($event){
 	functions.submitflow_click($event);
 },
 //提交流程
-submitflow_click:function($event){debugger
+submitflow_click:function($event){
 	var processDefinitionId = $params.params.processDefinitionId;
 	var moduleId =  $params.params.moduleId;
 	var taskDefKey =  $params.params.taskDefKey;
@@ -979,11 +981,12 @@ submitflow_click:function($event){debugger
 			).success(function(data){
 					if(data.result=='200'){
 							$model.isCommit = true;
-							Messenger.post({
+/*							Messenger.post({
 								'message': &quot;操作成功!&quot;,
 				                'type': 'success',
 				                'hideAfter':4
-				            });
+				            });*/
+				            functions.jumpSuccess()
 //							TabOperator.closeTab(TabOperator.getCurrentTab());
 					}else{
 							Messenger.post({
@@ -1062,7 +1065,7 @@ newField4_click:function($event){
  								userId:$scope.subject.id,
  								businessData:{
  									moduleId:$params.params.moduleId,
- 									businessKey:$params.businessKey
+ 									businessKey:$model.businessKey
  								}
  						    },
  						    deleteReason:&quot;用户删除&quot;,
@@ -1141,6 +1144,9 @@ removeuserorgtreeprefix:function(users){
 		}	
 	}
 	return users;
+},
+jumpSuccess:function(){
+	location.href = &quot;workflow/mobile/success.html&quot;
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>

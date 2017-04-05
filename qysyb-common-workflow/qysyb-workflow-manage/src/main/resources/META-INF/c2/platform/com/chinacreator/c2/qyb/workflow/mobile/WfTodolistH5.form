@@ -130,10 +130,16 @@ pageClick:function(index){
 	functions.loadPage(index,$model.pageSize)
 },
 prev:function(){
-
+	var targetPage = $model.currentIndex - 1
+	if(targetPage > 0){
+		functions.loadPage($model.currentIndex - 1,$model.pageSize)
+	}
 },
 next:function(){
-
+	var targetPage = $model.currentIndex + 1
+	if(targetPage &lt;= $model.pages){
+		functions.loadPage($model.currentIndex + 1,$model.pageSize)
+	}	
 },
 loadPage:function(realpageIndex,pageSize){
 	var offset = (realpageIndex - 1)* pageSize
@@ -161,7 +167,7 @@ loadPage:function(realpageIndex,pageSize){
     &lt;p class=&quot;list-group-item-text&quot;>{{todo.productName}}&lt;/p>
   &lt;/a>
 &lt;/div>
-&lt;ul class=&quot;pagination pagination-lg&quot;>
+&lt;ul ng-if=&quot;$model.total>$model.pageSize&quot; class=&quot;pagination pagination-lg&quot;>
         &lt;li>&lt;a ng-click=&quot;functions.prev()&quot;>«&lt;/a>&lt;/li>
         &lt;li ng-class=&quot;{active:($index + 1) == $model.currentIndex}&quot; ng-repeat=&quot;i in $model.pagesArray&quot;>
 			&lt;a ng-click=&quot;functions.pageClick($index + 1)&quot;>{{$index + 1}}&lt;/a>
