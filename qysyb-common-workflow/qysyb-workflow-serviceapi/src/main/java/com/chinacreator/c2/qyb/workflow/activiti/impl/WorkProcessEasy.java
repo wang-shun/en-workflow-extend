@@ -49,6 +49,8 @@ public class WorkProcessEasy {
 	public final static String PERSIST_TYPE = "persistType";
 	public final static String UI_TYPE_AUDIT_NO = "taskaudit";
 	
+	public final static String MOBILE_TASK_HANDLE_URL = "workflow/mobile/taskHandle.html";
+	
 	@Autowired
 	TaskService taskService;
 	@Autowired
