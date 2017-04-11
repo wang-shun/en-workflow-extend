@@ -160,7 +160,7 @@ field_change:function(a,b,c){
 				{{$params.field.displayName == undefined?$params.fieldName:$params.field.displayName}}
 		&lt;/label>
         &lt;div ng-style=&quot;{'margin-left':$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;>
-    	    &lt;input c2-input=&quot;&quot; id=&quot;textinput&quot; name=&quot;textinput&quot; ng-model=&quot;formentity[$params.fieldNo]&quot; 
+    	    &lt;input c2-input=&quot;&quot; id=&quot;textinput&quot; name=&quot;textinput&quot; ng-model=&quot;formentity[$params.fieldNo]&quot; title=&quot;{{formentity[$params.fieldNo]}}&quot; 
 				class=&quot;form-control c2Input  ng-isolate-scope ng-pristine ng-valid ng-valid-required&quot; type=&quot;text&quot; 
 				ng-required=&quot;permissionData[$params.fieldNo].fillnecessary&quot; ng-disabled=&quot;!permissionData[$params.fieldNo].writePermission&quot; 
 				ng-trim=&quot;true&quot; ng-change=&quot;functions.field_change()&quot; input-group=&quot;false&quot; group-type=&quot;iconSelect&quot; hidden-input=&quot;false&quot; 
