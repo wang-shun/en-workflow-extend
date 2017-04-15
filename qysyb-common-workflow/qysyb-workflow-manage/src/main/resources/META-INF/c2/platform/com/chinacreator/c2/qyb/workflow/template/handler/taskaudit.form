@@ -127,6 +127,10 @@
               <dync:render colSpan="1" height="0" multi="false" name="text"/>
               <dync:children/>
             </dync:attribute>
+            <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="true">
+              <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+              <dync:children/>
+            </dync:attribute>
           </form:attributes>
         </form:control>
         <form:validation/>
