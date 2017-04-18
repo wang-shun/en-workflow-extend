@@ -233,8 +233,10 @@ btn_edit_click:function($event){&#xD;
    Modal.instance.close();&#xD;
 },
 
-page_afterDataSourceLoad:function(){
-	
+page_afterDataSourceLoad:function(){&#xD;
+	if(!$model.entity.groupId){&#xD;
+		$model.entity.groupId = &quot;&quot;&#xD;
+	}
 }</form:scripts>
   <form:htmls>&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>&#xD;
 &lt;span style=&quot;float:left;margin-left:5px;margin-bottom:10px&quot;>&#xD;
