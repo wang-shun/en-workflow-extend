@@ -1076,6 +1076,7 @@ newField4_click:function($event){
 	//默认积极意见 让流程可以流转
 	$scope.formentity.global.oppositive = true
 	var actions = $model.activityactions.result
+	//传阅按钮
 	if(actions.sendviewuser){
 		if(!$scope.formentity.global.buttons){
 			$scope.formentity.global.buttons = new Array()
@@ -1093,6 +1094,21 @@ newField4_click:function($event){
 				}
 		$scope.formentity.global.buttons.push(sendbutton)
 		
+	}
+	//退回按钮
+	if(actions.rtnbutton &amp;&amp; $model.actions.return){
+		if(!$scope.formentity.global.buttons){
+			$scope.formentity.global.buttons = new Array()
+		}
+		var button = {
+				id:&quot;returnbutton&quot;,
+				name:&quot;退回&quot;,
+				click:function($event){
+						$scope.formentity.global.oppositive = false
+						functions.autoswitchcommit($event)						
+					}
+				}
+		$scope.formentity.global.buttons.push(button)	
 	}
 	//观察者
 	var subject = {}
