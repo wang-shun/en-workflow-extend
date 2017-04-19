@@ -16,7 +16,7 @@
       </dync:attribute>
     </form:attributes>
   </form:control>
-  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+  <form:child xsi:type="form:Group" id="addaudito" name="新分组">
     <form:control type="container/div">
       <form:attributes source="container/div">
         <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
