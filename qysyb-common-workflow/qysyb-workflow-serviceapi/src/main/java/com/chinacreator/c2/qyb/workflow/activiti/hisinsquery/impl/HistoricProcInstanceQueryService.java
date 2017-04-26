@@ -10,6 +10,7 @@ import org.activiti.engine.history.HistoricProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.c2.dao.mybatis.enhance.Sortable;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
@@ -180,7 +181,15 @@ public class HistoricProcInstanceQueryService {
 					if(ffs.isFieldStorageEXT(field)){
 						if (field.getFieldType()==null||field.getFieldType().equals("STR")) {
 							if(item.isIsLike()){//模糊查询
-								historicInstanceQuery.externalTableQueryVariableValueLike(field, "%"+o+"%");
+								if(o instanceof JSONArray){
+									JSONArray list = (JSONArray) o;
+									String[] ss = list.toArray(new String[0]);
+									for(int i=0; i<ss.length; i++){
+										historicInstanceQuery.externalTableQueryVariableValueLike(field, "%"+ss[i]+"%");
+									}
+								}else{
+									historicInstanceQuery.externalTableQueryVariableValueLike(field, "%"+o+"%");
+								}
 							}else{
 								historicInstanceQuery.externalTableQueryVariableValueEqual(field, o);
 							}	
