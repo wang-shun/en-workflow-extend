@@ -677,15 +677,20 @@ public class WorkFlowService {
  	 */
  	public Map<String, Integer> getTodoWorkTotalbyTypes(String[] serviceType, String formId) {
  		Map<String, Integer> map = new HashMap<String, Integer>();
- 		Map con = new HashMap();
- 		AccessControlService acc = new AccessControlServiceImpl();
- 		String userId = acc.getUserID();
+ 		try{
+ 	 		Map con = new HashMap();
+ 	 		AccessControlService acc = ApplicationContextManager.getContext().getBean(AccessControlService.class);
+ 	 		String userId = acc.getUserID();
+ 	 		
  			con.put("isExternalStorage", true);
  			con.put("formId", formId);
  			map.put("all",
- 					todoWorkService.getTodoWorkTotalByCon(null, con, userId));
- 			return map;
- 	
+ 					todoWorkService.getTodoWorkTotalByCon(null, con, userId)); 			
+ 		}catch(Exception e){
+ 			//用户未登录，不要终止之后的，重定向登录页面流程
+ 			map.put("all",-1);
+ 		}	
+		return map;
  	}	
 	
 	/**
