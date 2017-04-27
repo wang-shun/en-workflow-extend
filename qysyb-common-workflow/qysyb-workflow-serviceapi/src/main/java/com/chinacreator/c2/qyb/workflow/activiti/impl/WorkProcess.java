@@ -35,6 +35,7 @@ import com.chinacreator.c2.flow.api.WfRuntimeService;
 import com.chinacreator.c2.flow.cmd.JumpActivityCmd;
 import com.chinacreator.c2.flow.detail.WfConstants;
 import com.chinacreator.c2.flow.detail.WfOperator;
+import com.chinacreator.c2.flow.detail.WfProcessInstance;
 import com.chinacreator.c2.flow.detail.WfResult;
 import com.chinacreator.c2.flow.detail.WfTaskAction;
 import com.chinacreator.c2.flow.util.LoggerManager;
@@ -860,11 +861,10 @@ public class WorkProcess {
 				Map wfVariable = new HashMap();
 				setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
 						, wfVariable, wfTransition.getSrc());
-				try{
+				
+				WfProcessInstance ins = wfRuntimeService.getProcessInstanceById(taskEntity.getProcessInstanceId());
+				if(ins != null){
 					runtimeService.setVariables(taskEntity.getProcessInstanceId(), wfVariable);
-				}catch(Exception e){
-					//流程已经结束 设置变量有异常。忽略
-					e.printStackTrace();
 				}
 						
 				// 设置下一步处理人等信息 不包括结束节点 以及下一步是会签
