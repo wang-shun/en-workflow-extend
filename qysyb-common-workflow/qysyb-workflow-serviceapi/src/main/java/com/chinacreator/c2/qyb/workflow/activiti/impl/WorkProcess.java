@@ -860,8 +860,13 @@ public class WorkProcess {
 				Map wfVariable = new HashMap();
 				setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
 						, wfVariable, wfTransition.getSrc());
-				runtimeService.setVariables(taskEntity.getProcessInstanceId(), wfVariable);
-				
+				try{
+					runtimeService.setVariables(taskEntity.getProcessInstanceId(), wfVariable);
+				}catch(Exception e){
+					//流程已经结束 设置变量有异常。忽略
+					e.printStackTrace();
+				}
+						
 				// 设置下一步处理人等信息 不包括结束节点 以及下一步是会签
 				boolean isNextEnd = wfTransition.getDest().getPorperties().get("type").equals("endEvent");
 				boolean isNextMultiInstance = (wfTransition.getDest().getPorperties().get("multiInstance") != null);
