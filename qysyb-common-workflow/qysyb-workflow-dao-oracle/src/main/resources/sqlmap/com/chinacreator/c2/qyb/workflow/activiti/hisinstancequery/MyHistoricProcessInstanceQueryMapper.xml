@@ -87,6 +87,7 @@
     ,R0.NAME_ AS workStage
 	,R0.task_def_key_ AS TASK_DEF_KEY
 	,R0.id_ as TASK_ID
+	,R0.SUSPENSION_STATE_
 <!-- 排序的字段 命名别名 如果是外部的表 直接order 字段即可 这里就不需要别名了 -->
     <foreach collection="sortableValues" index="index" item="var">
     	<choose>
@@ -229,7 +230,8 @@
 			PROC_INST_ID_,
 			MAX (TASK_DEF_KEY_) AS task_def_key_,
 			MAX (ID_) AS ID_,
-			MAX (NAME_) AS NAME_
+			MAX (NAME_) AS NAME_,
+			MAX (SUSPENSION_STATE_) AS SUSPENSION_STATE_
 		FROM
 			ACT_RU_TASK
 		GROUP BY

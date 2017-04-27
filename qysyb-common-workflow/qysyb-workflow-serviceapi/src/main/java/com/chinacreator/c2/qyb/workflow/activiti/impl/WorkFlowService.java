@@ -54,6 +54,7 @@ import com.chinacreator.c2.flow.api.WfManagerService;
 import com.chinacreator.c2.flow.api.WfRuntimeService;
 import com.chinacreator.c2.flow.detail.WfOperator;
 import com.chinacreator.c2.flow.detail.WfProcessDefinition;
+import com.chinacreator.c2.flow.detail.WfResult;
 import com.chinacreator.c2.flow.util.WfUtils;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.omp.common.DictDataInfo;
@@ -2370,5 +2371,59 @@ public class WorkFlowService {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * 根据流程实例id删除流程实例
+	 * @param json 业务数据
+	 * @param wfOperator
+	 *            操作者信息，必须参数
+	 * @param deleteReason
+	 *            删除原因
+	 * @param processInstanceId
+	 *            流程实例id,必须参数
+	 * @param formId
+	 *            formId
+	 * @return 200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿
+	 * @throws Exception
+	 */
+	@Transactional
+	public WfResult suspendProcessInstancesById(String json,WfOperator wfOperator,
+ 			String suspendReason, String processInstanceId, String formId, boolean updateBusinessForm)
+			throws Exception {
+		WfResult result = suspendHisProcessInstancesById(wfOperator,processInstanceId);
+ 		return result;
+ 	}
+ 
+ 	/**
+ 	 * 根据流程实例id删除流程实例
+ 	 * @param processInstanceId
+ 	 *            流程实例id,必须参数
+ 	 * @return 200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿
+ 	 * @throws Exception
+ 	 */
+ 	@Transactional
+ 	public WfResult suspendHisProcessInstancesById(WfOperator wfOperator,String processInstanceId)
+ 			throws Exception {
+ 		WfResult result = WfApiFactory.getWfRuntimeService().suspendProcessInstance(wfOperator, processInstanceId);
+ 		return result;
+ 	}	
+
+ 	/**
+ 	 * 根据流程实例id删除流程实例
+ 	 * @param processInstanceId
+ 	 *            流程实例id,必须参数
+ 	 * @return 200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿
+ 	 * @throws Exception
+ 	 */
+ 	@Transactional
+ 	public boolean suspendHisProcessInstancesById(String processInstanceId)
+ 			throws Exception {
+ 		try{
+ 	 		runtimeService.suspendProcessInstanceById(processInstanceId);
+ 		}catch(Exception e){
+ 			return false;
+ 		}
+ 		return true;
+ 	}
+ 	
 }

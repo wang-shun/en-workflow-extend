@@ -585,6 +585,7 @@ page_onload:function(){
 	$scope.operatefuncs.submit = functions.autoswitchcommit
 	$scope.operatefuncs.processmonitor = functions.newField2_click
 	$scope.operatefuncs.save = functions.newField4_click
+	$scope.operatefuncs.suspend = functions.suspend_click
 },
 //回退
 newField_click:function($event){
@@ -1070,6 +1071,34 @@ newField4_click:function($event){
  					});
  			});
  },
+  //挂起流程按钮
+suspend_click:function($event){
+ 	Modal.openConfirm({message:&quot;确认挂起流程实例？挂起后需要释放才能继续处理流程！&quot;},
+ 			function(){
+ 				$http.post(&quot;ws/suspendProcessIns&quot;,
+ 					{					
+ 							json:$scope.formentity,
+ 							wfOperator:{
+ 								userId:$scope.subject.id,
+ 								businessData:{
+ 									moduleId:$params.params.moduleId,
+ 									businessKey:$params.businessKey
+ 								}
+ 						    },
+ 						    suspendReason:&quot;用户挂起&quot;,
+ 						    processInstanceId:$params.params.processInstanceId,
+ 						    formId:$model.formId,
+ 						    updateBusinessForm:true				
+ 					}).success(function(){
+ 						TabOperator.closeTab(TabOperator.getCurrentTab());
+ 						Messenger.post({
+ 												'message': &quot;挂起成功!&quot;,
+ 								                'type': 'success',
+ 								                'hideAfter':4
+ 								            });					
+ 					});
+ 			});
+ },
  initGlobalParam:function(){
  	//全局 用来通信
 	$scope.formentity.global = {}
@@ -1213,7 +1242,7 @@ removeuserorgtreeprefix:function(users){
             &lt;/button>
             &lt;button c2-button=&quot;&quot; id=&quot;button1&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-danger btn-nl no-border ng-hide&quot; 
                 ng-init=&quot;$state.button1.disabled = false;$state.button1.visible=$model.actions.endprocess!=undefined&quot; 
-                ng-show=&quot;$state.button1.visible&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;$model.actions.endprocess!=undefined&quot; 
+                ng-show=&quot;$state.button1.visible&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;false&quot; 
                 disabled-default=&quot;false&quot; ng-click=&quot;functions.button_click($event)&quot;>
                     	结束
             &lt;/button>

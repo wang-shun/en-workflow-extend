@@ -39,6 +39,8 @@ import com.chinacreator.c2.qyb.workflow.sla.impl.ServiceAgreementService;
 @Service
 public class TodoWorkService {
 
+	final static String QUERY_PARAMS_SUSPEND = "suspended";
+	
 	@Autowired
 	RuntimeService runtimeService;
 	@Autowired
@@ -243,6 +245,18 @@ public class TodoWorkService {
 			serviceType = (String) con.get(WorkFlowService.SERVICETYPEKEY);
 			mTaskQuery = (MTaskQueryImpl) mTaskQuery.processVariableValueEquals(WorkFlowService.SERVICETYPEKEY, serviceType);
 		}
+		
+		/*是否是涉及到的工单 服务跟踪*/
+		boolean needSuspended = false;
+		if(con!=null&&con.get(QUERY_PARAMS_SUSPEND)!=null){
+			needSuspended = (boolean) con.get(QUERY_PARAMS_SUSPEND);
+		}		
+		if(needSuspended == true){
+			mTaskQuery = (MTaskQueryImpl) mTaskQuery.suspended();
+		}else if(needSuspended == false){
+			mTaskQuery = (MTaskQueryImpl) mTaskQuery.active();
+		}		
+		
 		
 		RetrieveItemService retrieveItemService = ApplicationContextManager.getContext().getBean(RetrieveItemService.class);
 		List<RetrieveItem> itemlist = retrieveItemService.getRetrieveItemsByRetrieveKey(retrieveKey);
