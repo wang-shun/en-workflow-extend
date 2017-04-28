@@ -139,7 +139,7 @@ public abstract class FormOperate implements IFormOperate {
 				if(proInsId!=null&&!businessId.equals(proInsId)){
 					methodsetBusinessKey.invoke(ob,proInsId);
 					// 更新业务数据状态 由草稿变为提交状态了 
-					methodsetStatus.invoke(ob,"CLZ");
+					methodsetStatus.invoke(ob,"SHZ");
 				}
 				return dao.update(ob);
 			//没有主键 但是有流程实例值 那就是先看有没有这里businessKey的记录 没有就把流程实例id放到businesskey里面新增了
@@ -150,7 +150,7 @@ public abstract class FormOperate implements IFormOperate {
 				//判断businesskey是否存在,如果存在不新增
 				if(condition==null){
 					methodsetBusinessKey.invoke(ob, proInsId);
-					methodsetStatus.invoke(ob,"CLZ");
+					methodsetStatus.invoke(ob,"SHZ");
 	//				officeNotice.setBusinessKey(proInsId);
 					return dao.insert(ob);
 				}else{
@@ -165,7 +165,7 @@ public abstract class FormOperate implements IFormOperate {
 				//判断businesskey是否存在,如果存在不新增
 				if(condition==null){
 					methodsetBusinessKey.invoke(ob, businessKey);
-					methodsetStatus.invoke(ob,"draft");
+					methodsetStatus.invoke(ob,"DTJ");
 	//				officeNotice.setBusinessKey(businessKey);
 					return dao.insert(ob);
 				}else{
