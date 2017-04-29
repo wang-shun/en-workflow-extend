@@ -275,7 +275,7 @@
         <form:child xsi:type="form:Field" binding="$model.filtertype" id="filtertypediv" name="处理人策略" customize="true">
           <form:control type="widget/radio_group">
             <form:attributes source="widget/radio_group">
-              <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;falsefilter&quot;:&quot;无过滤&quot;,&quot;orgfilter&quot;:&quot;按部门过滤&quot;,&quot;orgbossfilter&quot;:&quot;部门分管领导&quot;,&quot;starter&quot;:&quot;分派申请人&quot;,&quot;historyassign&quot;:&quot;历史处理人&quot;}">
+              <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;falsefilter&quot;:&quot;无过滤&quot;,&quot;orgfilter&quot;:&quot;按上一处理人部门过滤&quot;,&quot;applyorgfilter&quot;:&quot;按申请人部门过滤&quot;,&quot;orgbossfilter&quot;:&quot;申请人部门分管领导&quot;,&quot;starter&quot;:&quot;分派申请人&quot;,&quot;historyassign&quot;:&quot;历史处理人&quot;}">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -724,17 +724,18 @@ page_afterDataSourceLoad:function(){
 		}else{
 			$model.endprocess = true;
 		}
-
-		var customPropertys = customPropertyStr.split(&quot;,&quot;)
-		angular.forEach(customPropertys,function(v){
-			if(v != undefined &amp;&amp;　v != &quot;&quot;){
-				var kv = v.split(&quot;:&quot;);
-				var key = kv[0];
-				//这里为什么要删除呢 因为没有做自定义属性的 添加删除监听事件 所以del all and add all
-				functions.del_action(key)			
-			}
-		});		
-		functions.expand_customProperty(customPropertyStr);					
+		if(customPropertyStr){
+			var customPropertys = customPropertyStr.split(&quot;,&quot;)
+			angular.forEach(customPropertys,function(v){
+				if(v != undefined &amp;&amp;　v != &quot;&quot;){
+					var kv = v.split(&quot;:&quot;);
+					var key = kv[0];
+					//这里为什么要删除呢 因为没有做自定义属性的 添加删除监听事件 所以del all and add all
+					functions.del_action(key)			
+				}
+			});		
+			functions.expand_customProperty(customPropertyStr);			
+		}				
 	});
 	
 	
@@ -958,12 +959,17 @@ add_action:function(action,value){
 	}
 },
 get_action:function(action){
-	var a = $model.entityactivityconfig.includeActions.split(&quot;,&quot;);
-	for(var i=0;i&lt;a.length;i++){
-		if(a[i].match(action)){
-			return a[i];
-		}
+	if($model.entityactivityconfig.includeActions){
+		var a = $model.entityactivityconfig.includeActions.split(&quot;,&quot;);
+		for(var i=0;i&lt;a.length;i++){
+			if(a[i].match(action)){
+				return a[i];
+			}
+		}	
+	}else{
+		return undefined
 	}
+
 },
 has_action:function(action){
 	if(!$model.entityactivityconfig.includeActions){

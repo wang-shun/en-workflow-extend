@@ -1266,7 +1266,13 @@ public class WorkProcess {
 			for(UserDTO user:userList){
 				taskService.addCandidateUser(taskId, user.getUserId());
 			}		
-		//TODO
+		}else if("applyorgfilter".equals(filterType)){
+			String applyUserId = (String) variables.get(WorkFlowService.STARTER);
+			List<UserDTO> userList = userJobService
+					.getAllUserFromJobWithSameOrg(groupId, applyUserId);	
+			for(UserDTO user:userList){
+				taskService.addCandidateUser(taskId, user.getUserId());
+			}			
 		}else if(filterType.equals("orgbossfilter")){
 			String applyUserId = (String) variables.get(WorkFlowService.STARTER);
 			UserService userService = ApplicationContextManager.getContext().getBean(UserService.class);
