@@ -125,6 +125,10 @@ public class WorkFlowService {
 	public final static String TYPE_ASSIGNEE = "assignee";
 	public final static String TYPE_CANDIDATEUSERS = "candidateUsers";
 	public final static String TYPE_CANDIDATEGROUPS = "candidateGroups";
+	
+	public final static String DELETE_USER_ID = "deleteUserId";
+	public final static String DELETE_USER_NAME = "deleteUserName";
+	public final static String DELETE_REASON = "deleteReason";
 	/**
 	 * 如下是activiti原生接口篿从spring中取bean即可
 	 */
@@ -934,7 +938,12 @@ public class WorkFlowService {
 		String result = WfApiFactory.getWfRuntimeService()
 				.deleteProcessInstancesById(wfOperator, deleteReason,
 						processInstanceId);
- 		//TODO 处理业务数据
+/*		Map wfVariable = new HashMap();
+		wfVariable.put(DELETE_USER_ID, wfOperator.getUserId());
+		wfVariable.put(DELETE_USER_NAME, wfOperator.getUserName());
+		wfVariable.put(DELETE_REASON, deleteReason);		
+		runtimeService.setVariables(processInstanceId, wfVariable);*/
+		
 		FormService formService = ApplicationContextManager.getContext()
 				.getBean(FormService.class);
 		Form form = formService.getFormById(formId);
