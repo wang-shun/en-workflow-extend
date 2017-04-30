@@ -15,8 +15,10 @@
        http://www.chinacreator.com/schema/cc http://www.chinacreator.com/schema/cc.xsd"> 
 	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
  	<context:annotation-config />	
-<!-- 	<context:component-scan base-package="com.chinacreator.c2.qyb.workflow">	
-	</context:component-scan> -->
+	<context:component-scan base-package="com.chinacreator.c2.qyb.workflow">	
+	</context:component-scan>
+
+	<bean id="wfExtendServiceLocal" class="com.chinacreator.c2.qyb.workflow.module.impl.MyExtendServiceImpl"/>
 
  	<!-- 工作流事件监听器 -->
 	<bean class="com.chinacreator.c2.qyb.workflow.initial.MyApplicationListener"></bean>  

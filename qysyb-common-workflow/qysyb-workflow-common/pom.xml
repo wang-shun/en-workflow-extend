@@ -57,12 +57,12 @@
 			<version>1.2.9</version>
 		</dependency>
 		    <!-- web消息推送 -->
-<!--         <dependency>
+        <dependency>
 	        <groupId>com.chinacreator.c2</groupId>
-	        <artifactId>c2-module-message-web</artifactId>
-	        <version>2.0.0</version>
+	        <artifactId>c2-module-message</artifactId>
+	        <version>2.0.1</version>
 	        
-    	</dependency> -->
+    	</dependency>
 <!-- 	
 		<dependency>
 			<groupId>javax.mail</groupId>

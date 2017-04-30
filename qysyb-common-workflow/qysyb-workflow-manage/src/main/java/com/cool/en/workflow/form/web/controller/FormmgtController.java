@@ -50,9 +50,17 @@ public class FormmgtController {
 		boolean isClassify = jsonObject.getBooleanValue("isClassify");
 		return formService.getFormField(formId, fieldType, isClassify);
 	}
-	
-	@RequestMapping(value = "getallform", method = RequestMethod.GET)	
-	public List<Form> getAllForm(){
+
+	@RequestMapping(value = "getallform", method = RequestMethod.GET)
+	public List<Form> getAllForm() {
 		return formService.getAllForm();
+	}
+
+	@RequestMapping(value = "sortFormFieldRel", method = RequestMethod.POST)
+	public void sortFormFieldRel(@RequestBody() JSONObject jsonObject) {
+		int pageInt = jsonObject.getInteger("page");
+		int rowNumInt = jsonObject.getInteger("rowNum");
+		String[] ids = jsonObject.getJSONArray("ids").toArray(new String[0]);
+		formService.sortFormFieldRel(pageInt, rowNumInt, ids);
 	}
 }
