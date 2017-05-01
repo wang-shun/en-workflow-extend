@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="suspendProcessIns" log="false" className="com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService" method="suspendProcessInstancesById">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>挂起流程实例</name>
+  <desc>根据流程实例id删除流程实例</desc>
+  <inputs>
+    <input collection="false" desc="业务数据" id="json" required="true" type="String"/>
+    <input collection="false" desc="操作者信息，必须参数" id="wfOperator" required="true" type="com.chinacreator.c2.flow.detail.WfOperator"/>
+    <input collection="false" desc="业务数据" id="suspendReason" required="true" type="String"/>
+    <input collection="false" desc="流程实例id,必须参数" id="processInstanceId" required="true" type="String"/>
+    <input collection="false" desc="formId" id="formId" required="true" type="String"/>
+    <input collection="false" desc="业务数据" id="updateBusinessForm" required="true" type="boolean"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿  @throws Exception" id="result" name="方法返回值" type="com.chinacreator.c2.flow.detail.WfResult"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.json" name="json" signature="QString;" type="String"/>
+    <param autoValue="Input.wfOperator" name="wfOperator" signature="QWfOperator;" type="com.chinacreator.c2.flow.detail.WfOperator"/>
+    <param autoValue="Input.suspendReason" name="suspendReason" signature="QString;" type="String"/>
+    <param autoValue="Input.processInstanceId" name="processInstanceId" signature="QString;" type="String"/>
+    <param autoValue="Input.formId" name="formId" signature="QString;" type="String"/>
+    <param autoValue="Input.updateBusinessForm" name="updateBusinessForm" signature="Z" type="boolean"/>
+  </params>
+  <return signature="QWfResult;" type="com.chinacreator.c2.flow.detail.WfResult"/>
+</CustomRule>

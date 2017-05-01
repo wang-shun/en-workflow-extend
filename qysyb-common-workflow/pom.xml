@@ -5,7 +5,7 @@
 
 	<groupId>com.chinacreator.c2.qyb</groupId>
 	<artifactId>qysyb-workflow-parent</artifactId>
-	<version>0.9.9</version>
+	<version>1.0.0.2</version>
 	<packaging>pom</packaging>
 
 	<name>qysyb-workflow-parent</name>

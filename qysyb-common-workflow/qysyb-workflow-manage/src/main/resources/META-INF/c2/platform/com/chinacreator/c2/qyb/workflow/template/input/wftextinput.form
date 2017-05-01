@@ -93,17 +93,42 @@
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
   </form:datasources>
-  <form:scripts>
-
+  <form:scripts>//最大长度 remark2
+//最小长度 remark1
+//自定义class remark3
 page_onload:function(){
 	qybWorkflowService.initC2FormParams($scope,$params)
 	qybWorkflowService.emitFormCheckFunc(this.check)
 	
 	$scope.class = qybWorkflowService.getWrapperClass()	
+	var r3 = $params.field.remark3
+	if(r3){
+		$scope.class = $scope.class + &quot; &quot; + r3
+	}
 },
 check:function(){
-	return $view.mainForm.check()
-	
+	var result = $view.mainForm.check()
+	var v = $(&quot;#textinputWrapper&quot; + $params.fieldNo +&quot; input&quot;).val()
+//	var v = $scope.formentity[$params.fieldNo]
+	var fielName = ($params.field.displayName == undefined)?
+						$params.fieldName:$params.field.displayName
+	//最大长度 有值采取验证 没值就交给必填验证去做吧
+	if($params.field.remark2 &amp;&amp; v){
+		var vl = v.length
+		var max = parseInt($params.field.remark2)
+		if(vl > max){
+			Messenger.error(fielName + &quot;大于最大长度&quot; + max + &quot;!&quot;) 
+		}	
+	}
+	//最小长度
+	if($params.field.remark1 &amp;&amp; v){
+		var vl = v.length
+		var mix = parseInt($params.field.remark1)
+		if(vl &lt; min){
+			Messenger.error(fielName + &quot;小于最大长度&quot; + min + &quot;!&quot;) 
+		}	
+	}
+	return result
 /*	var ele = $(&quot;#textinputWrapper&quot;+$params.fieldNo)
 	//不合法
 	if(!$scope.mainForm.$valid){
@@ -135,7 +160,7 @@ field_change:function(a,b,c){
 				{{$params.field.displayName == undefined?$params.fieldName:$params.field.displayName}}
 		&lt;/label>
         &lt;div ng-style=&quot;{'margin-left':$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;>
-    	    &lt;input c2-input=&quot;&quot; id=&quot;textinput&quot; name=&quot;textinput&quot; ng-model=&quot;formentity[$params.fieldNo]&quot; 
+    	    &lt;input c2-input=&quot;&quot; id=&quot;textinput&quot; name=&quot;textinput&quot; ng-model=&quot;formentity[$params.fieldNo]&quot; title=&quot;{{formentity[$params.fieldNo]}}&quot; 
 				class=&quot;form-control c2Input  ng-isolate-scope ng-pristine ng-valid ng-valid-required&quot; type=&quot;text&quot; 
 				ng-required=&quot;permissionData[$params.fieldNo].fillnecessary&quot; ng-disabled=&quot;!permissionData[$params.fieldNo].writePermission&quot; 
 				ng-trim=&quot;true&quot; ng-change=&quot;functions.field_change()&quot; input-group=&quot;false&quot; group-type=&quot;iconSelect&quot; hidden-input=&quot;false&quot; 

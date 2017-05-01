@@ -72,5 +72,44 @@ app.service('qybWorkflowService',function(){
 			return
 		}
 		return theparams.pParams.pModel.actions
-	}	
+	},
+	
+	this.getSubject = function(scope){ 
+		var thescope
+		if(scope){
+			thescope = scope
+		}else if(this.$scope){
+			thescope = this.$scope
+		}else {
+			console.error("scope参数未定义")
+			return
+		}		
+		return thescope.formentity.global.subject 
+	},
+	
+	this.getFormentity = function(scope){ 
+		var thescope
+		if(scope){
+			thescope = scope
+		}else if(this.$scope){
+			thescope = this.$scope
+		}else {
+			console.error("scope参数未定义")
+			return
+		}		
+		return thescope.formentity
+	},
+	
+	this.getGlobal = function(scope){ 
+		var thescope
+		if(scope){
+			thescope = scope
+		}else if(this.$scope){
+			thescope = this.$scope
+		}else {
+			console.error(" scope参数未定义")
+			return
+		}		
+		return thescope.formentity.global 
+	} 
 });

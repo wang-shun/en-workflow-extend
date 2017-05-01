@@ -322,6 +322,20 @@
           </dync:attribute>
         </form:attributes>
       </form:control>
+      <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="singlePage_html">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
       <form:child xsi:type="form:Group" id="wftoobardiv" name="简单容器(DIV)">
         <form:control type="container/div">
           <form:attributes source="container/div">
@@ -335,20 +349,6 @@
             </dync:attribute>
             <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="wftoobardiv_html">
               <dync:render colSpan="2" height="0" multi="false" name="html"/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-      </form:child>
-      <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
-        <form:control type="container/div">
-          <form:attributes source="container/div">
-            <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="singlePage_html">
-              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -386,7 +386,11 @@ autoswitchcommit:function($event){
 		}	
 	}
 */
-	if($scope.formentity.global.oppositive){ //积极意见 流转流程
+	if($scope.formentity.global.oppositive || $model.actions.return == undefined){ //积极意见或者流程没有退回配置 流转流程
+
+		if(!$scope.formentity.global.oppositive &amp;&amp; $model.actions.return == undefined){
+			console.warn(&quot;本环节没有退回配置，但是是否定意见。默认继续走流程！&quot;)
+		}
 	
 		//func 为业务表单提交前验证函数
 		if(!angular.isUndefined($model.func)){
@@ -581,6 +585,7 @@ page_onload:function(){
 	$scope.operatefuncs.submit = functions.autoswitchcommit
 	$scope.operatefuncs.processmonitor = functions.newField2_click
 	$scope.operatefuncs.save = functions.newField4_click
+	$scope.operatefuncs.suspend = functions.suspend_click
 },
 //回退
 newField_click:function($event){
@@ -1066,12 +1071,41 @@ newField4_click:function($event){
  					});
  			});
  },
+  //挂起流程按钮
+suspend_click:function($event){
+ 	Modal.openConfirm({message:&quot;确认挂起流程实例？挂起后需要释放才能继续处理流程！&quot;},
+ 			function(){
+ 				$http.post(&quot;ws/suspendProcessIns&quot;,
+ 					{					
+ 							json:$scope.formentity,
+ 							wfOperator:{
+ 								userId:$scope.subject.id,
+ 								businessData:{
+ 									moduleId:$params.params.moduleId,
+ 									businessKey:$params.businessKey
+ 								}
+ 						    },
+ 						    suspendReason:&quot;用户挂起&quot;,
+ 						    processInstanceId:$params.params.processInstanceId,
+ 						    formId:$model.formId,
+ 						    updateBusinessForm:true				
+ 					}).success(function(){
+ 						TabOperator.closeTab(TabOperator.getCurrentTab());
+ 						Messenger.post({
+ 												'message': &quot;挂起成功!&quot;,
+ 								                'type': 'success',
+ 								                'hideAfter':4
+ 								            });					
+ 					});
+ 			});
+ },
  initGlobalParam:function(){
  	//全局 用来通信
 	$scope.formentity.global = {}
 	//默认积极意见 让流程可以流转
 	$scope.formentity.global.oppositive = true
 	var actions = $model.activityactions.result
+	//传阅按钮
 	if(actions.sendviewuser){
 		if(!$scope.formentity.global.buttons){
 			$scope.formentity.global.buttons = new Array()
@@ -1090,6 +1124,36 @@ newField4_click:function($event){
 		$scope.formentity.global.buttons.push(sendbutton)
 		
 	}
+	//退回按钮
+	if(actions.rtnbutton &amp;&amp; $model.actions.return){
+		if(!$scope.formentity.global.buttons){
+			$scope.formentity.global.buttons = new Array()
+		}
+		var button = {
+				id:&quot;returnbutton&quot;,
+				name:&quot;退回&quot;,
+				click:function($event){
+						$scope.formentity.global.oppositive = false
+						functions.autoswitchcommit($event)						
+					}
+				}
+		$scope.formentity.global.buttons.push(button)	
+	}
+	//观察者
+	var subject = {}
+	subject.obs = new Array()
+	subject.changed = function(fieldNo,data){
+		this.obs.forEach(function(ob){
+			ob.func(fieldNo,data)
+		})
+	}
+	subject.regist = function(fieldNo,func){
+		var ob = {}
+		ob.fieldNo = fieldNo
+		ob.func = func
+		this.obs.push(ob)
+	}
+	$scope.formentity.global.subject = subject
  },
  //生成以逗号分隔多个id的一个字符串
 generateString:function(){
@@ -1144,7 +1208,7 @@ removeuserorgtreeprefix:function(users){
 &lt;div c2-div=&quot;&quot; id=&quot;wftoobardiv&quot; ng-hide=&quot;$state.wftoobardiv_hide&quot; ng-init=&quot;$state.wftoobardiv_hide=false&quot; 
 	hide-variable=&quot;formentity.global.handleinline&quot; class=&quot;col-sm-12   no-padding&quot;>
 	&lt;div class=&quot;col-sm-12 form-actions compact-form-acitons clearfix&quot; style=&quot;margin-top:10px;margin-bottom:0px;&quot;>
-        &lt;div class=&quot;pull-left&quot;>
+        &lt;div style=&quot;margin-right: 15%;float: right;&quot;>
             &lt;button c2-button=&quot;&quot; id=&quot;newField21&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-nl no-border ng-hide&quot; 
                 ng-init=&quot;$state.newField21.disabled = false;$state.newField21.visible=$params.params.processInstanceId!=null&quot; 
                 ng-show=&quot;$state.newField21.visible&quot; ng-disabled=&quot;$state.newField21.disabled&quot; show-default=&quot;$params.params.processInstanceId!=null&quot; 
@@ -1178,7 +1242,7 @@ removeuserorgtreeprefix:function(users){
             &lt;/button>
             &lt;button c2-button=&quot;&quot; id=&quot;button1&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-danger btn-nl no-border ng-hide&quot; 
                 ng-init=&quot;$state.button1.disabled = false;$state.button1.visible=$model.actions.endprocess!=undefined&quot; 
-                ng-show=&quot;$state.button1.visible&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;$model.actions.endprocess!=undefined&quot; 
+                ng-show=&quot;$state.button1.visible&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;false&quot; 
                 disabled-default=&quot;false&quot; ng-click=&quot;functions.button_click($event)&quot;>
                     	结束
             &lt;/button>

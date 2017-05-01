@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getallserviceproductwithmodule1" log="false" className="com.chinacreator.c2.qyb.workflow.module.impl.ServiceProductService" method="getAllServiceProductWithModule">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取已经绑定流程的事项</name>
+  <desc>获取已经绑定了流程定义的服务产品</desc>
+  <inputs>
+    <input collection="false" desc="过滤条件" id="consp" required="false" type="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct"/>
+    <input collection="false" desc="是否要权限过滤" id="needPermission" required="true" type="boolean"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.List"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.consp" name="consp" signature="QServiceProduct;" type="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct"/>
+    <param autoValue="Input.needPermission" name="needPermission" signature="Z" type="boolean"/>
+  </params>
+  <return signature="QList&lt;QServiceProduct;>;" type="java.util.List"/>
+</CustomRule>

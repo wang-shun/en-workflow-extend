@@ -22,7 +22,7 @@ public class WorkInsArrayContentProvider implements ArrayContentProvider {
 		Pageable pageable = context.getPageable();
 		
 //		String serviceType[] = (String[]) conmap.get("serviceType");
-		WorkFlowService wfs = ApplicationContextManager.getContext().getBean(WorkFlowService.class);
+//		WorkFlowService wfs = ApplicationContextManager.getContext().getBean(WorkFlowService.class);
 //		int total = wfs.getAllHisWorkCount(null, conmap, null, null);
 //		List<Map<String,Object>> list = wfs.getWorkInsBySTS(serviceType, conmap,null, null, pageable.getOffset(),pageable.getPageSize());
 //		List<Map<String,Object>> list = wfs.getAllWorkIns(null, conmap,null, null, pageable.getOffset(),pageable.getPageSize());

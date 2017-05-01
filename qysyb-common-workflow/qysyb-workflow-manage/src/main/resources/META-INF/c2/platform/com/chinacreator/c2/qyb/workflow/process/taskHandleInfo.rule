@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="taskHandleInfo" log="false" className="com.chinacreator.c2.qyb.workflow.activiti.impl.WorkProcessEasy" method="taskHandle">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取任务处理信息</name>
+  <inputs>
+    <input collection="false" desc="" id="taskId" required="false" type="String"/>
+    <input collection="false" desc="" id="moduleId" required="true" type="String"/>
+    <input collection="false" desc="" id="formBusinessKey" required="false" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.Map"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.moduleId" name="moduleId" signature="QString;" type="String"/>
+    <param autoValue="Input.formBusinessKey" name="formBusinessKey" signature="QString;" type="String"/>
+    <param autoValue="Input.taskId" name="taskId" signature="QString;" type="String"/>
+  </params>
+  <return signature="QMap&lt;QString;QObject;>;" type="java.util.Map"/>
+</CustomRule>

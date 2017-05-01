@@ -108,6 +108,10 @@
             <dync:render colSpan="1" height="0" multi="false" name="text"/>
             <dync:children/>
           </dync:attribute>
+          <dync:attribute default="" group="下拉框设置" id="nullValue" name="空值选项名" value="全部">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
         </form:attributes>
       </form:control>
       <form:validation/>
@@ -115,8 +119,9 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="allmodules" name="所有事项类型" logic="rule:com.chinacreator.c2.qyb.workflow.module.getAllServiceProductWithModule" sn="getAllServiceProductWithModule">
+    <form:datasource xsi:type="form:LogicDataSource" id="allmodules" name="所有事项类型" logic="rule:com.chinacreator.c2.qyb.workflow.module.getAllServiceProductWithModule1" sn="getallserviceproductwithmodule1">
       <form:param id="consp" name="新输入参数"/>
+      <form:param id="needPermission" name="新输入参数" value="false"/>
     </form:datasource>
   </form:datasources>
   <form:scripts>

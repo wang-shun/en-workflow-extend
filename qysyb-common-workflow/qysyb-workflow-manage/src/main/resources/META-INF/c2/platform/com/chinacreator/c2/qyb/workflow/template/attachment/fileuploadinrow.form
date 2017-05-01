@@ -103,9 +103,14 @@ page_beforeDataSourceLoad:function($params){
 		$model.viewtype = &quot;view_view&quot;;
 	}
 	$model.type = $params.pParams.params.serviceproduct.productNo
-	$model.businessKey = $scope.formentity.id || $scope.formentity.projectId || $params.pParams.params.businessKey
+	$model.businessKey = $params.pParams.params.businessKey
 //	$model.businessKey1 = $params.pParams.params.businessKey;
 	$model.businessKey3 = $params.field.fieldNo
+	
+	if(!$model.businessKey || !$model.businessKey3){
+		console.warn(&quot;$model.businessKey or $model.businessKey3 为空&quot;)
+	}
+	
 	
 	qybWorkflowService.initC2FormParams($scope,$params)
 	qybWorkflowService.emitFormCheckFunc(this.check)	
@@ -133,10 +138,10 @@ check:function(){
 	}
 	return true
 },
-onFileSuccess(data){
+onFileSuccess:function(data){
 
 },
-onFileDel(data){
+onFileDel:function(data){
 
 }</form:scripts>
   <form:htmls>

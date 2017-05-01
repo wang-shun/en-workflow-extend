@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getwftodolist" log="false" className="com.chinacreator.c2.qyb.workflow.activiti.taskquery.impl.TodoWorkService" method="getTodoWorkByCon">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取待办list</name>
+  <desc>1.22，把第一个参数 由serviceTypeId服务分类 改成了 检索器key。服务分类id由 con参数传递</desc>
+  <inputs>
+    <input collection="false" desc="" id="retrieveKey" required="false" type="String"/>
+    <input collection="false" desc="" id="con" required="false" type="java.util.Map"/>
+    <input collection="false" desc="" id="userId" required="false" type="String"/>
+    <input collection="false" desc="" id="offset" required="false" type="int"/>
+    <input collection="false" desc="" id="limit" required="false" type="int"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.List"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.retrieveKey" name="retrieveKey" signature="QString;" type="String"/>
+    <param autoValue="Input.con" name="con" signature="QMap;" type="java.util.Map"/>
+    <param autoValue="Input.userId" name="userId" signature="QString;" type="String"/>
+    <param autoValue="Input.offset" name="offset" signature="I" type="int"/>
+    <param autoValue="Input.limit" name="limit" signature="I" type="int"/>
+  </params>
+  <return signature="QList&lt;QMap;>;" type="java.util.List"/>
+</CustomRule>

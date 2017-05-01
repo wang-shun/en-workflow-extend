@@ -12,6 +12,7 @@ import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
+import com.chinacreator.c2.qyb.workflow.activiti.taskquery.impl.TodoWorkService;
 import com.chinacreator.c2.sysmgr.AuthenticationProvider;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
@@ -25,11 +26,11 @@ import com.chinacreator.c2.web.ds.ArrayContext;
 @Service("tasktodo")
 public class WorkServiceArrayContentProviderImp implements
 		ArrayContentProvider {
-	final static String VIEWTYPEKEY = "viewType";
-	final static String VIEWTYPEALL = "viewAll";
+
 	@Autowired
 	WorkFlowService wfs;
-	AuthenticationProvider authenticationProvider;
+	@Autowired
+	TodoWorkService todoWorkService;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -39,17 +40,11 @@ public class WorkServiceArrayContentProviderImp implements
 		map.put("sortable", arraycontext.getSortable());
 		Pageable pageable = arraycontext.getPageable();
 		String retrieveId = (String) map.get(WorkFlowService.RETRIEVE_KEY);
-		String viewType = (String) map.get(WorkServiceArrayContentProviderImp.VIEWTYPEKEY);
-		AccessControlService acc=new AccessControlServiceImpl();
+		AccessControlService acc=ApplicationContextManager.getContext().getBean(AccessControlService.class);;
 		String userId = acc.getUserID();
-		if(viewType!=null&&viewType.equals(WorkServiceArrayContentProviderImp.VIEWTYPEALL)){
-			userId = null;
-		}
-//		if(ServiceType==null){
-//			ServiceType = "-1";//没有值 不让查出东西来。
-//		}
-		List<Map> list = wfs.getTodoWorkByST(retrieveId,map,userId,pageable.getOffset(),pageable.getPageSize());
-		int total = wfs.getTodoWorkTotalByST(retrieveId,map,userId);						
+
+		List<Map> list = todoWorkService.getTodoWorkByCon(retrieveId,map,userId,pageable.getOffset(),pageable.getPageSize());
+		int total = todoWorkService.getTodoWorkTotalByCon(retrieveId,map,userId);						
 		Page<Map> page = new Page<Map>(pageable.getPageIndex(), pageable.getPageSize(), total, list);
 		return page;
 	}

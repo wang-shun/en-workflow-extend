@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getwftodocount" log="false" className="com.chinacreator.c2.qyb.workflow.activiti.taskquery.impl.TodoWorkService" method="getTodoWorkTotalByCon">
+  <name>获取待办总数</name>
+  <desc>根据服务分类获取待办</desc>
+  <inputs>
+    <input collection="false" desc="" id="retrieveKey" required="false" type="String"/>
+    <input collection="false" desc="" id="con" required="true" type="java.util.Map"/>
+    <input collection="false" desc="" id="userId" required="false" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="int"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.retrieveKey" name="retrieveKey" signature="QString;" type="String"/>
+    <param autoValue="Input.con" name="con" signature="QMap;" type="java.util.Map"/>
+    <param autoValue="Input.userId" name="userId" signature="QString;" type="String"/>
+  </params>
+  <return signature="I" type="int"/>
+</CustomRule>

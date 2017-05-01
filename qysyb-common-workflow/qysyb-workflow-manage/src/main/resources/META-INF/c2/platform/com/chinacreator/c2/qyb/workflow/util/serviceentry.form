@@ -102,6 +102,8 @@
   <form:scripts>
 
 page_afterDataSourceLoad:function(){
+	$model.isMobile = ($params.isMobile == &quot;true&quot;)
+
 	$model.types = $model.dictdata.result[&quot;工作流_事项分类&quot;]
 	$model.spsbytypes = {}
 	var sp = {};
@@ -167,7 +169,13 @@ isLegalType:function(type){
 	return result
 },
 createWorkOrder:function(tmp){
-	var resourceIds = $location.$$search.resourceId==null?null:$location.$$search.resourceId.split(&quot;,&quot;);
+	if($model.isMobile){
+		window.location.href = 'workflow/mobile/taskHandle.html?moduleId='+tmp.productId
+	}else{
+		window.location.href = '#/wf/taskHandle?menuCode='+tmp.productId+'&amp;productNo='+tmp.productNo+'&amp;formId='+tmp.formId;
+	}
+
+/*	var resourceIds = $location.$$search.resourceId==null?null:$location.$$search.resourceId.split(&quot;,&quot;);
 	var workIds = $location.$$search.workIds==null?null:$location.$$search.workIds.split(&quot;,&quot;);
 	var knowledgeIds = $location.$$search.knowledgeIds==null?null:$location.$$search.knowledgeIds.split(&quot;,&quot;);
 	var contentmap = $location.$$search;
@@ -184,7 +192,7 @@ createWorkOrder:function(tmp){
 	}
 
 //	window.location.href = '#/wf/taskHandle?menuCode='+tmp.productId+'&amp;productNo='+tmp.productNo+'&amp;formId='+tmp.formId+'&amp;businessKey='+businessKey;
-
+*/
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>

@@ -25,6 +25,28 @@ import com.chinacreator.c2.qyb.workflow.audit.entity.Archhandle;
 
 @Service
 public class ArchhandleServiceImpl  {
+	/**
+	 * 把删除原因 当做审核日志保存？
+	 * @param operateUserId
+	 * @param proInsId
+	 * @param businessKey
+	 * @param deleteReason
+	 */
+	public void addLogForDelete(String operateUserId,String proInsId,
+			String businessKey,String deleteReason){
+		Dao<UserInfo> udao = DaoFactory.create(UserInfo.class);
+		Dao<Archhandle> dao = DaoFactory.create(Archhandle.class);
+		
+		Archhandle archhandle = new Archhandle();
+		archhandle.setBusinessKey(businessKey);
+		archhandle.setProcInsId(proInsId);
+		Timestamp d = new Timestamp(System.currentTimeMillis()); 
+		archhandle.setAuditTime(d);
+		archhandle.setAuditerId(udao.selectByID(operateUserId));
+		archhandle.setAuditState("ZZ");
+		archhandle.setOpinionContent(deleteReason);
+		dao.insert(archhandle);
+	}
 
 	public int addArchhandle(Archhandle archhandle) {
 		Dao<Archhandle> dao = DaoFactory.create(Archhandle.class);
@@ -95,13 +117,14 @@ public class ArchhandleServiceImpl  {
 	 * @param businessKey2
 	 * @return
 	 */
-	public int saveArchhandle(JSONObject jsonObject,String proInsId,String activityId,String businessKey){
+	public int saveArchhandle(JSONObject jsonObject,String proInsId,String activityId,String activityName,String businessKey){
 		List<Archhandle> archhandleDel = new ArrayList<Archhandle>();
 		List<Archhandle> archhandleAdd = new ArrayList<Archhandle>();
 
 		jsonObject.put("auditTime", null);
 		Archhandle archhandle = JSONObject.toJavaObject(jsonObject, Archhandle.class);
 		archhandle.setActivityId(activityId);
+		archhandle.setActivityName(activityName);
 		archhandle.setBusinessKey(businessKey);
 		archhandle.setProcInsId(proInsId);
 		archhandleAdd.add(archhandle);				
