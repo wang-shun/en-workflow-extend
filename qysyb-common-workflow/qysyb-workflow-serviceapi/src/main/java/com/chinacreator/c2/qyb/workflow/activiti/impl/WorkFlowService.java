@@ -101,6 +101,9 @@ public class WorkFlowService {
 	public final static String SERVICETYPEKEY = "serviceTypeId";
 	public final static String APPLYBRANCHKEY = "applyBranchId";
 	public final static String STARTER = "starterId";
+	public final static String STARTER_NAME = "starterName";
+	public final static String STARTER_ORG = "starterOrg";
+	public final static String STARTER_ORG_NAME = "starterOrgName";
 	public final static String PRODUCTNOKEY = "productNo";
 	public final static String PRODUCTNAMEKEY = "productName";
 	public final static String USERIDKEY = "userId";
