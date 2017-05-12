@@ -688,13 +688,22 @@ page_afterDataSourceLoad:function(){
 		//初始化全局的用来交换信息的变量
 		functions.initGlobalParam()
 //		console.log($scope.formentity.result);
-
+		
 		var locationparams = $location.$$search;
 		//取得地址栏中的参数 赋值地址栏参数到实体
 		for(var a in locationparams){
 			//businessKey属性不要放入formentity 会覆盖了原来的同名属性
 			if(a!=&quot;businessKey&quot;){
 				$scope.formentity[a] = locationparams[a];
+			}	
+		}		
+		
+		//移动页面进来上面取不到参数
+		var Request = functions.GetRequest();  
+		for(var a in Request){
+			//businessKey属性不要放入formentity 会覆盖了原来的同名属性
+			if(a!=&quot;businessKey&quot;){
+				$scope.formentity[a] = Request[a];
 			}	
 		}		
 		console.log(&quot;formentity&quot;,$scope.formentity);
@@ -807,7 +816,7 @@ dateconvert:function(a){
 
 page_beforeDataSourceLoad:function($params){
 	var Request = functions.GetRequest();  
- 
+ 	
 	var locationparams = $location.$$search;
 	console.log(&quot;locationparams&quot;,locationparams);
 	$params.params = {};
