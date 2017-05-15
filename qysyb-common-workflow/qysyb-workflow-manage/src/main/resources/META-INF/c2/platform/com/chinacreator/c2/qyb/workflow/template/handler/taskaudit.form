@@ -658,8 +658,12 @@ button_click:function($event){
 	$scope.operatefuncs.startFlow($event)
 },
 check:function(){
-	var r = $view.mainForm.check()
-	return r
+	if(functions.needAudit()){
+		var r = $view.mainForm.check()
+		return r	
+	}else{
+		return true;
+	}
 },
 page_onload:function(){
 	qybWorkflowService.initC2FormParams($scope,$params)
