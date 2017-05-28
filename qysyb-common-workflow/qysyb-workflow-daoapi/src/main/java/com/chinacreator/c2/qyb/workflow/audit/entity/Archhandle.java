@@ -13,7 +13,7 @@ import com.chinacreator.c2.omp.common.UserInfo;
  * @author 
  * @generated
  */
-@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.audit.entity.Archhandle", table = "TA_OFFICE_ARCHHANDLE", ds = "bspf")
+@Entity(id = "entity:com.chinacreator.c2.qyb.workflow.audit.entity.Archhandle", sn="wfarchhandle", table = "TA_OFFICE_ARCHHANDLE", ds = "bspf")
 public class Archhandle implements Serializable {
 	private static final long serialVersionUID = 1625356999278592L;
 	/**

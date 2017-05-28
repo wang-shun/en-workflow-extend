@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowActivity;
 import com.chinacreator.c2.qyb.workflow.common.bean.WorkFlowTransition;
+import com.chinacreator.c2.qyb.workflow.config.impl.ActivityConfigService;
 import com.chinacreator.c2.qyb.workflow.form.entity.WebDisplayCategory;
 import com.chinacreator.c2.qyb.workflow.form.impl.FormService;
 
@@ -26,6 +27,9 @@ public class WorkFlowServiceController {
 	WorkFlowService wfs;
 	@Autowired
 	FormService formService;
+	@Autowired
+	ActivityConfigService activityConfigService;
+	
 	@RequestMapping("gettransitions")
 	public List<WorkFlowTransition> getTransitions(@RequestParam() String procDefId,@RequestParam() String activitiId){
 		return wfs.getOutTransition(null, procDefId, activitiId);
@@ -54,4 +58,23 @@ public class WorkFlowServiceController {
 		boolean isClassify = jsonObject.getBooleanValue("isClassify");
 		return formService.getFormField(formId, fieldType, isClassify);
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "getcandidate2",method = RequestMethod.POST)
+	public List<Map> getCandidate2(@RequestBody() JSONObject jsonObject){
+		String processDefinitionId = jsonObject.getString("processDefinitionId");
+		String proInsId = jsonObject.getString("proInsId");
+		String moduleId = jsonObject.getString("moduleId");
+		String taskDefKey = jsonObject.getString("taskDefKey");
+		String curUserId = jsonObject.getString("curUserId");
+		return wfs.getHandlerFormCandidateWithFilter1(processDefinitionId, proInsId, 
+				moduleId, taskDefKey, null, curUserId);
+	}	
+	
+	@RequestMapping(value = "getactions",method = RequestMethod.POST)
+	public Map getActions(@RequestBody() JSONObject jsonObject){
+		String activityId = jsonObject.getString("activityId");
+		String moduleId = jsonObject.getString("moduleId");
+		return activityConfigService.getActivityActions(moduleId, activityId);
+	}	
 }

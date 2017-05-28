@@ -119,3 +119,9 @@ qysyb-common-workflow/qysyb-workflow-serviceapi/.settings/org.eclipse.wst.common
 qysyb-common-workflow/qysyb-workflow-serviceapi/.settings/org.eclipse.wst.common.project.facet.core.xml
 qysyb-common-workflow/qysyb-workflow-serviceapi/.settings/org.eclipse.wst.validation.prefs
 sh.exe.stackdump
+qysyb-common-workflow/pom_BACKUP_106792.xml
+qysyb-common-workflow/pom_BASE_106792.xml
+qysyb-common-workflow/pom_LOCAL_106792.xml
+qysyb-common-workflow/pom_REMOTE_106792.xml
+qysyb-common-workflow/qysyb-workflow-deploy/qysyb-workflow-mysql-test/target/maven-archiver/pom.properties
+qysyb-common-workflow/qysyb-workflow-deploy/qysyb-workflow-mysql-test/target/qysyb-workflow-mysql-test-1.0.0.2.jar
