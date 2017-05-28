@@ -144,8 +144,15 @@ public class FormService {
 				RuntimeService runtimeService = ApplicationContextManager.getContext().getBean(RuntimeService.class);
 				ProcessInstanceQuery  piq = runtimeService.createProcessInstanceQuery();
 				ProcessInstance proins = piq.processInstanceId(proInsId).includeProcessVariables().singleResult();
-				if(proins!=null){//这里如果为null的话 应该是已结束的实例了。那么流程变量这里是没有拿出来了。Q 这里需不需要把流程变量返回出去呢
+				if(proins!=null){//这里如果为null的话 应该是已结束的实例了。那么流程变量这里是没有拿出来了。Q 这里需不需要把流程变量返回出去呢					
 					map = proins.getProcessVariables();  //流程变量也给返回出去
+				} else { //结束的实例流程变量的查询
+					HistoryService historyService = ApplicationContextManager.getContext().getBean(HistoryService.class);					
+					HistoricProcessInstance hisins = historyService.createHistoricProcessInstanceQuery().includeProcessVariables()
+							.processInstanceId(proInsId).singleResult();		
+					if(hisins!=null){
+						map = hisins.getProcessVariables();
+					}					
 				}
 				
  				Map busMap = this.getFormDataWithExternalTable(businessKey,

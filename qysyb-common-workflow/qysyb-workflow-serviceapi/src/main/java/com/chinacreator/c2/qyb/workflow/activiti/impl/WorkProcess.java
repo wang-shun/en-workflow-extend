@@ -977,7 +977,9 @@ public class WorkProcess {
 		// happentimel 用来计算sla。
 		variables.put(WorkFlowService.HAPPENEDTIMEL,
  				String.valueOf(System.currentTimeMillis()));	
- 		variables.put(WorkFlowService.STARTER, wfOperator.getUserId());
+		//设置提交人信息 id 名字 机构等到流程变量
+		setStarter(variables,wfOperator);
+	
  		//会签人信息得先于流程流转设置进去
  		if(handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST) != null){
  	 		variables.put(WorkFlowService.TYPE_ASSIGNEELIST, 
@@ -1134,7 +1136,23 @@ public class WorkProcess {
 
 	}
 	
- 	@Autowired
+ 	@SuppressWarnings("unchecked")
+	private void setStarter(Map variables, WfOperator wfOperator) {
+ 		String userId = wfOperator.getUserId();
+		UserService userService = ApplicationContextManager.getContext().getBean(UserService.class);
+		UserDTO user = userService.queryByPK(userId);
+		String userName = user!=null?user.getUserRealname():null;
+		OrgDTO orgDTO = userService.queryMainOrg(userId);
+		String orgId = orgDTO.getOrgId();
+		String orgName = orgDTO.getOrgShowName();
+		
+		variables.put(WorkFlowService.STARTER, wfOperator.getUserId());
+		variables.put(WorkFlowService.STARTER_NAME, userName);
+		variables.put(WorkFlowService.STARTER_ORG, orgId);
+		variables.put(WorkFlowService.STARTER_ORG_NAME, orgName);
+	}
+
+	@Autowired
  	ActivityConfigService activityConfigService;
  	@Autowired
  	WorkFlowService workflowservice;

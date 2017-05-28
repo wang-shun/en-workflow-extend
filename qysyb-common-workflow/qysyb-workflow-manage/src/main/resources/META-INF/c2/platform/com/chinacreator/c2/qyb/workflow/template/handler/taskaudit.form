@@ -152,6 +152,10 @@
               </dync:render>
               <dync:children/>
             </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="selectRequired" name="必填项" value="true">
+              <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+              <dync:children/>
+            </dync:attribute>
           </form:attributes>
         </form:control>
         <form:validation/>
@@ -259,6 +263,10 @@
           <form:attributes source="widget/textarea">
             <dync:attribute default="75" group="HTML设置" id="lableWidth" name="lable宽度" value="105">
               <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+              <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -650,7 +658,12 @@ button_click:function($event){
 	$scope.operatefuncs.startFlow($event)
 },
 check:function(){
-	return true
+	if(functions.needAudit()){
+		var r = $view.mainForm.check()
+		return r	
+	}else{
+		return true;
+	}
 },
 page_onload:function(){
 	qybWorkflowService.initC2FormParams($scope,$params)

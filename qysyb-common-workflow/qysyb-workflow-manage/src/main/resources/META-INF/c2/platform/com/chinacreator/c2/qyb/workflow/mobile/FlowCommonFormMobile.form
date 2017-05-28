@@ -688,13 +688,22 @@ page_afterDataSourceLoad:function(){
 		//初始化全局的用来交换信息的变量
 		functions.initGlobalParam()
 //		console.log($scope.formentity.result);
-
+		
 		var locationparams = $location.$$search;
 		//取得地址栏中的参数 赋值地址栏参数到实体
 		for(var a in locationparams){
 			//businessKey属性不要放入formentity 会覆盖了原来的同名属性
 			if(a!=&quot;businessKey&quot;){
 				$scope.formentity[a] = locationparams[a];
+			}	
+		}		
+		
+		//移动页面进来上面取不到参数
+		var Request = functions.GetRequest();  
+		for(var a in Request){
+			//businessKey属性不要放入formentity 会覆盖了原来的同名属性
+			if(a!=&quot;businessKey&quot;){
+				$scope.formentity[a] = Request[a];
 			}	
 		}		
 		console.log(&quot;formentity&quot;,$scope.formentity);
@@ -805,9 +814,9 @@ dateconvert:function(a){
 	return date.Format(&quot;MM/dd hh:mm&quot;);;
 },
 
-page_beforeDataSourceLoad:function($params){
+page_beforeDataSourceLoad:function($params){debugger
 	var Request = functions.GetRequest();  
- 
+ 	
 	var locationparams = $location.$$search;
 	console.log(&quot;locationparams&quot;,locationparams);
 	$params.params = {};
@@ -831,7 +840,7 @@ GetRequest: function(){
         strs = str.split(&quot;&amp;&quot;);  
       for(var i = 0; i &lt; strs.length; i ++)  
         {   
-         theRequest[strs[i].split(&quot;=&quot;)[0]]=unescape(strs[i].split(&quot;=&quot;)[1]);  
+         theRequest[strs[i].split(&quot;=&quot;)[0]]=decodeURIComponent(strs[i].split(&quot;=&quot;)[1]);  
         }  
     }  
     return theRequest;  
@@ -1178,7 +1187,7 @@ jumpSuccess:function(){
 
 &lt;div c2-div=&quot;&quot; id=&quot;wftoobardiv&quot; ng-hide=&quot;$state.wftoobardiv_hide&quot; ng-init=&quot;$state.wftoobardiv_hide=false&quot; 
 	hide-variable=&quot;formentity.global.handleinline&quot; class=&quot;col-sm-12   no-padding&quot;>
-	&lt;div class=&quot;col-sm-12 form-actions compact-form-acitons clearfix&quot; style=&quot;margin-top:10px;margin-bottom:0px;&quot;>
+	&lt;div class=&quot;col-sm-12 form-actions compact-form-acitons&quot; style=&quot;margin-top:10px;margin-bottom:0px;&quot;>
         &lt;div style=&quot;margin-right: 15%;float: right;&quot;>
             &lt;button c2-button=&quot;&quot; id=&quot;newField21&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-nl no-border ng-hide&quot; 
                 ng-init=&quot;$state.newField21.disabled = false;$state.newField21.visible=$params.params.processInstanceId!=null&quot; 
