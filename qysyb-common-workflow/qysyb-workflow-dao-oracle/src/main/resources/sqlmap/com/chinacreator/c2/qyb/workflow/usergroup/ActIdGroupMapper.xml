@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdGroupMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  ACT_ID_GROUP.id_ ,
+		  ACT_ID_GROUP.rev_ ,
+		  ACT_ID_GROUP.name_ ,
+		  ACT_ID_GROUP.type_ 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="id != null">and ACT_ID_GROUP.id_ = #{id}</if>
+	    <if test="rev != null">and ACT_ID_GROUP.rev_ = #{rev}</if>
+	    <if test="name != null">and ACT_ID_GROUP.name_ = #{name}</if>
+	    <if test="type != null">and ACT_ID_GROUP.type_ = #{type}</if>
+</sql>
+
+
+<!-- ElementID:ActIdGroupResult,Generated=true -->
+<resultMap id="ActIdGroupResult" type="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdGroup">
+	<id property="id" column="id_"/>
+	<result property="rev" column="rev_"/>
+	<result property="name" column="name_"/>
+	<result property="type" column="type_"/>
+</resultMap>
+
+
+
+
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdGroup">
+	insert into ACT_ID_GROUP(
+	         <if test="id != null">id_</if>
+	         <if test="rev != null">,rev_</if>
+	         <if test="name != null">,name_</if>
+	         <if test="type != null">,type_</if>
+	 	 	 )
+	 values (
+	         <if test="id != null">#{id,jdbcType=VARCHAR}</if>
+	         <if test="rev != null">,#{rev,jdbcType=NUMERIC}</if>
+	         <if test="name != null">,#{name,jdbcType=VARCHAR}</if>
+	         <if test="type != null">,#{type,jdbcType=CHAR}</if>
+	 	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdGroup" resultType="int">
+	select count(*) from ACT_ID_GROUP 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdGroup">
+	update ACT_ID_GROUP
+<set>
+	<if test="rev != null">rev_=#{rev,jdbcType=NUMERIC},</if>
+	<if test="name != null">name_=#{name,jdbcType=VARCHAR},</if>
+	<if test="type != null">type_=#{type,jdbcType=CHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="id != null">and id_ = #{id}</when>
+        <otherwise>and id_ = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update ACT_ID_GROUP
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="rev==null">rev_ = null,</if>
+		    <if test="name==null">name_ = null,</if>
+		    <if test="type==null">type_ = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="id != null">and id_ = #{id}</when>
+			<otherwise>and id_ = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdGroup">
+    delete from ACT_ID_GROUP where 1=1 and id_ = #{id}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdGroup" resultMap="ActIdGroupResult">
+	select 
+		<include refid="column_sql"/>
+	    from ACT_ID_GROUP 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into ACT_ID_GROUP (id_,rev_,name_,type_) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.id,jdbcType = VARCHAR},
+				#{entity.rev,jdbcType = NUMERIC},
+				#{entity.name,jdbcType = VARCHAR},
+				#{entity.type,jdbcType = CHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from ACT_ID_GROUP where id_ in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.id}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update ACT_ID_GROUP
+	<set>
+	<if test="entity.rev != null">rev_= #{entity.rev,jdbcType=NUMERIC},</if>
+	<if test="entity.name != null">name_= #{entity.name,jdbcType=VARCHAR},</if>
+	<if test="entity.type != null">type_= #{entity.type,jdbcType=CHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.id != null">and id_ = #{entity.id}</when>
+				<otherwise>and id_ = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="ActIdGroupResult">
+	select 
+		<include refid="column_sql"/>
+	    from ACT_ID_GROUP 
+</select>
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="ActIdGroupResult">
+select 
+	<include refid="column_sql"/> 
+	from ACT_ID_GROUP 
+	where ACT_ID_GROUP.id_ in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		ACT_ID_GROUP.id_
+	    from ACT_ID_GROUP 
+		 <where>
+	        <if test="entity.id != null">and ACT_ID_GROUP.id_ = #{entity.id}</if>
+	        <if test="entity.rev != null">and ACT_ID_GROUP.rev_ = #{entity.rev}</if>
+	        <if test="entity.name != null">and ACT_ID_GROUP.name_ = #{entity.name}</if>
+	        <if test="entity.type != null">and ACT_ID_GROUP.type_ = #{entity.type}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="ActIdGroupResult">
+	select 
+		<include refid="column_sql"/>
+	    from ACT_ID_GROUP 
+		 where ACT_ID_GROUP.id_ = #{id,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdGroup" resultMap="ActIdGroupResult">
+	select 
+		<include refid="column_sql"/>
+	    from ACT_ID_GROUP 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+</mapper>

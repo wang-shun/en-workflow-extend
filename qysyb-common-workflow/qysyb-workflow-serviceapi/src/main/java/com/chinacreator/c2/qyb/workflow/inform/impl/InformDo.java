@@ -20,14 +20,16 @@ public class InformDo implements IInformDo {
 	List<UserConcernedConfig> uccs;
 	@Override
 	public void TaskInformDo(ServiceProduct serviceProduct,
-			ActivitiEntityEvent taskEvent, Map entity) {
+			ActivitiEntityEvent taskEvent, ActivityConfig ac,
+			List<UserConcernedConfig> uccs,Map entity) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void CommentInformDo(ServiceProduct serviceProduct,
-			ActivitiEntityEvent commentEvent, Map entity) {
+			ActivitiEntityEvent taskEvent, ActivityConfig ac,
+			List<UserConcernedConfig> uccs,Map entity) {
 		// TODO Auto-generated method stub
 
 	}

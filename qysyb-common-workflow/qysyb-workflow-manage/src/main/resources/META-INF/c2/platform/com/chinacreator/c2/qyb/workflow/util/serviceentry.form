@@ -102,6 +102,8 @@
   <form:scripts>
 
 page_afterDataSourceLoad:function(){
+	$model.isMobile = ($params.isMobile == &quot;true&quot;)
+
 	$model.types = $model.dictdata.result[&quot;工作流_事项分类&quot;]
 	$model.spsbytypes = {}
 	var sp = {};
@@ -167,7 +169,13 @@ isLegalType:function(type){
 	return result
 },
 createWorkOrder:function(tmp){
-	var resourceIds = $location.$$search.resourceId==null?null:$location.$$search.resourceId.split(&quot;,&quot;);
+	if($model.isMobile){
+		window.location.href = 'workflow/mobile/taskHandle.html?moduleId='+tmp.productId
+	}else{
+		window.location.href = '#/wf/taskHandle?menuCode='+tmp.productId+'&amp;productNo='+tmp.productNo+'&amp;formId='+tmp.formId;
+	}
+
+/*	var resourceIds = $location.$$search.resourceId==null?null:$location.$$search.resourceId.split(&quot;,&quot;);
 	var workIds = $location.$$search.workIds==null?null:$location.$$search.workIds.split(&quot;,&quot;);
 	var knowledgeIds = $location.$$search.knowledgeIds==null?null:$location.$$search.knowledgeIds.split(&quot;,&quot;);
 	var contentmap = $location.$$search;
@@ -184,12 +192,12 @@ createWorkOrder:function(tmp){
 	}
 
 //	window.location.href = '#/wf/taskHandle?menuCode='+tmp.productId+'&amp;productNo='+tmp.productNo+'&amp;formId='+tmp.formId+'&amp;businessKey='+businessKey;
-
+*/
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
 
-	&lt;div class=&quot;panel panel-primary&quot; ng-repeat=&quot;tmp in $model.types&quot;>
+	&lt;div class=&quot;panel panel-primary&quot; ng-repeat=&quot;tmp in $model.types&quot; ng-if=&quot;$model.spsbytypes[tmp.dictdataName].length > 0&quot;>
       &lt;div class=&quot;panel-heading&quot;>
         &lt;h3 class=&quot;panel-title&quot;>{{tmp.dictdataValue}}&lt;/h3>
       &lt;/div>
@@ -213,7 +221,6 @@ createWorkOrder:function(tmp){
 						&lt;td title=&quot;&quot;>&lt;p>&lt;/p>&lt;/td>
 					&lt;/li>
 				&lt;/ul>
-
 			 &lt;/li>
 	  	&lt;/ul>
 	 &lt;/div>

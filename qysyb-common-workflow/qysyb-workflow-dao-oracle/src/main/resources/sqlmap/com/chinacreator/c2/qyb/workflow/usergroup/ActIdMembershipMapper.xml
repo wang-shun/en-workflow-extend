@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdMembershipMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  ACT_ID_MEMBERSHIP.group_id_ ,
+		  ACT_ID_USER_T1.id_ T1_id_ ,
+		  ACT_ID_USER_T1.rev_ T1_rev_ ,
+		  ACT_ID_USER_T1.first_ T1_first_ ,
+		  ACT_ID_USER_T1.last_ T1_last_ ,
+		  ACT_ID_USER_T1.email_ T1_email_ ,
+		  ACT_ID_USER_T1.pwd_ T1_pwd_ ,
+		  ACT_ID_USER_T1.picture_id_ T1_picture_id_ 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="groupId != null">and ACT_ID_MEMBERSHIP.group_id_ = #{groupId}</if>
+		<if test="userId != null and userId.id !=null">and ACT_ID_MEMBERSHIP.user_id_ = #{userId.id}</if>
+</sql>
+
+<!-- ElementID:one2one_sql,Generated=true -->
+<sql id="one2one_sql">
+	     left outer join ACT_ID_USER ACT_ID_USER_T1 on ACT_ID_MEMBERSHIP.user_id_=ACT_ID_USER_T1.id_
+</sql>
+
+<!-- ElementID:ActIdUserResult,Generated=true -->
+<resultMap id="ActIdUserResult" type="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdUser">
+	<id property="id" column="id_"/>
+	<result property="rev" column="rev_"/>
+	<result property="first" column="first_"/>
+	<result property="last" column="last_"/>
+	<result property="email" column="email_"/>
+	<result property="pwd" column="pwd_"/>
+	<result property="pictureId" column="picture_id_"/>
+</resultMap>
+
+
+<!-- ElementID:ActIdMembershipResult,Generated=true -->
+<resultMap id="ActIdMembershipResult" type="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdMembership">
+	<id property="groupId" column="group_id_"/>
+	<association property="userId" column="T1_id_" javaType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdUser" resultMap="ActIdUserResult" columnPrefix="T1_"/>	
+</resultMap>
+
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdMembership">
+	insert into ACT_ID_MEMBERSHIP(
+	         <if test="groupId != null">group_id_</if>
+	 	 	 <if test="userId != null and userId.id !=null">,user_id_</if>
+	 	 )
+	 values (
+	         <if test="groupId != null">#{groupId,jdbcType=VARCHAR}</if>
+	 	 	 <if test="userId != null and userId.id !=null">,#{userId.id,jdbcType=VARCHAR}</if>
+	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdMembership" resultType="int">
+	select count(*) from ACT_ID_MEMBERSHIP 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdMembership">
+	update ACT_ID_MEMBERSHIP
+<set>
+	<if test="userId != null and userId.id !=null">user_id_=#{userId.id,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="groupId != null">and group_id_ = #{groupId}</when>
+        <otherwise>and group_id_ = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:updateNull,Generated=true -->
+<update id="updateNull" parameterType="map">
+	update ACT_ID_MEMBERSHIP
+	<set>
+		<trim suffixOverrides=",">
+		    <if test="userId==null">user_id_ = null,</if>
+		</trim>
+	</set>
+	<where>
+		<choose>
+			<when test="groupId != null">and group_id_ = #{groupId}</when>
+			<otherwise>and group_id_ = </otherwise>
+		</choose>
+	</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdMembership">
+    delete from ACT_ID_MEMBERSHIP where 1=1 and group_id_ = #{groupId}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdMembership" resultMap="ActIdMembershipResult">
+	select 
+		<include refid="column_sql"/>
+	    from ACT_ID_MEMBERSHIP 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into ACT_ID_MEMBERSHIP (group_id_,user_id_) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.groupId,jdbcType = VARCHAR},
+						 #{entity.userId.id,jdbcType=VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from ACT_ID_MEMBERSHIP where group_id_ in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.groupId}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update ACT_ID_MEMBERSHIP
+	<set>
+	<if test="entity.userId != null and entity.userId.id !=null">user_id_= #{entity.userId.id,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.groupId != null">and group_id_ = #{entity.groupId}</when>
+				<otherwise>and group_id_ = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="ActIdMembershipResult">
+	select 
+		<include refid="column_sql"/>
+	    from ACT_ID_MEMBERSHIP 
+		<include refid="one2one_sql"/>
+</select>
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="ActIdMembershipResult">
+select 
+	<include refid="column_sql"/> 
+	from ACT_ID_MEMBERSHIP 
+	<include refid="one2one_sql"/>
+	where ACT_ID_MEMBERSHIP.group_id_ in (
+<foreach collection="list" item="entity" separator="intersect">
+		select 
+		ACT_ID_MEMBERSHIP.group_id_
+	    from ACT_ID_MEMBERSHIP 
+		 <where>
+	        <if test="entity.groupId != null">and ACT_ID_MEMBERSHIP.group_id_ = #{entity.groupId}</if>
+		</where>
+</foreach>
+)
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="ActIdMembershipResult">
+	select 
+		<include refid="column_sql"/>
+	    from ACT_ID_MEMBERSHIP 
+		<include refid="one2one_sql"/>
+		 where ACT_ID_MEMBERSHIP.group_id_ = #{groupId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.usergroup.entity.ActIdMembership" resultMap="ActIdMembershipResult">
+	select 
+		<include refid="column_sql"/>
+	    from ACT_ID_MEMBERSHIP 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+</mapper>

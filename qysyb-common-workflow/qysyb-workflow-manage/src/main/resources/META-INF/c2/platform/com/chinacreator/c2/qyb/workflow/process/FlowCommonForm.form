@@ -322,6 +322,20 @@
           </dync:attribute>
         </form:attributes>
       </form:control>
+      <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="singlePage_html">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
       <form:child xsi:type="form:Group" id="wftoobardiv" name="简单容器(DIV)">
         <form:control type="container/div">
           <form:attributes source="container/div">
@@ -335,20 +349,6 @@
             </dync:attribute>
             <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="wftoobardiv_html">
               <dync:render colSpan="2" height="0" multi="false" name="html"/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-      </form:child>
-      <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
-        <form:control type="container/div">
-          <form:attributes source="container/div">
-            <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="singlePage_html">
-              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -386,42 +386,75 @@ autoswitchcommit:function($event){
 		}	
 	}
 */
-	if($scope.formentity.global.oppositive){ //积极意见 流转流程
-		functions.commit($event)
-	}else{ //否定意见 退回流程
-		functions.newField_click($event)
+	if($scope.formentity.global.oppositive || $model.actions.return == undefined){ //积极意见或者流程没有退回配置 流转流程
+
+		if(!$scope.formentity.global.oppositive &amp;&amp; $model.actions.return == undefined){
+			console.warn(&quot;本环节没有退回配置，但是是否定意见。默认继续走流程！&quot;)
+		}
+	
+		//func 为业务表单提交前验证函数
+		if(!angular.isUndefined($model.func)){
+			var a = $model.func(&quot;submit&quot;);
+			if(a==false){
+				Messenger.post({
+					'message': &quot;必填项为空！&quot;,
+		            'type': 'error',
+		            'hideAfter':3
+		        });	
+				return;
+			}	
+		}	
+		//如果有下一步选人页面弹出就不用 确认页面了？
+		var hasSelectPage = !$scope.formentity.global.handleinline 
+			&amp;&amp; $model.actions.freechoose != undefined
+			&amp;&amp; $model.actions.freechoose != &quot;&quot;;
+		if(!hasSelectPage){
+			Modal.openConfirm({message:'确定提交？'},function(){
+				functions.commit($event)
+			})
+		}else{
+			functions.commit($event)
+		}
+	}else{
+		if($model.actions.return == undefined){
+			Messenger.post({
+				'message': &quot;本环节没有退回配置，请联系系统维护人员！&quot;,
+	            'type': 'error',
+	            'hideAfter':4
+	        });			
+	        return
+		}
+		//退回 需不需要必填项验证？
+		if(!angular.isUndefined($model.func)){
+			var a = $model.func(&quot;return&quot;);
+			if(a==false){
+				Messenger.post({
+					'message': &quot;必填项为空！&quot;,
+		            'type': 'error',
+		            'hideAfter':4
+		        });	
+				return;
+			}	
+		}		
+		//否定意见 退回流程
+		Modal.openConfirm({message:'确定提交？'},function(){
+			functions.newField_click($event)
+		})	
 	}
 },
 //提交
 commit:function($event){
-	console.log(&quot;$scope.formentity&quot;,$scope.formentity);
-	//func 为业务表单提交前验证函数
-	if(!angular.isUndefined($model.func)){
-		var a = $model.func(&quot;submit&quot;);
-		if(a==false){
-			Messenger.post({
-				'message': &quot;必填项为空！&quot;,
-	            'type': 'error',
-	            'hideAfter':4
-	        });	
-			return;
-		}	
-	}
+	console.log(&quot;submited $scope.formentity&quot;,$scope.formentity);
+
 //	console.log(&quot;$model.funcsbeforsubmit&quot;,$model.funcsbeforsubmit);
 	//必填项等验证通过才执行 字段页面提交前函数
 	$model.funcsbeforsubmit();
-/*	if(angular.isUndefined($model.opinion)){
-		Messenger.post({
-		    'message': &quot;请填写处理意见！&quot;,
-		    'type': 'error',
-		});		
-		return;
-	}*/
-	
+
 	if($model.isCountersign){  //会签环节 不选人，下一步处理人用环节外围配置
 		functions.newField5_click($event);
 		return;		
 	}
+	//没有集成那个处理模板
 	if(!$scope.formentity.global.handleinline 
 			&amp;&amp; $model.actions.freechoose != undefined
 			&amp;&amp; $model.actions.freechoose != &quot;&quot;){
@@ -468,7 +501,7 @@ commit:function($event){
 			assigneeList:$model.assigneeList,
 			wfComment:$model.opinion
 		}	
-	}else{
+	}else{  //集成处理页面模板了 一些参数用模板设置到全局中的值
 		$model.variables = $scope.formentity.global.handleinline.variables
 		$model.transition = $scope.formentity.global.handleinline.transition
 		$model.transitionId = $model.transition.id
@@ -536,7 +569,7 @@ newField5_click:function($event){
 		}
 	});		
 },
-
+//流程监控
 newField2_click:function($event){
 	var paramsjson = {
 		processInstanceId:$params.params.processInstanceId,
@@ -550,29 +583,13 @@ page_onload:function(){
 	$scope.operatefuncs = {}
 	$scope.operatefuncs.startFlow = functions.start_flow
 	$scope.operatefuncs.submit = functions.autoswitchcommit
+	$scope.operatefuncs.processmonitor = functions.newField2_click
+	$scope.operatefuncs.save = functions.newField4_click
+	$scope.operatefuncs.suspend = functions.suspend_click
 },
 //回退
 newField_click:function($event){
-	if($model.actions.return == undefined){
-		Messenger.post({
-			'message': &quot;本环节没有退回配置，请联系系统维护人员！&quot;,
-            'type': 'error',
-            'hideAfter':4
-        });			
-        return
-	}
-	//退回 需不需要必填项验证？
-	if(!angular.isUndefined($model.func)){
-		var a = $model.func(&quot;return&quot;);
-		if(a==false){
-			Messenger.post({
-				'message': &quot;必填项为空！&quot;,
-	            'type': 'error',
-	            'hideAfter':4
-	        });	
-			return;
-		}	
-	}
+
 	//提交前函数 各字段可以在这里把自己的数据放入业务js对象
 	$model.funcsbeforsubmit();	
 	
@@ -653,10 +670,6 @@ page_afterDataSourceLoad:function(){
 		$model.selectfuncs.push(msg);
 	});
 
-/*	$scope.$on('entity',function(event,msg){
-		$model.entity = msg.entity;
-		$scope.entity = msg.entity;
-	});	*/
 	//字段页面验证函数
 	$scope.$on('func',function(event,msg){
 		$model.func = msg;
@@ -710,11 +723,8 @@ page_afterDataSourceLoad:function(){
  		
 		$scope.formentity = {};
 		$scope.formentity = resps[1].data.result;
-		//全局 用来通信
-		$scope.formentity.global = {}
-		//默认积极意见 让流程可以流转
-		$scope.formentity.global.oppositive = true
-		
+		//初始化全局的用来交换信息的变量
+		functions.initGlobalParam()
 //		console.log($scope.formentity.result);
 		//取得地址栏中的参数 赋值地址栏参数到实体
 		for(var a in locationparams){
@@ -846,8 +856,7 @@ timeGenerator:function(){
 		
 },
 start_flow:function($event){
-//func 为业务表单提交前验证函数
-//	console.log(&quot;transition to take&quot;,$model.transition);
+	//	func 为业务表单提交前验证函数
 	if(!angular.isUndefined($model.func)){
 		//提交前验证
 		var a = $model.func(&quot;submit&quot;);
@@ -868,7 +877,17 @@ start_flow:function($event){
         });	
         return;
 	}
- 	
+	//如果有下一步选人页面弹出就不用 确认页面了？
+	var hasSelectPage = $model.actions.freechoose != undefined;
+	if(!hasSelectPage){
+		Modal.openConfirm({message:'确定提交？'},function(){
+			functions.start_flowdo($event)
+		})		
+	}else{
+		functions.start_flowdo($event)
+	}
+},
+start_flowdo:function($event){
  	//提交前函数 各字段可以在这里把自己的数据放入业务js对象
  	$model.funcsbeforsubmit();
  		
@@ -910,7 +929,7 @@ start_flow:function($event){
 	functions.submitflow_click($event);
 },
 //提交流程
-submitflow_click:function($event){	
+submitflow_click:function($event){
 	var processDefinitionId = $params.params.processDefinitionId;
 	var moduleId =  $params.params.moduleId;
 	var taskDefKey =  $params.params.taskDefKey;
@@ -929,7 +948,7 @@ submitflow_click:function($event){
 	$scope.formentity.businessKey = $model.businessKey;
 	$scope.formentity.moduleId = moduleId;
 //	console.log(&quot;formId&quot;,$model.formId);
-	$model.formId = $location.search().formId;
+//	$model.formId = $location.search().formId;
 	$http.post(&quot;flow/startflow&quot;,
 			{
 						ccInform:$model.ccInform,
@@ -1051,7 +1070,114 @@ newField4_click:function($event){
  								            });					
  					});
  			});
- }</form:scripts>
+ },
+  //挂起流程按钮
+suspend_click:function($event){
+ 	Modal.openConfirm({message:&quot;确认挂起流程实例？挂起后需要释放才能继续处理流程！&quot;},
+ 			function(){
+ 				$http.post(&quot;ws/suspendProcessIns&quot;,
+ 					{					
+ 							json:$scope.formentity,
+ 							wfOperator:{
+ 								userId:$scope.subject.id,
+ 								businessData:{
+ 									moduleId:$params.params.moduleId,
+ 									businessKey:$params.businessKey
+ 								}
+ 						    },
+ 						    suspendReason:&quot;用户挂起&quot;,
+ 						    processInstanceId:$params.params.processInstanceId,
+ 						    formId:$model.formId,
+ 						    updateBusinessForm:true				
+ 					}).success(function(){
+ 						TabOperator.closeTab(TabOperator.getCurrentTab());
+ 						Messenger.post({
+ 												'message': &quot;挂起成功!&quot;,
+ 								                'type': 'success',
+ 								                'hideAfter':4
+ 								            });					
+ 					});
+ 			});
+ },
+ initGlobalParam:function(){
+ 	//全局 用来通信
+	$scope.formentity.global = {}
+	//默认积极意见 让流程可以流转
+	$scope.formentity.global.oppositive = true
+	var actions = $model.activityactions.result
+	//传阅按钮
+	if(actions.sendviewuser){
+		if(!$scope.formentity.global.buttons){
+			$scope.formentity.global.buttons = new Array()
+		}
+		var sendbutton = {
+				id:&quot;senduser&quot;,
+				name:&quot;传阅&quot;,
+				click:function(){
+					Modal.open(&quot;f/multipleuserchoose4&quot;,{choosed:$model.senduserchoosed},function(data){
+						$model.senduserchoosed = functions.removeuserorgtreeprefix(data.users);
+						functions.generateString();
+					});				
+					
+				}
+				}
+		$scope.formentity.global.buttons.push(sendbutton)
+		
+	}
+	//退回按钮
+	if(actions.rtnbutton &amp;&amp; $model.actions.return){
+		if(!$scope.formentity.global.buttons){
+			$scope.formentity.global.buttons = new Array()
+		}
+		var button = {
+				id:&quot;returnbutton&quot;,
+				name:&quot;退回&quot;,
+				click:function($event){
+						$scope.formentity.global.oppositive = false
+						functions.autoswitchcommit($event)						
+					}
+				}
+		$scope.formentity.global.buttons.push(button)	
+	}
+	//观察者
+	var subject = {}
+	subject.obs = new Array()
+	subject.changed = function(fieldNo,data){
+		this.obs.forEach(function(ob){
+			ob.func(fieldNo,data)
+		})
+	}
+	subject.regist = function(fieldNo,func){
+		var ob = {}
+		ob.fieldNo = fieldNo
+		ob.func = func
+		this.obs.push(ob)
+	}
+	$scope.formentity.global.subject = subject
+ },
+ //生成以逗号分隔多个id的一个字符串
+generateString:function(){
+	var s = undefined;
+	var nameStr = undefined;
+	$model.senduserchoosed.forEach(function(e,i){
+		if(s==undefined){
+			s = e.id;
+			nameStr = e.name;
+		}else{
+			s = s + &quot;,&quot;+e.id;
+			nameStr = nameStr + &quot;,&quot; + e.name;
+		}
+	});
+	$scope.formentity.wfsendUserRead = s;
+},
+removeuserorgtreeprefix:function(users){
+	for(var i in users){
+		if(users[i].id.indexOf(&quot;user&quot;) !== -1){
+			users[i].id = users[i].id.substring(5)
+		}	
+	}
+	return users;
+}</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>
 	&lt;div ng-include=$model.tabUrl  ng-init=&quot;$params={'pModel':$model,'params':$params.params,'isAccordian':false}&quot;>&lt;/div>
@@ -1082,7 +1208,7 @@ newField4_click:function($event){
 &lt;div c2-div=&quot;&quot; id=&quot;wftoobardiv&quot; ng-hide=&quot;$state.wftoobardiv_hide&quot; ng-init=&quot;$state.wftoobardiv_hide=false&quot; 
 	hide-variable=&quot;formentity.global.handleinline&quot; class=&quot;col-sm-12   no-padding&quot;>
 	&lt;div class=&quot;col-sm-12 form-actions compact-form-acitons clearfix&quot; style=&quot;margin-top:10px;margin-bottom:0px;&quot;>
-        &lt;div class=&quot;pull-left&quot;>
+        &lt;div style=&quot;margin-right: 15%;float: right;&quot;>
             &lt;button c2-button=&quot;&quot; id=&quot;newField21&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-nl no-border ng-hide&quot; 
                 ng-init=&quot;$state.newField21.disabled = false;$state.newField21.visible=$params.params.processInstanceId!=null&quot; 
                 ng-show=&quot;$state.newField21.visible&quot; ng-disabled=&quot;$state.newField21.disabled&quot; show-default=&quot;$params.params.processInstanceId!=null&quot; 
@@ -1116,7 +1242,7 @@ newField4_click:function($event){
             &lt;/button>
             &lt;button c2-button=&quot;&quot; id=&quot;button1&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-danger btn-nl no-border ng-hide&quot; 
                 ng-init=&quot;$state.button1.disabled = false;$state.button1.visible=$model.actions.endprocess!=undefined&quot; 
-                ng-show=&quot;$state.button1.visible&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;$model.actions.endprocess!=undefined&quot; 
+                ng-show=&quot;$state.button1.visible&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;false&quot; 
                 disabled-default=&quot;false&quot; ng-click=&quot;functions.button_click($event)&quot;>
                     	结束
             &lt;/button>

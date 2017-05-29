@@ -61,8 +61,8 @@
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
   </form:datasources>
-  <form:scripts>
-
+  <form:scripts>//属性1 remark1为是否选择第一个
+//属性3 自定义class
 page_afterDataSourceLoad:function(){
 	
 },
@@ -88,14 +88,19 @@ linkcallback:function(src,data){
 
 },
 reset:function(){
-	$model.bind = undefined;
-	$scope.formentity[$params.fieldNo] = undefined;
+	$model.bind = &quot;&quot;;
+	$scope.formentity[$params.fieldNo] = &quot;&quot;;
 },
 page_onload:function(){
 	qybWorkflowService.initC2FormParams($scope,$params)
 	qybWorkflowService.emitFormCheckFunc(this.check)
 	
 	$model.wrapperClass = qybWorkflowService.getWrapperClass()
+	//属性3 自定义class
+	var r3 = $params.field.remark3
+	if(r3){
+		$model.wrapperClass = $model.wrapperClass + &quot; &quot; + r3
+	}
 
 	$scope.$emit(&quot;resetfunc&quot;,{name:$params.fieldNo,func:this.reset});
 	
@@ -103,7 +108,9 @@ page_onload:function(){
 },
 
 dictdropdownoption_customFilter:function(data){
-	if($scope.formentity[$params.fieldNo]==undefined||$scope.formentity[$params.fieldNo]==&quot;&quot;){
+	var value = $scope.formentity[$params.fieldNo]
+	var b = angular.isUndefined(value)
+	if(b){
 		//属性1 remark1为是否选择第一个
 		var selectFirst = qybWorkflowService.getBooleanFromRemark($params.field.remark1);
 		if(selectFirst){

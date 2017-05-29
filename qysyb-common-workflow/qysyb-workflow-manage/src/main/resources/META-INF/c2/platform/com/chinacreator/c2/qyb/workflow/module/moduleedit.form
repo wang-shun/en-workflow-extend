@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="事项修改" sn="moduleedit" type="form">
   <form:control type="page/modal">
-    <form:attributes source="page/modal"/>
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
+        <dync:render colSpan="2" height="0" multi="false" name="event">
+          <dync:item name="param" value=""/>
+        </dync:render>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
   </form:control>
   <form:child xsi:type="form:Group" id="main2" name="服务产品">
     <form:control type="container/div">
@@ -38,11 +45,23 @@
       </form:control>
       <form:validation/>
     </form:child>
-    <form:child xsi:type="form:Field" binding="$model.entity.groupId" id="groupId2" name="分组" customize="true">
-      <form:control type="widget/select_simple">
-        <form:attributes source="widget/select_simple">
-          <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;服务流程&quot;:&quot;服务流程&quot;,&quot;故障流程&quot;:&quot;故障流程&quot;}">
-            <dync:render/>
+    <form:child xsi:type="form:Field" binding="$model.entity.groupId" id="groupId2" name="组权限" customize="true">
+      <form:control type="widget/select">
+        <form:attributes source="widget/select">
+          <dync:attribute default="false" group="元素设置" id="multiple" name="多选" value="true">
+            <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="[{&quot;text&quot;:&quot;option1&quot;,&quot;id&quot;:&quot;value1&quot;},{&quot;text&quot;:&quot;option2&quot;,&quot;id&quot;:&quot;value2&quot;,&quot;selected&quot;:true}]" group="元素设置" id="options" name="选项" value="$model.allgroups.result">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="text" group="下拉框设置" id="optionName" name="显示属性名" value="name">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="6" group="基本属性" id="span" name="占位数" value="12">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -199,10 +218,10 @@
       <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;工作流_事项分类&quot;]"/>
     </form:datasource>
     <form:datasource xsi:type="form:LogicDataSource" id="allForm" name="表单s" logic="rule:com.chinacreator.c2.qyb.workflow.form.getAllForm" sn="getallform"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="allProcessDef" name="流程定义" logic="rule:com.chinacreator.c2.qyb.workflow.module.allProcessDef" sn="getallprocess"/>
     <form:datasource xsi:type="form:LogicDataSource" id="allserviceproductIcons" name="图标" logic="rule:com.chinacreator.c2.qyb.workflow.module.getPIcons" sn="getserviceproductnames">
       <form:param id="path" name="新输入参数"/>
     </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="allgroups" name="所有组" logic="rule:com.chinacreator.c2.qyb.workflow.group.getallgroups" sn="getallgroups"/>
   </form:datasources>
   <form:scripts>btn_add_click:function($event){&#xD;
     $model.entity.$save(function(){&#xD;
@@ -212,6 +231,12 @@
 },&#xD;
 btn_edit_click:function($event){&#xD;
    Modal.instance.close();&#xD;
+},
+
+page_afterDataSourceLoad:function(){&#xD;
+	if(!$model.entity.groupId){&#xD;
+		$model.entity.groupId = &quot;&quot;&#xD;
+	}
 }</form:scripts>
   <form:htmls>&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>&#xD;
 &lt;span style=&quot;float:left;margin-left:5px;margin-bottom:10px&quot;>&#xD;

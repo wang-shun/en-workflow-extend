@@ -275,7 +275,7 @@
         <form:child xsi:type="form:Field" binding="$model.filtertype" id="filtertypediv" name="处理人策略" customize="true">
           <form:control type="widget/radio_group">
             <form:attributes source="widget/radio_group">
-              <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;falsefilter&quot;:&quot;无过滤&quot;,&quot;orgfilter&quot;:&quot;按部门过滤&quot;,&quot;orgbossfilter&quot;:&quot;部门分管领导&quot;,&quot;starter&quot;:&quot;分派申请人&quot;,&quot;historyassign&quot;:&quot;历史处理人&quot;}">
+              <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;falsefilter&quot;:&quot;无过滤&quot;,&quot;orgfilter&quot;:&quot;按上一处理人部门过滤&quot;,&quot;applyorgfilter&quot;:&quot;按申请人部门过滤&quot;,&quot;orgbossfilter&quot;:&quot;申请人部门分管领导&quot;,&quot;starter&quot;:&quot;分派申请人&quot;,&quot;historyassign&quot;:&quot;历史处理人&quot;}">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -463,7 +463,7 @@
           <form:child xsi:type="form:Field" binding="$model.informScope" id="newField3" name="通知触发范围" customize="true">
             <form:control type="widget/radio_group">
               <form:attributes source="widget/radio_group">
-                <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;关注此服务产品此环节&quot;:&quot;当前节点&quot;,&quot;关注此服务产品&quot;:&quot;服务产品&quot;}">
+                <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;关注此服务产品此环节&quot;:&quot;当前节点&quot;,&quot;关注此服务产品&quot;:&quot;事项&quot;}">
                   <dync:render/>
                   <dync:children/>
                 </dync:attribute>
@@ -724,17 +724,18 @@ page_afterDataSourceLoad:function(){
 		}else{
 			$model.endprocess = true;
 		}
-
-		var customPropertys = customPropertyStr.split(&quot;,&quot;)
-		angular.forEach(customPropertys,function(v){
-			if(v != undefined &amp;&amp;　v != &quot;&quot;){
-				var kv = v.split(&quot;:&quot;);
-				var key = kv[0];
-				//这里为什么要删除呢 因为没有做自定义属性的 添加删除监听事件 所以del all and add all
-				functions.del_action(key)			
-			}
-		});		
-		functions.expand_customProperty(customPropertyStr);					
+		if(customPropertyStr){
+			var customPropertys = customPropertyStr.split(&quot;,&quot;)
+			angular.forEach(customPropertys,function(v){
+				if(v != undefined &amp;&amp;　v != &quot;&quot;){
+					var kv = v.split(&quot;:&quot;);
+					var key = kv[0];
+					//这里为什么要删除呢 因为没有做自定义属性的 添加删除监听事件 所以del all and add all
+					functions.del_action(key)			
+				}
+			});		
+			functions.expand_customProperty(customPropertyStr);			
+		}				
 	});
 	
 	
@@ -855,12 +856,10 @@ newField2_customEven:function(){
 						if(str!=&quot;&quot;){
 							str = str.substring(0,str.length-1);
 						}
-					/*	$(&quot;#activity_performer&quot;).val(&quot;用户【&quot;+str+&quot;】&quot;);*/
 						$model.observerStr = &quot;用户【&quot;+str+&quot;】&quot;;
 						$model.selectedUserIds = strId
 						
-/*						$(&quot;#activity_performer_hidden_group&quot;).val('');
-						$(&quot;#activity_performer_hidden&quot;).val(strId);*/
+
 						
 					}
 					if(data.groupIds){
@@ -871,7 +870,6 @@ newField2_customEven:function(){
 						if(str!=&quot;&quot;){
 							str = str.substring(0,str.length-1);
 						}
-/*						$(&quot;#activity_performer&quot;).val(&quot;组【&quot;+str+&quot;】&quot;);*/
 						$model.observerStr = &quot;组【&quot;+str+&quot;】&quot;;
 						var strId =&quot;&quot;;
 						for(var i in data.groupIds){
@@ -883,13 +881,16 @@ newField2_customEven:function(){
 						$model.observerId = strId;
 						$model.selectedGroupIds = strId
 						$model.catogory = &quot;group&quot;;
-/*						$(&quot;#activity_performer_hidden&quot;).val('');
-						$(&quot;#activity_performer_hidden_group&quot;).val(strId);*/
+
 					}
 				}else{
 /*					$(&quot;#activity_performer&quot;).val('');
 					$(&quot;#activity_performer_hidden_group&quot;).val('');
 					$(&quot;#activity_performer_hidden&quot;).val('');*/
+					$model.selectedUserIds = &quot;&quot;;
+	                $model.selectedGroupIds = &quot;&quot;;
+	                $model.observerId = &quot;&quot;;
+	                $model.observerStr = &quot;&quot;;
 				}			
 			});
 },
@@ -922,6 +923,7 @@ newField3_clickEvent:function(value){
 do_view:function(a){
 //	console.log(&quot;do view in&quot;,a);
 	var observerStr = a.remark2;
+	$model.observerId = a.observerId
 	$model.catogory = a.catogory
 	if($model.catogory == &quot;user&quot;){
 		$model.selectedUserIds = a.observerId
@@ -957,12 +959,17 @@ add_action:function(action,value){
 	}
 },
 get_action:function(action){
-	var a = $model.entityactivityconfig.includeActions.split(&quot;,&quot;);
-	for(var i=0;i&lt;a.length;i++){
-		if(a[i].match(action)){
-			return a[i];
-		}
+	if($model.entityactivityconfig.includeActions){
+		var a = $model.entityactivityconfig.includeActions.split(&quot;,&quot;);
+		for(var i=0;i&lt;a.length;i++){
+			if(a[i].match(action)){
+				return a[i];
+			}
+		}	
+	}else{
+		return undefined
 	}
+
 },
 has_action:function(action){
 	if(!$model.entityactivityconfig.includeActions){
@@ -1104,8 +1111,19 @@ expand_customProperty(value){
 		o.value = value
 		$model.customProperty.push(o)
 	});
-}
-</form:scripts>
+},
+array_unique:function(array){
+	
+	var n = []; //一个新的临时数组
+	for(var i = 0; i &lt; array.length; i++) //遍历当前数组
+	{
+		//如果当前数组的第i已经保存进了临时数组，那么跳过，
+		//否则把当前项push到临时数组里面
+		if (n.indexOf(array[i]) == -1) n.push(array[i]);
+	}
+	return n;
+
+},</form:scripts>
   <form:htmls>
 </form:htmls>
 </form:Form>

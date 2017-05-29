@@ -313,6 +313,7 @@
 		 <where>
 			<include refid="whereClause_sql"/>
 		</where>
+		order by audit_time asc
 </select>
 
 
@@ -372,6 +373,7 @@
 		 <where>
 			<include refid="whereClause_sql"/>
 		</where>
+		order by audit_time asc
 </select>
 
 

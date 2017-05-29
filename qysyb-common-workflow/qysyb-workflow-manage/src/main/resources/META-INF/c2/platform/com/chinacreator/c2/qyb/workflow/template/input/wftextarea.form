@@ -55,6 +55,10 @@
           <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
           <dync:children/>
         </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value=" col-xs-12">
+          <dync:render colSpan="2" height="0" multi="false" name="text"/>
+          <dync:children/>
+        </dync:attribute>
       </form:attributes>
     </form:control>
   </form:child>

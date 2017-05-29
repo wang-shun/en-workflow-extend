@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
@@ -18,6 +20,7 @@ import com.chinacreator.c2.qyb.workflow.tab.entity.Tab;
  * @author l
  *
  */
+@Service
 public class DynamicTabProvider {
 	/**
 	 * 获取产品关联到的tab页 TabDescriptionWithTabId
@@ -89,6 +92,24 @@ public class DynamicTabProvider {
 
 		return result;
 	}
+	
+	/**
+	 * 获取查看页面的tab标签页
+	 * @param moduleId
+	 * @param params
+	 * @param activityId
+	 * @return
+	 */
+	public List<TabDescriptionWithTabId> generateProductTabForView(String moduleId,Map params,String activityId){	
+		if(activityId == null){
+			WorkFlowService wfs = ApplicationContextManager.getContext().getBean(WorkFlowService.class);
+			activityId = wfs.getEndActivityByModuleId(moduleId).getId();
+			return generateProductTabForActivity(moduleId, params, activityId);
+		}else{
+			return null;
+		}
+	}
+	
 	/**
 	 * 获取查看页面的tab标签页
 	 * @param productId

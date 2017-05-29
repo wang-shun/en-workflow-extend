@@ -75,7 +75,7 @@
           <dync:render/>
           <dync:children/>
         </dync:attribute>
-        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="a4_border">
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="{{productClass}}">
           <dync:render/>
           <dync:children/>
         </dync:attribute>
@@ -104,7 +104,8 @@ page_afterDataSourceLoad:function(){
  	//为特定事项加入特定的样式
  	var productNo = $params.params.serviceproduct.productNo
  	var serviceTypeId = $params.params.serviceproduct.serviceTypeId
- 	$scope.productClass = &quot;a4_list &quot;+&quot;product_&quot;+productNo+&quot; serviceType_&quot;+serviceTypeId;
+ 	var staticClass = &quot;a4_list a4_border col-xs-12&quot;
+ 	$scope.productClass = staticClass +&quot; product_&quot;+productNo+&quot; serviceType_&quot;+serviceTypeId;
  	 
 	$model.categories = $model.allcategory.result;
 //	$scope.formentity = $params.pModel.formentity.result;
@@ -202,7 +203,7 @@ update:function(triggersrc,data){
 	&lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;div ng-if=&quot;!$params.isAccordian&quot; class={{productClass}}>
+&lt;div ng-if=&quot;!$params.isAccordian&quot;>
 &lt;div ng-repeat=&quot;a in $model.fields&quot; class=&quot;a4&quot;>
 	&lt;div ng-if=&quot;permissionData[a.fieldNo].visible&quot;>
 

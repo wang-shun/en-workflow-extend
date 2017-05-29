@@ -3,7 +3,7 @@
   <name>获取下一步处理人</name>
   <inputs>
     <input collection="false" desc="" id="processDefinitionId" required="true" type="String"/>
-    <input collection="false" desc="" id="proInsId" required="true" type="String"/>
+    <input collection="false" desc="" id="proInsId" required="false" type="String"/>
     <input collection="false" desc="" id="moduleId" required="true" type="String"/>
     <input collection="false" desc="" id="taskDefKey" required="true" type="String"/>
     <input collection="false" desc="" id="filterType" required="false" type="String"/>

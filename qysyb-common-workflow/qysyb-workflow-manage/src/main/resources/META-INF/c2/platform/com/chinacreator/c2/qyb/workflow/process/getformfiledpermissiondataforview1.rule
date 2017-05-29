@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getformfiledpermissiondataforview1" log="false" className="com.chinacreator.c2.qyb.workflow.form.impl.FieldPermissionService" method="getFieldPermissionDataForView">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取表单查看权限</name>
+  <desc>获取查看的权限 目前查看暂时就是去结束节点的权限 TODO 完善</desc>
+  <inputs>
+    <input collection="false" desc="@param" id="moduleId" required="true" type="String"/>
+    <input collection="false" desc="" id="businessKey" required="false" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.Map"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.moduleId" name="moduleId" signature="QString;" type="String"/>
+    <param autoValue="Input.businessKey" name="businessKey" signature="QString;" type="String"/>
+  </params>
+  <return signature="QMap&lt;QString;QMap&lt;QString;QObject;>;>;" type="java.util.Map"/>
+</CustomRule>

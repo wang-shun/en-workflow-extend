@@ -12,12 +12,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.chinacreator.asp.comp.sys.core.security.service.AccessControlService;
+import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.dao.Dao;
 import com.chinacreator.c2.dao.DaoFactory;
 import com.chinacreator.c2.flow.detail.WfProcessDefinition;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.qyb.workflow.activiti.impl.WorkFlowService;
 import com.chinacreator.c2.qyb.workflow.common.bean.DropDownListOption;
+import com.chinacreator.c2.qyb.workflow.group.impl.UserJobService;
 import com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct;
 import com.chinacreator.c2.qyb.workflow.sla.entity.ServiceAgreement;
 import com.chinacreator.c2.qyb.workflow.sla.entity.SlaServiceRroductRel;
@@ -142,15 +145,74 @@ public class ServiceProductService {
 			list = dao.select(consp);
 		}
 		for(ServiceProduct sp:list){
-			WfProcessDefinition wfp = sps.getBindProcessByModuleId(sp.getProductId());
-			if(wfp != null && wfp.getId()!=null && sp.getFormId() != null){
-				String ico=sp.getIco();
-				sp.setIco(ico);
-				listr.add(sp);
+			if(hasAuthority(sp)){
+				WfProcessDefinition wfp = sps.getBindProcessByModuleId(sp.getProductId());
+				if(wfp != null && wfp.getId()!=null && sp.getFormId() != null){
+					String ico=sp.getIco();
+					sp.setIco(ico);
+					listr.add(sp);
+				}				
 			}
 		}
 		return listr;
 	}
+	
+	/**
+	 * 获取已经绑定了流程定义的服务产品
+	 * @param consp 过滤条件
+	 * @param needPermission 是否要权限过滤
+	 * @return
+	 */
+	public List<ServiceProduct> getAllServiceProductWithModule(ServiceProduct consp,boolean needPermission){
+		List<ServiceProduct> listr = new ArrayList<ServiceProduct>();
+		WorkFlowService sps = ApplicationContextManager.getContext().getBean(WorkFlowService.class);
+		Dao<ServiceProduct> dao = DaoFactory.create(ServiceProduct.class);
+		List<ServiceProduct> list;
+		if(consp==null){
+			list = dao.selectAll();
+		}else{
+			list = dao.select(consp);
+		}
+		for(ServiceProduct sp:list){
+			if(hasAuthority(sp) || !needPermission){
+				WfProcessDefinition wfp = sps.getBindProcessByModuleId(sp.getProductId());
+				if(wfp != null && wfp.getId()!=null && sp.getFormId() != null){
+					String ico=sp.getIco();
+					sp.setIco(ico);
+					listr.add(sp);
+				}				
+			}
+		}
+		return listr;
+	}	
+	
+	/**
+	 * 判断是否有权限
+	 * @param serviceProduct
+	 * @return
+	 */
+	private boolean hasAuthority(ServiceProduct serviceProduct){
+		AccessControlService acc = ApplicationContextManager.getContext().getBean(AccessControlService.class);
+		UserJobService ujs = ApplicationContextManager.getContext().getBean(UserJobService.class);
+		String curUserId = acc.getUserID();
+		String groupIds = serviceProduct.getGroupId();
+		//如果没设置 就认为是有权限的
+		if(groupIds == null || "".equals(groupIds)){
+			return true;
+		}
+		String[] groupIdlist = groupIds.split(",");
+		for(String groupId:groupIdlist){
+			List<UserDTO> list = ujs.getAllUserJob(groupId);
+			for(UserDTO user:list){
+				//当前用户在权限组里面
+				if(user.getUserId().equals(curUserId)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * RT
 	 * @param moduleids

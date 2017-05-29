@@ -54,6 +54,7 @@ import com.chinacreator.c2.flow.api.WfManagerService;
 import com.chinacreator.c2.flow.api.WfRuntimeService;
 import com.chinacreator.c2.flow.detail.WfOperator;
 import com.chinacreator.c2.flow.detail.WfProcessDefinition;
+import com.chinacreator.c2.flow.detail.WfResult;
 import com.chinacreator.c2.flow.util.WfUtils;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.omp.common.DictDataInfo;
@@ -100,6 +101,9 @@ public class WorkFlowService {
 	public final static String SERVICETYPEKEY = "serviceTypeId";
 	public final static String APPLYBRANCHKEY = "applyBranchId";
 	public final static String STARTER = "starterId";
+	public final static String STARTER_NAME = "starterName";
+	public final static String STARTER_ORG = "starterOrg";
+	public final static String STARTER_ORG_NAME = "starterOrgName";
 	public final static String PRODUCTNOKEY = "productNo";
 	public final static String PRODUCTNAMEKEY = "productName";
 	public final static String USERIDKEY = "userId";
@@ -124,6 +128,10 @@ public class WorkFlowService {
 	public final static String TYPE_ASSIGNEE = "assignee";
 	public final static String TYPE_CANDIDATEUSERS = "candidateUsers";
 	public final static String TYPE_CANDIDATEGROUPS = "candidateGroups";
+	
+	public final static String DELETE_USER_ID = "deleteUserId";
+	public final static String DELETE_USER_NAME = "deleteUserName";
+	public final static String DELETE_REASON = "deleteReason";
 	/**
 	 * 如下是activiti原生接口篿从spring中取bean即可
 	 */
@@ -137,12 +145,13 @@ public class WorkFlowService {
 	@Autowired
 	private ManagementService managementService;
 	private org.activiti.engine.FormService activitiFormService;
-
+	@Autowired
 	private WfHistoryService wfHistoryService;
 
 	private WfRuntimeService wfRuntimeService;
 	@Autowired
 	private UserService userService;
+	@Autowired
 	private RuntimeService runtimeService;
 	@Autowired
 	private WfManagerService wfManagerService;
@@ -201,6 +210,34 @@ public class WorkFlowService {
 
 	}
 
+	/**
+	 * 获取一个开始节点
+	 * 
+	 * @param sp
+	 * @return
+	 */
+	public ActivityImpl getStartActivityByModuleId(String moduleId) {
+
+		try {
+			WfProcessDefinition wfProDef = wfManagerService
+					.getBindProcessByModuleId(moduleId);
+			ProcessDefinitionEntity def = (ProcessDefinitionEntity) ((RepositoryServiceImpl) repositoryService)
+					.getDeployedProcessDefinition(wfProDef.getId());
+			List<ActivityImpl> activitiList = def.getActivities();
+			for (ActivityImpl activityImpl : activitiList) {
+				String activityType = (String) activityImpl.getProperty("type");
+				if (activityType.equals("startEvent")) {
+					return activityImpl;
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}	
+	
 	/**
 	 * 获取节点的出去分撿
 	 * 
@@ -585,125 +622,6 @@ public class WorkFlowService {
 	}
 
 	/**
-	 * 根据服务分类获取待办
-	 * 
-	 * @param retrieveKey
-	 *            检索器key 1.22 把第一个参数由 服务分类 变成了 检索器key。服务分类过滤请放到 con条件中
-	 * @param con
-	 *            一些条件
-	 * @param userId
-	 * @return
-	 */
-	public int getTodoWorkTotalByST(String retrieveKey, Map con, String userId) {
-
-		if (taskService == null) {
-			taskService = ApplicationContextManager.getContext().getBean(
-					TaskService.class);
-		}
-		if (runtimeService == null) {
-			runtimeService = ApplicationContextManager.getContext().getBean(
-					RuntimeService.class);
-		}
-		if (repositoryService == null) {
-			repositoryService = ApplicationContextManager.getContext().getBean(
-					RepositoryService.class);
-		}
-		if (sps == null) {
-			sps = ApplicationContextManager.getContext().getBean(
-					ServiceProductService.class);
-		}
-		if (con != null
-				&& con.get(WorkFlowService.IS_EXTERNAL_STORAGE_KEY) != null) {
-			boolean isExternalStorage = (boolean) con
-					.get(WorkFlowService.IS_EXTERNAL_STORAGE_KEY);
-			if (isExternalStorage) {
-				return todoWorkService.countTodoWorkWithExternalStorage(
-						retrieveKey, con, userId);
-			}
-		}
-		MTaskQueryImpl mTaskQuery = new MTaskQueryImpl();
-		/* 部门过滤，统计那里应该用到了 */
-		String branchId = null;
-		if (con != null && con.get(WorkFlowService.APPLYBRANCHKEY) != null) {
-			branchId = (String) con.get(WorkFlowService.APPLYBRANCHKEY);
-			mTaskQuery = (MTaskQueryImpl) mTaskQuery
-					.processVariableValueEquals(WorkFlowService.APPLYBRANCHKEY,
-							branchId);
-		}
-		/* 服务产品过滤 */
-		String productNo = null;
-		if (con != null && con.get(WorkFlowService.PRODUCTNO) != null) {
-			productNo = (String) con.get(WorkFlowService.PRODUCTNO);
-			mTaskQuery = (MTaskQueryImpl) mTaskQuery
-					.processVariableValueEquals(WorkFlowService.PRODUCTNO,
-							productNo);
-		}
-		/* 是否是涉及到的工单 服务跟踪 */
-		boolean needInvolved = false;
-		if (con != null && con.get(WorkFlowService.NEEDINVOLVEDKEY) != null) {
-			needInvolved = (boolean) con.get(WorkFlowService.NEEDINVOLVEDKEY);
-		}
-		if (userId != null && needInvolved == true) {
-			mTaskQuery = (MTaskQueryImpl) mTaskQuery.taskInvolvedUser(userId);
-		} else if (userId != null && needInvolved == false) {
-			mTaskQuery = (MTaskQueryImpl) mTaskQuery
-					.taskCandidateOrAssigned(userId);
-		}
-
-		/* 服务类型过滤 */
-		String serviceType = null;
-		if (con != null && con.get(WorkFlowService.SERVICETYPEKEY) != null) {
-			serviceType = (String) con.get(WorkFlowService.SERVICETYPEKEY);
-			mTaskQuery = (MTaskQueryImpl) mTaskQuery
-					.processVariableValueEquals(WorkFlowService.SERVICETYPEKEY,
-							serviceType);
-		}
-
-		RetrieveItemService retrieveItemService = ApplicationContextManager
-				.getContext().getBean(RetrieveItemService.class);
-		List<RetrieveItem> itemlist = retrieveItemService
-				.getRetrieveItemsByRetrieveKey(retrieveKey);
-		/* 检索器项过滤 */
-		if (con != null) {
-			for (RetrieveItem item : itemlist) {
-				FormField field = item.getFieldId();
-				Object o = con.get(field.getFieldNo());
-				if (o != null) {
-					if (field.getFieldType() == null
-							|| field.getFieldType().equals("STR")) {
-						if (item.isIsLike()) {// 模糊查询
-							mTaskQuery = (MTaskQueryImpl) mTaskQuery
-									.processVariableValueLike(
-											field.getFieldNo(), "%"
-													+ (String) o + "%");
-						} else {
-							mTaskQuery = (MTaskQueryImpl) mTaskQuery
-									.processVariableValueEquals(
-											field.getFieldNo(), (String) o);
-						}
-					}
-					if (field.getFieldType() != null
-							&& field.getFieldType().equals("TIME")) {
-						JSONObject json = (JSONObject) o;
-						long startl = json.getLongValue("startTime");
-						long endl = json.getLongValue("endTime");
-						mTaskQuery = (MTaskQueryImpl) mTaskQuery
-								.processVariableValueGreaterThan(
-										field.getFieldNo(), startl)
-								.processVariableValueLessThan(
-										field.getFieldNo(), endl);
-					}
-				}
-			}
-		}
-
-		TaskRetrievalService taskRetrievalService = ApplicationContextManager
-				.getContext().getBean(TaskRetrievalService.class);
-		int total = taskRetrievalService.countSortableTasks(mTaskQuery, null);
-		return total;
-	}
-
-	/**
 	 * 批量获取服务类型的待办事项数量
 	 * 
 	 * @param types
@@ -720,7 +638,7 @@ public class WorkFlowService {
  		if(serviceType!=null&&serviceType.length==1&&serviceType[0].equals("all")){
  			con.remove(SERVICETYPEKEY);
  			map.put("all",
- 					getTodoWorkTotalByST(null, con, userId));
+ 					todoWorkService.getTodoWorkTotalByCon(null, con, userId));
  			return map;
  		}
 		if (serviceType == null) {
@@ -740,7 +658,7 @@ public class WorkFlowService {
 					con.put(WorkFlowService.SERVICETYPEKEY, d.getDictdataName());
 				}
 				map.put(d.getDictdataName(),
-						this.getTodoWorkTotalByST(null, con, userId));
+						todoWorkService.getTodoWorkTotalByCon(null, con, userId));
 			}
 			return map;
 		} else {
@@ -751,7 +669,7 @@ public class WorkFlowService {
 				} else {
 					con.put(WorkFlowService.SERVICETYPEKEY, s);
 				}
-				map.put(s, this.getTodoWorkTotalByST(null, con, userId));
+				map.put(s, todoWorkService.getTodoWorkTotalByCon(null, con, userId));
 			}
 			return map;
 		}
@@ -767,15 +685,20 @@ public class WorkFlowService {
  	 */
  	public Map<String, Integer> getTodoWorkTotalbyTypes(String[] serviceType, String formId) {
  		Map<String, Integer> map = new HashMap<String, Integer>();
- 		Map con = new HashMap();
- 		AccessControlService acc = new AccessControlServiceImpl();
- 		String userId = acc.getUserID();
+ 		try{
+ 	 		Map con = new HashMap();
+ 	 		AccessControlService acc = ApplicationContextManager.getContext().getBean(AccessControlService.class);
+ 	 		String userId = acc.getUserID();
+ 	 		
  			con.put("isExternalStorage", true);
  			con.put("formId", formId);
  			map.put("all",
- 					getTodoWorkTotalByST(null, con, userId));
- 			return map;
- 	
+ 					todoWorkService.getTodoWorkTotalByCon(null, con, userId)); 			
+ 		}catch(Exception e){
+ 			//用户未登录，不要终止之后的，重定向登录页面流程
+ 			map.put("all",-1);
+ 		}	
+		return map;
  	}	
 	
 	/**
@@ -998,337 +921,6 @@ public class WorkFlowService {
 	private TodoWorkService todoWorkService;
 
 	/**
-	 * 1.22，把第一个参数 由serviceTypeId服务分类 改成了 检索器key。服务分类id由 con参数传递
-	 * 
-	 * @return
-	 */
-	public List<Map> getTodoWorkByST(String retrieveKey, Map con,
-			String userId, int offset, int limit) {
-		/*
-		 * Execution e = runtimeService.createExecutionQuery().executionId(
-		 * "E22D9CF694D44E7D808840F3A37DE818").singleResult();
-		 * runtimeService.activateProcessInstanceById(e.getId()); //
-		 * runtimeService.suspendProcessInstanceById(e.getId()); boolean b =
-		 * e.isSuspended(); String s = e.getActivityId();
-		 */
-
-		List<Map> content1 = new ArrayList<Map>();
-		if (taskService == null) {
-			taskService = ApplicationContextManager.getContext().getBean(
-					TaskService.class);
-		}
-		if (runtimeService == null) {
-			runtimeService = ApplicationContextManager.getContext().getBean(
-					RuntimeService.class);
-		}
-		if (repositoryService == null) {
-			repositoryService = ApplicationContextManager.getContext().getBean(
-					RepositoryService.class);
-		}
-		if (historyService == null) {
-			historyService = ApplicationContextManager.getContext().getBean(
-					HistoryService.class);
-		}
-		if (sps == null) {
-			sps = ApplicationContextManager.getContext().getBean(
-					ServiceProductService.class);
-		}
-		if (con != null
-				&& con.get(WorkFlowService.IS_EXTERNAL_STORAGE_KEY) != null) {
-			boolean isExternalStorage = (boolean) con
-					.get(WorkFlowService.IS_EXTERNAL_STORAGE_KEY);
-			if (isExternalStorage) {
-				return todoWorkService.getTodoWorkWithExternalStorage(
-						retrieveKey, con, userId, offset, limit);
-			}
-		}
-		MTaskQueryImpl mTaskQuery = new MTaskQueryImpl();
-
-		/* 部门过滤，统计那里应该用到了 */
-		String branchId = null;
-		if (con != null && con.get(WorkFlowService.APPLYBRANCHKEY) != null) {
-			branchId = (String) con.get(WorkFlowService.APPLYBRANCHKEY);
-			mTaskQuery = (MTaskQueryImpl) mTaskQuery
-					.processVariableValueEquals(WorkFlowService.APPLYBRANCHKEY,
-							branchId);
-		}
-
-		/* 服务产品过滤 */
-		String productNo = null;
-		if (con != null && con.get(WorkFlowService.PRODUCTNO) != null) {
-			productNo = (String) con.get(WorkFlowService.PRODUCTNO);
-			mTaskQuery = (MTaskQueryImpl) mTaskQuery
-					.processVariableValueEquals(WorkFlowService.PRODUCTNO,
-							productNo);
-		}
-		/* 是否是涉及到的工单 服务跟踪 */
-		boolean needInvolved = false;
-		if (con != null && con.get(WorkFlowService.NEEDINVOLVEDKEY) != null) {
-			needInvolved = (boolean) con.get(WorkFlowService.NEEDINVOLVEDKEY);
-		}
-		if (userId != null && needInvolved == true) {
-			mTaskQuery = (MTaskQueryImpl) mTaskQuery.taskInvolvedUser(userId);
-		} else if (userId != null && needInvolved == false) {
-			mTaskQuery = (MTaskQueryImpl) mTaskQuery
-					.taskCandidateOrAssigned(userId);
-		}
-
-		/* 服务类型过滤 */
-		String serviceType = null;
-		if (con != null && con.get(WorkFlowService.SERVICETYPEKEY) != null) {
-			serviceType = (String) con.get(WorkFlowService.SERVICETYPEKEY);
-			mTaskQuery = (MTaskQueryImpl) mTaskQuery
-					.processVariableValueEquals(WorkFlowService.SERVICETYPEKEY,
-							serviceType);
-		}
-
-		RetrieveItemService retrieveItemService = ApplicationContextManager
-				.getContext().getBean(RetrieveItemService.class);
-		List<RetrieveItem> itemlist = retrieveItemService
-				.getRetrieveItemsByRetrieveKey(retrieveKey);
-		/* 检索器项过滤 */
-		if (con != null) {
-			for (RetrieveItem item : itemlist) {
-				FormField field = item.getFieldId();
-				Object o = con.get(field.getFieldNo());
-				if (o != null) {
-					if (field.getFieldType() == null
-							|| field.getFieldType().equals("STR")) {
-						if (item.isIsLike()) {// 模糊查询
-							mTaskQuery = (MTaskQueryImpl) mTaskQuery
-									.processVariableValueLike(
-											field.getFieldNo(), "%"
-													+ (String) o + "%");
-						} else {
-							mTaskQuery = (MTaskQueryImpl) mTaskQuery
-									.processVariableValueEquals(
-											field.getFieldNo(), (String) o);
-						}
-					}
-					if (field.getFieldType() != null
-							&& field.getFieldType().equals("TIME")) {
-						JSONObject json = (JSONObject) o;
-						long startl = json.getLongValue("startTime");
-						long endl = json.getLongValue("endTime");
-						mTaskQuery = (MTaskQueryImpl) mTaskQuery
-								.processVariableValueGreaterThan(
-										field.getFieldNo(), startl)
-								.processVariableValueLessThan(
-										field.getFieldNo(), endl);
-					}
-				}
-			}
-		}
-		mTaskQuery.orderByTaskCreateTime().desc();
-		mTaskQuery = mTaskQuery.setPage(offset, limit);
-
-		TaskRetrievalService taskRetrievalService = ApplicationContextManager
-				.getContext().getBean(TaskRetrievalService.class);
-		List<Task> list = taskRetrievalService.getSortableTasks(mTaskQuery,
-				(Sortable) con.get("sortable"));
-		ProcessInstanceQuery piq = runtimeService.createProcessInstanceQuery();
-		ServiceAgreementService sams = ApplicationContextManager.getContext()
-				.getBean(ServiceAgreementService.class);
-		AccessControlService acc = new AccessControlServiceImpl();
-		String curUserId = acc.getUserID();
-		for (Task t : list) {
-			// String PorcessInstanceId = t.getProcessInstanceId();
-			// ProcessInstance pi =
-			// piq.processInstanceId(t.getProcessInstanceId()).singleResult();
-			// Map variablesmap = t.getProcessVariables();
-			ProcessInstance pi = piq.includeProcessVariables()
-					.processInstanceId(t.getProcessInstanceId()).singleResult();
-			Map variablesmap = pi.getProcessVariables();
-
-			String businessKey = pi.getBusinessKey();
-			Map<String, Object> map = new HashMap<String, Object>();
-			// 流程变量即业务数据
-			map = variablesmap;
-
-			// 根据表单过滤一下字段，其实并不需要
-			// FormService fs =
-			// ApplicationContextManager.getContext().getBean(FormService.class);
-			// map = fs.filterFormDataFormMapValue(null, variablesmap);
-
-			/*
-			 * if(variablesmap.get(WorkFlowService.FORMIDSTR)!=null){ String
-			 * formId = (String) variablesmap.get(WorkFlowService.FORMIDSTR);
-			 * FormService fs =
-			 * ApplicationContextManager.getContext().getBean(FormService
-			 * .class); map = fs.getFormDataByFk(formId, businessKey);
-			 * map.put(WorkFlowService.FORMIDSTR, formId); }
-			 */
-			ServiceProduct sp = new ServiceProduct();
-			if (variablesmap.get(WorkFlowService.PRODUCTNO) != null) {
-				String productNo1 = (String) variablesmap
-						.get(WorkFlowService.PRODUCTNO);
-				ServiceProductService sps = ApplicationContextManager
-						.getContext().getBean(ServiceProductService.class);
-
-				sp = sps.getServiceProductByNo(productNo1);
-			}
-			// 出现没有businessKey对应的业务数据的情况，则把流程关了吧
-			// if(work == null){
-			// WfOperator wfo = new WfOperator();
-			// wfo.setUserId(userId);
-			// WfBusinessData wfbd = new WfBusinessData();
-			// wfbd.setBusinessKey(businessKey);
-			// wfo.setBusinessData(new WfBusinessData());
-			// try {
-			// if(wfRuntimeService==null){
-			// wfRuntimeService =
-			// ApplicationContextManager.getContext().getBean(WfRuntimeService.class);
-			// }
-			// wfRuntimeService.deleteProcessInstancesById(wfo,
-			// "no data in business form",t.getProcessInstanceId());
-			// } catch (Exception e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// continue;
-			// }
-			// continue;
-			// }
-
-			// 得控制服务产品还存在未结束流程时 不允许删除服务产品
-			if (sp != null) {
-				map.put("serviceTypeId", sp.getServiceTypeId());
-				map.put("businessKey", businessKey);
-				map.put("proinsid", t.getProcessInstanceId());
-				map.put("prodefid", pi.getProcessDefinitionId());
-				map.put("workStage", t.getName());
-				map.put("taskId", t.getId());
-				map.put("workId", businessKey);
-				map.put("taskdefid", t.getTaskDefinitionKey());
-				map.put(WorkFlowService.PRODUCTNAMEKEY, sp.getProductName());
-
-				Map mapvariable = runtimeService.getVariables(t
-						.getExecutionId());// 获取流程变量
-				List<ServiceAgreement> listsla = sps.getSLABySP(sp);
-				ServiceAgreement sla = sams.chooseAServiceAgreement(listsla);
-				if (sla != null) {
-					int acceptLimit = sams.getKpiValueBySla("FWXYSJ", sla);// 分钟
-					long acceptLimitl = 60000 * acceptLimit;
-					int handleLimit = sams.getKpiValueBySla("FWJJSJ", sla);
-					long handleLimitl = 60000 * handleLimit;
-					// int interruptLimit = slas.getKpiValueBySla("FWZDSJ",
-					// sla);
-					// long interruptLimitl = 60000*interruptLimit;
-					long happenedTimel;
-					long acceptTimel;
-					if (mapvariable.get(WorkFlowService.HAPPENEDTIMEL) != null) {
-						Object o = mapvariable
-								.get(WorkFlowService.HAPPENEDTIMEL);
-						if (o instanceof String) {
-							happenedTimel = Long.valueOf((String) o);
-						} else if (o instanceof Long) {
-							happenedTimel = (long) o;
-						} else {
-							happenedTimel = -1;
-						}
-					} else {
-						happenedTimel = -1;
-					}
-					if (mapvariable.get(WorkFlowService.ACCEPTTIMEL) != null) {
-						Object o = mapvariable.get(WorkFlowService.ACCEPTTIMEL);
-						if (o instanceof String) {
-							acceptTimel = Long.valueOf((String) o);
-						} else if (o instanceof Long) {
-							acceptTimel = (long) o;
-						} else {
-							acceptTimel = -1;
-						}
-					} else {
-						acceptTimel = -1;
-					}
-					if (acceptTimel == -1
-							&& happenedTimel != -1
-							&& System.currentTimeMillis() < happenedTimel
-									+ acceptLimitl) {
-						map.put("isRecieveTimeout", false);
-					} else if (acceptTimel == -1
-							&& happenedTimel != -1
-							&& System.currentTimeMillis() > happenedTimel
-									+ acceptLimitl) {
-						map.put("isRecieveTimeout", true);
-					} else if (acceptTimel != -1
-							&& new Timestamp(acceptTimel).after(new Date(
-									happenedTimel + acceptLimitl))) {
-						map.put("isRecieveTimeout", true);
-					} else if (acceptTimel != -1
-							&& new Timestamp(acceptTimel).before(new Date(
-									happenedTimel + acceptLimitl))) {
-						map.put("isRecieveTimeout", false);
-					} else {
-						map.put("isRecieveTimeout", null);
-					}
-					if (acceptTimel != -1
-							&& System.currentTimeMillis() < acceptTimel
-									+ handleLimitl) {
-						map.put("isHandleTimeout", false);
-					} else if (acceptTimel != -1
-							&& System.currentTimeMillis() > acceptTimel
-									+ handleLimitl) {
-						map.put("isHandleTimeout", true);
-					} else if (acceptTimel == -1
-							&& happenedTimel != -1
-							&& System.currentTimeMillis() > acceptLimitl
-									+ handleLimitl + happenedTimel) {
-						map.put("isHandleTimeout", true);
-					} else if (acceptTimel == -1
-							&& happenedTimel != -1
-							&& System.currentTimeMillis() < acceptLimitl
-									+ handleLimitl + happenedTimel) {
-						map.put("isHandleTimeout", false);
-					} else {
-						map.put("isHandleTimeout", null);
-					}
-					if (happenedTimel != -1) {
-						long leftl = acceptLimitl + handleLimitl
-								+ happenedTimel - System.currentTimeMillis();
-						int leftm = (int) (leftl / 60000);
-						map.put(SLA_REMAIN_TIME, leftm);
-					} else {
-						map.put(SLA_REMAIN_TIME, null);
-					}
-				} else {
-					map.put("isRecieveTimeout", null);
-					map.put("isHandleTimeout", null);
-					map.put(SLA_REMAIN_TIME, null);
-				}
-				// 把工单被关注的状态加上去
-				UserConcernedConfigService uccService = ApplicationContextManager
-						.getContext().getBean(UserConcernedConfigService.class);
-				map.putAll(uccService.getConcernStatusInfo(curUserId,
-						t.getProcessInstanceId(), sp.getProductId()));
-			} else {
-				// map.put("serviceTypeId", sp.getServiceTypeId());
-				map.put("businessKey", businessKey);
-				map.put("proinsid", t.getProcessInstanceId());
-				map.put("prodefid", pi.getProcessDefinitionId());
-				map.put("workStage", t.getName());
-				map.put("taskId", t.getId());
-				map.put("workId", businessKey);
-				map.put("isRecieveTimeout", null);
-				map.put("isHandleTimeout", null);
-				map.put(SLA_REMAIN_TIME, null);
-			}
-
-			content1.add(map);
-		}
-		return content1;
-
-		// if(sps==null){
-		// sps =
-		// ApplicationContextManager.getContext().getBean(ServiceProductService.class);
-		// }
-		// List<ServiceProduct> listsp = sps.getSPByserviceType(serviceType);
-		// for(ServiceProduct sp:listsp){
-		// list.addAll(this.getTodoWorkBySP(sp, userId, offset, limit));
-		// }
-		// return list;
-	}
-
-	/**
 	 * 根据流程实例id删除流程实例
 	 * @param json 业务数据
 	 * @param wfOperator
@@ -1349,7 +941,12 @@ public class WorkFlowService {
 		String result = WfApiFactory.getWfRuntimeService()
 				.deleteProcessInstancesById(wfOperator, deleteReason,
 						processInstanceId);
- 		//TODO 处理业务数据
+/*		Map wfVariable = new HashMap();
+		wfVariable.put(DELETE_USER_ID, wfOperator.getUserId());
+		wfVariable.put(DELETE_USER_NAME, wfOperator.getUserName());
+		wfVariable.put(DELETE_REASON, deleteReason);		
+		runtimeService.setVariables(processInstanceId, wfVariable);*/
+		
 		FormService formService = ApplicationContextManager.getContext()
 				.getBean(FormService.class);
 		Form form = formService.getFormById(formId);
@@ -2538,9 +2135,21 @@ public class WorkFlowService {
 				.createHistoricActivityInstanceQuery();
 		List<HistoricActivityInstance> htiList = htiQuery
 				.processInstanceId(proInsId).finished()
-				.orderByHistoricActivityInstanceEndTime().desc().listPage(0, 1);
-		HistoricActivityInstance lastActivity = htiList.get(0);
-		
+				.orderByHistoricActivityInstanceEndTime().desc().listPage(0, 5);
+		HistoricActivityInstance lastActivity = null;
+		//处理网关的情形
+		for(int i=0; i<htiList.size(); i++){
+			HistoricActivityInstance activity = htiList.get(i);
+			if(activity.getActivityType() != null
+					&& activity.getActivityType().equals("userTask")){
+				//找到最后一个 userTask 就好了 
+				lastActivity = activity;
+				break;
+			}
+		}
+		if(lastActivity == null){
+			return null;
+		}
 		String processDefinitionId = lastActivity.getProcessDefinitionId();
 		ProcessDefinitionImpl processDefinition = (ProcessDefinitionImpl) repositoryService.getProcessDefinition(processDefinitionId);
 		ActivityImpl activity = processDefinition.findActivity(lastActivity.getActivityId());	
@@ -2578,7 +2187,9 @@ public class WorkFlowService {
 		List<Map> result = new ArrayList<Map>();
 		List<Map> list = this.getActivityCandidates(processDefinitionId,
 				moduleId, taskDefKey);
-		String curOrgName = userService.queryMainOrg(curUserId).getOrgName();
+		OrgDTO orgDTO = userService.queryMainOrg(curUserId);
+		String curOrgName = orgDTO == null?"系统":orgDTO.getOrgName();
+//		String curOrgName = userService.queryMainOrg(curUserId).getOrgName();
 		for (Map map : list) {
 			String category = (String) map.get("category");
 			String id = (String) map.get("id");
@@ -2587,7 +2198,9 @@ public class WorkFlowService {
 				if(filterType==null){
 					List<UserDTO> userList = userJobService.getAllUserJob(id);
 					for(UserDTO user:userList){
-						String orgName = userService.queryMainOrg(user.getUserId()).getOrgName();
+						OrgDTO uorgDTO = userService.queryMainOrg(user.getUserId());
+						String orgName = orgDTO == null?"系统":uorgDTO.getOrgName();						
+//						String orgName = userService.queryMainOrg(user.getUserId()).getOrgName();
 						Map map1 = new HashMap();
 						map1.put("id", user.getUserId());
 						map1.put("name", user.getUserRealname());
@@ -2595,7 +2208,7 @@ public class WorkFlowService {
 						map1.put("category", orgName);
 						result.add(map1);
 					}
-					return result;
+					continue;
 				}			
 				switch(filterType){
 				case "orgfilter":
@@ -2624,7 +2237,14 @@ public class WorkFlowService {
 				}
 
 			} else if (category.equals("user")) {
-
+				UserDTO user = userService.queryByPK(id);
+				Map map1 = new HashMap();
+				map1.put("id", user.getUserId());
+				map1.put("name", user.getUserRealname());
+				map1.put("type", "user");
+				map1.put("category", curOrgName);
+				result.add(map1);
+				continue;
 			}
 		}
 		return result;
@@ -2646,7 +2266,8 @@ public class WorkFlowService {
 		List<Map> result = new ArrayList<Map>();
 		List<Map> list = this.getActivityCandidates(processDefinitionId,
 				moduleId, taskDefKey);
-		String curOrgName = userService.queryMainOrg(curUserId).getOrgName();
+		OrgDTO orgDTO = userService.queryMainOrg(curUserId);
+		String curOrgName = orgDTO == null?"系统":orgDTO.getOrgName();
 		for (Map map : list) {
 			String category = (String) map.get("category");
 			String id = (String) map.get("id");
@@ -2655,7 +2276,9 @@ public class WorkFlowService {
 				if(filterType==null){
 					List<UserDTO> userList = userJobService.getAllUserJob(id);
 					for(UserDTO user:userList){
-						String orgName = userService.queryMainOrg(user.getUserId()).getOrgName();
+						OrgDTO uorgDTO = userService.queryMainOrg(user.getUserId());
+						String orgName = orgDTO == null?"系统":uorgDTO.getOrgName();
+//						String orgName = userService.queryMainOrg(user.getUserId()).getOrgName();
 						Map map1 = new HashMap();
 						map1.put("id", user.getUserId());
 						map1.put("name", user.getUserRealname());
@@ -2663,7 +2286,7 @@ public class WorkFlowService {
 						map1.put("category", orgName);
 						result.add(map1);
 					}
-					return result;
+					continue;
 				}			
 				switch (filterType) {
 				case "orgfilter":
@@ -2680,12 +2303,17 @@ public class WorkFlowService {
 					}
 					break;
 				case "orgbossfilter":
-					ProcessInstance ins = runtimeService
-							.createProcessInstanceQuery()
-							.processInstanceId(proInsId)
-							.includeProcessVariables().singleResult();
-					Map vmap = ins.getProcessVariables();
-					String startId = (String) vmap.get(STARTER);
+					String startId = null;
+					if(proInsId == null || "".equals(proInsId)){
+						startId = curUserId;
+					}else{
+						ProcessInstance ins = runtimeService
+								.createProcessInstanceQuery()
+								.processInstanceId(proInsId)
+								.includeProcessVariables().singleResult();
+						Map vmap = ins.getProcessVariables();
+						startId = (String) vmap.get(STARTER);						
+					}
 					UserService userService = ApplicationContextManager
 							.getContext().getBean(UserService.class);
 					OrgDTO org = userService.queryMainOrg(startId);
@@ -2714,7 +2342,14 @@ public class WorkFlowService {
 				}
 
 			} else if (category.equals("user")) {
-
+				UserDTO user = userService.queryByPK(id);
+				Map map1 = new HashMap();
+				map1.put("id", user.getUserId());
+				map1.put("name", user.getUserRealname());
+				map1.put("type", "user");
+				map1.put("category", curOrgName);
+				result.add(map1);
+				continue;
 			}
 		}
 		return result;
@@ -2748,5 +2383,59 @@ public class WorkFlowService {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * 根据流程实例id删除流程实例
+	 * @param json 业务数据
+	 * @param wfOperator
+	 *            操作者信息，必须参数
+	 * @param deleteReason
+	 *            删除原因
+	 * @param processInstanceId
+	 *            流程实例id,必须参数
+	 * @param formId
+	 *            formId
+	 * @return 200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿
+	 * @throws Exception
+	 */
+	@Transactional
+	public WfResult suspendProcessInstancesById(String json,WfOperator wfOperator,
+ 			String suspendReason, String processInstanceId, String formId, boolean updateBusinessForm)
+			throws Exception {
+		WfResult result = suspendHisProcessInstancesById(wfOperator,processInstanceId);
+ 		return result;
+ 	}
+ 
+ 	/**
+ 	 * 根据流程实例id删除流程实例
+ 	 * @param processInstanceId
+ 	 *            流程实例id,必须参数
+ 	 * @return 200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿
+ 	 * @throws Exception
+ 	 */
+ 	@Transactional
+ 	public WfResult suspendHisProcessInstancesById(WfOperator wfOperator,String processInstanceId)
+ 			throws Exception {
+ 		WfResult result = WfApiFactory.getWfRuntimeService().suspendProcessInstance(wfOperator, processInstanceId);
+ 		return result;
+ 	}	
+
+ 	/**
+ 	 * 根据流程实例id删除流程实例
+ 	 * @param processInstanceId
+ 	 *            流程实例id,必须参数
+ 	 * @return 200-操作成功⾿00-参数不正确ὴ00-操作失败⾿04-操作对象不存嚿
+ 	 * @throws Exception
+ 	 */
+ 	@Transactional
+ 	public boolean suspendHisProcessInstancesById(String processInstanceId)
+ 			throws Exception {
+ 		try{
+ 	 		runtimeService.suspendProcessInstanceById(processInstanceId);
+ 		}catch(Exception e){
+ 			return false;
+ 		}
+ 		return true;
+ 	}
+ 	
 }

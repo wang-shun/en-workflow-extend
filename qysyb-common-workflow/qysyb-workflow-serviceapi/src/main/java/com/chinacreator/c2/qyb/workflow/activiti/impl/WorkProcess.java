@@ -35,6 +35,7 @@ import com.chinacreator.c2.flow.api.WfRuntimeService;
 import com.chinacreator.c2.flow.cmd.JumpActivityCmd;
 import com.chinacreator.c2.flow.detail.WfConstants;
 import com.chinacreator.c2.flow.detail.WfOperator;
+import com.chinacreator.c2.flow.detail.WfProcessInstance;
 import com.chinacreator.c2.flow.detail.WfResult;
 import com.chinacreator.c2.flow.detail.WfTaskAction;
 import com.chinacreator.c2.flow.util.LoggerManager;
@@ -61,6 +62,7 @@ import com.chinacreator.c2.qyb.workflow.group.impl.UserJobService;
 import com.chinacreator.c2.qyb.workflow.inform.impl.InformService;
 import com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct;
 import com.chinacreator.c2.qyb.workflow.module.impl.ServiceProductService;
+import com.chinacreator.c2.qyb.workflow.read.impl.ProcInstReadService;
 import com.chinacreator.c2.qyb.workflow.sla.entity.ServiceAgreement;
 import com.chinacreator.c2.qyb.workflow.sla.impl.ServiceAgreementService;
 import com.chinacreator.c2.web.controller.ResponseFactory;
@@ -330,7 +332,10 @@ public class WorkProcess {
 		WfOperator wfOperator = JSONObject.parseObject(wfOperatorStr,
 				WfOperator.class);
 		Map variables = JSONObject.parseObject(variablesStr, Map.class);
-		
+		if(variables == null){
+			Map m = new HashMap();
+			variables = m;
+		}		
 		String moduleId = wfOperator.getBusinessData().getModuleId();
 		
 		WorkFlowActivity nextActivity = new WorkFlowActivity();
@@ -384,7 +389,7 @@ public class WorkProcess {
 		Object o = entitymap.get(INLINE_AUDIT_KEY);
 		if(o != null){
 			archhandleServiceImpl.saveArchhandle((JSONObject) o, proInsId, 
-					curActivity.id, bussinessKey);			
+					curActivity.id,curActivity.name, bussinessKey);			
 		}
 		
 		if (opinion != null) {
@@ -404,6 +409,7 @@ public class WorkProcess {
 		informService = ApplicationContextManager.getContext().getBean(
 				InformService.class);
 		informService.informDo(moduleId,entitymap);
+		formOperate.addOrUpdateEntityAfterTaskExcu(entity, bussinessKey, proInsId, moduleId, curActivity, wfOperator.getUserId(), nextActivity, null);
 		formOperate.onTaskReject(entity, bussinessKey, proInsId, moduleId, curActivity, wfOperator.getUserId(), nextActivity, null);
 		return new ResponseFactory().createResponseBodyJSONObject(JSON
 				.toJSONString(wfresult));
@@ -788,7 +794,7 @@ public class WorkProcess {
 		Object o = entitymap.get(INLINE_AUDIT_KEY);
 		if(o != null){
 			archhandleServiceImpl.saveArchhandle((JSONObject) o, proInsId, 
-					wfTransition.getSrc().id, bussinessKey);			
+					wfTransition.getSrc().id, wfTransition.getSrc().name, bussinessKey);			
 		}
 
 		
@@ -804,6 +810,12 @@ public class WorkProcess {
 			variables.put(WorkFlowService.ACCEPTTIMEL,
 					String.valueOf(System.currentTimeMillis()));
 		}
+		//传阅到人处理
+		if(entitymap.get(ProcInstReadService.SENDUSER_READ_KEY) != null){
+			ProcInstReadService procInstReadService = ApplicationContextManager.getContext().getBean(ProcInstReadService.class);
+			procInstReadService.saveUserRecord(wfOperator.getUserId(), bussinessKey, proInsId, moduleId, wfTransition.getSrc(), entitymap);
+		}
+		
 		// 业务模块流程变量设置
 		Map businessVariable = formOperate.setProsVariableBeforeTaskExcu(
 				entity, bussinessKey, null, moduleId, variables,
@@ -811,7 +823,18 @@ public class WorkProcess {
 				wfOperator.getUserId(),paramsMap);
 		if (businessVariable != null && businessVariable.size() > 0) {
 			variables.putAll(businessVariable);
+			runtimeService.setVariables(proInsId, variables);
 		}
+		
+		//获取自定义会签list
+		List<String> assigneeList = formOperate.getAssigneeList(entity, bussinessKey , proInsId, moduleId, 
+				wfTransition.getSrc(), wfTransition.getDest(), wfTransition, 
+				wfOperator.getUserId(), paramsMap);
+		if(assigneeList != null && assigneeList.size() > 0){
+			variables.put(WorkFlowService.TYPE_ASSIGNEELIST, assigneeList);
+			runtimeService.setVariables(proInsId, variables);
+		}		
+		
 		TaskEntity taskEntity = managementService
 				.executeCommand(new FindTaskEntityCmd(currenTaskId));
 		ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
@@ -832,24 +855,33 @@ public class WorkProcess {
 					"nrOfCompletedInstances");
 			int nrOfInstances = (int) taskEntity.getVariables().get(
 					"nrOfInstances");
- 			// 表示会签完成 设置下一步处理人等信息 不包括结束节点
- 			if (nrOfCompletedInstances == nrOfInstances - 1 
- 					&& !wfTransition.getDest().getPorperties().get("type").equals("endEvent")) {		
+ 			// 表示会签完成 设置last activity 信息
+ 			if (nrOfCompletedInstances == nrOfInstances - 1) {		
 				//设置last activity 信息
 				Map wfVariable = new HashMap();
 				setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
 						, wfVariable, wfTransition.getSrc());
-				runtimeService.setVariables(taskEntity.getProcessInstanceId(), wfVariable);
 				
-				String nextTaskId = wfRuntimeService
-						.getCurrentActiveTaskIds(proInsId);
-				Map<String, String> valuemap = formOperate.getTaskHandler(
-						entity, bussinessKey, wfresult.getProcessInstanceId(),
-						moduleId, wfTransition.getSrc(),wfTransition.getDest(), nextTaskId,
-						wfOperator.getUserId(),paramsMap);
- 				setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
- 						processDefinitionId,proInsId, wfTransition, moduleId, entitymap);
+				WfProcessInstance ins = wfRuntimeService.getProcessInstanceById(taskEntity.getProcessInstanceId());
+				if(ins != null){
+					runtimeService.setVariables(taskEntity.getProcessInstanceId(), wfVariable);
+				}
+						
+				// 设置下一步处理人等信息 不包括结束节点 以及下一步是会签
+				boolean isNextEnd = wfTransition.getDest().getPorperties().get("type").equals("endEvent");
+				boolean isNextMultiInstance = (wfTransition.getDest().getPorperties().get("multiInstance") != null);
+//				wfTransition.getDest().getPorperties().get("multiInstance").equals("parallel") 
+//				wfTransition.getDest().getPorperties().get("multiInstance").equals("sequential")
+				if (!isNextEnd && !isNextMultiInstance) { // 下一步是普通任务  TODO 如果下一步是个网关 网关又流入了 会签的话 就不是普通任务了！！
+					String nextTaskId = wfRuntimeService.getCurrentActiveTaskIds(proInsId);
+					Map<String, String> valuemap = formOperate.getTaskHandler(entity, bussinessKey,
+							wfresult.getProcessInstanceId(), moduleId, wfTransition.getSrc(), wfTransition.getDest(),
+							nextTaskId, wfOperator.getUserId(), paramsMap);
+					setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), processDefinitionId,
+							proInsId, wfTransition, moduleId, entitymap);
+				}			
 			}
+
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
 			informService.informDo(moduleId,entitymap);
@@ -864,13 +896,6 @@ public class WorkProcess {
 		//设置last activity 信息
 		setLastHandlerInfo(wfOperator.getUserId(), wfOperator.getUserCName()
 				, variables, wfTransition.getSrc());
-		//获取自定义会签list
-		List<String> assigneeList = formOperate.getAssigneeList(entity, bussinessKey , proInsId, moduleId, 
-				wfTransition.getSrc(), wfTransition.getDest(), wfTransition, 
-				wfOperator.getUserId(), paramsMap);
-		if(assigneeList != null && assigneeList.size() > 0){
-			variables.put(WorkFlowService.TYPE_ASSIGNEELIST, assigneeList);
-		}
 		
 		// JumpActivityByTakeTransitionCmd 自由流
 		wfresult = this.goAnyWhereTakeTransition(wfOperator,
@@ -883,7 +908,7 @@ public class WorkProcess {
  		
 		Object multiInstancePor = wfTransition.getDest().getPorperties()
 				.get("multiInstance");
-		if (multiInstancePor == null) {// 下一步是普通任务
+		if (multiInstancePor == null) {// 下一步是普通任务  TODO 如果下一步是个网关 网关又流入了 会签的话 就不是普通任务了！！
 			String nextTaskId = wfresult.getNextTaskId();
 			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
 					bussinessKey, wfresult.getProcessInstanceId(), moduleId,
@@ -952,7 +977,14 @@ public class WorkProcess {
 		// happentimel 用来计算sla。
 		variables.put(WorkFlowService.HAPPENEDTIMEL,
  				String.valueOf(System.currentTimeMillis()));	
- 		variables.put(WorkFlowService.STARTER, wfOperator.getUserId());
+		//设置提交人信息 id 名字 机构等到流程变量
+		setStarter(variables,wfOperator);
+	
+ 		//会签人信息得先于流程流转设置进去
+ 		if(handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST) != null){
+ 	 		variables.put(WorkFlowService.TYPE_ASSIGNEELIST, 
+ 	 				handlerVariables.get(WorkFlowService.TYPE_ASSIGNEELIST));			
+ 		} 		
 		try {
 			Map<String, Object> mapentity = JSONObject.parseObject(entity,
 					Map.class);
@@ -1057,15 +1089,35 @@ public class WorkProcess {
  					wf.getProcessInstanceId(), moduleId,wfTransition.getSrc(),
  					wfOperator.getUserId(),wfTransition.getDest(),paramsMap);
 //			taskService.complete(wf.getNextTaskId());
-			String nextTaskId = wf.getNextTaskId();
-			//业务模块自定义处理人
-			Map<String, String> valuemap = formOperate.getTaskHandler(entity,
-					businessKey, wf.getProcessInstanceId(), moduleId,
-					wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, 
-					wfOperator.getUserId(),paramsMap);
 
- 			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(),				
- 					processDefinitionId,null,wfTransition,moduleId,variables);
+			Object multiInstancePor = wfTransition.getDest().getPorperties()
+					.get("multiInstance");
+			if (multiInstancePor == null) {// 下一步是普通任务  TODO 如果下一步是个网关 网关又流入了 会签的话 就不是普通任务了！！
+				String nextTaskId = wf.getNextTaskId();
+				String[] taskIds = nextTaskId.split(",");
+				if(taskIds.length == 1){
+					//业务模块自定义处理人
+					Map<String, String> valuemap = formOperate.getTaskHandler(entity,
+							businessKey, wf.getProcessInstanceId(), moduleId,
+							wfTransition.getSrc(),wfTransition.getDest(), nextTaskId, 
+							wfOperator.getUserId(),paramsMap);
+		 			setTaskHandler(valuemap, handlerVariables, nextTaskId, wfOperator.getUserId(), 
+		 					processDefinitionId,wf.getProcessInstanceId(), wfTransition, moduleId, variables);		
+		 		//TODO  如果 有多个存在的任务 那么极大的可能是会签后的结果 不需要去设置处理人了 。
+		 		// 如何处理 应该 根据每个taskId查出任务的属性 同时业务模块获取自定义处理人 应该把处理人信息与taskId对应起来 如此
+				}else {
+					
+				}
+
+			}else if (multiInstancePor != null
+					&& ((String) multiInstancePor).equals("parallel")) {// 下一步是并行会签
+				// 不要选择处理人
+
+			}else if(multiInstancePor != null
+					&& ((String) multiInstancePor).equals("sequential")){// 下一步是顺序会签
+				
+			}			
+			
 			/* 通知处理 */
 			informService.setCcInformsInfo(ccInformJsonStr);
 			informService.informDo(moduleId,mapentity);
@@ -1084,7 +1136,23 @@ public class WorkProcess {
 
 	}
 	
- 	@Autowired
+ 	@SuppressWarnings("unchecked")
+	private void setStarter(Map variables, WfOperator wfOperator) {
+ 		String userId = wfOperator.getUserId();
+		UserService userService = ApplicationContextManager.getContext().getBean(UserService.class);
+		UserDTO user = userService.queryByPK(userId);
+		String userName = user!=null?user.getUserRealname():null;
+		OrgDTO orgDTO = userService.queryMainOrg(userId);
+		String orgId = orgDTO.getOrgId();
+		String orgName = orgDTO.getOrgShowName();
+		
+		variables.put(WorkFlowService.STARTER, wfOperator.getUserId());
+		variables.put(WorkFlowService.STARTER_NAME, userName);
+		variables.put(WorkFlowService.STARTER_ORG, orgId);
+		variables.put(WorkFlowService.STARTER_ORG_NAME, orgName);
+	}
+
+	@Autowired
  	ActivityConfigService activityConfigService;
  	@Autowired
  	WorkFlowService workflowservice;
@@ -1110,8 +1178,28 @@ public class WorkProcess {
 		Map prop = wfActivity.getPorperties();
 		//排他网关是会自动流转的 那么路径的dest已不能代表下一步了
 		if(prop.get("type").equals("exclusiveGateway")){
+			//会签会产生的特殊情况处理 应该在外面调用的时候却定taskId是唯一的
+			String[] taskIds = taskId.split(",");
+			//多个任务逗号分隔的情况. TODO
+			if(taskIds.length > 1){
+/*				for(String id:taskIds){
+					setTaskHandler(valuemap, variables, id, curUserId, processDefinitionId,
+							processInsId, wfTransition, moduleId, processVariables);
+				}
+
+				//取其中一个任务 TODO
+				taskId = taskIds[0];
+*/				
+				return;
+			}
 			TaskEntity taskEntity = managementService
 					.executeCommand(new FindTaskEntityCmd(taskId));	
+			ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
+			//虽然只有一个任务 但其实是会签 会签不要设置处理人
+			if(activityImpl.getActivityBehavior() instanceof ParallelMultiInstanceBehavior
+					|| activityImpl.getActivityBehavior() instanceof SequentialMultiInstanceBehavior){
+				return;
+			}
 			taskDefKey = taskEntity.getTaskDefinitionKey();
 		}else{
 			taskDefKey = wfActivity.getId();
@@ -1196,7 +1284,13 @@ public class WorkProcess {
 			for(UserDTO user:userList){
 				taskService.addCandidateUser(taskId, user.getUserId());
 			}		
-		//TODO
+		}else if("applyorgfilter".equals(filterType)){
+			String applyUserId = (String) variables.get(WorkFlowService.STARTER);
+			List<UserDTO> userList = userJobService
+					.getAllUserFromJobWithSameOrg(groupId, applyUserId);	
+			for(UserDTO user:userList){
+				taskService.addCandidateUser(taskId, user.getUserId());
+			}			
 		}else if(filterType.equals("orgbossfilter")){
 			String applyUserId = (String) variables.get(WorkFlowService.STARTER);
 			UserService userService = ApplicationContextManager.getContext().getBean(UserService.class);

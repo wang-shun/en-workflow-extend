@@ -26,7 +26,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="">
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="qybWorkflowService">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -125,6 +125,12 @@ page_afterDataSourceLoad:function(){
 				});
 			});
 	}
+	qybWorkflowService.initC2FormParams($scope,$params)
+	$scope.class = qybWorkflowService.getWrapperClass()	
+	var r3 = $params.field.remark3
+	if(r3){
+		$scope.class = $scope.class + &quot; &quot; + r3
+	}	
 	$scope.$emit(&quot;formcheckfunc&quot;,{name:$params.fieldNo,func:this.check});
 },
 check:function(){
@@ -191,7 +197,7 @@ page_onload:function(){
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;multipleorginput_html&quot;>
-&lt;div class=&quot;form-group col-sm-12&quot; >
+&lt;div ng-class=&quot;class&quot; >
 	&lt;label class=&quot;control-label al-control-label  ng-binding&quot; ng-style=&quot;{width:$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;
 		ng-class=&quot;{'required-label':permissionData[$params.fieldNo].fillnecessary}&quot;>{{$params.fieldName}}&lt;/label>
 	&lt;div id=&quot;auditOrgInput{{$params.fieldNo}}&quot; ng-style=&quot;{'border-left':'1px solid red','margin-left':$params.field.labelWidth == undefined?100:$params.field.labelWidth}&quot;>

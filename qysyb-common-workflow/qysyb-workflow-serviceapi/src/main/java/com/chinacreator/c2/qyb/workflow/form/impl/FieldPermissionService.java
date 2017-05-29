@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinacreator.c2.dao.Dao;
@@ -16,6 +17,7 @@ import com.chinacreator.c2.qyb.workflow.form.entity.FieldPermission;
 import com.chinacreator.c2.qyb.workflow.form.entity.Form;
 import com.chinacreator.c2.qyb.workflow.form.entity.FormField;
 import com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct;
+import com.chinacreator.c2.qyb.workflow.module.impl.ServiceProductService;
 
 @Service
 public class FieldPermissionService {
@@ -23,6 +25,9 @@ public class FieldPermissionService {
 	public final static String WRITEPERMISSIONKEY = "writePermission";
 	public final static String VISIBLEKEY = "visible";
 	public final static String FILLNECESSARYKEY = "fillnecessary";
+	
+	@Autowired 
+	ServiceProductService sps;
 	/**
 	 * get
 	 * @param formId
@@ -66,6 +71,18 @@ public class FieldPermissionService {
 		}
 		return mapresult;	
 	}
+	
+	/**
+	 * 获取查看的权限 目前查看暂时就是去结束节点的权限 TODO 完善
+	 * @param serviceProduct
+	 * @param businessKey
+	 * @return
+	 */	
+	public Map<String,Map<String,Object>> getFieldPermissionDataForView(String moduleId, String businessKey){
+		ServiceProduct serviceProduct = sps.getServiceProductById(moduleId);
+		return this.getFieldPermissionDataForView(serviceProduct, businessKey);
+	}
+	
 	/**
 	 * 获取查看的权限 目前查看暂时就是去结束节点的权限 TODO 完善
 	 * @param serviceProduct

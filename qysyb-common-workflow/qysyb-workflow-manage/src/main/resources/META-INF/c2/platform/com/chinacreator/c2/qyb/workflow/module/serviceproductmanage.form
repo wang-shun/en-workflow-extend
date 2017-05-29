@@ -237,24 +237,6 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="groupId" id="groupId" name="分组">
-        <form:control type="widget/col_jqgrid">
-          <form:attributes source="widget/col_jqgrid">
-            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="false" group="表格设置" id="resizable" name="列宽调节" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-      </form:child>
       <form:child xsi:type="form:Field" binding="serviceTypeId" id="serviceTypeId" name="事项类型">
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">

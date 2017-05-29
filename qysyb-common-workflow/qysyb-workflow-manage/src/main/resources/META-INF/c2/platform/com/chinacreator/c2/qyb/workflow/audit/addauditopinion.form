@@ -16,7 +16,7 @@
       </dync:attribute>
     </form:attributes>
   </form:control>
-  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+  <form:child xsi:type="form:Group" id="addaudito" name="新分组">
     <form:control type="container/div">
       <form:attributes source="container/div">
         <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
@@ -61,26 +61,36 @@
         </dync:attribute>
       </form:attributes>
     </form:control>
-    <form:child xsi:type="form:Field" binding="$model.act" id="newField" name="常用意见" customize="true">
-      <form:control type="widget/select_simple_dict">
-        <form:attributes source="widget/select_simple_dict">
-          <dync:attribute default="" group="下拉框设置" id="selectOptions" name="字典类型名称" value="工作流_审核操作">
-            <dync:render/>
+    <form:child xsi:type="form:Field" binding="$model.act" id="newField" name="审核" customize="true">
+      <form:control type="widget/radio_group">
+        <form:attributes source="widget/radio_group">
+          <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="$model.getAuid.result[&quot;工作流_审核操作&quot;]">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="false" group="下拉框设置" id="firstSelected" name="选中第一个" value="true">
-            <dync:render/>
+          <dync:attribute default="" group="单选按钮组设置" id="optionId" name="值属性名" value="dictdataName">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" group="事件设置" id="change" name="值变换事件" value="newField_change()">
-            <dync:render/>
+          <dync:attribute default="false" group="单选按钮组设置" id="firstSelected" name="选中第一个" value="true">
+            <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="单选按钮组设置" id="optionName" name="显示属性名" value="dictdataValue">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="clickEvent" name="选中事件" value="radioGroup_clickEvent(value)">
+            <dync:render colSpan="1" height="0" multi="false" name="event">
+              <dync:item name="params" value="value"/>
+            </dync:render>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
       </form:control>
       <form:validation/>
     </form:child>
-    <form:child xsi:type="form:Field" binding="$model.content" id="newField1" name="审核意见" customize="true">
+    <form:child xsi:type="form:Field" binding="$model.content" id="newField1" name="意见内容" customize="true">
       <form:control type="widget/textarea">
         <form:attributes source="widget/textarea"/>
       </form:control>
@@ -116,6 +126,9 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="getAuid" name="获取审核意见" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
+      <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;工作流_审核操作&quot;]"/>
+    </form:datasource>
   </form:datasources>
   <form:scripts>
 
@@ -123,10 +136,10 @@ newField_change:function(){
 /*	var a = $view.newField.getObjOptions($model.act)
 	var b = $view.newField.getOptionObj($model.act)
 	var c = $view.newField.getOptions($model.act)
-	var d = $view.newField.getInitOptions($model.act)*/
+	var d = $view.newField.getInitOptions($model.act)
 	var actName = $view.newField.getOptionObj($model.act);
 	var con = $model.content==undefined?&quot;&quot;:$model.content;
-	$model.content = actName.dictdataValue;
+	$model.content = actName.dictdataValue; */  
 },
 //确定
 newField2_click:function($event){
@@ -150,8 +163,8 @@ newField2_click:function($event){
 page_afterDataSourceLoad:function(){
 //	console.log(&quot;params&quot;,$params);
 	//alert($params.params.content);
-	var actName = $view.newField.getOptionObj($model.act);
-	var con = $model.content==undefined?&quot;&quot;:$model.content;
+	//var actName = $view.newField.getOptionObj($model.act);
+	//var con = $model.content==undefined?&quot;&quot;:$model.content;
 	//$model.content = actName.dictdataValue+&quot; &quot;+con;	
 	if(&quot;undefined&quot;!= $params.params.content){
 		$model.content = $params.params.content; 
@@ -166,11 +179,19 @@ page_afterDataSourceLoad:function(){
 },
 
 page_onload:function(){
-
+console.log(&quot;$model.getAuid.result &quot;,$model.getAuid.result);
 	
 },
 //取消
 newField3_click:function($event){
 	$scope.cancel();
+},
+
+radioGroup_clickEvent:function(value){
+	$model.act = value;
+	var actName = $view.newField.getOptionObj(value);
+	var con = $model.content==undefined?&quot;&quot;:$model.content;
+	$model.content = actName.dictdataValue;
+	 
 }</form:scripts>
 </form:Form>

@@ -90,11 +90,27 @@
         </form:control>
         <form:validation/>
       </form:child>
-      <form:child xsi:type="form:Field" binding="$model.entity.groupId" id="groupId1" name="分组" customize="true">
-        <form:control type="widget/select_simple">
-          <form:attributes source="widget/select_simple">
-            <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;服务流程&quot;:&quot;服务流程&quot;,&quot;故障流程&quot;:&quot;故障流程&quot;}">
-              <dync:render/>
+      <form:child xsi:type="form:Field" binding="$model.entity.groupId" id="select" name="组权限" customize="true">
+        <form:control type="widget/select">
+          <form:attributes source="widget/select">
+            <dync:attribute default="" group="下拉框设置" id="options" name="选项" value="$model.allgroups.result">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="text" group="下拉框设置" id="optionName" name="显示属性名" value="name">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="6" group="基本属性" id="span" name="占位数" value="12">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="下拉框设置" id="multiple" name="多选" value="true">
+              <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="下拉框设置" id="closeOnSelect" name="选中后关闭" value="false">
+              <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -240,6 +256,7 @@
       <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;工作流_事项分类&quot;]"/>
     </form:datasource>
     <form:datasource xsi:type="form:EntityDataSource" id="entity" name="单实体数据源" entity="entity:com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="allgroups" name="所有的组" logic="rule:com.chinacreator.c2.qyb.workflow.group.getallgroups" sn="getallgroups"/>
   </form:datasources>
   <form:scripts>btn_add_click:function($event){&#xD;
     $model.entity.$save(function(){&#xD;
@@ -252,7 +269,9 @@ btn_edit_click:function($event){&#xD;
 },
 
 page_afterDataSourceLoad:function(){
-	console.log(&quot;allform&quot;,$model.allForm.result);
+	if(!$model.entity.groupId){&#xD;
+		$model.entity.groupId = &quot;&quot;&#xD;
+	}
 }</form:scripts>
   <form:htmls>&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>&#xD;
 &lt;span style=&quot;float:left;margin-left:5px;margin-bottom:10px&quot;>&#xD;
