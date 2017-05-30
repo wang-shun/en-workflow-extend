@@ -20,6 +20,7 @@ import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.task.Task;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -761,40 +762,19 @@ public class WorkProcess {
 		entitymap.remove(WorkFlowService.TYPE_CANDIDATEGROUPS);
 		entitymap.remove(WorkFlowService.TYPE_ASSIGNEELIST);
 		entitymap.remove(HANDLE_TYPE_KEY);
-		entitymap.remove(HANDLE_VALUE_KEY);
-		/* 业务数据持久化 */
-		if (form != null && form.isIsTableStorage() != null
-				&& form.isIsTableStorage()) {
-			formService
-					.updateFormDataWithExternalTable(bussinessKey, proInsId,
-							entity, wfTransition.getSrc(), form,
-							wfOperator.getUserId(),wfTransition.getDest(),paramsMap);
-			List<FormField> list = formService.getFormField(formId);
-			for (FormField ff : list) {
-				if (ffs.isFieldStorageProcessVariable(ff)) { // 字段是否存在流程变量中
-					String fieldNo = ff.getFieldNo();
-					Object value= entitymap.get(fieldNo);
-					if(value!=null){
-						//空字符串不存 也意味着不能把流程变量更新为空字符串！！
-						if((value instanceof String&&!value.equals(""))){
-							variables.put(fieldNo,value);
-						}else{
-							//对象存入流程变量了
-							variables.put(fieldNo,value);
-						}
-					}
-				}
-			}
-//			variables.putAll(entitymap); // 一些并没有在表单中的数据 或许在流程变量中更新
-		} else {
-			/* 业务数据作为流程变量保存  不再使用这种方法 */
-			variables.putAll(entitymap);
-		}
-		//保存inline的
+		entitymap.remove(HANDLE_VALUE_KEY);								
+
+		saveBusinessData(form, bussinessKey, proInsId, entity, entitymap,
+				variables, wfTransition, wfOperator, paramsMap);
+		
+		//处理inline的审核意见
 		Object o = entitymap.get(INLINE_AUDIT_KEY);
-		if(o != null){
+		if(o != null && !"".equals(o)){
 			archhandleServiceImpl.saveArchhandle((JSONObject) o, proInsId, 
-					wfTransition.getSrc().id, wfTransition.getSrc().name, bussinessKey);			
+					wfTransition.getSrc().id, wfTransition.getSrc().name, bussinessKey);	
+			archhandleServiceImpl.putOpinionConclusionToVariable(variables, (JSONObject) o);
+		}else{ //没有处理意见 那么默认走积极意见的路径
+			archhandleServiceImpl.putOppositeOpinionConclusionToVariable(variables);
 		}
 
 		
@@ -823,7 +803,7 @@ public class WorkProcess {
 				wfOperator.getUserId(),paramsMap);
 		if (businessVariable != null && businessVariable.size() > 0) {
 			variables.putAll(businessVariable);
-			runtimeService.setVariables(proInsId, variables);
+//			runtimeService.setVariables(proInsId, variables);
 		}
 		
 		//获取自定义会签list
@@ -832,9 +812,11 @@ public class WorkProcess {
 				wfOperator.getUserId(), paramsMap);
 		if(assigneeList != null && assigneeList.size() > 0){
 			variables.put(WorkFlowService.TYPE_ASSIGNEELIST, assigneeList);
-			runtimeService.setVariables(proInsId, variables);
-		}		
+//			runtimeService.setVariables(proInsId, variables);
+		}	
 		
+		//要把流程变量先设置进去 因为有网关条件
+		runtimeService.setVariables(proInsId, variables);
 		TaskEntity taskEntity = managementService
 				.executeCommand(new FindTaskEntityCmd(currenTaskId));
 		ActivityImpl activityImpl = taskEntity.getExecution().getActivity();
@@ -1071,6 +1053,10 @@ public class WorkProcess {
 			}
 			wf = this.startFlow(wfOperator, businessKey, processDefinitionId,
 					variables);
+			
+			saveBusinessData(form, businessKey, wf.getProcessInstanceId(), entity, mapentity,
+					variables, wfTransition, wfOperator, paramsMap);
+			
 			if (form.isIsTableStorage() != null && form.isIsTableStorage()) { // 业务数据存储到外部表
 				formService.updateFormDataWithExternalTable(businessKey,
 						wf.getProcessInstanceId(), entity,
@@ -1418,6 +1404,66 @@ public class WorkProcess {
 		}
 		return ;
 	}
+	
+	/**
+	 * 保存业务数据实现 保存到表或流程变量
+	 * @param form
+	 * @param bussinessKey
+	 * @param proInsId
+	 * @param entity 业务数据string
+	 * @param entitymap 业务数据map
+	 * @param variables 流程变量
+	 * @param wfTransition
+	 * @param wfOperator
+	 * @param paramsMap
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	private void saveBusinessData(Form form,String bussinessKey,String proInsId,String entity,
+			Map entitymap,Map variables,WorkFlowTransition wfTransition,WfOperator wfOperator,Map paramsMap) throws Exception{
+		FormService formService = ApplicationContextManager.getContext()
+				.getBean(FormService.class);		
+		List<FormField> list = formService.getFormField(form.getFormId());
+		/* 业务数据持久化 */
+		if (form != null && form.isIsTableStorage() != null
+				&& form.isIsTableStorage()) {			
+			formService
+					.updateFormDataWithExternalTable(bussinessKey, proInsId,
+							entity, wfTransition.getSrc(), form,
+							wfOperator.getUserId(),wfTransition.getDest(),paramsMap);			
+			for (FormField ff : list) {
+				if (ffs.isFieldStorageProcessVariable(ff)) { // 字段是否存在流程变量中
+					String fieldNo = ff.getFieldNo();
+					Object value= entitymap.get(fieldNo);
+					if(value!=null){
+						//空字符串不存 也意味着不能把流程变量更新为空字符串！！
+						if((value instanceof String && !value.equals(""))){
+							variables.put(fieldNo,value);
+						}else{
+							//对象存入流程变量了
+							variables.put(fieldNo,value);
+						}
+					}
+				}
+			}			
+		} else {
+			/* 业务数据作为流程变量保存  不再使用这种方法 */
+			for (FormField ff : list) {
+				String fieldNo = ff.getFieldNo();
+				Object value= entitymap.get(fieldNo);
+				if(value!=null){
+					//空字符串不存 也意味着不能把流程变量更新为空字符串！！
+					if((value instanceof String && !value.equals(""))){
+						variables.put(fieldNo,value);
+					}else{
+						//对象存入流程变量了
+						variables.put(fieldNo,value);
+					}					
+				}				
+			}			
+		}		
+	}
+	
 	/*
 	 * public void removeNullValueInMap(Map<String,Object> map){ List set = new
 	 * ArrayList(); for(String key:map.keySet()){

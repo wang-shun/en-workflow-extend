@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
@@ -25,6 +26,8 @@ import com.chinacreator.c2.qyb.workflow.audit.entity.Archhandle;
 
 @Service
 public class ArchhandleServiceImpl  {
+	
+	public static final String VARIABLE_OPINION_KEY = "inline_opinion";
 	/**
 	 * 把删除原因 当做审核日志保存？
 	 * @param operateUserId
@@ -242,4 +245,29 @@ public class ArchhandleServiceImpl  {
 		}
 		return null;
 	}
+	
+	/**
+	 * 把审核意见放入 流程变量 让网关可以根据审核结论选择路径
+	 * @param variable
+	 * @param jsonObject
+	 */
+	public void putOpinionConclusionToVariable(Map<String,Object> variable,JSONObject jsonObject){
+		Archhandle archhandle = JSONObject.toJavaObject(jsonObject, Archhandle.class);
+		String opinion = archhandle.getAuditState();
+		if(!StringUtils.isEmpty(opinion) && variable != null){
+			variable.put(VARIABLE_OPINION_KEY, opinion);
+		}
+	}
+	
+	/**
+	 * 放入默认积极意见 让网关可以根据积极审核结论选择路径
+	 * @param variable
+	 * @param jsonObject
+	 */
+	public void putOppositeOpinionConclusionToVariable(Map<String,Object> variable){
+		String opinion = "TY";
+		if(!StringUtils.isEmpty(opinion) && variable != null){
+			variable.put(VARIABLE_OPINION_KEY, opinion);
+		}
+	}	
 }
