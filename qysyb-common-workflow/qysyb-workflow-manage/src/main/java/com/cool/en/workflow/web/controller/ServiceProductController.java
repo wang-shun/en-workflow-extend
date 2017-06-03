@@ -20,6 +20,6 @@ public class ServiceProductController {
 		if(sp == null){
 			sp = new ServiceProduct();
 		}
-		return sps.getAllServiceProductWithModule(sp);
+		return sps.getAllServiceProductWithModule(sp,false);
 	}
 }
