@@ -252,7 +252,7 @@ page_onload:function(){
 },
 
 page_afterDataSourceLoad:function(){
-	debugger
+//	debugger
 //	$model.actions = $model.activityactions.result;
 	$model.selectfuncs = new Array();
 	//tab页选择事件
@@ -343,11 +343,12 @@ getviewinfo:function(moduleId,procInsId,businessKey){
  			}else{
  				$model.tabDisplay = true
  			}	
-			if($model.tabDisplay){
-				$model.tabUrl = 'f/wfbusinessformgenerate'
-			}else{
-				$model.singleUrl = 'f/wfbusinessformgenerate'
-			}				
+ 			
+		    if($model.tabDisplay){
+		        $model.tabUrl = 'f/WfbusinessFormGeneratormoblie';
+		    }else{
+		    	$model.singleUrl = 'f/WfbusinessFormGeneratormoblie'	        
+		    }				
 		});			
     })
 },
