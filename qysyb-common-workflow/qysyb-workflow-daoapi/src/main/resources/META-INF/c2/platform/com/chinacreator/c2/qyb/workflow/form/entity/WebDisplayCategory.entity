@@ -199,6 +199,11 @@ btn_edit_click:function($event){
             </form:control>
             <form:validation/>
           </form:child>
+          <form:child xsi:type="form:Field" binding="$model.entity.mobileUrl" id="mobileUrl" name="移动端URL">
+            <form:control type="widget/text">
+              <form:attributes source="widget/text"/>
+            </form:control>
+          </form:child>
           <form:child xsi:type="form:Field" binding="$model.entity.describe" id="describe" name="描述" customize="true">
             <form:control type="widget/text">
               <form:attributes source="widget/text">
