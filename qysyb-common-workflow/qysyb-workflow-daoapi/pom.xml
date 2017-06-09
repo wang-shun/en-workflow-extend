@@ -42,7 +42,7 @@
 		<dependency>
    			<groupId>com.chinacreator.c2.qyb</groupId>
 			<artifactId>qysyb-workflow-common</artifactId>
-    		<version>0.0.1-SNAPSHOT</version>
+    		<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
   </dependencies>
