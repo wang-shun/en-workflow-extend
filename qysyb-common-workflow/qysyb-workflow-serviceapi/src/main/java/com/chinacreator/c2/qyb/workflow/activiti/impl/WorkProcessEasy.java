@@ -441,7 +441,7 @@ public class WorkProcessEasy {
 			return null;
 		}
 		//通用审核表单  可写 就表示需要填写意见 --历史问题
-		if(fp.isWritePermission() && f.getWebDisplayTypeId().equals(UI_TYPE_AUDIT_NO)){
+		if(fp.isWritePermission() && f.getWebDisplayTypeId() != null && f.getWebDisplayTypeId().equals(UI_TYPE_AUDIT_NO)){
 			Map hm = new HashMap();
 			hm.put("fieldNo", f.getFieldNo());
 			hm.put("fieldName", f.getFieldName());
