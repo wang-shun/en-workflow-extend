@@ -762,7 +762,8 @@ getviewinfo:function(moduleId,processInstanceId,businessKey){
 	$model.activityName = $model.getOutTransition.result[0].src.name;
 
 	$model.formId = $model.serviceproduct.result.formId;
-
+	var formIdMobile = $model.serviceproduct.result.formIdMobile;
+	$model.formIdMobile = (formIdMobile == undefined || formIdMobile == &quot;&quot;)?$model.formId:formIdMobile;
 
 	
 	$params.params.serviceproduct = $model.serviceproduct.result;
@@ -814,7 +815,7 @@ dateconvert:function(a){
 	return date.Format(&quot;MM/dd hh:mm&quot;);;
 },
 
-page_beforeDataSourceLoad:function($params){debugger
+page_beforeDataSourceLoad:function($params){
 	var Request = functions.GetRequest();  
  	
 	var locationparams = $location.$$search;

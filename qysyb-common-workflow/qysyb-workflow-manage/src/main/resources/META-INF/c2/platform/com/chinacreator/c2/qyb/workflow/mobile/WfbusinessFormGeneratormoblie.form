@@ -92,7 +92,7 @@
       <form:param id="dictTypeNames" name="字典名称数组" value="[&quot;工作流_字段类别&quot;]"/>
     </form:datasource>
     <form:datasource xsi:type="form:LogicDataSource" id="formfields" name="字段数据" logic="rule:com.chinacreator.c2.qyb.workflow.form.getFormFieldsByTypes" sn="getformfieldsbytypes">
-      <form:param id="formId" name="新输入参数" value="$params.pModel.formId"/>
+      <form:param id="formId" name="新输入参数" value="$params.pModel.formIdMobile"/>
       <form:param id="fieldType" name="新输入参数"/>
       <form:param id="isClassify" name="新输入参数" value="$params.isAccordian"/>
     </form:datasource>
@@ -100,7 +100,7 @@
   </form:datasources>
   <form:scripts>
 
-page_afterDataSourceLoad:function(){debugger
+page_afterDataSourceLoad:function(){
  	//为特定事项加入特定的样式
  	var productNo = $params.params.serviceproduct.productNo
  	var serviceTypeId = $params.params.serviceproduct.serviceTypeId
@@ -206,7 +206,7 @@ update:function(triggersrc,data){
 &lt;/div>
 &lt;div ng-if=&quot;!$params.isAccordian&quot;>
 &lt;div ng-repeat=&quot;a in $model.fields&quot; class=&quot;a4&quot;>
-	&lt;div ng-if=&quot;permissionData[a.fieldNo].visible&quot;>
+	&lt;div ng-if=&quot;permissionData[a.fieldNo].visible || $params.pModel.formIdMobile&quot;>
 		&lt;div ng-include=&quot;$model.categories[a.webDisplayTypeId].mobileUrl != null?($model.categories[a.webDisplayTypeId].mobileUrl == 'hide'?'':$model.categories[a.webDisplayTypeId].mobileUrl):$model.categories[a.webDisplayTypeId].url&quot;
 			ng-init=&quot;$params={'pParams':$params,'field':a,'fieldNo':a.fieldNo,'fieldName':a.fieldName,'dictName':a.dictName,'span':a.displaySpan, 'mobile':true}&quot;/>
 	&lt;/div>
