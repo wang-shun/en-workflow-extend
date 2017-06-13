@@ -6,34 +6,37 @@
     <docket:pkAttribute attribute="product_id" type="UUID"/>
   </docket:primaryKey>
   <docket:attributes>
-    <docket:attribute code="product_id" nullable="false" type="string128" default="">
+    <docket:attribute code="product_id" length="64" nullable="false" type="string64" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="product_no" name="产品编码" nullable="true" type="string128" default="">
+    <docket:attribute code="product_no" length="64" name="产品编码" nullable="true" type="string64" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="product_name" name="产品名称" nullable="true" type="string256" default="">
+    <docket:attribute code="product_name" length="64" name="产品名称" nullable="true" type="string64" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="product_describe" name="描述" nullable="true" type="string1024" default="">
+    <docket:attribute code="product_describe" length="128" name="描述" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="service_type_id" name="服务类型" nullable="true" type="string128" default="">
+    <docket:attribute code="service_type_id" length="64" name="服务类型" nullable="true" type="string64" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="group_id" name="分组" nullable="true" type="string128" default="">
+    <docket:attribute code="group_id" length="1024" name="分组" nullable="true" type="string1024" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="wf_processdefid" name="关联流程" nullable="true" type="string128" default="">
+    <docket:attribute code="wf_processdefid" length="128" name="关联流程" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="wf_processstart_url" name="流程启动url" nullable="true" type="string512" default="">
+    <docket:attribute code="wf_processstart_url" length="256" name="流程启动url" nullable="true" type="string256" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="form_id" name="表单" nullable="true" type="string128" default="">
+    <docket:attribute code="form_id" length="128" name="表单" nullable="true" type="string128" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="ico" name="图标" nullable="true" type="string512" default="">
+    <docket:attribute code="ico" length="256" name="图标" nullable="true" type="string256" default="">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="form_id_mobile" length="50" name="移动端表单" nullable="true" type="string64" default="">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
   </docket:attributes>
@@ -47,7 +50,7 @@
           </inputs>
         </node>
       </docket:logic>
-      <docket:ui id="add" name="新增" type="inner">
+      <docket:ui name="新增" type="inner">
         <form:control type="page/modal">
           <form:attributes source="page/modal">
             <dync:attribute id="title" value="新增服务产品">
@@ -285,7 +288,7 @@ btn_edit_click:function($event){
           </inputs>
         </node>
       </docket:logic>
-      <docket:ui id="edit" name="修改" type="inner">
+      <docket:ui name="修改" type="inner">
         <form:control type="page/modal">
           <form:attributes source="page/modal">
             <dync:attribute id="title" value="修改服务产品">

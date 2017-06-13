@@ -12,7 +12,8 @@
 		  SERVICE_SERVICEPRODUCT.wf_processdefid ,
 		  SERVICE_SERVICEPRODUCT.wf_processstart_url ,
 		  SERVICE_SERVICEPRODUCT.form_id ,
-		  SERVICE_SERVICEPRODUCT.ico 
+		  SERVICE_SERVICEPRODUCT.ico ,
+		  SERVICE_SERVICEPRODUCT.form_id_mobile 
 </sql>
 
 <!-- ElementID:whereClause_sql,Generated=true -->
@@ -27,6 +28,7 @@
 	    <if test="wfProcessstartUrl != null">and SERVICE_SERVICEPRODUCT.wf_processstart_url = #{wfProcessstartUrl}</if>
 	    <if test="formId != null">and SERVICE_SERVICEPRODUCT.form_id = #{formId}</if>
 	    <if test="ico != null">and SERVICE_SERVICEPRODUCT.ico = #{ico}</if>
+	    <if test="formIdMobile != null">and SERVICE_SERVICEPRODUCT.form_id_mobile = #{formIdMobile}</if>
 </sql>
 
 
@@ -42,11 +44,12 @@
 	<result property="wfProcessstartUrl" column="wf_processstart_url"/>
 	<result property="formId" column="form_id"/>
 	<result property="ico" column="ico"/>
+	<result property="formIdMobile" column="form_id_mobile"/>
 </resultMap>
 
 
 <!-- ElementName:cache,Generated=true -->
-<cache/>
+<cache type="C2_Default_Dao_Cache"/>
 
 <!-- ElementID:insert,Generated=true -->
 <insert id="insert" parameterType="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct">
@@ -61,6 +64,7 @@
 	         <if test="wfProcessstartUrl != null">,wf_processstart_url</if>
 	         <if test="formId != null">,form_id</if>
 	         <if test="ico != null">,ico</if>
+	         <if test="formIdMobile != null">,form_id_mobile</if>
 	 	 	 )
 	 values (
 	         <if test="productId != null">#{productId,jdbcType=VARCHAR}</if>
@@ -73,6 +77,7 @@
 	         <if test="wfProcessstartUrl != null">,#{wfProcessstartUrl,jdbcType=VARCHAR}</if>
 	         <if test="formId != null">,#{formId,jdbcType=VARCHAR}</if>
 	         <if test="ico != null">,#{ico,jdbcType=VARCHAR}</if>
+	         <if test="formIdMobile != null">,#{formIdMobile,jdbcType=VARCHAR}</if>
 	 	 	 )
 </insert>
 
@@ -96,7 +101,8 @@
 	<if test="wfProcessdefid != null">wf_processdefid=#{wfProcessdefid,jdbcType=VARCHAR},</if>
 	<if test="wfProcessstartUrl != null">wf_processstart_url=#{wfProcessstartUrl,jdbcType=VARCHAR},</if>
 	<if test="formId != null">form_id=#{formId,jdbcType=VARCHAR},</if>
-	<if test="ico != null">ico=#{ico,jdbcType=VARCHAR}</if>
+	<if test="ico != null">ico=#{ico,jdbcType=VARCHAR},</if>
+	<if test="formIdMobile != null">form_id_mobile=#{formIdMobile,jdbcType=VARCHAR}</if>
 </set>
 <where>
 	<choose>
@@ -120,6 +126,7 @@
 		    <if test="wfProcessstartUrl==null">wf_processstart_url = null,</if>
 		    <if test="formId==null">form_id = null,</if>
 		    <if test="ico==null">ico = null,</if>
+		    <if test="formIdMobile==null">form_id_mobile = null,</if>
 		</trim>
 	</set>
 	<where>
@@ -148,7 +155,7 @@
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into SERVICE_SERVICEPRODUCT (product_id,product_no,product_name,product_describe,service_type_id,group_id,wf_processdefid,wf_processstart_url,form_id,ico) 
+	insert into SERVICE_SERVICEPRODUCT (product_id,product_no,product_name,product_describe,service_type_id,group_id,wf_processdefid,wf_processstart_url,form_id,ico,form_id_mobile) 
 <foreach collection="list" item="entity" index="index" separator="union all">
 		select 
 		#{entity.productId,jdbcType = VARCHAR},
@@ -160,7 +167,8 @@
 				#{entity.wfProcessdefid,jdbcType = VARCHAR},
 				#{entity.wfProcessstartUrl,jdbcType = VARCHAR},
 				#{entity.formId,jdbcType = VARCHAR},
-				#{entity.ico,jdbcType = VARCHAR}
+				#{entity.ico,jdbcType = VARCHAR},
+				#{entity.formIdMobile,jdbcType = VARCHAR}
 		from dual
 </foreach>
 </insert>
@@ -175,31 +183,37 @@
 </trim>
 </delete>
 
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="list">
+	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
+			update SERVICE_SERVICEPRODUCT
+	<set>
+	<if test="entity.productNo != null">product_no= #{entity.productNo,jdbcType=VARCHAR},</if>
+	<if test="entity.productName != null">product_name= #{entity.productName,jdbcType=VARCHAR},</if>
+	<if test="entity.productDescribe != null">product_describe= #{entity.productDescribe,jdbcType=VARCHAR},</if>
+	<if test="entity.serviceTypeId != null">service_type_id= #{entity.serviceTypeId,jdbcType=VARCHAR},</if>
+	<if test="entity.groupId != null">group_id= #{entity.groupId,jdbcType=VARCHAR},</if>
+	<if test="entity.wfProcessdefid != null">wf_processdefid= #{entity.wfProcessdefid,jdbcType=VARCHAR},</if>
+	<if test="entity.wfProcessstartUrl != null">wf_processstart_url= #{entity.wfProcessstartUrl,jdbcType=VARCHAR},</if>
+	<if test="entity.formId != null">form_id= #{entity.formId,jdbcType=VARCHAR},</if>
+	<if test="entity.ico != null">ico= #{entity.ico,jdbcType=VARCHAR},</if>
+	<if test="entity.formIdMobile != null">form_id_mobile= #{entity.formIdMobile,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="entity.productId != null">and product_id = #{entity.productId}</when>
+				<otherwise>and product_id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
 <!-- ElementID:selectAll,Generated=true -->
 <select id="selectAll" resultMap="ServiceProductResult">
 	select 
 		<include refid="column_sql"/>
 	    from SERVICE_SERVICEPRODUCT 
 </select>
-
-<!-- ElementID:selectByID,Generated=true -->
-<select id="selectByID" parameterType="java.lang.String" resultMap="ServiceProductResult">
-	select 
-		<include refid="column_sql"/>
-	    from SERVICE_SERVICEPRODUCT 
-		 where SERVICE_SERVICEPRODUCT.product_id = #{productId,jdbcType=VARCHAR}
-</select>
-
-<!-- ElementID:selectByPage,Generated=true -->
-<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct" resultMap="ServiceProductResult">
-	select 
-		<include refid="column_sql"/>
-	    from SERVICE_SERVICEPRODUCT 
-		 <where>
-			<include refid="whereClause_sql"/>
-		</where>
-</select>
-
 
 <!-- ElementID:selectMany,Generated=true -->
 <select id="selectMany" parameterType="list" resultMap="ServiceProductResult">
@@ -222,31 +236,28 @@ select
 	        <if test="entity.wfProcessstartUrl != null">and SERVICE_SERVICEPRODUCT.wf_processstart_url = #{entity.wfProcessstartUrl}</if>
 	        <if test="entity.formId != null">and SERVICE_SERVICEPRODUCT.form_id = #{entity.formId}</if>
 	        <if test="entity.ico != null">and SERVICE_SERVICEPRODUCT.ico = #{entity.ico}</if>
+	        <if test="entity.formIdMobile != null">and SERVICE_SERVICEPRODUCT.form_id_mobile = #{entity.formIdMobile}</if>
 		</where>
 </foreach>
 )
 </select>
-<!--Generated=true-->
-<update id="updateBatch" parameterType="list">
-	<foreach collection="list" item="entity" open="begin" close=";end;" separator=";">
-			update SERVICE_SERVICEPRODUCT
-	<set>
-	<if test="entity.productNo != null">product_no= #{entity.productNo,jdbcType=VARCHAR},</if>
-	<if test="entity.productName != null">product_name= #{entity.productName,jdbcType=VARCHAR},</if>
-	<if test="entity.productDescribe != null">product_describe= #{entity.productDescribe,jdbcType=VARCHAR},</if>
-	<if test="entity.serviceTypeId != null">service_type_id= #{entity.serviceTypeId,jdbcType=VARCHAR},</if>
-	<if test="entity.groupId != null">group_id= #{entity.groupId,jdbcType=VARCHAR},</if>
-	<if test="entity.wfProcessdefid != null">wf_processdefid= #{entity.wfProcessdefid,jdbcType=VARCHAR},</if>
-	<if test="entity.wfProcessstartUrl != null">wf_processstart_url= #{entity.wfProcessstartUrl,jdbcType=VARCHAR},</if>
-	<if test="entity.formId != null">form_id= #{entity.formId,jdbcType=VARCHAR},</if>
-	<if test="entity.ico != null">ico= #{entity.ico,jdbcType=VARCHAR}</if>
-	</set>
-		<where>
-			<choose>
-				<when test="entity.productId != null">and product_id = #{entity.productId}</when>
-				<otherwise>and product_id = </otherwise>
-			</choose>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="ServiceProductResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SERVICEPRODUCT 
+		 where SERVICE_SERVICEPRODUCT.product_id = #{productId,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct" resultMap="ServiceProductResult">
+	select 
+		<include refid="column_sql"/>
+	    from SERVICE_SERVICEPRODUCT 
+		 <where>
+			<include refid="whereClause_sql"/>
 		</where>
-	</foreach>
-</update>
+</select>
+
 </mapper>
