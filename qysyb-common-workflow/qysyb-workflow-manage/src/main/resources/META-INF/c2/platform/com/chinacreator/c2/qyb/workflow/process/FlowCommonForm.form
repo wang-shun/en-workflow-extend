@@ -1134,8 +1134,31 @@ suspend_click:function($event){
 				id:&quot;returnbutton&quot;,
 				name:&quot;退回&quot;,
 				click:function($event){
-						$scope.formentity.global.oppositive = false
-						functions.autoswitchcommit($event)						
+						if($model.actions.return == undefined){
+							Messenger.post({
+								'message': &quot;本环节没有退回配置，请联系系统维护人员！&quot;,
+					            'type': 'error',
+					            'hideAfter':4
+					        });			
+					        return
+						}
+						//退回 需不需要必填项验证？
+				/*		if(!angular.isUndefined($model.func)){
+							var a = $model.func(&quot;return&quot;);
+							if(a==false){
+								Messenger.post({
+									'message': &quot;必填项为空！&quot;,
+						            'type': 'error',
+						            'hideAfter':4
+						        });	
+								return;
+							}	
+						}
+				*/		
+						//否定意见 退回流程
+						Modal.openConfirm({message:'确定提交？'},function(){
+							functions.newField_click($event)
+						})							
 					}
 				}
 		$scope.formentity.global.buttons.push(button)	
