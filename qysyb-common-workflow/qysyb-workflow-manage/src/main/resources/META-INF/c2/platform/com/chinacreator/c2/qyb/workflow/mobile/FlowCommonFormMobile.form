@@ -413,7 +413,7 @@ autoswitchcommit:function($event){
 	        return
 		}
 		//退回 需不需要必填项验证？
-		if(!angular.isUndefined($model.func)){
+/*		if(!angular.isUndefined($model.func)){
 			var a = $model.func(&quot;return&quot;);
 			if(a==false){
 				Messenger.post({
@@ -423,7 +423,8 @@ autoswitchcommit:function($event){
 		        });	
 				return;
 			}	
-		}		
+		}
+*/		
 		//否定意见 退回流程
 		Modal.openConfirm({message:'确定提交？'},function(){
 			functions.newField_click($event)
