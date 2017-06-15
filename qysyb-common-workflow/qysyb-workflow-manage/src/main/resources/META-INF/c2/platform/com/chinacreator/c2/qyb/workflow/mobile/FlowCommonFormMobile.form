@@ -38,7 +38,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="$q $ocLazyLoad">
+      <dync:attribute default="" group="注入配置" id="angularJsServices" name="注入服务" value="$q $ocLazyLoad qybWorkflowService">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -361,6 +361,15 @@
   </form:datasources>
   <form:scripts>//提交 自动决定退回与流转
 autoswitchcommit:function($event){
+	var mobile = qybWorkflowService.getCustomProperty(&quot;mobile&quot;)
+	if(mobile == false || mobile == &quot;false&quot;){
+		Messenger.post({
+			'message': &quot;此环节不支持移动端操作，请前往网页端处理此事项&quot;,
+            'type': 'error',
+            'hideAfter':4
+        });		
+        return
+	}
 	//func 为业务表单提交前验证函数
 /*	if(!angular.isUndefined($model.func)){
 		var a = $model.func();

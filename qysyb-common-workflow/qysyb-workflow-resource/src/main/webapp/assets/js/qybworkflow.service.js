@@ -73,6 +73,17 @@ app.service('qybWorkflowService',function(){
 		}
 		return theparams.pParams.pModel.actions
 	},
+
+	//获取当前环节的自定义属性。格式很特别。用一个方法封装起来
+	this.getCustomProperty = function(p,actions){
+		if(!actions){
+			actions = this.getProperties()
+		}
+		var ps = actions[p]
+		if(ps && ps.length == 1){
+			return ps[0]
+		}
+	},		
 	
 	this.getSubject = function(scope){ 
 		var thescope
