@@ -87,7 +87,68 @@
     ,R0.NAME_ AS workStage
 	,R0.task_def_key_ AS TASK_DEF_KEY
 	,R0.id_ as TASK_ID
-	,R0.SUSPENSION_STATE_
+	,R0.SUSPENSION_STATE_,
+ <!--     已办中选出当前处理人 --> 	
+	(
+		SELECT
+			CASE
+		WHEN (
+			SELECT
+				1
+			FROM
+				ACT_RU_IDENTITYLINK r,
+				td_sm_user U
+			WHERE
+				r.task_id_ IN (
+					SELECT
+						K .id_
+					FROM
+						ACT_RU_TASK K
+					WHERE
+						K .proc_inst_id_ = R0.PROC_INST_ID_
+				)
+			AND r.user_id_ = U .user_id
+			AND ROWNUM = 1
+		) IS NOT NULL THEN
+			(
+				SELECT
+					wm_concat (U .user_realname)
+				FROM
+					ACT_RU_IDENTITYLINK r,
+					td_sm_user U
+				WHERE
+					r.task_id_ IN (
+						SELECT
+							K .id_
+						FROM
+							ACT_RU_TASK K
+						WHERE
+							K .proc_inst_id_ = R0.PROC_INST_ID_
+					)
+				AND r.user_id_ = U .user_id
+			)
+		ELSE
+			(
+				SELECT
+					wm_concat (o.NAME_)
+				FROM
+					ACT_RU_IDENTITYLINK r,
+					act_id_group o
+				where
+					r.task_id_ in (
+						SELECT
+							k .id_
+						FROM
+							ACT_RU_TASK k
+						where
+							k .proc_inst_id_ = R0.PROC_INST_ID_
+					)
+				and r.group_id_ = o.ID_
+			)
+		END
+		FROM
+			DUAL
+	) AS HANDLE_USERNAME	
 <!-- 排序的字段 命名别名 如果是外部的表 直接order 字段即可 这里就不需要别名了 -->
     <foreach collection="sortableValues" index="index" item="var">
     	<choose>
