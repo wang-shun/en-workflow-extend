@@ -493,7 +493,6 @@ page_onload:function(){
 	
 	var listparams = ($model.pParams.processInstanceId == undefined?&quot;-1&quot;:$model.pParams.processInstanceId)
 	$view.list.refresh({procInsId:listparams})
-	$view.list1.refresh({procInsId:listparams})
 	if(!$model.isviewpage){
 		$model.activityName = $model.pModel.activityName
 		$model.transitions = $model.pModel.getOutTransition.result
