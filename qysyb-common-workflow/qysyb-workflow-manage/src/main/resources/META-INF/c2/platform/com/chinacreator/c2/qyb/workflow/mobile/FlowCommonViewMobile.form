@@ -311,6 +311,8 @@ getviewinfo:function(moduleId,procInsId,businessKey){
 				$model.baseinfo = &quot;基本信息&quot;;
 		}
     	$model.formId = $model.serviceproduct.result.formId;
+		var formIdMobile = $model.serviceproduct.result.formIdMobile;
+		$model.formIdMobile = (formIdMobile == undefined || formIdMobile == &quot;&quot;)?$model.formId:formIdMobile;
     	
 		$model.formBusinessKey = $params.params.businessKey;
 		$params.params.formBusinessKey = $model.formBusinessKey;
