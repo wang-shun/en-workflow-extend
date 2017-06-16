@@ -553,7 +553,7 @@ page_onload:function(){
 		$model.ad.auditerId.userRealName = $scope.subject.userDTO.userRealname
 		$model.ad.auditTime = new Date().getTime()
 		$model.ad.activityName = $model.transition.src.name	
-		Messenger.error(&quot;========&quot;);
+		
 		$model.ad.auditState = &quot;TY&quot;
 		functions.selectSimpleDict_change()			
 	}	
