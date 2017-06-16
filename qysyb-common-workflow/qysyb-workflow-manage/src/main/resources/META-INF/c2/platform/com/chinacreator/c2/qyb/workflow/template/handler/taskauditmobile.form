@@ -552,7 +552,10 @@ page_onload:function(){
 		$model.ad.auditerId.userId = $scope.subject.id
 		$model.ad.auditerId.userRealName = $scope.subject.userDTO.userRealname
 		$model.ad.auditTime = new Date().getTime()
-		$model.ad.activityName = $model.transition.src.name		
+		$model.ad.activityName = $model.transition.src.name	
+		Messenger.error(&quot;========&quot;);
+		$model.ad.auditState = &quot;TY&quot;
+		functions.selectSimpleDict_change()			
 	}	
 },
 isFreeChoose:function(wfproperties){
@@ -674,9 +677,11 @@ page_afterDataSourceLoad:function(){
 selectSimpleDict_change:function(){
 	var auditState = $model.ad.auditState
 	if(auditState == &quot;TY&quot;){
+		$model.ad.opinionContent = &quot;同意&quot;
 		//积极意见
 		$scope.formentity.global.oppositive = true
 	}else if(auditState == &quot;BTY&quot;){
+		$model.ad.opinionContent = &quot;不同意&quot;
 		//否定意见
 		$scope.formentity.global.oppositive = false					
 	}
