@@ -1240,13 +1240,13 @@ jumpSuccess:function(){
         &lt;div style=&quot;margin-right: 15%;float: right;&quot;>
             &lt;button c2-button=&quot;&quot; id=&quot;newField21&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-nl no-border ng-hide&quot; 
                 ng-init=&quot;$state.newField21.disabled = false;$state.newField21.visible=$params.params.processInstanceId!=null&quot; 
-                ng-show=&quot;$state.newField21.visible&quot; ng-disabled=&quot;$state.newField21.disabled&quot; show-default=&quot;$params.params.processInstanceId!=null&quot; 
+                ng-show=&quot;$params.params.processInstanceId!=null&quot; ng-disabled=&quot;$state.newField21.disabled&quot; show-default=&quot;false&quot; 
                 disabled-default=&quot;false&quot; ng-click=&quot;functions.autoswitchcommit($event)&quot;>
                    	 	提交
             &lt;/button>
             &lt;button c2-button=&quot;&quot; id=&quot;newField11&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-nl no-border ng-hide&quot; 
                 ng-init=&quot;$state.newField11.disabled = false;$state.newField11.visible=$params.params.processInstanceId!=null&quot; 
-                ng-show=&quot;$state.newField11.visible&quot; ng-disabled=&quot;$state.newField11.disabled&quot; show-default=&quot;$params.params.processInstanceId!=null&quot; 
+                ng-show=&quot;false&quot; ng-disabled=&quot;$state.newField11.disabled&quot; show-default=&quot;false&quot; 
                 disabled-default=&quot;false&quot; ng-click=&quot;functions.newField2_click($event)&quot;>
                     	流程监控
             &lt;/button>
@@ -1258,20 +1258,20 @@ jumpSuccess:function(){
             &lt;/button>
             &lt;button c2-button=&quot;&quot; id=&quot;submitflow&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-nl no-border&quot; 
                 ng-init=&quot;$state.submitflow.disabled = false;$state.submitflow.visible=$params.params.processInstanceId==null&quot; 
-                ng-show=&quot;$state.submitflow.visible&quot; ng-disabled=&quot;$state.submitflow.disabled&quot; 
-                show-default=&quot;$params.params.processInstanceId==null&quot; disabled-default=&quot;false&quot; ng-click=&quot;functions.start_flow($event)&quot;>
+                ng-show=&quot;$params.params.processInstanceId==null&quot; ng-disabled=&quot;$state.submitflow.disabled&quot; 
+                show-default=&quot;false&quot; disabled-default=&quot;false&quot; ng-click=&quot;functions.start_flow($event)&quot;>
                     	提交流程
             &lt;/button>
             &lt;button c2-button=&quot;&quot; id=&quot;newField4&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-nl no-border&quot; 
                 ng-init=&quot;$state.newField4.disabled = false;$state.newField4.visible=$params.params.processInstanceId==null&quot; 
-                ng-show=&quot;$state.newField4.visible&quot; ng-disabled=&quot;$state.newField4.disabled&quot; 
-                show-default=&quot;$params.params.processInstanceId==null&quot; disabled-default=&quot;false&quot; 
+                ng-show=&quot;$params.params.processInstanceId==null&quot; ng-disabled=&quot;$state.newField4.disabled&quot; 
+                show-default=&quot;false&quot; disabled-default=&quot;false&quot; 
                 ng-click=&quot;functions.newField4_click($event)&quot;>
                     	保存
             &lt;/button>
             &lt;button c2-button=&quot;&quot; id=&quot;button1&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-danger btn-nl no-border ng-hide&quot; 
                 ng-init=&quot;$state.button1.disabled = false;$state.button1.visible=$model.actions.endprocess!=undefined&quot; 
-                ng-show=&quot;$state.button1.visible&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;$model.actions.endprocess!=undefined&quot; 
+                ng-show=&quot;$model.actions.endprocess!=undefined&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;false&quot; 
                 disabled-default=&quot;false&quot; ng-click=&quot;functions.button_click($event)&quot;>
                     	结束
             &lt;/button>
