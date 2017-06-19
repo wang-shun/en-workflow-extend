@@ -772,10 +772,24 @@ getviewinfo:function(moduleId,processInstanceId,businessKey){
 	$model.activityName = $model.getOutTransition.result[0].src.name;
 
 	$model.formId = $model.serviceproduct.result.formId;
-	var formIdMobile = $model.serviceproduct.result.formIdMobile;
-	$model.formIdMobile = (formIdMobile == undefined || formIdMobile == &quot;&quot;)?$model.formId:formIdMobile;
+	var ua = navigator.userAgent.toLowerCase();
+	var isAndroid = ua.indexOf(&quot;android&quot;);	
+	var isIpad = ua.indexOf(&quot;ipad&quot;);
+	var isIphone = ua.indexOf(&quot;iphone&quot;);
+	if(isAndroid != -1) {					
 
+	}
+	if(isIphone != -1){
+
+	}
+	if(isIpad != -1){
+		
+	}		
 	
+	var formIdMobile = $model.serviceproduct.result.formIdMobile;
+	//没有配置移动表单 或者是ipad 使用桌面表单
+	$model.formIdMobile = (formIdMobile == undefined || formIdMobile == &quot;&quot; || isIpad != -1)?$model.formId:formIdMobile;
+
 	$params.params.serviceproduct = $model.serviceproduct.result;
 
 	$model.handleway = &quot;处理完成&quot;;

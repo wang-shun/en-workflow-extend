@@ -206,7 +206,7 @@ update:function(triggersrc,data){
 &lt;/div>
 &lt;div ng-if=&quot;!$params.isAccordian&quot;>
 &lt;div ng-repeat=&quot;a in $model.fields&quot; class=&quot;a4&quot;>
-	&lt;div ng-if=&quot;permissionData[a.fieldNo].visible || $params.pModel.formIdMobile&quot;>
+	&lt;div ng-if=&quot;permissionData[a.fieldNo].visible || $params.params.serviceproduct.formIdMobile&quot;>
 		&lt;div ng-include=&quot;$model.categories[a.webDisplayTypeId].mobileUrl != null?($model.categories[a.webDisplayTypeId].mobileUrl == 'hide'?'':$model.categories[a.webDisplayTypeId].mobileUrl):$model.categories[a.webDisplayTypeId].url&quot;
 			ng-init=&quot;$params={'pParams':$params,'field':a,'fieldNo':a.fieldNo,'fieldName':a.fieldName,'dictName':a.dictName,'span':a.displaySpan, 'mobile':true}&quot;/>
 	&lt;/div>
