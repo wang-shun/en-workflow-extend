@@ -1266,7 +1266,7 @@ removeuserorgtreeprefix:function(users){
             &lt;/button>
             &lt;button c2-button=&quot;&quot; id=&quot;button1&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-danger btn-nl no-border ng-hide&quot; 
                 ng-init=&quot;$state.button1.disabled = false;$state.button1.visible=$model.actions.endprocess!=undefined&quot; 
-                ng-show=&quot;$state.button1.visible&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;false&quot; 
+                ng-show=&quot;$model.actions.endprocess!=undefined&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;true&quot; 
                 disabled-default=&quot;false&quot; ng-click=&quot;functions.button_click($event)&quot;>
                     	结束
             &lt;/button>
