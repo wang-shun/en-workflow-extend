@@ -141,7 +141,6 @@ $(document).ready(function(){
       			// 查询点击任务定义的外围配置
       			 $.post(dataUrl+"workflow/config/findProcessConfigProperty?processDefinitionId="+processDefinitionId+"&taskDefKey="+activityId+"&moduleId="+moduleId, {},
       				   function(data){
-      				    //console.log(data);
 							if(data && data.result && data.result=="success"){
 								parentPage.find("#activity_alias").val(data.wfProcessConfigProperty.alias);
 	      		      			//parentPage.find("#activity_performer").val(data.wfProcessConfigProperty.performer);
@@ -179,6 +178,8 @@ $(document).ready(function(){
 	      		      			parentPage.find("#activity_performer_hidden").val("");
 	      		      			//parentPage.find("#activity_otherAttr").val("");
 							}
+							
+							window.parent.angular.element("#newGroupId").scope().functions.show_table_activiti_setting(processDefId) ;
       		      			
       			}, "json"); 
       			parentPage.find("#activity_activityId").val(activityId);
@@ -252,6 +253,7 @@ $(document).ready(function(){
       	//yyc add end
       },
       rightClick: function(canvas, element, contextObject){
+    	  return;
         var mouseEvent = this;
         x = mouseEvent.clientX; 
         y = mouseEvent.clientY; 
@@ -298,7 +300,7 @@ $(document).ready(function(){
   }
   
   $("body").bind("click",function(){ 
-	    PopMenu.attr("style","visibility:hidden");
+	   // PopMenu.attr("style","visibility:hidden");
   }); 
   document.oncontextmenu=norightclick;
 });
@@ -307,6 +309,7 @@ var y;
 var activity_activityId;
 var PopMenu;
 function norightclick(e){
+	return;
 	console.log(e);
  	if(e){
 		console.log(e);
@@ -332,6 +335,7 @@ function formsetting(){
 }
 
 function showMenu(){
+	return;
 	var parentPage = $(parent.document);	
 	var a = parentPage.scrollTop();
 	PopMenu = parentPage.find("#PopMenu");

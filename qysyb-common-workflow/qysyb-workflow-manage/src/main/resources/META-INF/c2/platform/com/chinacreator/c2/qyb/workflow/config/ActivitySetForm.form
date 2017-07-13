@@ -1,62 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="节点设置表单" sn="servicemanageactivityconfig" type="form">
-  <form:control type="page/modal">
-    <form:attributes source="page/modal">
-      <dync:attribute default="" group="HTML" id="title" name="标题" value="节点设置">
-        <dync:render/>
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad($params)">
+        <dync:render colSpan="2" height="0" multi="false" name="event">
+          <dync:item name="param" value="$params"/>
+        </dync:render>
         <dync:children/>
       </dync:attribute>
       <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
-        <dync:render/>
+        <dync:render colSpan="2" height="0" multi="false" name="event">
+          <dync:item name="param" value=""/>
+        </dync:render>
         <dync:children/>
       </dync:attribute>
       <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
-        <dync:render/>
+        <dync:render colSpan="2" height="0" multi="false" name="event">
+          <dync:item name="param" value=""/>
+        </dync:render>
         <dync:children/>
       </dync:attribute>
     </form:attributes>
   </form:control>
-  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+  <form:child xsi:type="form:Group" id="div2" name="简单容器(DIV)">
     <form:control type="container/div">
       <form:attributes source="container/div">
-        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="true">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
         <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="overflow:visible">
-          <dync:render/>
+          <dync:render colSpan="2" height="0" multi="false" name="text"/>
           <dync:children/>
         </dync:attribute>
       </form:attributes>
@@ -590,32 +560,30 @@
         </form:child>
       </form:child>
     </form:child>
-  </form:child>
-  <form:child xsi:type="form:Group" id="newGroup5" name="对话框工具条">
-    <form:control type="container/toolbar_modal_footer">
-      <form:attributes source="container/toolbar_modal_footer"/>
-    </form:control>
-    <form:child xsi:type="form:Field" id="newField9" name="确定" customize="true">
-      <form:control type="widget/button">
-        <form:attributes source="widget/button">
-          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField9_click($event)">
-            <dync:render/>
+    <form:child xsi:type="form:Group" id="newGroup5" name="对话框工具条">
+      <form:control type="container/toolbar">
+        <form:attributes source="container/toolbar">
+          <dync:attribute default="normal" group="基本设置" id="type" name="类型" value="inner">
+            <dync:render colSpan="2" height="0" multi="false" name="select">
+              <dync:item name="普通工具条" value="normal"/>
+              <dync:item name="内置工具条" value="inner"/>
+              <dync:item name="下拉菜单" value="dropdown"/>
+            </dync:render>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
       </form:control>
-      <form:validation/>
-    </form:child>
-    <form:child xsi:type="form:Field" id="newField10" name="取消" customize="true">
-      <form:control type="widget/button">
-        <form:attributes source="widget/button">
-          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField10_click($event)">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-      <form:validation/>
+      <form:child xsi:type="form:Field" id="newField9" name="保存" customize="true">
+        <form:control type="widget/button">
+          <form:attributes source="widget/button">
+            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="newField9_click($event)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
     </form:child>
   </form:child>
   <form:datasources>
@@ -809,7 +777,6 @@ newField9_click:function($event){
 
 	$http.post(&quot;ws/saveactivityconfig&quot;,{activityConfig:$model.entityactivityconfig}).success(function(data){
 		Messenger.post({type:'success',message:'保存成功'});
-		Modal.instance.close();		
 	});
 	//用户关注设置
 	var con = {};
@@ -1123,7 +1090,11 @@ array_unique:function(array){
 	}
 	return n;
 
-},</form:scripts>
+},
+
+page_beforeDataSourceLoad:function($params){
+	
+}</form:scripts>
   <form:htmls>
 </form:htmls>
 </form:Form>
