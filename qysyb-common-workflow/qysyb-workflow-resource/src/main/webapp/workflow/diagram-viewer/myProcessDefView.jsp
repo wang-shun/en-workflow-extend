@@ -179,7 +179,7 @@ $(document).ready(function(){
 	      		      			//parentPage.find("#activity_otherAttr").val("");
 							}
 							
-							window.parent.angular.element("#newGroupId").scope().functions.show_table_activiti_setting(processDefId) ;
+							window.parent.angular.element("#newGroupId_flow").scope().functions.show_table_activiti_setting(processDefId) ;
       		      			
       			}, "json"); 
       			parentPage.find("#activity_activityId").val(activityId);
