@@ -666,6 +666,9 @@ save_click:function($event){
 },
 suspend_click:function($event){
 	$scope.operatefuncs.suspend($event)
+},
+end_click:function($event){
+	$scope.operatefuncs.endprocess($event)
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;wftaskhandleheader_html&quot;>
@@ -701,6 +704,12 @@ suspend_click:function($event){
 		流程监控
         &lt;/button>
 
+        &lt;button c2-button=&quot;&quot; id=&quot;button1&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-danger btn-sm no-border ng-hide&quot; 
+                ng-init=&quot;$state.button1.disabled = false;$state.button1.visible=$model.wfproperties.endprocess!=undefined&quot; 
+                ng-show=&quot;$model.wfproperties.endprocess!=undefined&quot; ng-disabled=&quot;$state.button1.disabled&quot; show-default=&quot;true&quot; 
+                disabled-default=&quot;false&quot; ng-click=&quot;functions.end_click($event)&quot;>
+                    	结束
+        &lt;/button>
 
         &lt;button id=&quot;button1&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-danger btn-nl no-border&quot; 
 			ng-show=&quot;false&quot; ng-click=&quot;functions.suspend_click($event)&quot;>
