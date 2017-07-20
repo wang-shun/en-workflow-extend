@@ -120,15 +120,15 @@ $(document).ready(function(){
           	
           	
         }
-        
+        debugger;
       //yyc add begine
       	// 任务类型
   		var taskType = contextObject.getProperty("type");
+      	var processDefId = processDefinitionId;
       	if("userTask"==taskType){
       		//任务定义ID
       		var activityId = contextObject.id;
       		//流程定义ID
-      		var processDefId = processDefinitionId;
       		if(activityId && processDefId){
       			//开始进行外围配置的实现
       			var parentPage = $(parent.document);
@@ -179,19 +179,16 @@ $(document).ready(function(){
 	      		      			//parentPage.find("#activity_otherAttr").val("");
 							}
 							
-							window.parent.angular.element("#newGroupId_flow").scope().functions.show_table_activiti_setting(processDefId) ;
-      		      			
       			}, "json"); 
       			parentPage.find("#activity_activityId").val(activityId);
       			
       		}
       		
-      	}else if("startEvent"==taskType){//对开始环节进行外围配置的绑定
+      	}else if("startEvent"==taskType ||'endEvent' == taskType){//对开始环节进行外围配置的绑定
       		//对不需要配置的元素进行置空和隐藏
       		//任务定义ID
       		var startId = contextObject.id;
       		//流程定义ID
-      		var processDefId = processDefinitionId;
       		if(startId && processDefId){
       		//开始进行外围配置的实现
       			var parentPage = $(parent.document);
@@ -201,7 +198,6 @@ $(document).ready(function(){
 				parentPage.find("#activity_alias").attr("disabled","disabled");
 		      	parentPage.find("#activity_durationUnit").attr("disabled","disabled");
 		      	parentPage.find("#activity_duration").attr("disabled","disabled");
-      			
       			 $.post(dataUrl+"workflow/config/findProcessConfigProperty?processDefinitionId="+processDefinitionId+"&taskDefKey="+startId+"&moduleId="+moduleId, {},
         				   function(data){
         				    //console.log(data);
@@ -249,7 +245,7 @@ $(document).ready(function(){
       			parentPage.find("#activity_activityId").val(startId);
       		}
       	}
-      	
+      	window.parent.angular.element("#newGroupId_flow").scope().functions.show_table_activiti_setting(processDefId) ;
       	//yyc add end
       },
       rightClick: function(canvas, element, contextObject){
