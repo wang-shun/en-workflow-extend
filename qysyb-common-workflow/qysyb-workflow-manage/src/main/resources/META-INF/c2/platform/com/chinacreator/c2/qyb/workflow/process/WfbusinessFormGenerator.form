@@ -44,47 +44,61 @@
       </dync:attribute>
     </form:attributes>
   </form:control>
-  <form:child xsi:type="form:Group" id="formentitydiv" name="新分组">
+  <form:child xsi:type="form:Group" id="formentitydivwrapper" name="简单容器(DIV)">
     <form:control type="container/div">
       <form:attributes source="container/div">
-        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
         <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
-          <dync:render/>
+          <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
           <dync:children/>
         </dync:attribute>
-        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroupId_html">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="{{productClass}}">
-          <dync:render/>
-          <dync:children/>
-        </dync:attribute>
-        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="margin-bottom:20px;padding-bottom: 20px !important;">
-          <dync:render/>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="display: flex;">
+          <dync:render colSpan="2" height="0" multi="false" name="text"/>
           <dync:children/>
         </dync:attribute>
       </form:attributes>
     </form:control>
+    <form:child xsi:type="form:Group" id="formentitydiv" name="新分组">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="formentitydiv_html">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="{{productClass}}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="margin-bottom:20px;padding-bottom: 20px !important;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
@@ -195,7 +209,7 @@ update:function(triggersrc,data){
 	}
 }</form:scripts>
   <form:htmls>
-&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;formentitydiv_html&quot;>
 &lt;div ng-if=&quot;$params.isAccordian&quot;>
 &lt;div  ng-repeat=&quot;aa in $model.a&quot;>
 	&lt;div ng-if=&quot;$model.formfields.result[aa.dictdataName]&quot;>

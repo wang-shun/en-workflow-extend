@@ -315,7 +315,6 @@ app.service('qybWorkflowService',function(){
 			var processDefinitionId = $params.params.processDefinitionId;
 			var moduleId =  $params.params.moduleId;
 			var taskDefKey =  $params.params.taskDefKey;
-			
 			$http.post("flow/goanywhere",
 				{
 					ccInform:$model.ccInform,
@@ -351,8 +350,12 @@ app.service('qybWorkflowService',function(){
 					 });
 					 if(mobilecontext){
 						 functions.jumpSuccess()
-					 }else{
-						 TabOperator.closeTab(TabOperator.getCurrentTab());
+					 }else{		
+						 if(Modal.instance){
+							 Modal.instance.close()
+						 }else{
+							 TabOperator.closeTab(TabOperator.getCurrentTab());							 
+						 }
 					 }
 					 
 				}else{
@@ -419,7 +422,11 @@ app.service('qybWorkflowService',function(){
 					 if(mobilecontext){
 						 functions.jumpSuccess()
 					 }else{
-						 TabOperator.closeTab(TabOperator.getCurrentTab());
+						 if(Modal.instance){
+							 Modal.instance.close()
+						 }else{
+							 TabOperator.closeTab(TabOperator.getCurrentTab());							 
+						 }
 					 }					 
 				});		
 		}	
@@ -594,8 +601,11 @@ app.service('qybWorkflowService',function(){
 						                'type': 'success',
 						                'hideAfter':4
 						            });									
-									TabOperator.closeTab(TabOperator.getCurrentTab());
-								}									
+									 if(Modal.instance){
+										 Modal.instance.close()
+									 }else{
+										 TabOperator.closeTab(TabOperator.getCurrentTab());							 
+									 }								}									
 									
 							}else{
 									Messenger.post({
@@ -648,7 +658,11 @@ app.service('qybWorkflowService',function(){
 				 if(mobilecontext){
 					 functions.jumpSuccess()
 				 }else{
-					 TabOperator.closeTab(TabOperator.getCurrentTab()); 
+					 if(Modal.instance){
+						 Modal.instance.close()
+					 }else{
+						 TabOperator.closeTab(TabOperator.getCurrentTab());							 
+					 }					 
 					 Messenger.post({
 							'message': "保存成功!",
 			                'type': 'success',
@@ -685,8 +699,11 @@ app.service('qybWorkflowService',function(){
 							                'type': 'success',
 							                'hideAfter':4
 							            });			 							 
-		 							 TabOperator.closeTab(TabOperator.getCurrentTab()); 
-		 						 }		 						
+		 							 if(Modal.instance){
+		 								 Modal.instance.close()
+		 							 }else{
+		 								 TabOperator.closeTab(TabOperator.getCurrentTab());							 
+		 							 }		 						 }		 						
 		 						
 					
 		 					});
@@ -711,12 +728,16 @@ app.service('qybWorkflowService',function(){
 		 						    formId:$model.formId,
 		 						    updateBusinessForm:true				
 		 					}).success(function(){
-		 						TabOperator.closeTab(TabOperator.getCurrentTab());
-		 						Messenger.post({
-		 												'message': "挂起成功!",
-		 								                'type': 'success',
-		 								                'hideAfter':4
-		 								            });					
+								 if(Modal.instance){
+									 Modal.instance.close()
+								 }else{
+									 TabOperator.closeTab(TabOperator.getCurrentTab());							 
+								 }		 						
+								 Messenger.post({
+									'message': "挂起成功!",
+					                'type': 'success',
+					                'hideAfter':4
+					            });					
 		 					});
 		 			});
 		 },

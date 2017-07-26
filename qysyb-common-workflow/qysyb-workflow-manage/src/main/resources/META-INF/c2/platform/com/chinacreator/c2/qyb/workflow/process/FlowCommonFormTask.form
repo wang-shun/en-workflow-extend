@@ -322,6 +322,20 @@
           </dync:attribute>
         </form:attributes>
       </form:control>
+      <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+        <form:control type="container/div">
+          <form:attributes source="container/div">
+            <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="singlePage_html">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
       <form:child xsi:type="form:Group" id="wftoobardiv" name="简单容器(DIV)">
         <form:control type="container/div">
           <form:attributes source="container/div">
@@ -335,20 +349,6 @@
             </dync:attribute>
             <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="wftoobardiv_html">
               <dync:render colSpan="2" height="0" multi="false" name="html"/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-      </form:child>
-      <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
-        <form:control type="container/div">
-          <form:attributes source="container/div">
-            <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="singlePage_html">
-              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -390,6 +390,7 @@ page_afterDataSourceLoad:function(){
 	$scope.operatefuncs.processmonitor = functions.newField2_click
 	$scope.operatefuncs.save = functions.newField4_click
 	$scope.operatefuncs.suspend = functions.suspend_click
+	$scope.operatefuncs.endprocess = functions.button_click	
 
 //  businessKey processInstanceId不为null，表明是处理任务而不是提交
 //  formBusinessKey 一定有业务数据与其对应 $model.businessKey则有可能是新生成的Key
@@ -426,7 +427,7 @@ page_afterDataSourceLoad:function(){
 	$params.params.formBusinessKey = $model.formBusinessKey;
 	
 	$http.post(&quot;ws/taskHandleInfo&quot;,{&quot;moduleId&quot;:$params.params.moduleId,formBusinessKey:$model.formBusinessKey,&quot;taskId&quot;:$params.params.taskId}).success(function(data){
-		debugger
+		
 		var taskInfo = data.result
 		
 		$model.actions = taskInfo.actions
@@ -605,13 +606,13 @@ page_beforeDataSourceLoad:function($params){
 	var locationparams = $location.$$search;
 	console.log(&quot;locationparams&quot;,locationparams);
 	$params.params = {};
-	$params.params.taskId = locationparams.taskId;
-	$params.params.moduleId = locationparams.moduleId;
-	$params.params.activityId = locationparams.activityId;
-	$params.params.taskDefKey = locationparams.activityId;
-	$params.params.businessKey = locationparams.businessKey;
-	$params.params.processInstanceId = locationparams.proInsId;
-	$params.params.processDefinitionId =  locationparams.processDefinitionId;
+	$params.params.taskId = locationparams.taskId || $params.taskId;
+	$params.params.moduleId = locationparams.moduleId || $params.taskId;
+	$params.params.activityId = locationparams.activityId || $params.activityId;
+	$params.params.taskDefKey = locationparams.activityId || $params.activityId;
+	$params.params.businessKey = locationparams.businessKey || $params.businessKey;
+	$params.params.processInstanceId = locationparams.proInsId || $params.proInsId;
+	$params.params.processDefinitionId =  locationparams.processDefinitionId || $params.processDefinitionId;
 
 },
 
@@ -654,7 +655,7 @@ assetId_customFormatter:function(cellvalue,options,rowObject){
 &lt;div c2-div=&quot;&quot; id=&quot;wftoobardiv&quot; ng-hide=&quot;$state.wftoobardiv_hide&quot; ng-init=&quot;$state.wftoobardiv_hide=false&quot; 
 	hide-variable=&quot;formentity.global.handleinline&quot; class=&quot;col-sm-12   no-padding&quot;>
 	&lt;div class=&quot;col-sm-12 form-actions compact-form-acitons clearfix&quot; style=&quot;margin-top:10px;margin-bottom:0px;&quot;>
-        &lt;div class=&quot;pull-left&quot;>
+        &lt;div style=&quot;margin-right: 15%;float: right;&quot;>
             &lt;button c2-button=&quot;&quot; id=&quot;newField21&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-nl no-border ng-hide&quot; 
                 ng-init=&quot;$state.newField21.disabled = false;$state.newField21.visible=$params.params.processInstanceId!=null&quot; 
                 ng-show=&quot;$state.newField21.visible&quot; ng-disabled=&quot;$state.newField21.disabled&quot; show-default=&quot;$params.params.processInstanceId!=null&quot; 
