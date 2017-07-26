@@ -409,7 +409,6 @@ page_afterDataSourceLoad:function(){
 	$params.params.formBusinessKey = $model.formBusinessKey;
 	
 	$http.post(&quot;ws/taskHandleInfo&quot;,{&quot;moduleId&quot;:$params.params.moduleId,formBusinessKey:$model.formBusinessKey,&quot;taskId&quot;:$params.params.taskId}).success(function(data){
-		
 		var taskInfo = data.result
 		
 		$model.actions = taskInfo.actions
@@ -426,6 +425,23 @@ page_afterDataSourceLoad:function(){
 		$params.params.moduleId = taskInfo.params.moduleId;
 		$params.params.processInstanceId = taskInfo.params.proInsId;
 		$params.params.taskDefKey = taskInfo.params.taskDefId;
+
+	//  businessKey processInstanceId不为null，表明是处理任务而不是提交
+	//  formBusinessKey 一定有业务数据与其对应 $model.businessKey则有可能是新生成的Key
+		if($params.params.businessKey&amp;&amp;$params.params.processInstanceId!=null){
+			$model.businessKey =  $params.params.businessKey;	
+			$model.formBusinessKey = $model.businessKey;
+		//如果params有businessKey，则是业务数据已保存过，或许是草稿 或许是因为快捷生成工单。需要拿出之前的业务数据
+		}else if(!angular.isUndefined($params.businessKey)){
+			$model.businessKey = $params.businessKey;
+			$model.formBusinessKey = $model.businessKey;
+		}else{
+			$model.businessKey =  $params.params.moduleId+&quot;_&quot;+functions.timeGenerator();
+		}
+		$params.params.formBusinessKey = $model.formBusinessKey;
+		if(angular.isUndefined($params.params.businessKey)){
+			$params.params.businessKey = $model.businessKey;
+		}
 		
 		$scope.permissionData = taskInfo.permissonData
 /*		var promises = new Array()
@@ -439,7 +455,7 @@ page_afterDataSourceLoad:function(){
 
 		var locationparams = $location.$$search;
 		//取得地址栏中的参数 赋值地址栏参数到实体
-		for(var a in locationparams){
+		for(var a in $model.orginparams){
 			//businessKey属性不要放入formentity 会覆盖了原来的同名属性
 			if(a!=&quot;businessKey&quot;){
 				$scope.formentity[a] = locationparams[a];
@@ -585,11 +601,13 @@ getviewinfo:function(moduleId,processInstanceId,businessKey){
 },
 
 page_beforeDataSourceLoad:function($params){
+	$model.orginparams = {}
+	angular.copy($params,$model.orginparams)
 	var locationparams = $location.$$search;
 	console.log(&quot;locationparams&quot;,locationparams);
 	$params.params = {};
 	$params.params.taskId = locationparams.taskId || $params.taskId;
-	$params.params.moduleId = locationparams.moduleId || $params.taskId;
+	$params.params.moduleId = locationparams.moduleId || $params.moduleId;
 	$params.params.activityId = locationparams.activityId || $params.activityId;
 	$params.params.taskDefKey = locationparams.activityId || $params.activityId;
 	$params.params.businessKey = locationparams.businessKey || $params.businessKey;
