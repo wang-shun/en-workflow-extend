@@ -363,24 +363,6 @@
 page_onload:function(){
 
 },
-
-newField2_clickEvent:function(value,checked,checkboxObj){
-	var radioGroup = $view.radios.getOptions();  
-	if(value.value==&quot;处理完成&quot;){
-		$view.nextdiv.show();
-		$view.chulirendiv.show();
-	}
-	if(value.value==&quot;退回&quot;){
-		$view.nextdiv.hide();
-		$view.chulirendiv.hide();
-	}
-	angular.forEach(radioGroup,function(v){  
-		//如果选项值为2，添加该选项的点击事件  
-		if(v.value!=value.value){  
-			v.checked = false;  
-		}  
-	}); 
-},
 page_afterDataSourceLoad:function(){
 	qybWorkflowService.bindFunctions($scope,$http,$compile, Modal, $location,debounce, ModelFactory, Messenger, FormContainer,TabOperator,$q,this)
 	//angular.extend(this, functions)
@@ -614,16 +596,6 @@ page_beforeDataSourceLoad:function($params){
 	$params.params.processInstanceId = locationparams.proInsId || $params.proInsId;
 	$params.params.processDefinitionId =  locationparams.processDefinitionId || $params.processDefinitionId;
 
-},
-
-newGroup7_onSelect:function(){
-//	console.log(&quot;workId&quot;,$model.businessKey);
-	$view.listwork.setParams({&quot;formId&quot;:$model.serviceproduct.result.formId,&quot;workId&quot;:$model.businessKey});
-},
-
-assetId_customFormatter:function(cellvalue,options,rowObject){
-//	console.log(cellvalue.name);
-	return cellvalue.name;
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup_html&quot;>
