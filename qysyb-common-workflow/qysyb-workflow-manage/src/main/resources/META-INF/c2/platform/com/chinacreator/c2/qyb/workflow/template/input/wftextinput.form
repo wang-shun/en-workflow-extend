@@ -97,10 +97,9 @@
 //最小长度 remark1
 //自定义class remark3
 page_onload:function(){
-	qybWorkflowService.initC2FormParams($scope,$params)
-	qybWorkflowService.emitFormCheckFunc(this.check)
-	
-	$scope.class = qybWorkflowService.getWrapperClass()	
+	$model.wfContext = qybWorkflowService.getContext($scope)
+	$model.wfContext.emitFormCheckFunc(this.check)	
+	$scope.class = $model.wfContext.getWrapperClass()	
 	var r3 = $params.field.remark3
 	if(r3){
 		$scope.class = $scope.class + &quot; &quot; + r3
