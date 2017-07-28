@@ -105,14 +105,7 @@ dateTimePicker_loadComplete:function(){
 },
 
 dateTimePicker_onChange:function(date,oldDate){
-/*	var ele = $(&quot;#dateTimePickerWrapper&quot;+$params.fieldNo)
-	//不合法
-	if(!$scope.mainForm.$valid){
 
-	}else{
-		UIDirectiveService.removeTipMessage(ele)			
-	}	
-*/
 },
 
 page_onload:function(){
@@ -132,10 +125,9 @@ page_onload:function(){
 		var cur = new Date()
 		$scope.formentity[$params.fieldNo] = cur.getTime()
 	}
-	qybWorkflowService.initC2FormParams($scope,$params)
-	qybWorkflowService.emitFormCheckFunc(this.check)
-	
-	$scope.class = qybWorkflowService.getWrapperClass()		
+	$model.wfContext = qybWorkflowService.getContext($scope)
+	$model.wfContext.emitFormCheckFunc(this.check)	
+	$scope.class = $model.wfContext.getWrapperClass()	
 	var r3 = $params.field.remark3
 	if(r3){
 		$scope.class = $scope.class + &quot; &quot; + r3
@@ -144,18 +136,6 @@ page_onload:function(){
 },
 check:function(){
 	return $view.mainForm.check()
-
-/*	var ele = $(&quot;#dateTimePickerWrapper&quot;+$params.fieldNo)
-	//不合法
-	if(!$scope.mainForm.$valid){
-		var fieldName = $params.field.displayName == undefined?$params.fieldName:$params.field.displayName
-		UIDirectiveService.setTipMessage(ele,&quot;为空或格式不正确&quot;)			
-		Messenger.error(fieldName+&quot; 为空或格式不正确&quot;) 
-	}else{
-		UIDirectiveService.removeTipMessage(ele)			
-	}
-	return $scope.mainForm.$valid
-*/
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;datetimepick_html&quot;>

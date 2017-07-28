@@ -469,9 +469,10 @@ check:function(){
 	}
 },
 page_onload:function(){
-	qybWorkflowService.initC2FormParams($scope,$params)
-	qybWorkflowService.emitFormCheckFunc(this.check)
-	$model.wfproperties = qybWorkflowService.getProperties()
+	$model.wfContext = qybWorkflowService.getContext($scope)
+	$model.wfContext.emitFormCheckFunc(this.check)	
+
+	$model.wfproperties = $model.wfContext.getProperties()
 	$model.freechoose = functions.isFreeChoose($model.wfproperties)
 
 	$model.writePermission = functions.writePermission()
@@ -655,7 +656,7 @@ selectSimpleDict_change:function(){
 		//否定意见
 		$scope.formentity.global.oppositive = false					
 	}
-	qybWorkflowService.getSubject().changed($params.fieldNo,$model.ad)
+	$model.wfContext.getSubject().changed($params.fieldNo,$model.ad)
 },
 //流程监控
 button3_click:function($event){

@@ -125,6 +125,75 @@ app.service('qybWorkflowService',function(){
 	},
 	
 	/**
+	 * 上面的方法都要废弃掉
+	 * 应该要用这个方法
+	 */
+	this.getContext = function($scope){
+		var context = {}
+		var $scope = $scope
+		var $params = $scope.$params
+		//从字段的属性配置里面获取布尔值  字符串 true 1 为真
+		context.getBooleanFromRemark = function(remark){
+			var booleanStr = remark
+			var bool = false
+			if(booleanStr && (booleanStr == "true" || booleanStr == "1")){
+				bool = true
+			}	
+			return bool
+		};
+		
+		//自定义模板页面 广播验证函数到
+		context.emitFormCheckFunc = function(func){
+			var thefieldNo = $params.fieldNo		
+			$scope.$emit("formcheckfunc",{name:thefieldNo,func:func});
+		};
+		//获取Wrapper的class
+		context.getWrapperClass = function(){
+			var theparams = $params
+
+			var classStr = "form-group"
+			var span  = theparams.field.displaySpan
+			var spanClassStr = (span != undefined&&span != "")
+				?"col-sm-"+span.toString():"col-sm-4"
+			if(spanClassStr){
+				classStr = classStr + " " + spanClassStr
+			}	
+			return classStr
+		};
+
+		//获取当前环节的actions 是一个数组
+		context.getProperties = function(){
+			var theparams = $params
+			return theparams.pParams.pModel.actions
+		};
+
+		//获取当前环节的自定义属性。格式很特别。用一个方法封装起来
+		context.getCustomProperty = function(p,actions){
+			if(!actions){
+				actions = this.getProperties()
+			}
+			var ps = actions[p]
+			if(ps && ps.length == 1){
+				return ps[0]
+			}
+		};
+		
+		context.getSubject = function(){ 	
+			return $scope.formentity.global.subject 
+		};
+		
+		context.getFormentity = function(){ 	
+			return $scope.formentity
+		};
+		
+		context.getGlobal = function(){ 	
+			return $scope.formentity.global 
+		};
+		return context
+	},
+	
+	/**
+	 * @params mobilecontext 是否是移动端环境
 	 * 把流程处理关键函数提取出来
 	 */
 	this.bindFunctions = function($scope,$http,$compile, Modal, $location,debounce, ModelFactory, Messenger, FormContainer,TabOperator,$q,functions,mobilecontext){
