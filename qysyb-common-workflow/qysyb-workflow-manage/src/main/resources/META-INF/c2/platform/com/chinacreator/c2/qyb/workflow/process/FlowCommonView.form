@@ -354,12 +354,12 @@ page_beforeDataSourceLoad:function($params){
 	var locationparams = $location.$$search;
 	console.log(&quot;locationparams&quot;,locationparams);
 	$params.params = {};
-	$params.params.moduleId = locationparams.moduleId;
-	$params.params.activityId = locationparams.activityId;
-	$params.params.taskDefKey = locationparams.activityId;
-	$params.params.businessKey = locationparams.businessKey;
-	$params.params.processInstanceId = locationparams.proInsId;
-	$params.params.processDefinitionId =  locationparams.processDefinitionId;
+	$params.params.moduleId = locationparams.moduleId || $params.moduleId;
+	$params.params.activityId = locationparams.activityId || $params.activityId;
+	$params.params.taskDefKey = locationparams.activityId || $params.activityId;
+	$params.params.businessKey = locationparams.businessKey || $params.businessKey;
+	$params.params.processInstanceId = locationparams.proInsId || $params.proInsId;
+	$params.params.processDefinitionId =  locationparams.processDefinitionId || $params.processDefinitionId;
 	//不止为何 数据源中的参数不能再￥params.params中取
 	$params.moduleId = locationparams.moduleId;
 },

@@ -96,7 +96,7 @@ page_onload:function(){
 //	this.dictdropdownlist_change();
 },
 
-dictdropdownoption_customFilter:function(data){debugger
+dictdropdownoption_customFilter:function(data){
 	var value = $scope.formentity[$params.fieldNo]
 	var b = angular.isUndefined(value)
 	if(b){
