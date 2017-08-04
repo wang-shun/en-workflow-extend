@@ -723,7 +723,17 @@ app.service('qybWorkflowService',function(){
 			$scope.formentity.status = "draft";
 			var form = {};
 			form.formId = $model.formId;
-			$http.post("ws/updateFormDataWithExternalTable",{"businessKey":businessKey,"entityjson":$scope.formentity,"form":form,curUserId:$scope.subject.id,map:{"moduleId":$params.params.moduleId}}).success(function(){
+			$http.post("ws/updateFormDataWithExternalTable",
+			{
+				businessKey:businessKey,
+				procInsId:$params.params.processInstanceId,
+				entityjson:$scope.formentity,
+				curActivity:$model.transition.src,
+				nextActivity:$model.transition.dest,
+				form:form,
+				curUserId:$scope.subject.id,
+				map:{"moduleId":$params.params.moduleId}
+			}).success(function(){
 				 if(mobilecontext){
 					 functions.jumpSuccess()
 				 }else{
