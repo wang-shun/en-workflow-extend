@@ -236,7 +236,7 @@
             <form:child xsi:type="form:Field" id="newField5" name="保存" customize="true">
               <form:control type="widget/button">
                 <form:attributes source="widget/button">
-                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId==null">
+                  <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.params.processInstanceId==null || $model.actions.save!=undefined">
                     <dync:render/>
                     <dync:children/>
                   </dync:attribute>
@@ -671,9 +671,9 @@ page_beforeDataSourceLoad:function($params){
                     	提交流程
             &lt;/button>
             &lt;button c2-button=&quot;&quot; id=&quot;newField4&quot; type=&quot;button&quot; class=&quot;c2-button btn  btn-primary btn-nl no-border&quot; 
-                ng-init=&quot;$state.newField4.disabled = false;$state.newField4.visible=$params.params.processInstanceId==null&quot; 
+                ng-init=&quot;$state.newField4.disabled = false;$state.newField4.visible=$params.params.processInstanceId==null || $model.actions.save!=undefined&quot; 
                 ng-show=&quot;$state.newField4.visible&quot; ng-disabled=&quot;$state.newField4.disabled&quot; 
-                show-default=&quot;$params.params.processInstanceId==null&quot; disabled-default=&quot;false&quot; 
+                show-default=&quot;$params.params.processInstanceId==null || $model.actions.save!=undefined&quot; disabled-default=&quot;false&quot; 
                 ng-click=&quot;functions.newField4_click($event)&quot;>
                     	保存
             &lt;/button>

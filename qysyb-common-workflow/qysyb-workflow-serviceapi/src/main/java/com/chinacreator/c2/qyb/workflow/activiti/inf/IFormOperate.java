@@ -48,8 +48,9 @@ public interface IFormOperate {
 	 * @return
 	 */
 	public int addOrUpdateEntityAfterTaskExcu(String json, String businessKey,
-			String proInsId, String moduleId, WorkFlowActivity lastActivity,
-			String curUserId, WorkFlowActivity nextActivity, Map map);
+			String proInsId, String moduleId, WorkFlowActivity curActivity,
+			String curUserId, WorkFlowActivity nextActivity, Map map)
+			throws Exception;
 
 	/**
 	 * 获取entity接口
