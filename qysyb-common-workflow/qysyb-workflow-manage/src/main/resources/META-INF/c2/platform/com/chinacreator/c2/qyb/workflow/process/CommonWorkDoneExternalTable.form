@@ -887,12 +887,12 @@ list_onSelectRow:function(rowid,status,e){
 &lt;div ng-include=&quot;'f/retrievedisplay'&quot; ng-init=&quot;$params={'retrieveKey':$params.workType==null?'commonext':$params.workType}&quot;>&#xD;
 &lt;/script>&#xD;
 &lt;style>&#xD;
-.ui-jqgrid .ui-jqgrid-bdiv {&#xD;
+/* .ui-jqgrid .ui-jqgrid-bdiv {&#xD;
 	overflow: visible;&#xD;
 }&#xD;
 .overflowvisible {&#xD;
 	overflow:visible !important;&#xD;
-}&#xD;
+} */&#xD;
 .remind span {display:block;margin-top:0px;}&#xD;
 .remind div:hover {margin-top:-22px;}&#xD;
 .remind div {float:left;overflow:hidden;}&#xD;

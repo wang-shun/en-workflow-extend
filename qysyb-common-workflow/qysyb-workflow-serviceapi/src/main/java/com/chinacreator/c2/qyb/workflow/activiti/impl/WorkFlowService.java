@@ -938,9 +938,23 @@ public class WorkFlowService {
 	public String deleteProcessInstancesById(String json,WfOperator wfOperator,
  			String deleteReason, String processInstanceId, String formId, boolean deleteHistory)
 			throws Exception {
-		String result = WfApiFactory.getWfRuntimeService()
-				.deleteProcessInstancesById(wfOperator, deleteReason,
-						processInstanceId);
+/*		String taskIdsStr = WfApiFactory.getWfRuntimeService().getCurrentActiveTaskIds(processInstanceId);
+		if(taskIdsStr != null){
+			String[] taskIds = taskIdsStr.split(taskIdsStr);
+			for(String s:taskIds){
+				historyService.deleteHistoricTaskInstance(s);
+				historyService.createHistoricDetailQuery();
+			}			
+		}*/
+
+		ProcessInstance p = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+		String result = "200";
+		if(p != null){
+			result = WfApiFactory.getWfRuntimeService()
+					.deleteProcessInstancesById(wfOperator, deleteReason,
+							processInstanceId);			
+		}
+
 /*		Map wfVariable = new HashMap();
 		wfVariable.put(DELETE_USER_ID, wfOperator.getUserId());
 		wfVariable.put(DELETE_USER_NAME, wfOperator.getUserName());
@@ -953,9 +967,11 @@ public class WorkFlowService {
 		String beanName = form.getOperateBean();
 		FormOperate formOperate = (FormOperate) ApplicationContextManager
 				.getContext().getBean(beanName);
+		Map con = new HashMap();
+		con.put("deleteHistory", deleteHistory);
 		formOperate.onProcessDelete(json, wfOperator.getBusinessData().getBusinessKey(), processInstanceId, 
 				wfOperator.getBusinessData().getModuleId(), null, 
-				null, deleteReason, new HashMap());
+				null, deleteReason, con);
  		if(deleteHistory){
  			historyService.deleteHistoricProcessInstance(processInstanceId);
  		}

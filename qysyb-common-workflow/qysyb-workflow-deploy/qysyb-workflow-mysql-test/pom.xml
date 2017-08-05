@@ -4,7 +4,7 @@
    <parent>
     <groupId>com.chinacreator.c2.qyb</groupId>
     <artifactId>qysyb-workflow-deploy</artifactId>
-    <version>1.0.0.2</version>
+    <version>1.0.1-SNAPSHOT</version>
    </parent> 
 	<artifactId>qysyb-workflow-mysql-test</artifactId>
 	<name>qysyb-workflow-mysql-test</name>

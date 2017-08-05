@@ -3,8 +3,8 @@
    <parent>
     <groupId>com.chinacreator.c2.qyb</groupId>
     <artifactId>qysyb-workflow-parent</artifactId>
-    <version>1.0.0.2</version>
-  </parent> 
+    <version>1.0.1-SNAPSHOT</version>
+   </parent> 
   <artifactId>qysyb-workflow-dao-mysql</artifactId>
   <packaging>jar</packaging>
   <dependencies>

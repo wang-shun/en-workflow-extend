@@ -141,7 +141,19 @@ public class ProcInstReadService {
 		}
 		return addUserReadRecords(userId, users, moduleId, businessKey, procInsId, moduleName, activityId, activityName);
 	}
-
+	
+	/**
+	 * 
+	 * @param userId 发送userId
+	 * @param userDTOs 接收的用户们
+	 * @param moduleId 事项ID
+	 * @param businessKey 
+	 * @param procInsId
+	 * @param moduleName 事项名
+	 * @param activityId 
+	 * @param activityName
+	 * @return
+	 */
 	public int addUserReadRecords(String userId, List<UserDTO> userDTOs, String moduleId, String businessKey,
 			String procInsId, String moduleName, String activityId, String activityName) {
 		List<ProcInsReadRecord> pirrs = new ArrayList<ProcInsReadRecord>();

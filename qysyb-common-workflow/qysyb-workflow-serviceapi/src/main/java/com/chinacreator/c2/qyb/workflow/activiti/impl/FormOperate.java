@@ -288,6 +288,15 @@ public abstract class FormOperate implements IFormOperate {
 			Method methodsetBusinessKey = clazz.getDeclaredMethod("set"+instIdKeyCamel,String.class); 
 			methodsetBusinessKey.invoke(condition, businessK);
 			condition = dao.selectOne(condition);
+			
+			if(condition == null){
+				//重新考虑businessKey 放入主键的情况
+				Method methodsetUId = clazz.getDeclaredMethod("set"+busiPrimaryKey.substring(0,1).toUpperCase() 
+						+ busiPrimaryKey.substring(1),String.class);
+				T condition1 = clazz.newInstance();
+				methodsetUId.invoke(condition1, businessK);
+				condition = dao.selectOne(condition1);
+			}
 			String jsonO = JSONObject.toJSONString(condition);
 			Map<String,Object> eMap = JSONObject.parseObject(jsonO,Map.class);	
 			return eMap;

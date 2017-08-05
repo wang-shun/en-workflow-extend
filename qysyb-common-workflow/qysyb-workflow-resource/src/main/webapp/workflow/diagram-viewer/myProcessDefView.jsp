@@ -120,15 +120,15 @@ $(document).ready(function(){
           	
           	
         }
-        
+        debugger;
       //yyc add begine
       	// 任务类型
   		var taskType = contextObject.getProperty("type");
+      	var processDefId = processDefinitionId;
       	if("userTask"==taskType){
       		//任务定义ID
       		var activityId = contextObject.id;
       		//流程定义ID
-      		var processDefId = processDefinitionId;
       		if(activityId && processDefId){
       			//开始进行外围配置的实现
       			var parentPage = $(parent.document);
@@ -141,7 +141,6 @@ $(document).ready(function(){
       			// 查询点击任务定义的外围配置
       			 $.post(dataUrl+"workflow/config/findProcessConfigProperty?processDefinitionId="+processDefinitionId+"&taskDefKey="+activityId+"&moduleId="+moduleId, {},
       				   function(data){
-      				    //console.log(data);
 							if(data && data.result && data.result=="success"){
 								parentPage.find("#activity_alias").val(data.wfProcessConfigProperty.alias);
 	      		      			//parentPage.find("#activity_performer").val(data.wfProcessConfigProperty.performer);
@@ -179,18 +178,17 @@ $(document).ready(function(){
 	      		      			parentPage.find("#activity_performer_hidden").val("");
 	      		      			//parentPage.find("#activity_otherAttr").val("");
 							}
-      		      			
+							
       			}, "json"); 
       			parentPage.find("#activity_activityId").val(activityId);
       			
       		}
       		
-      	}else if("startEvent"==taskType){//对开始环节进行外围配置的绑定
+      	}else if("startEvent"==taskType ||'endEvent' == taskType){//对开始环节进行外围配置的绑定
       		//对不需要配置的元素进行置空和隐藏
       		//任务定义ID
       		var startId = contextObject.id;
       		//流程定义ID
-      		var processDefId = processDefinitionId;
       		if(startId && processDefId){
       		//开始进行外围配置的实现
       			var parentPage = $(parent.document);
@@ -200,7 +198,6 @@ $(document).ready(function(){
 				parentPage.find("#activity_alias").attr("disabled","disabled");
 		      	parentPage.find("#activity_durationUnit").attr("disabled","disabled");
 		      	parentPage.find("#activity_duration").attr("disabled","disabled");
-      			
       			 $.post(dataUrl+"workflow/config/findProcessConfigProperty?processDefinitionId="+processDefinitionId+"&taskDefKey="+startId+"&moduleId="+moduleId, {},
         				   function(data){
         				    //console.log(data);
@@ -248,10 +245,11 @@ $(document).ready(function(){
       			parentPage.find("#activity_activityId").val(startId);
       		}
       	}
-      	
+      	window.parent.angular.element("#newGroupId_flow").scope().functions.show_table_activiti_setting(processDefId) ;
       	//yyc add end
       },
       rightClick: function(canvas, element, contextObject){
+    	  return;
         var mouseEvent = this;
         x = mouseEvent.clientX; 
         y = mouseEvent.clientY; 
@@ -298,7 +296,7 @@ $(document).ready(function(){
   }
   
   $("body").bind("click",function(){ 
-	    PopMenu.attr("style","visibility:hidden");
+	   // PopMenu.attr("style","visibility:hidden");
   }); 
   document.oncontextmenu=norightclick;
 });
@@ -307,6 +305,7 @@ var y;
 var activity_activityId;
 var PopMenu;
 function norightclick(e){
+	return;
 	console.log(e);
  	if(e){
 		console.log(e);
@@ -332,6 +331,7 @@ function formsetting(){
 }
 
 function showMenu(){
+	return;
 	var parentPage = $(parent.document);	
 	var a = parentPage.scrollTop();
 	PopMenu = parentPage.find("#PopMenu");

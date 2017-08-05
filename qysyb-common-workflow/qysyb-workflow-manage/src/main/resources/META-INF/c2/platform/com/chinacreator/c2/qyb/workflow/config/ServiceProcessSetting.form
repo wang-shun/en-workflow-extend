@@ -34,7 +34,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="">
+      <dync:attribute default="" group="事件" id="afterDataSourceLoad" name="数据源加载后" value="page_afterDataSourceLoad()">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -44,7 +44,7 @@
       </dync:attribute>
     </form:attributes>
   </form:control>
-  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+  <form:child xsi:type="form:Group" id="newGroupId_flow" name="新分组">
     <form:control type="container/div">
       <form:attributes source="container/div">
         <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
@@ -395,393 +395,428 @@
             <form:validation/>
           </form:child>
         </form:child>
-        <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
-          <form:control type="container/div">
-            <form:attributes source="container/div"/>
+        <form:child xsi:type="form:Group" id="tabs" name="Tabs">
+          <form:control type="container/tabs">
+            <form:attributes source="container/tabs"/>
           </form:control>
-          <form:child xsi:type="form:Field" binding="$model.activity_name" id="activity_name" name="活动名称" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text">
-                <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
-                  <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" binding="$model.activity_alias" id="activity_alias" name="活动别名" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text"/>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" binding="$model.activity_performer" id="activity_performer" name="参与者" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text">
-                <dync:attribute default="false" desc="在输入框后面加一个小图标，可以添加点击事件。" group="输入框组" hidden="false" id="inputGroup" name="启用输入框组" required="false" value="true">
+          <form:child xsi:type="form:Group" id="newTab_basic" name="基本属性配置">
+            <form:control type="container/tab">
+              <form:attributes source="container/tab">
+                <dync:attribute default="false" group="HTML配置" id="active" name="选中" value="true">
                   <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
                   <dync:children/>
-                  <dync:onChange>
-                    <template:case value="false">
-                      <template:hide param="groupType" value="true"/>
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="true"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                    <template:case value="true">
-                      <template:hide param="groupType" value="false"/>
-                      <template:hide param="customIcon" value="false"/>
-                      <template:hide param="customText" value="false"/>
-                      <template:hide param="customEven" value="false"/>
-                      <template:hide param="hiddenInput" value="false"/>
-                    </template:case>
-                  </dync:onChange>
-                </dync:attribute>
-                <dync:attribute default="iconSelect" desc="选择预定义好的类型或者选择自定义图标或者文字。  &#xA;        &#x9;&#x9;图标选择可以选择[Font Awesom](http://fontawesome.io/icons/)中的图标，返回图标样式。  &#xA;        &#x9;&#x9;颜色选择使用[bootstrap-colorpicker](http://www.eyecon.ro/bootstrap-colorpicker/)实现，可以选择颜色，返回RGB16进制颜色。  &#xA;        &#x9;&#x9;自定义图标和自定义文字都可以有自己的点击事件。  &#xA;        &#x9;&#x9;&#xA;        &#x9;&#x9;@attention 使用图标选择时，可以将文本框隐藏（数据类型属性，选择隐藏），并将占位数设为1。你可以看到只有一个图标的图标选择器。" group="输入框组" hidden="false" id="groupType" name="组类型" required="false" value="customIcon">
-                  <dync:render colSpan="2" height="0" multi="false" name="select">
-                    <dync:item name="图标选择" value="iconSelect"/>
-                    <dync:item name="颜色选择" value="colorSelect"/>
-                    <dync:item name="自定义图标" value="customIcon"/>
-                    <dync:item name="自定义文字" value="customText"/>
-                  </dync:render>
-                  <dync:children/>
-                  <dync:onChange>
-                    <template:case value="iconSelect">
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="true"/>
-                      <template:hide param="hiddenInput" value="false"/>
-                    </template:case>
-                    <template:case value="colorSelect">
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="true"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                    <template:case value="customIcon">
-                      <template:hide param="customIcon" value="false"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="false"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                    <template:case value="customText">
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="false"/>
-                      <template:hide param="customEven" value="false"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                  </dync:onChange>
-                </dync:attribute>
-                <dync:attribute default="fa-question" desc="选择文本框后面显示的图标。" group="输入框组" hidden="false" id="customIcon" name="自定义图标" required="false" value="fa-users">
-                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" desc="定义自定义图标或者自定义字符的点击事件。  &#xA;                @param dom 文本框DOM元素。&#xA;                &#xA;                @code&#xA;                myInput_customEven:function(dom){&#xA;                &#x9;//将文本框变成时间选择框。当然你需要保证页面已经引入了datepicker.js。&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;dom.datepicker();&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;                @code" group="输入框组" hidden="false" id="customEven" name="点击事件" required="false" value="chooseAssignee(dom)">
-                  <dync:render colSpan="1" height="0" multi="false" name="event">
-                    <dync:item name="params" value="dom"/>
-                  </dync:render>
-                  <dync:children/>
                 </dync:attribute>
               </form:attributes>
             </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" binding="$model.activity_duration" id="activity_duration" name="活动时限" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text"/>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Group" id="newGroup9" name="简单容器(DIV)">
-            <form:control type="container/div">
-              <form:attributes source="container/div">
-                <dync:attribute default="12" desc="网格布局中占位数" group="HTML配置" hidden="false" id="span" name="占位数" required="true" value="6">
-                  <dync:render colSpan="1" height="0" multi="false" name="text"/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" desc="在容器内部直接嵌入自定义的HTML。当控件满足不了页面需求时，可以通过这个去嵌入一段自定义的HTML代码。&#xA;                点击属性框右边按钮，会自动跳转到*HTML片段*的页签，并在页签内生成一段包裹脚本。需要自定义的HTML代码写在脚本内。如果还需要脚本控制元素，也可在模版内部写自己的脚本。&#xA;                @code&#xA;                &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>&#xA;&#x9;&#x9;&#x9;&#x9;我的地盘我做主！&#xA;&#x9;&#x9;&#x9;&#x9;&lt;script>&#xA;&#x9;&#x9;&#x9;&#x9;alert(&quot;oye!&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;                @code&#xA;                @attention 如果定义了该属性，那么在容器中放置任何其他控件都会被忽略。" group="高级自定义" hidden="false" id="html" name="自定义HTML" required="false" value="newGroup5_html">
-                  <dync:render colSpan="2" height="0" multi="false" name="html"/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-          </form:child>
-          <form:child xsi:type="form:Field" binding="$model.activity_bindForm" id="activity_bindForm" name="表单" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text">
-                <dync:attribute default="false" desc="在输入框后面加一个小图标，可以添加点击事件。" group="输入框组" hidden="false" id="inputGroup" name="启用输入框组" required="false" value="true">
-                  <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
-                  <dync:children/>
-                  <dync:onChange>
-                    <template:case value="false">
-                      <template:hide param="groupType" value="true"/>
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="true"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                    <template:case value="true">
-                      <template:hide param="groupType" value="false"/>
-                      <template:hide param="customIcon" value="false"/>
-                      <template:hide param="customText" value="false"/>
-                      <template:hide param="customEven" value="false"/>
-                      <template:hide param="hiddenInput" value="false"/>
-                    </template:case>
-                  </dync:onChange>
-                </dync:attribute>
-                <dync:attribute default="iconSelect" desc="选择预定义好的类型或者选择自定义图标或者文字。  &#xA;        &#x9;&#x9;图标选择可以选择[Font Awesom](http://fontawesome.io/icons/)中的图标，返回图标样式。  &#xA;        &#x9;&#x9;颜色选择使用[bootstrap-colorpicker](http://www.eyecon.ro/bootstrap-colorpicker/)实现，可以选择颜色，返回RGB16进制颜色。  &#xA;        &#x9;&#x9;自定义图标和自定义文字都可以有自己的点击事件。  &#xA;        &#x9;&#x9;&#xA;        &#x9;&#x9;@attention 使用图标选择时，可以将文本框隐藏（数据类型属性，选择隐藏），并将占位数设为1。你可以看到只有一个图标的图标选择器。" group="输入框组" hidden="false" id="groupType" name="组类型" required="false" value="customIcon">
-                  <dync:render colSpan="2" height="0" multi="false" name="select">
-                    <dync:item name="图标选择" value="iconSelect"/>
-                    <dync:item name="颜色选择" value="colorSelect"/>
-                    <dync:item name="自定义图标" value="customIcon"/>
-                    <dync:item name="自定义文字" value="customText"/>
-                  </dync:render>
-                  <dync:children/>
-                  <dync:onChange>
-                    <template:case value="iconSelect">
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="true"/>
-                      <template:hide param="hiddenInput" value="false"/>
-                    </template:case>
-                    <template:case value="colorSelect">
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="true"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                    <template:case value="customIcon">
-                      <template:hide param="customIcon" value="false"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="false"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                    <template:case value="customText">
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="false"/>
-                      <template:hide param="customEven" value="false"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                  </dync:onChange>
-                </dync:attribute>
-                <dync:attribute default="fa-question" desc="选择文本框后面显示的图标。" group="输入框组" hidden="false" id="customIcon" name="自定义图标" required="false" value="fa-link">
-                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" desc="定义自定义图标或者自定义字符的点击事件。  &#xA;                @param dom 文本框DOM元素。&#xA;                &#xA;                @code&#xA;                myInput_customEven:function(dom){&#xA;                &#x9;//将文本框变成时间选择框。当然你需要保证页面已经引入了datepicker.js。&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;dom.datepicker();&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;                @code" group="输入框组" hidden="false" id="customEven" name="点击事件" required="false" value="bindForm(dom)">
-                  <dync:render colSpan="1" height="0" multi="false" name="event">
-                    <dync:item name="params" value="dom"/>
-                  </dync:render>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" binding="$model.activity_otherAttr" id="activity_otherAttr" name="其他属性" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text">
-                <dync:attribute default="false" desc="在输入框后面加一个小图标，可以添加点击事件。" group="输入框组" hidden="false" id="inputGroup" name="启用输入框组" required="false" value="true">
-                  <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
-                  <dync:children/>
-                  <dync:onChange>
-                    <template:case value="false">
-                      <template:hide param="groupType" value="true"/>
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="true"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                    <template:case value="true">
-                      <template:hide param="groupType" value="false"/>
-                      <template:hide param="customIcon" value="false"/>
-                      <template:hide param="customText" value="false"/>
-                      <template:hide param="customEven" value="false"/>
-                      <template:hide param="hiddenInput" value="false"/>
-                    </template:case>
-                  </dync:onChange>
-                </dync:attribute>
-                <dync:attribute default="iconSelect" desc="选择预定义好的类型或者选择自定义图标或者文字。  &#xA;        &#x9;&#x9;图标选择可以选择[Font Awesom](http://fontawesome.io/icons/)中的图标，返回图标样式。  &#xA;        &#x9;&#x9;颜色选择使用[bootstrap-colorpicker](http://www.eyecon.ro/bootstrap-colorpicker/)实现，可以选择颜色，返回RGB16进制颜色。  &#xA;        &#x9;&#x9;自定义图标和自定义文字都可以有自己的点击事件。  &#xA;        &#x9;&#x9;&#xA;        &#x9;&#x9;@attention 使用图标选择时，可以将文本框隐藏（数据类型属性，选择隐藏），并将占位数设为1。你可以看到只有一个图标的图标选择器。" group="输入框组" hidden="false" id="groupType" name="组类型" required="false" value="customIcon">
-                  <dync:render colSpan="2" height="0" multi="false" name="select">
-                    <dync:item name="图标选择" value="iconSelect"/>
-                    <dync:item name="颜色选择" value="colorSelect"/>
-                    <dync:item name="自定义图标" value="customIcon"/>
-                    <dync:item name="自定义文字" value="customText"/>
-                  </dync:render>
-                  <dync:children/>
-                  <dync:onChange>
-                    <template:case value="iconSelect">
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="true"/>
-                      <template:hide param="hiddenInput" value="false"/>
-                    </template:case>
-                    <template:case value="colorSelect">
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="true"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                    <template:case value="customIcon">
-                      <template:hide param="customIcon" value="false"/>
-                      <template:hide param="customText" value="true"/>
-                      <template:hide param="customEven" value="false"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                    <template:case value="customText">
-                      <template:hide param="customIcon" value="true"/>
-                      <template:hide param="customText" value="false"/>
-                      <template:hide param="customEven" value="false"/>
-                      <template:hide param="hiddenInput" value="true"/>
-                    </template:case>
-                  </dync:onChange>
-                </dync:attribute>
-                <dync:attribute default="fa-question" desc="选择文本框后面显示的图标。" group="输入框组" hidden="false" id="customIcon" name="自定义图标" required="false" value="fa-sitemap">
-                  <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" desc="定义自定义图标或者自定义字符的点击事件。  &#xA;                @param dom 文本框DOM元素。&#xA;                &#xA;                @code&#xA;                myInput_customEven:function(dom){&#xA;                &#x9;//将文本框变成时间选择框。当然你需要保证页面已经引入了datepicker.js。&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;dom.datepicker();&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;                @code" group="输入框组" hidden="false" id="customEven" name="点击事件" required="false" value="otherAttrSet(dom)">
-                  <dync:render colSpan="1" height="0" multi="false" name="event">
-                    <dync:item name="params" value="dom"/>
-                  </dync:render>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="true" desc="是否为可见状态。可以用表达式和变量。" group="HTML设置" hidden="false" id="show" name="可见" required="true" value="false">
-                  <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" binding="$model.activity_activityId" id="activity_activityId" name="活动定义ID(hidden)" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text">
-                <dync:attribute default="true" desc="是否为可见状态。可以用表达式和变量。" group="HTML设置" hidden="false" id="show" name="可见" required="true" value="false">
-                  <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" binding="$model.activity_performer_hidden" id="activity_performer_hidden" name="执行人ID(hidden)" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text">
-                <dync:attribute default="true" desc="是否为可见状态。可以用表达式和变量。" group="HTML设置" hidden="false" id="show" name="可见" required="true" value="false">
-                  <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" binding="$model.activity_performer_hidden_group" id="activity_performer_hidden_group" name="执行用户组ID(hidden)" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text">
-                <dync:attribute default="true" desc="是否为可见状态。可以用表达式和变量。" group="HTML设置" hidden="false" id="show" name="可见" required="true" value="false">
-                  <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" binding="$model.formId" id="formId" name="formId" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text">
-                <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" binding="$model.processInsId" id="processInsId" name="流程实例Id" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text">
-                <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" binding="$model.processDefId" id="processDefId" name="流程定义Id" customize="true">
-            <form:control type="widget/text">
-              <form:attributes source="widget/text">
-                <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Group" id="popmenudiv" name="简单容器(DIV)">
-            <form:control type="container/div">
-              <form:attributes source="container/div">
-                <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup2_html">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-          </form:child>
-          <form:child xsi:type="form:Group" id="newGroup10" name="普通工具条">
-            <form:control type="container/toolbar">
-              <form:attributes source="container/toolbar">
-                <dync:attribute default="center" desc="按钮在工具条中的位置" group="基本设置" hidden="false" id="position" name="按钮位置" required="false" value="pull-right">
-                  <dync:render colSpan="2" height="0" multi="false" name="select">
-                    <dync:item name="居中" value="center"/>
-                    <dync:item name="左侧" value="pull-left"/>
-                    <dync:item name="右侧" value="pull-right"/>
-                  </dync:render>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:child xsi:type="form:Field" id="newField21" name="保存" customize="true">
-              <form:control type="widget/button">
-                <form:attributes source="widget/button">
-                  <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="单击事件" required="false" value="btn_save($event)">
-                    <dync:render colSpan="1" height="0" multi="false" name="event">
-                      <dync:item name="params" value="$event"/>
-                    </dync:render>
-                    <dync:children/>
-                  </dync:attribute>
-                  <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check-circle-o">
-                    <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
-                    <dync:children/>
-                  </dync:attribute>
-                </form:attributes>
+            <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+              <form:control type="container/div">
+                <form:attributes source="container/div"/>
               </form:control>
-              <form:validation/>
+              <form:child xsi:type="form:Field" binding="$model.activity_name" id="activity_name" name="活动名称" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text">
+                    <dync:attribute default="false" desc="是否为禁用状态。可以用true和false，可以用表达式，如：1==1；也可以用变量，但是变量的值必须为布尔类型。" group="HTML设置" hidden="false" id="disabled" name="禁用" required="true" value="true">
+                      <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.activity_alias" id="activity_alias" name="活动别名" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text"/>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.activity_performer" id="activity_performer" name="参与者" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text">
+                    <dync:attribute default="false" desc="在输入框后面加一个小图标，可以添加点击事件。" group="输入框组" hidden="false" id="inputGroup" name="启用输入框组" required="false" value="true">
+                      <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+                      <dync:children/>
+                      <dync:onChange>
+                        <template:case value="false">
+                          <template:hide param="groupType" value="true"/>
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="true"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                        <template:case value="true">
+                          <template:hide param="groupType" value="false"/>
+                          <template:hide param="customIcon" value="false"/>
+                          <template:hide param="customText" value="false"/>
+                          <template:hide param="customEven" value="false"/>
+                          <template:hide param="hiddenInput" value="false"/>
+                        </template:case>
+                      </dync:onChange>
+                    </dync:attribute>
+                    <dync:attribute default="iconSelect" desc="选择预定义好的类型或者选择自定义图标或者文字。  &#xA;        &#x9;&#x9;图标选择可以选择[Font Awesom](http://fontawesome.io/icons/)中的图标，返回图标样式。  &#xA;        &#x9;&#x9;颜色选择使用[bootstrap-colorpicker](http://www.eyecon.ro/bootstrap-colorpicker/)实现，可以选择颜色，返回RGB16进制颜色。  &#xA;        &#x9;&#x9;自定义图标和自定义文字都可以有自己的点击事件。  &#xA;        &#x9;&#x9;&#xA;        &#x9;&#x9;@attention 使用图标选择时，可以将文本框隐藏（数据类型属性，选择隐藏），并将占位数设为1。你可以看到只有一个图标的图标选择器。" group="输入框组" hidden="false" id="groupType" name="组类型" required="false" value="customIcon">
+                      <dync:render colSpan="2" height="0" multi="false" name="select">
+                        <dync:item name="图标选择" value="iconSelect"/>
+                        <dync:item name="颜色选择" value="colorSelect"/>
+                        <dync:item name="自定义图标" value="customIcon"/>
+                        <dync:item name="自定义文字" value="customText"/>
+                      </dync:render>
+                      <dync:children/>
+                      <dync:onChange>
+                        <template:case value="iconSelect">
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="true"/>
+                          <template:hide param="hiddenInput" value="false"/>
+                        </template:case>
+                        <template:case value="colorSelect">
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="true"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                        <template:case value="customIcon">
+                          <template:hide param="customIcon" value="false"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="false"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                        <template:case value="customText">
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="false"/>
+                          <template:hide param="customEven" value="false"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                      </dync:onChange>
+                    </dync:attribute>
+                    <dync:attribute default="fa-question" desc="选择文本框后面显示的图标。" group="输入框组" hidden="false" id="customIcon" name="自定义图标" required="false" value="fa-users">
+                      <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="" desc="定义自定义图标或者自定义字符的点击事件。  &#xA;                @param dom 文本框DOM元素。&#xA;                &#xA;                @code&#xA;                myInput_customEven:function(dom){&#xA;                &#x9;//将文本框变成时间选择框。当然你需要保证页面已经引入了datepicker.js。&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;dom.datepicker();&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;                @code" group="输入框组" hidden="false" id="customEven" name="点击事件" required="false" value="chooseAssignee(dom)">
+                      <dync:render colSpan="1" height="0" multi="false" name="event">
+                        <dync:item name="params" value="dom"/>
+                      </dync:render>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.activity_duration" id="activity_duration" name="活动时限" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text"/>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Group" id="newGroup9" name="简单容器(DIV)">
+                <form:control type="container/div">
+                  <form:attributes source="container/div">
+                    <dync:attribute default="12" desc="网格布局中占位数" group="HTML配置" hidden="false" id="span" name="占位数" required="true" value="6">
+                      <dync:render colSpan="1" height="0" multi="false" name="text"/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="" desc="在容器内部直接嵌入自定义的HTML。当控件满足不了页面需求时，可以通过这个去嵌入一段自定义的HTML代码。&#xA;                点击属性框右边按钮，会自动跳转到*HTML片段*的页签，并在页签内生成一段包裹脚本。需要自定义的HTML代码写在脚本内。如果还需要脚本控制元素，也可在模版内部写自己的脚本。&#xA;                @code&#xA;                &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>&#xA;&#x9;&#x9;&#x9;&#x9;我的地盘我做主！&#xA;&#x9;&#x9;&#x9;&#x9;&lt;script>&#xA;&#x9;&#x9;&#x9;&#x9;alert(&quot;oye!&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;                @code&#xA;                @attention 如果定义了该属性，那么在容器中放置任何其他控件都会被忽略。" group="高级自定义" hidden="false" id="html" name="自定义HTML" required="false" value="newGroup5_html">
+                      <dync:render colSpan="2" height="0" multi="false" name="html"/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.activity_bindForm" id="activity_bindForm" name="表单" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text">
+                    <dync:attribute default="false" desc="在输入框后面加一个小图标，可以添加点击事件。" group="输入框组" hidden="false" id="inputGroup" name="启用输入框组" required="false" value="true">
+                      <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+                      <dync:children/>
+                      <dync:onChange>
+                        <template:case value="false">
+                          <template:hide param="groupType" value="true"/>
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="true"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                        <template:case value="true">
+                          <template:hide param="groupType" value="false"/>
+                          <template:hide param="customIcon" value="false"/>
+                          <template:hide param="customText" value="false"/>
+                          <template:hide param="customEven" value="false"/>
+                          <template:hide param="hiddenInput" value="false"/>
+                        </template:case>
+                      </dync:onChange>
+                    </dync:attribute>
+                    <dync:attribute default="iconSelect" desc="选择预定义好的类型或者选择自定义图标或者文字。  &#xA;        &#x9;&#x9;图标选择可以选择[Font Awesom](http://fontawesome.io/icons/)中的图标，返回图标样式。  &#xA;        &#x9;&#x9;颜色选择使用[bootstrap-colorpicker](http://www.eyecon.ro/bootstrap-colorpicker/)实现，可以选择颜色，返回RGB16进制颜色。  &#xA;        &#x9;&#x9;自定义图标和自定义文字都可以有自己的点击事件。  &#xA;        &#x9;&#x9;&#xA;        &#x9;&#x9;@attention 使用图标选择时，可以将文本框隐藏（数据类型属性，选择隐藏），并将占位数设为1。你可以看到只有一个图标的图标选择器。" group="输入框组" hidden="false" id="groupType" name="组类型" required="false" value="customIcon">
+                      <dync:render colSpan="2" height="0" multi="false" name="select">
+                        <dync:item name="图标选择" value="iconSelect"/>
+                        <dync:item name="颜色选择" value="colorSelect"/>
+                        <dync:item name="自定义图标" value="customIcon"/>
+                        <dync:item name="自定义文字" value="customText"/>
+                      </dync:render>
+                      <dync:children/>
+                      <dync:onChange>
+                        <template:case value="iconSelect">
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="true"/>
+                          <template:hide param="hiddenInput" value="false"/>
+                        </template:case>
+                        <template:case value="colorSelect">
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="true"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                        <template:case value="customIcon">
+                          <template:hide param="customIcon" value="false"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="false"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                        <template:case value="customText">
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="false"/>
+                          <template:hide param="customEven" value="false"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                      </dync:onChange>
+                    </dync:attribute>
+                    <dync:attribute default="fa-question" desc="选择文本框后面显示的图标。" group="输入框组" hidden="false" id="customIcon" name="自定义图标" required="false" value="fa-link">
+                      <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="" desc="定义自定义图标或者自定义字符的点击事件。  &#xA;                @param dom 文本框DOM元素。&#xA;                &#xA;                @code&#xA;                myInput_customEven:function(dom){&#xA;                &#x9;//将文本框变成时间选择框。当然你需要保证页面已经引入了datepicker.js。&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;dom.datepicker();&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;                @code" group="输入框组" hidden="false" id="customEven" name="点击事件" required="false" value="bindForm(dom)">
+                      <dync:render colSpan="1" height="0" multi="false" name="event">
+                        <dync:item name="params" value="dom"/>
+                      </dync:render>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.activity_otherAttr" id="activity_otherAttr" name="其他属性" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text">
+                    <dync:attribute default="false" desc="在输入框后面加一个小图标，可以添加点击事件。" group="输入框组" hidden="false" id="inputGroup" name="启用输入框组" required="false" value="true">
+                      <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+                      <dync:children/>
+                      <dync:onChange>
+                        <template:case value="false">
+                          <template:hide param="groupType" value="true"/>
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="true"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                        <template:case value="true">
+                          <template:hide param="groupType" value="false"/>
+                          <template:hide param="customIcon" value="false"/>
+                          <template:hide param="customText" value="false"/>
+                          <template:hide param="customEven" value="false"/>
+                          <template:hide param="hiddenInput" value="false"/>
+                        </template:case>
+                      </dync:onChange>
+                    </dync:attribute>
+                    <dync:attribute default="iconSelect" desc="选择预定义好的类型或者选择自定义图标或者文字。  &#xA;        &#x9;&#x9;图标选择可以选择[Font Awesom](http://fontawesome.io/icons/)中的图标，返回图标样式。  &#xA;        &#x9;&#x9;颜色选择使用[bootstrap-colorpicker](http://www.eyecon.ro/bootstrap-colorpicker/)实现，可以选择颜色，返回RGB16进制颜色。  &#xA;        &#x9;&#x9;自定义图标和自定义文字都可以有自己的点击事件。  &#xA;        &#x9;&#x9;&#xA;        &#x9;&#x9;@attention 使用图标选择时，可以将文本框隐藏（数据类型属性，选择隐藏），并将占位数设为1。你可以看到只有一个图标的图标选择器。" group="输入框组" hidden="false" id="groupType" name="组类型" required="false" value="customIcon">
+                      <dync:render colSpan="2" height="0" multi="false" name="select">
+                        <dync:item name="图标选择" value="iconSelect"/>
+                        <dync:item name="颜色选择" value="colorSelect"/>
+                        <dync:item name="自定义图标" value="customIcon"/>
+                        <dync:item name="自定义文字" value="customText"/>
+                      </dync:render>
+                      <dync:children/>
+                      <dync:onChange>
+                        <template:case value="iconSelect">
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="true"/>
+                          <template:hide param="hiddenInput" value="false"/>
+                        </template:case>
+                        <template:case value="colorSelect">
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="true"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                        <template:case value="customIcon">
+                          <template:hide param="customIcon" value="false"/>
+                          <template:hide param="customText" value="true"/>
+                          <template:hide param="customEven" value="false"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                        <template:case value="customText">
+                          <template:hide param="customIcon" value="true"/>
+                          <template:hide param="customText" value="false"/>
+                          <template:hide param="customEven" value="false"/>
+                          <template:hide param="hiddenInput" value="true"/>
+                        </template:case>
+                      </dync:onChange>
+                    </dync:attribute>
+                    <dync:attribute default="fa-question" desc="选择文本框后面显示的图标。" group="输入框组" hidden="false" id="customIcon" name="自定义图标" required="false" value="fa-sitemap">
+                      <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="" desc="定义自定义图标或者自定义字符的点击事件。  &#xA;                @param dom 文本框DOM元素。&#xA;                &#xA;                @code&#xA;                myInput_customEven:function(dom){&#xA;                &#x9;//将文本框变成时间选择框。当然你需要保证页面已经引入了datepicker.js。&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;dom.datepicker();&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;                @code" group="输入框组" hidden="false" id="customEven" name="点击事件" required="false" value="otherAttrSet(dom)">
+                      <dync:render colSpan="1" height="0" multi="false" name="event">
+                        <dync:item name="params" value="dom"/>
+                      </dync:render>
+                      <dync:children/>
+                    </dync:attribute>
+                    <dync:attribute default="true" desc="是否为可见状态。可以用表达式和变量。" group="HTML设置" hidden="false" id="show" name="可见" required="true" value="false">
+                      <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.activity_activityId" id="activity_activityId" name="活动定义ID(hidden)" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text">
+                    <dync:attribute default="true" desc="是否为可见状态。可以用表达式和变量。" group="HTML设置" hidden="false" id="show" name="可见" required="true" value="false">
+                      <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.activity_performer_hidden" id="activity_performer_hidden" name="执行人ID(hidden)" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text">
+                    <dync:attribute default="true" desc="是否为可见状态。可以用表达式和变量。" group="HTML设置" hidden="false" id="show" name="可见" required="true" value="false">
+                      <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.activity_performer_hidden_group" id="activity_performer_hidden_group" name="执行用户组ID(hidden)" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text">
+                    <dync:attribute default="true" desc="是否为可见状态。可以用表达式和变量。" group="HTML设置" hidden="false" id="show" name="可见" required="true" value="false">
+                      <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.formId" id="formId" name="formId" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text">
+                    <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.processInsId" id="processInsId" name="流程实例Id" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text">
+                    <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                      <dync:render/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Field" binding="$model.processDefId" id="processDefId" name="流程定义Id" customize="true">
+                <form:control type="widget/text">
+                  <form:attributes source="widget/text">
+                    <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="false">
+                      <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:validation/>
+              </form:child>
+              <form:child xsi:type="form:Group" id="newGroup10" name="普通工具条">
+                <form:control type="container/toolbar">
+                  <form:attributes source="container/toolbar">
+                    <dync:attribute default="center" desc="按钮在工具条中的位置" group="基本设置" hidden="false" id="position" name="按钮位置" required="false" value="pull-right">
+                      <dync:render colSpan="2" height="0" multi="false" name="select">
+                        <dync:item name="居中" value="center"/>
+                        <dync:item name="左侧" value="pull-left"/>
+                        <dync:item name="右侧" value="pull-right"/>
+                      </dync:render>
+                      <dync:children/>
+                    </dync:attribute>
+                  </form:attributes>
+                </form:control>
+                <form:child xsi:type="form:Field" id="newField21" name="保存" customize="true">
+                  <form:control type="widget/button">
+                    <form:attributes source="widget/button">
+                      <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="单击事件" required="false" value="btn_save($event)">
+                        <dync:render colSpan="1" height="0" multi="false" name="event">
+                          <dync:item name="params" value="$event"/>
+                        </dync:render>
+                        <dync:children/>
+                      </dync:attribute>
+                      <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-check-circle-o">
+                        <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                        <dync:children/>
+                      </dync:attribute>
+                    </form:attributes>
+                  </form:control>
+                  <form:validation/>
+                </form:child>
+                <form:child xsi:type="form:Field" id="newField22" name="重置" customize="true">
+                  <form:control type="widget/button">
+                    <form:attributes source="widget/button">
+                      <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="单击事件" required="false" value="btn_reset($event)">
+                        <dync:render colSpan="1" height="0" multi="false" name="event">
+                          <dync:item name="params" value="$event"/>
+                        </dync:render>
+                        <dync:children/>
+                      </dync:attribute>
+                      <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-refresh">
+                        <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+                        <dync:children/>
+                      </dync:attribute>
+                    </form:attributes>
+                  </form:control>
+                  <form:validation/>
+                </form:child>
+              </form:child>
             </form:child>
-            <form:child xsi:type="form:Field" id="newField22" name="重置" customize="true">
-              <form:control type="widget/button">
-                <form:attributes source="widget/button">
-                  <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="单击事件" required="false" value="btn_reset($event)">
-                    <dync:render colSpan="1" height="0" multi="false" name="event">
-                      <dync:item name="params" value="$event"/>
-                    </dync:render>
-                    <dync:children/>
-                  </dync:attribute>
-                  <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-refresh">
-                    <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+          </form:child>
+          <form:child xsi:type="form:Group" id="newTab_table" name="表单属性配置">
+            <form:control type="container/tab">
+              <form:attributes source="container/tab"/>
+            </form:control>
+            <form:child xsi:type="form:Group" id="div_table_setting_p" name="简单容器(DIV)">
+              <form:control type="container/div">
+                <form:attributes source="container/div">
+                  <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="div_table_setting_p_html">
+                    <dync:render colSpan="2" height="0" multi="false" name="html"/>
                     <dync:children/>
                   </dync:attribute>
                 </form:attributes>
               </form:control>
-              <form:validation/>
+            </form:child>
+          </form:child>
+          <form:child xsi:type="form:Group" id="tab_activiti" name="节点设置">
+            <form:control type="container/tab">
+              <form:attributes source="container/tab"/>
+            </form:control>
+            <form:child xsi:type="form:Group" id="div_activiti_setting_p" name="简单容器(DIV)">
+              <form:control type="container/div">
+                <form:attributes source="container/div">
+                  <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="div_activiti_setting_p_html">
+                    <dync:render colSpan="2" height="0" multi="false" name="html"/>
+                    <dync:children/>
+                  </dync:attribute>
+                </form:attributes>
+              </form:control>
             </form:child>
           </form:child>
         </form:child>
@@ -1116,8 +1151,6 @@ activitysetting:function(){
 				});
 },
 page_onload:function(){
-	$view.popmenudiv.getDom().context.oncontextmenu = this.norightclick;
-//	console.log($view.popmenudiv.getDom());
 },
 norightclick:function(e){
 //	console.log(e);
@@ -1134,6 +1167,24 @@ norightclick:function(e){
 		return false;
 		
 	}
+},
+
+page_afterDataSourceLoad:function(){
+	
+},
+show_table_activiti_setting:function(processDefId){//展示表单配置和节点配置
+	var p = Math.random();
+	$params.serviceProduct = $model.serviceProduct;
+	$params.moduleId = $scope.moduleId;
+	$params.activityId = $(&quot;#activity_activityId&quot;).val();
+	$params.formId = $model.formId;
+	$model.tburl = 'f/servicemanagefieldpermissionconfig?a='+p;
+	
+	$params.processDefId = processDefId;
+	$params.activity_name = $(&quot;#activity_name&quot;).val();
+	$params.serviceProduct = $model.serviceProduct;
+	$model.aturl = 'f/servicemanageactivityconfig?a='+p;
+	$scope.$apply();
 }</form:scripts>
   <form:htmls>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup5_html&quot;>
@@ -1144,34 +1195,11 @@ norightclick:function(e){
     &lt;/div>
 &lt;/div>
 &lt;/script>
-&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup2_html&quot;>
-	&lt;div id=&quot;PopMenu&quot; style=&quot;background-color:rgb(255, 255, 255);position:absolute; width:60px; z-index:1; visibility:hidden&quot;>
-	&lt;div> 
-&lt;table border=2 width=60px> 
 
-&lt;tr> 
-&lt;td>
-&lt;a herf=&quot;#&quot; style=&quot;cursor:default&quot; ng-click=&quot;functions.formsetting()&quot;>
-&lt;span>表单设置&lt;/span>
-&lt;/a>
-&lt;/td> 
-&lt;/tr> 
-&lt;tr> 
-&lt;td> 
-&lt;a herf=&quot;#&quot; style=&quot;cursor:default&quot; ng-click=&quot;functions.activitysetting()&quot;>
-&lt;span>节点设置&lt;/span>
-&lt;/td> 
-&lt;/tr> 
-&lt;/table> 
-&lt;/div>
-&lt;/div>
-
-
+&lt;script type=&quot;text/ng-template&quot; id=&quot;div_table_setting_p_html&quot;>
+&lt;div id =&quot;div_table_setting&quot; ng-include=$model.tburl>&lt;/div>
 &lt;/script>
-&lt;script>
-  $(&quot;body&quot;).bind(&quot;click&quot;,function(){ 
-		var PopMenu = document.getElementById(&quot;PopMenu&quot;);    
-		PopMenu.style.display=&quot;none&quot;; 
-  }); 
+&lt;script type=&quot;text/ng-template&quot; id=&quot;div_activiti_setting_p_html&quot;>
+&lt;div id =&quot;div_activiti_setting&quot; ng-include=$model.aturl>&lt;/div>
 &lt;/script></form:htmls>
 </form:Form>

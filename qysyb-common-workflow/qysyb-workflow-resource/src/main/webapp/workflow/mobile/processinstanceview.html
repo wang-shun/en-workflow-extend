@@ -2,7 +2,7 @@
 
 <html id="ng-app" ng-app="app">
 <head>
-<title>流程登记</title>
+<title>任务处理</title>
 
 <base href="../../">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -47,13 +47,15 @@
 	<div id="directives"></div>
 	<div class="page-content clearfix">
 		<div id="view">
-			<div ng-include="'f/serviceentrypage?_=1490777595791'" ng-init="$params={'isMobile':'true'}"></div>
+			<div ng-include="'f/flowcommonviewmobile?_=1490777595791'"></div>
 		</div>
 	</div>
 	<!-- jquery v1.11.1 -->
 	<script src="assets/jquery.min.js"></script>
 	<!-- æ åjsåº -->
 	<script src="assets/js/c2-all.js"></script>
+	<script src="assets/js/qybworkflow.service.js"></script>
+	<script src="assets/js/document.service.js"></script>	
 	<!-- ç»ä»¶æä»¤éå -->
 	<script src="ui/dir/directives.js"></script>
 	<!-- å½éåéç½® -->

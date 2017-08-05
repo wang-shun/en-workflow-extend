@@ -14,37 +14,37 @@ import com.chinacreator.c2.annotation.Entity;
 @Entity(id = "entity:com.chinacreator.c2.qyb.workflow.module.entity.ServiceProduct", sn="workflowserviceproduct", table = "SERVICE_SERVICEPRODUCT", ds = "oracDB")
 public class ServiceProduct implements Serializable {
 	private static final long serialVersionUID = 1398697341452288L;
-	@Column(id = "product_id", type = ColumnType.uuid, datatype = "string128")
+	@Column(id = "product_id", type = ColumnType.uuid, datatype = "string64")
 	private java.lang.String productId;
 
 	/**
 	 *产品编码
 	 */
-	@Column(id = "product_no", datatype = "string128")
+	@Column(id = "product_no", datatype = "string64")
 	private java.lang.String productNo;
 
 	/**
 	 *产品名称
 	 */
-	@Column(id = "product_name", datatype = "string256")
+	@Column(id = "product_name", datatype = "string64")
 	private java.lang.String productName;
 
 	/**
 	 *描述
 	 */
-	@Column(id = "product_describe", datatype = "string1024")
+	@Column(id = "product_describe", datatype = "string128")
 	private java.lang.String productDescribe;
 
 	/**
 	 *服务类型
 	 */
-	@Column(id = "service_type_id", datatype = "string128")
+	@Column(id = "service_type_id", datatype = "string64")
 	private java.lang.String serviceTypeId;
 
 	/**
 	 *分组
 	 */
-	@Column(id = "group_id", datatype = "string128")
+	@Column(id = "group_id", datatype = "string1024")
 	private java.lang.String groupId;
 
 	/**
@@ -56,7 +56,7 @@ public class ServiceProduct implements Serializable {
 	/**
 	 *流程启动url
 	 */
-	@Column(id = "wf_processstart_url", datatype = "string512")
+	@Column(id = "wf_processstart_url", datatype = "string256")
 	private java.lang.String wfProcessstartUrl;
 
 	/**
@@ -68,8 +68,14 @@ public class ServiceProduct implements Serializable {
 	/**
 	 *图标
 	 */
-	@Column(id = "ico", datatype = "string512")
+	@Column(id = "ico", datatype = "string256")
 	private java.lang.String ico;
+
+	/**
+	 *移动端表单
+	 */
+	@Column(id = "form_id_mobile", datatype = "string64")
+	private java.lang.String formIdMobile;
 
 	/**
 	 * 设置${field.desc}
@@ -209,5 +215,19 @@ public class ServiceProduct implements Serializable {
 	 */
 	public java.lang.String getIco() {
 		return ico;
+	}
+
+	/**
+	 * 设置移动端表单
+	 */
+	public void setFormIdMobile(java.lang.String formIdMobile) {
+		this.formIdMobile = formIdMobile;
+	}
+
+	/**
+	 * 获取移动端表单
+	 */
+	public java.lang.String getFormIdMobile() {
+		return formIdMobile;
 	}
 }

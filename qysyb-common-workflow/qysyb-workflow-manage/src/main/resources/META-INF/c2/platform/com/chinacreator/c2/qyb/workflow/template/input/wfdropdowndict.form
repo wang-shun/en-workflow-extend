@@ -72,17 +72,7 @@ dictdropdownlist_change:function(){
 //	$scope.update_obervable($params.fieldNo,$scope.formentity);
 },
 check:function(){
-	return $view.mainForm.check()
-/*	//不合法
-	if(!$scope.mainForm.$valid){
-		var fieldName = $params.field.displayName == undefined?$params.fieldName:$params.field.displayName
-		UIDirectiveService.setTipMessage($(&quot;#dictdropdownoptionWrapper&quot;+$params.fieldNo),&quot;为空或格式不正确&quot;)
-		Messenger.error(fieldName+&quot; 为空或格式不正确&quot;) 
-	}else{
-		UIDirectiveService.removeTipMessage($(&quot;#dictdropdownoptionWrapper&quot;+$params.fieldNo))
-	}
-	return $scope.mainForm.$valid
-*/	
+	return $view.mainForm.check()	
 },
 linkcallback:function(src,data){
 
@@ -91,11 +81,10 @@ reset:function(){
 	$model.bind = &quot;&quot;;
 	$scope.formentity[$params.fieldNo] = &quot;&quot;;
 },
-page_onload:function(){
-	qybWorkflowService.initC2FormParams($scope,$params)
-	qybWorkflowService.emitFormCheckFunc(this.check)
-	
-	$model.wrapperClass = qybWorkflowService.getWrapperClass()
+page_onload:function(){	
+	$model.wfContext = qybWorkflowService.getContext($scope)
+	$model.wfContext.emitFormCheckFunc(this.check)	
+	$model.wrapperClass = $model.wfContext.getWrapperClass()		
 	//属性3 自定义class
 	var r3 = $params.field.remark3
 	if(r3){

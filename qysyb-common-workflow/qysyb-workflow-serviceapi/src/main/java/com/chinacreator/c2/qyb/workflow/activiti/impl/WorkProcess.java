@@ -364,8 +364,8 @@ public class WorkProcess {
 		/* 业务数据持久化 */
 		if (form != null && form.isIsTableStorage() != null
 				&& form.isIsTableStorage()) {
-			formService.updateFormDataWithExternalTable(bussinessKey, proInsId,
-					entity, curActivity, form, wfOperator.getUserId(),nextActivity,paramsMap);
+//			formService.updateFormDataWithExternalTable(bussinessKey, proInsId,
+//					entity, curActivity, form, wfOperator.getUserId(),nextActivity,paramsMap);
 			List<FormField> list = formService.getFormField(formId);
 			for (FormField ff : list) {
 				if (ffs.isFieldStorageProcessVariable(ff)) { // 字段是否存在流程变量中
@@ -1057,12 +1057,16 @@ public class WorkProcess {
 			saveBusinessData(form, businessKey, wf.getProcessInstanceId(), entity, mapentity,
 					variables, wfTransition, wfOperator, paramsMap);
 			
-			if (form.isIsTableStorage() != null && form.isIsTableStorage()) { // 业务数据存储到外部表
-				formService.updateFormDataWithExternalTable(businessKey,
-						wf.getProcessInstanceId(), entity,
-						wfTransition.getSrc(), form, wfOperator.getUserId(),
-						wfTransition.getDest(),paramsMap);
-			}
+//			if (form.isIsTableStorage() != null && form.isIsTableStorage()) { // 业务数据存储到外部表
+//				formService.updateFormDataWithExternalTable(businessKey,
+//						wf.getProcessInstanceId(), entity,
+//						wfTransition.getSrc(), form, wfOperator.getUserId(),
+//						wfTransition.getDest(),paramsMap);
+//			}
+ 			//流程执行结束 业务处理 业务数据的保存在这里
+ 			formOperate.addOrUpdateEntityAfterTaskExcu(entity, businessKey, 
+ 					wf.getProcessInstanceId(), moduleId,wfTransition.getSrc(),
+ 					wfOperator.getUserId(),wfTransition.getDest(),paramsMap);			
 			if(AUTORUN_FIRST_ACT){
 				taskService.claim(wf.getNextTaskId(), wfOperator.getUserId());
 				informService.clearEvents();
@@ -1070,10 +1074,6 @@ public class WorkProcess {
 						processDefinitionId, wf.getNextTaskId(), 
 						wfTransition.id, wfTransition.getDest().id, false, variables);
 			}
- 			//流程执行结束 业务处理
- 			formOperate.addOrUpdateEntityAfterTaskExcu(entity, businessKey, 
- 					wf.getProcessInstanceId(), moduleId,wfTransition.getSrc(),
- 					wfOperator.getUserId(),wfTransition.getDest(),paramsMap);
 //			taskService.complete(wf.getNextTaskId());
 
 			Object multiInstancePor = wfTransition.getDest().getPorperties()

@@ -118,7 +118,15 @@ public class FormService {
 		return map;
 	}
 	
-	//从流程变量或外部表中取得业务数据
+	/**
+	 * 从流程变量或外部表中取得业务数据
+	 * @param formId 如果是外部表 则是必需参数
+	 * @param filter
+	 * @param businessKey
+	 * @param proInsId
+	 * @return
+	 */
+	
 	@SuppressWarnings("unchecked")
 	public Map<String,Object> getFormDataByFkFromProcessVariable(String formId,Boolean filter,String businessKey,String proInsId){
  		Map con = new HashMap();
@@ -180,31 +188,34 @@ public class FormService {
 		}		
 		/*没有流程实例 则是取历史数据*/
 		if(businessKey!=null){
-			HistoryService historyService = ApplicationContextManager.getContext().getBean(HistoryService.class);
-			HistoricProcessInstance hisins = historyService.createHistoricProcessInstanceQuery().includeProcessVariables()
-					.processInstanceBusinessKey(businessKey).singleResult();
-			Map<String,Object> hismap = null;
-			//如果没有历史实例，说明是个草稿！！！
-			if(hisins!=null){
-				hismap = hisins.getProcessVariables();
-				map.putAll(hismap);
-				if(formId==null){
-					formId = (String) hismap.get(WorkFlowService.FORMIDSTR);
-				}
-			}
+			/**
+			 * 这里不应该要去取历史流程实例数据。只有businessKey 那么就是认为从一个草稿发起流程
+			 */
+//			HistoryService historyService = ApplicationContextManager.getContext().getBean(HistoryService.class);
+//			HistoricProcessInstance hisins = historyService.createHistoricProcessInstanceQuery().includeProcessVariables()
+//					.processInstanceBusinessKey(businessKey).singleResult();
+//			Map<String,Object> hismap = null;
+//			//如果没有历史实例，说明是个草稿！！！
+//			if(hisins!=null){
+//				hismap = hisins.getProcessVariables();
+//				map.putAll(hismap);
+//				if(formId==null){
+//					formId = (String) hismap.get(WorkFlowService.FORMIDSTR);
+//				}
+//			}
 			
-
 			form=this.getFormById(formId);
 			if(form!=null&&form.isIsTableStorage()!=null&&form.isIsTableStorage()){  //外部表单存储业务数据时获取历史数据
-				//TODO hisins==null?businessKey:hisins.getId() 这里应当为空了 
+//				String hisproInsId = hisins==null?businessKey:hisins.getId()
+				String hisproInsId = null;
  				Map busMap = this.getFormDataWithExternalTable(businessKey,
- 						hisins==null?null:hisins.getId(), null, form,con);				
+ 						hisproInsId, null, form,con);				
  				if(busMap!=null)
 					map.putAll(busMap);
 				return map;
 			}
 			if(filter!=null&&filter ==  true){
-				return this.filterFormDataFormMapValue(formId, hismap);
+				return this.filterFormDataFormMapValue(formId, map);
 			}else{
 				return map;
 			}

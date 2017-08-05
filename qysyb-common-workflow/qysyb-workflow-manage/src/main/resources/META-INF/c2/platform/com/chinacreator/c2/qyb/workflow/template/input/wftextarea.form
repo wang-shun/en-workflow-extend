@@ -67,11 +67,10 @@
   </form:datasources>
   <form:scripts>
 
-page_onload:function(){ 
-	qybWorkflowService.initC2FormParams($scope,$params)
-	qybWorkflowService.emitFormCheckFunc(this.check)
-	
-	$model.classstr = qybWorkflowService.getWrapperClass()	
+page_onload:function(){
+	$model.wfContext = qybWorkflowService.getContext($scope)
+	$model.wfContext.emitFormCheckFunc(this.check)	
+	$model.classstr = $model.wfContext.getWrapperClass()	
 },
 check:function(){
 	return $view.mainForm.check();

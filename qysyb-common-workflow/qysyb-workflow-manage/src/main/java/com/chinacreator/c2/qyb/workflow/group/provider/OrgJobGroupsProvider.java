@@ -15,6 +15,7 @@ import com.chinacreator.c2.web.ds.TreeContentProvider;
 import com.chinacreator.c2.web.ds.TreeContext;
 import com.chinacreator.c2.web.ds.TreeNode;
 import com.chinacreator.c2.web.ds.impl.DefaultTreeNode;
+import com.chinacreator.c2.web.ds.impl.DynamicTreeNode;
 import com.chinacreator.c2.workflow.service.JobGroupType;
 import com.chinacreator.c2.workflow.service.OrgGroupType;
 
@@ -69,9 +70,11 @@ public class OrgJobGroupsProvider implements TreeContentProvider {
 						((DefaultTreeNode)tnGroupType).setChkDisabled(true);
 						nodes.add(tnGroupType);
 					}*/
-					TreeNode jobGroupType = new DefaultTreeNode("jobgroup","$job","岗位组",true);
+					DynamicTreeNode jobGroupType = new DynamicTreeNode("jobgroup","$job","岗位组",true);
+					jobGroupType.put("chkDisabled", true);
 					nodes.add(jobGroupType);
-					TreeNode orgGroupType = new DefaultTreeNode("orggroup","$org","机构组",true);
+					DynamicTreeNode orgGroupType = new DynamicTreeNode("orggroup","$org","机构组",true);
+					orgGroupType.put("chkDisabled", true);
 					nodes.add(orgGroupType);
 
 				} catch (Exception e) {
@@ -84,7 +87,7 @@ public class OrgJobGroupsProvider implements TreeContentProvider {
 					List<ChooseGroup>  groupList=groupType.getChildGroups(gid);
 					for (ChooseGroup candidateGroup : groupList) {
 						List<ChooseGroup>  child = groupType.getChildGroups(candidateGroup.getId());
-						TreeNode tn = new DefaultTreeNode(null,groupType.getPrefix()+":"+candidateGroup.getId(),candidateGroup.getDisplayName(),child.size()>0);
+						TreeNode tn = new DefaultTreeNode(null,groupType.getPrefix()+":"+candidateGroup.getId(),candidateGroup.getDisplayName(),child.size()>0 || needUser);
 						if(selectedGroupIdList.contains(groupType.getPrefix()+":"+candidateGroup.getId())) ((DefaultTreeNode)tn).setChecked(true);
 						nodes.add(tn);
 					}
@@ -103,7 +106,7 @@ public class OrgJobGroupsProvider implements TreeContentProvider {
 					List<ChooseGroup>  groupList=groupType.getChildGroups(gid);
 					for (ChooseGroup candidateGroup : groupList) {
 						List<ChooseGroup>  child = groupType.getChildGroups(candidateGroup.getId());
-						TreeNode tn = new DefaultTreeNode(null,groupType.getPrefix()+":"+candidateGroup.getId(),candidateGroup.getDisplayName(),child.size()>0);
+						TreeNode tn = new DefaultTreeNode(null,groupType.getPrefix()+":"+candidateGroup.getId(),candidateGroup.getDisplayName(),child.size()>0 || needUser);
 						if(selectedGroupIdList.contains(groupType.getPrefix()+":"+candidateGroup.getId())) ((DefaultTreeNode)tn).setChecked(true);
 						nodes.add(tn);
 					}				

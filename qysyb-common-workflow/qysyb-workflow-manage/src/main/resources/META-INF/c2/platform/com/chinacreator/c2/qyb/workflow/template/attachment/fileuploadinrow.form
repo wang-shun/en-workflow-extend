@@ -112,8 +112,8 @@ page_beforeDataSourceLoad:function($params){
 	}
 	
 	
-	qybWorkflowService.initC2FormParams($scope,$params)
-	qybWorkflowService.emitFormCheckFunc(this.check)	
+	$model.wfContext = qybWorkflowService.getContext($scope)
+	$model.wfContext.emitFormCheckFunc(this.check)		
 	//属性1为支持格式
 	$model.allow = ($params.field.remark1 == undefined || $params.field.remark1 == &quot;&quot;)?'[]':$params.field.remark1
 	$model.filenums = 0
